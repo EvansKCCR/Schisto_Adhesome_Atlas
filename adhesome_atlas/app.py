@@ -16,31 +16,39 @@ from branding import identity_banner, creator_credit
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
 .block-container{padding-top:2rem;max-width:1500px;padding-bottom:3rem}
-[data-testid="stAppViewContainer"]{background:radial-gradient(ellipse at 95% 0%,#e1efec 0,transparent 42%),#f5f7fb}
-h1,h2,h3{letter-spacing:-.035em;color:#18344b}
-.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 95% 10%,#287d88 0,transparent 40%),linear-gradient(115deg,#132d48,#145461);color:white;padding:38px 42px;border-radius:24px;margin-bottom:24px;border:1px solid #326674;box-shadow:0 12px 32px #193c4c18}
-.hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #ffffff18;border-radius:50%;right:-75px;top:-100px;pointer-events:none}
-.hero h1{color:#fff;font-size:clamp(2rem,3.5vw,3.1rem);line-height:1.12;margin:12px 0 16px;letter-spacing:-.045em}
-.hero p{color:#e0edf0;max-width:800px;font-size:1.05rem;line-height:1.7;margin-bottom:0}
-.eyebrow{font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;color:#bde9df;font-weight:650}
-[data-testid="stMetric"]{background:linear-gradient(145deg,#fff,#f0f7f7);border:1px solid #d9e5ea;border-top:3px solid #168b89;border-radius:16px;padding:20px;box-shadow:0 4px 14px #17384d08}
-[data-testid="stMetricValue"]{color:#145b67;letter-spacing:-.04em}
-[data-testid="stSidebar"]{background:#eaf0f5;border-right:1px solid #d5e0e8}
-[data-testid="stSidebar"] h2{font-size:1.35rem;line-height:1.35}
-[data-testid="stSidebar"] [role="radiogroup"]{gap:4px}
-[data-testid="stSidebar"] [role="radiogroup"] label{border-radius:10px;padding:7px 10px;transition:background .15s ease}
-[data-testid="stSidebar"] [role="radiogroup"] label:hover{background:#dce8ef}
-[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked){background:#d5e9e7;box-shadow:inset 3px 0 #127d80}
-[data-testid="stButton"] button,[data-testid="stDownloadButton"] button{border-radius:10px;border-color:#c7d9e1;box-shadow:0 2px 5px #143c4b05}
-[data-testid="stButton"] button:hover,[data-testid="stDownloadButton"] button:hover{border-color:#127d80;background:#eaf6f3;color:#13566a}
-[data-testid="stDataFrame"],[data-testid="stPlotlyChart"]{border:1px solid #dfe7ed;border-radius:16px;background:white;padding:6px;box-shadow:0 4px 18px #13314805}
-[data-testid="stExpander"]{border-radius:12px;background:#ffffffb3;border-color:#dce6eb}
-[data-testid="stTabs"] [role="tablist"]{gap:12px;border-bottom:1px solid #dae5eb}
-[data-testid="stTabs"] [role="tab"]{padding:10px 12px;border-radius:8px 8px 0 0}
-[data-testid="stTabs"] [aria-selected="true"]{background:#e3f1ef;color:#11666b;font-weight:650}
-[data-testid="stCaptionContainer"]{color:#536b7b}
-@media(max-width:640px){.hero{padding:26px 22px;border-radius:18px}.eyebrow{letter-spacing:1.5px}.block-container{padding-top:1.2rem}[data-testid="stMetric"]{padding:14px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+[data-testid="stAppViewContainer"]{background:#fff}
+[data-testid="stAppViewContainer"] p,[data-testid="stAppViewContainer"] li{font-size:1.05rem;line-height:1.65;color:#171717}
+h1,h2,h3{letter-spacing:-.025em;color:#111;font-weight:750}
+h2{font-size:1.85rem}h3{font-size:1.5rem}
+.hero{background:#064c2c;color:white;padding:38px 42px;border-radius:18px;margin-bottom:24px;border-bottom:6px solid #f4cf24}
+.hero h1{color:#fff;font-size:clamp(2.2rem,3.6vw,3.3rem);line-height:1.15;margin:12px 0 18px;letter-spacing:-.035em;font-weight:800}
+[data-testid="stAppViewContainer"] .hero p{color:#fff;max-width:850px;font-size:1.15rem;line-height:1.65;margin-bottom:0}
+.eyebrow{font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:#ffe34d;font-weight:750}
+[data-testid="stMetric"]{background:#fff;border:1px solid #b6c5ba;border-top:4px solid #08743f;border-radius:12px;padding:20px}
+[data-testid="stMetricValue"]{color:#064c2c;font-size:2.3rem;font-weight:750}
+[data-testid="stMetricLabel"] p{color:#111!important;font-weight:650}
+[data-testid="stSidebar"]{background:#f4f6f2;border-right:2px solid #c7d1c6}
+[data-testid="stSidebar"] h2{font-size:1.4rem;line-height:1.35;color:#064c2c}
+[data-testid="stSidebar"] [role="radiogroup"]{gap:5px}
+[data-testid="stSidebar"] [role="radiogroup"] label{border-radius:8px;padding:7px 10px}
+[data-testid="stSidebar"] [role="radiogroup"] label:hover{background:#e2ebdf}
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked){background:#ffe34d;box-shadow:inset 4px 0 #064c2c}
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) p{color:#111;font-weight:750}
+[data-testid="stWidgetLabel"] p{color:#171717!important;font-size:1rem!important;font-weight:650}
+[data-testid="stButton"] button,[data-testid="stDownloadButton"] button{background:#fff;color:#064c2c;border:1.5px solid #08743f;border-radius:8px;font-weight:650}
+[data-testid="stButton"] button p,[data-testid="stDownloadButton"] button p{color:inherit}
+[data-testid="stButton"] button:hover,[data-testid="stDownloadButton"] button:hover{background:#ffe34d;color:#111;border-color:#111}
+button:focus-visible,a:focus-visible{outline:3px solid #b91c1c!important;outline-offset:3px}
+[data-testid="stDataFrame"],[data-testid="stPlotlyChart"]{border:1px solid #bac8bc;border-radius:12px;background:#fff;padding:6px}
+[data-testid="stExpander"]{border-radius:10px;background:#fff;border-color:#bac8bc}
+[data-testid="stTabs"] [role="tablist"]{gap:12px;border-bottom:2px solid #ccd4cb}
+[data-testid="stTabs"] [role="tab"]{padding:10px 12px;border-radius:8px 8px 0 0;color:#111}
+[data-testid="stTabs"] [aria-selected="true"]{background:#ffe34d;color:#111;font-weight:750}
+[data-testid="stTabs"] [data-baseweb="tab-highlight"]{background:#b91c1c}
+[data-testid="stCaptionContainer"],[data-testid="stCaptionContainer"] p{color:#333!important;font-size:.95rem!important;line-height:1.6}
+[data-testid="stMarkdownContainer"] a{color:#075d32;text-decoration:underline;text-underline-offset:3px;font-weight:600}
+[data-testid="stMarkdownContainer"] a:hover{color:#b91c1c}
+@media(max-width:640px){.hero{padding:26px 22px}.eyebrow{letter-spacing:1px}.block-container{padding-top:1.2rem}[data-testid="stMetric"]{padding:14px}}
 </style>""", unsafe_allow_html=True)
 
 @st.cache_data(show_spinner='Reading annotation and evidence library…')
@@ -85,7 +93,7 @@ hits = motifs[motifs.sequence_id.isin(ids)]
 palette = ['#127f83', '#cb7836', '#7563ac', '#39876c', '#b34f78', '#527b9b']
 
 def chart(fig):
-    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font_color='#18354a', margin=dict(l=12,r=12,t=45,b=20), colorway=palette)
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#171717',size=15), margin=dict(l=12,r=12,t=45,b=20), colorway=palette)
     st.plotly_chart(fig, width='stretch', config={'displaylogo': False})
 
 def table(frame):
