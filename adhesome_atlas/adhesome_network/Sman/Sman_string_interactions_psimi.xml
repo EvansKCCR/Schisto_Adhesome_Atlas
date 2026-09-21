@@ -1,0 +1,3921 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<entrySet level="2" version="5" xmlns="net:sf:psidev:mi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="net:sf:psidev:mi http://psidev.sourceforge.net/mi/rel25/src/MIF25.xsd">
+  <entry>
+    <experimentList>
+      <experimentDescription id="7">
+        <names>
+          <shortLabel>automated_textmining</shortLabel>
+          <fullName>Unsupervised, automated mining of biomedical texts: analysis of protein-protein co-mentioning</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="15808823"/>
+            <secondaryRef db="pubmed" id="16046493"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>predictive text mining</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0087"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="6">
+        <names>
+          <shortLabel>knowledge datamining</shortLabel>
+          <fullName>Import of protein-protein association information from curated knowledge databases</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="14681412"/>
+            <secondaryRef db="pubmed" id="15608231"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>experimental knowledge based</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0046"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="5">
+        <names>
+          <shortLabel>experimental_interaction_data</shortLabel>
+          <fullName>Global analysis of protein-protein interaction data, obtained from the literature and from large-scale datasets (BIND database)</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="15608229"/>
+            <secondaryRef db="pubmed" id="15193308"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>experimental knowledge based</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0046"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="4">
+        <names>
+          <shortLabel>gene_coexpression</shortLabel>
+          <fullName>Combined analysis of available microarray data, co-expression analysis</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="9843981"/>
+            <secondaryRef db="pubmed" id="12934013"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>coexpression</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:2231"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="3">
+        <names>
+          <shortLabel>gene_cooccurence</shortLabel>
+          <fullName>Analysis of presence/absence patterns of genes in genomes: functional partners co-occur</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="10200254"/>
+            <secondaryRef db="pubmed" id="12519996"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>sequence based phylogenetic profile</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0100"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="2">
+        <names>
+          <shortLabel>gene_fusion_events</shortLabel>
+          <fullName>Detection of gene fusion events: functional linkage inferred for the separate components in other genomes</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="10427000"/>
+            <secondaryRef db="pubmed" id="12519996"/>
+            <secondaryRef db="pubmed" id="10573422"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>domain fusion</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0036"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="1">
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="10077608"/>
+            <secondaryRef db="pubmed" id="12519996"/>
+            <secondaryRef db="pubmed" id="9787636"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>gene neighborhoods</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0057"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+      <experimentDescription id="0">
+        <names>
+          <shortLabel>combined_confidence</shortLabel>
+          <fullName>Probabilistic, benchmarked integration of all evidence types: combined confidence score of predicted functional association (range 0.0 to 1.0)</fullName>
+        </names>
+        <bibref>
+          <xref>
+            <primaryRef db="pubmed" id="15608232"/>
+            <secondaryRef db="pubmed" id="12519996"/>
+          </xref>
+        </bibref>
+        <hostOrganismList>
+          <hostOrganism ncbiTaxId="0">
+            <names>
+              <shortLabel>other/not applicable</shortLabel>
+            </names>
+          </hostOrganism>
+        </hostOrganismList>
+        <interactionDetectionMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </interactionDetectionMethod>
+        <participantIdentificationMethod>
+          <names>
+            <shortLabel>other/not applicable</shortLabel>
+          </names>
+          <xref>
+            <primaryRef db="PSI-MI" id="MI:0686"/>
+          </xref>
+        </participantIdentificationMethod>
+      </experimentDescription>
+    </experimentList>
+    <interactorList>      <interactor id="101">
+        <names>
+          <shortLabel>A0A3Q0KB95</shortLabel>
+          <fullName>Filamin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KB95" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KB95" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KB95" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KB95_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Filamin" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="102">
+        <names>
+          <shortLabel>A0A3Q0KBZ0</shortLabel>
+          <fullName>Tyrosine-protein kinase.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KBZ0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8346926" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KBZ0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KBZ0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KBZ0_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="EC 2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_006920" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Tyrosine kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Tyrosine-protein kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Tyrosine-protein kinase Src" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018645611" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_006920" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="103">
+        <names>
+          <shortLabel>A0A3Q0KD53</shortLabel>
+          <fullName>Pinch, putative.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KD53" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8353120" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KD53" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KD53" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KD53_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Pinch, putative" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Pinch, putative" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_020540.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018646826" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_020540.1" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="104">
+        <names>
+          <shortLabel>A0A3Q0KE94</shortLabel>
+          <fullName>Putative alpha-actinin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KE94" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8342003" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KE94" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KE94" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KE94_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actinin alpha 1/4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative alpha-actinin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative alpha-actinin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_034550" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018648088" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_034550" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="105">
+        <names>
+          <shortLabel>A0A3Q0KHF0</shortLabel>
+          <fullName>B41 domain-containing protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KHF0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8341324" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KHF0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KHF0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KHF0_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="B41 domain-containing protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Hypothetical protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Kindlin 2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_070640" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018646661" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_070640" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="106">
+        <names>
+          <shortLabel>A0A3Q0KIA3</shortLabel>
+          <fullName>Protein kinase.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KIA3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="2.7.11.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8345694" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KIA3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KIA3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KIA3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="EC 2.7.11.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Integrin-linked kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Protein kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Protein kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_079760.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651237" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_079760.1" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="107">
+        <names>
+          <shortLabel>A0A3Q0KIZ6</shortLabel>
+          <fullName>Integrin beta; Belongs to the integrin beta chain family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KIZ6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8355791" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KIZ6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KIZ6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KIZ6_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Integrin beta" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Integrin beta 1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative integrin beta subunit" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_089700" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018647537" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_089700" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="108">
+        <names>
+          <shortLabel>A0A3Q0KJS3</shortLabel>
+          <fullName>Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KJS3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8345503" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KJS3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KJS3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KJS3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-related protein 2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin-related protein 2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-related protein 2, arp2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_101290.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018650016" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_101290.1" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="109">
+        <names>
+          <shortLabel>A0A3Q0KKN8</shortLabel>
+          <fullName>Putative collagen alpha-1(V) chain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KKN8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8348336" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KKN8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KKN8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KKN8_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type V/XI/XXIV/XXVII, alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative collagen alpha-1(V) chain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative collagen alpha-1(V) chain precursor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_123830" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018647704" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_123830" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="110">
+        <names>
+          <shortLabel>A0A3Q0KL07</shortLabel>
+          <fullName>Alpha integrin receptor 1; Putative integrin alpha; Belongs to the integrin alpha chain family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KL07" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8342580" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KL07" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KL07" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KL07_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Integrin alpha 8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative integrin alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_126140" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018648439" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_126140" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="111">
+        <names>
+          <shortLabel>A0A3Q0KLP6</shortLabel>
+          <fullName>Putative alpha catenin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KLP6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KLP6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KLP6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KLP6_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative alpha catenin" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="112">
+        <names>
+          <shortLabel>A0A3Q0KME1</shortLabel>
+          <fullName>Putative collagen alpha-1(I) chain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KME1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8351028" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KME1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KME1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KME1_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type I alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative collagen alpha-1(I) chain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative collagen alpha-1(I) chain precursor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_135560" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651922" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_135560" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="113">
+        <names>
+          <shortLabel>A0A3Q0KMP3</shortLabel>
+          <fullName>Tyrosine kinase.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KMP3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KMP3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KMP3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KMP3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Tyrosine kinase" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="114">
+        <names>
+          <shortLabel>A0A3Q0KMQ4</shortLabel>
+          <fullName>Tyrosine-protein kinase.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KMQ4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8354176" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KMQ4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KMQ4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KMQ4_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="EC 2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_136300" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Tyrosine kinase 5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Tyrosine-protein kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Tyrosine-protein kinase Fyn" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018652576" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_136300" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="115">
+        <names>
+          <shortLabel>A0A3Q0KNU4</shortLabel>
+          <fullName>Putative four and A half lim domains.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KNU4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8351888" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KNU4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KNU4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KNU4_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Four and a half LIM domains protein 2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative four and A half lim domains" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative four and A half lim domains" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_143130.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018654785" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_143130.1" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="116">
+        <names>
+          <shortLabel>A0A3Q0KQT0</shortLabel>
+          <fullName>Putative lim domain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KQT0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8342874" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KQT0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KQT0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KQT0_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="LIM domain-binding protein 3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative lim domain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative lim domain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_157310" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018650307" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_157310" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="117">
+        <names>
+          <shortLabel>A0A3Q0KRT5</shortLabel>
+          <fullName>LIM domain-containing protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KRT5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KRT5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KRT5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KRT5_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="LIM domain-containing protein" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="118">
+        <names>
+          <shortLabel>A0A3Q0KS63</shortLabel>
+          <fullName>Putative collagen alpha-1(V) chain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KS63" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8355282" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KS63" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KS63" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KS63_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type III alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative collagen alpha-1(V) chain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative collagen alpha-1(V) chain precursor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_164590" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651258" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_164590" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="119">
+        <names>
+          <shortLabel>A0A3Q0KS78</shortLabel>
+          <fullName>Putative talin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KS78" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8343420" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KS78" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KS78" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KS78_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative talin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative talin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_167010" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Talin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018650130" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_167010" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="120">
+        <names>
+          <shortLabel>A0A3Q0KT01</shortLabel>
+          <fullName>Tyrosine-protein kinase.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KT01" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KT01" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KT01" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KT01_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Tyrosine-protein kinase" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="121">
+        <names>
+          <shortLabel>A0A3Q0KUI3</shortLabel>
+          <fullName>Fibrillar collagen NC1 domain-containing protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KUI3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="29830150" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUI3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUI3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUI3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type V/XI/XXIV/XXVII, alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Fibrillar collagen NC1 domain-containing protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Hypothetical protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_196840" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018648711" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_196840" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="122">
+        <names>
+          <shortLabel>A0A3Q0KUT3</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KUT3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="29830615" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUT3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUT3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUT3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_203130" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018652989" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_203130" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="123">
+        <names>
+          <shortLabel>A0A3Q0KUY4</shortLabel>
+          <fullName>Smp_202970.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KUY4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="29830603" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUY4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUY4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KUY4_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_202970" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_202970" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018652985" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_202970" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="124">
+        <names>
+          <shortLabel>A0A3Q0KVD3</shortLabel>
+          <fullName>Tyrosine-protein kinase.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KVD3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8340777" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KVD3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KVD3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KVD3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_EC" dbAc="MI:9999" id="EC 2.7.10.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Fyn-related kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_151300" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Tyrosine-protein kinase" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018655124" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_151300" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="125">
+        <names>
+          <shortLabel>A0A3Q0KVF2</shortLabel>
+          <fullName>Prolyl oligopeptidase (S09 family); Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A3Q0KVF2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="29830975" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KVF2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KVF2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A3Q0KVF2_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-related protein 3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Prolyl oligopeptidase (S09 family)" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Prolyl oligopeptidase (S09 family)" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_210740" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651570" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_210740" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="126">
+        <names>
+          <shortLabel>A0A5K4ENU1</shortLabel>
+          <fullName>Actin-like protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4ENU1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8351029" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4ENU1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4ENU1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4ENU1_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-like protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin-like protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-related protein 6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_135570" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651924" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_135570" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="127">
+        <names>
+          <shortLabel>A0A5K4EV73</shortLabel>
+          <fullName>Putative collagen alpha chain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4EV73" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4EV73" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4EV73" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4EV73_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative collagen alpha chain" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="128">
+        <names>
+          <shortLabel>A0A5K4EZW0</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4EZW0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4EZW0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4EZW0" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4EZW0_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="129">
+        <names>
+          <shortLabel>A0A5K4F186</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4F186" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F186" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F186" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F186_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="130">
+        <names>
+          <shortLabel>A0A5K4F2D8</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4F2D8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F2D8_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F2D8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F2D8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="131">
+        <names>
+          <shortLabel>A0A5K4F2I7</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4F2I7" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8351428" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F2I7" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F2I7" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F2I7_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type IV alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative collagen alpha-1(V) chain precursor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_170330" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018648994" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_170330" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="132">
+        <names>
+          <shortLabel>A0A5K4F492</shortLabel>
+          <fullName>Filamin-related.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4F492" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8355888" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F492" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F492" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F492_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Filamin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Filamin-related" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Filamin-related" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_156590" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018644284" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_156590" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="133">
+        <names>
+          <shortLabel>A0A5K4F4I2</shortLabel>
+          <fullName>Integrin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4F4I2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8355890" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F4I2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F4I2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F4I2_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Hypothetical protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Integrin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_156610" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651871" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_156610" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="134">
+        <names>
+          <shortLabel>A0A5K4F5L7</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4F5L7" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8353938" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F5L7" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F5L7" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4F5L7_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Hypothetical protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_140320" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018645211" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_140320" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="135">
+        <names>
+          <shortLabel>A0A5K4FCV3</shortLabel>
+          <fullName>Putative talin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4FCV3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FCV3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FCV3" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FCV3_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative talin" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="136">
+        <names>
+          <shortLabel>A0A5K4FDV5</shortLabel>
+          <fullName>Uncharacterized protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4FDV5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FDV5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FDV5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FDV5_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Uncharacterized protein" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="137">
+        <names>
+          <shortLabel>A0A5K4FDX2</shortLabel>
+          <fullName>Putative collagen alpha-1(V) chain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="A0A5K4FDX2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8345587" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FDX2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FDX2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="A0A5K4FDX2_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type II alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative collagen alpha-1(V) chain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative collagen alpha-1(V) chain precursor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_144910" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018652257" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_144910" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="138">
+        <names>
+          <shortLabel>B1AAM6_SCHMA</shortLabel>
+          <fullName>LIMPETin; Putative four and A half lim domains.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="B1AAM6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8341782" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="B1AAM6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="B1AAM6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="B1AAM6_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Four and a half LIM domains protein 2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="LIMPETin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="LIMPETin; Putative four and A half lim domains" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative four and A half lim domains" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_048560" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018654411" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_048560" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="139">
+        <names>
+          <shortLabel>Smp_072870</shortLabel>
+          <fullName>Actin, putative; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4LW08" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8341425" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8341425" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin, putative" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin, putative" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Centractin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LW08" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LW08" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LW08_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_072870" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_072870" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018791398.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018645455" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018645455.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_072870" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="140">
+        <names>
+          <shortLabel>Smp_148790</shortLabel>
+          <fullName>Laminin beta chain-related.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4LWP4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8341527" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8341527" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LWP4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LWP4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LWP4_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Laminin beta chain-related" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Laminin beta chain-related" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Laminin, beta 1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_148790" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_148790" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018791171.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018645684" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018645684.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_148790" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="141">
+        <names>
+          <shortLabel>Smp_120700.1</shortLabel>
+          <fullName>Cofilin, actophorin, putative; Belongs to the actin-binding proteins ADF family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4LX89" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8344135" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8344135" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Cofilin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Cofilin, actophorin, putative" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Cofilin, actophorin, putative" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LX89" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LX89" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LX89_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_120700.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_120700.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018790861.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018645878" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018645878.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_120700.1" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="142">
+        <names>
+          <shortLabel>Smp_063040</shortLabel>
+          <fullName>Actin-like protein 6, acl6; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4LXV8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8347385" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8347385" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-like protein 6, acl6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin-like protein 6, acl6" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-like protein 6A" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LXV8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LXV8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4LXV8_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_063040" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_063040" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018790703.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018646097" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018646097.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_063040" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="143">
+        <names>
+          <shortLabel>Smp_170340</shortLabel>
+          <fullName>Putative collagen alpha-1(V) chain.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4V8A8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8351429" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8351429" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type IV alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4V8A8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4V8A8" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4V8A8_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative collagen alpha-1(V) chain" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative collagen alpha-1(V) chain precursor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_170340" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_170340" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018794600.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018648995" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018648995.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_170340" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="144">
+        <names>
+          <shortLabel>Smp_093230</shortLabel>
+          <fullName>Actin-related protein 10, arp10; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4V8Q5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8349144" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8349144" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-related protein 10" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actin-related protein 10, arp10" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin-related protein 10, arp10" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4V8Q5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4V8Q5" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4V8Q5_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_093230" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_093230" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018793524.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018648027" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018648027.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_093230" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="145">
+        <names>
+          <shortLabel>Smp_014780.2</shortLabel>
+          <fullName>Putative alpha-actinin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VBW4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8347322" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8347322" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Actinin alpha 1/4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VBW4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VBW4" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VBW4_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative alpha-actinin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative alpha-actinin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_014780.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_014780.2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018795729.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018650012" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018650012.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_014780.1" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="146">
+        <names>
+          <shortLabel>Smp_197370</shortLabel>
+          <fullName>Fibrillar collagen NC1 domain-containing protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VFE1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="29830182" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="29830182" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Collagen type III alpha" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Fibrillar collagen NC1 domain-containing protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VFE1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VFE1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VFE1_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Hypothetical protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_197370" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_197370" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018799473.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018651259" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018651259.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_197370" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="147">
+        <names>
+          <shortLabel>Smp_086590</shortLabel>
+          <fullName>Putative actin-depolymerizing factor; Belongs to the actin-binding proteins ADF family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VGX1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8347711" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8347711" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Cofilin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VGX1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VGX1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VGX1_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative actin-depolymerizing factor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative actin-depolymerizing factor" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_086590" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_086590" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018799025.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018650856" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018650856.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_086590" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="148">
+        <names>
+          <shortLabel>Smp_077850</shortLabel>
+          <fullName>Putative actin; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VL76" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8345287" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8345287" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VL76" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VL76" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VL76_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_077850" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_077850" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018798538.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018653470" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018653470.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_077850" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="149">
+        <names>
+          <shortLabel>Smp_077860</shortLabel>
+          <fullName>Putative actin; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VL77" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8345288" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8345288" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VL77" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VL77" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VL77_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_077860" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_077860" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018798539.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018653471" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018653471.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_077860" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="150">
+        <names>
+          <shortLabel>Smp_183710</shortLabel>
+          <fullName>Putative actin.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VLW1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8345184" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8345184" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VLW1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VLW1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VLW1_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_183710" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_183710" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018798089.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018653065" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018653065.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_183710" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="151">
+        <names>
+          <shortLabel>Smp_053420</shortLabel>
+          <fullName>PH domain-containing protein.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="G4VRK9" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8344260" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8344260" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VRK9" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VRK9" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="G4VRK9_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Hypothetical protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Kindlin 2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="PH domain-containing protein" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_053420" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Smp_053420" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018788768.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018654278" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018654278.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_053420" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="152">
+        <names>
+          <shortLabel>ACT1_SCHMA</shortLabel>
+          <fullName>Actin-1; Actins are highly conserved proteins that are involved in various types of cell motility and are ubiquitously expressed in all eukaryotic cells; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="P53470" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8349762" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="8349762" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="ACT1_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin-1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="P53470" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="P53470" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative actin-1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_046600" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XM_018798090.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018653066" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="refseq" dbAc="MI:0481" id="XP_018653066.1" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_046600" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+      <interactor id="153">
+        <names>
+          <shortLabel>ACT2_SCHMA</shortLabel>
+          <fullName>Actin-2; Actins are highly conserved proteins that are involved in various types of cell motility and are ubiquitously expressed in all eukaryotic cells; Belongs to the actin family.</fullName>
+        </names>
+        <xref>
+        <primaryRef db="refseq" dbAc="MI:0481" id="P53471" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_GENEID" dbAc="MI:9999" id="8349219" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="ACT2_SCHMA" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="Actin-2" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="P53471" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="uniprotkb" dbAc="MI:0486" id="P53471" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_PRODUCT" dbAc="MI:9999" id="Putative actin" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID_SHORT" dbAc="MI:9999" id="Smp_161920" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_NCBI" dbAc="MI:9999" id="XP_018655545" refType="identity" refTypeAc="MI:0356"/>
+          <secondaryRef db="KEGG_KEGGID" dbAc="MI:9999" id="smm:Smp_161920" refType="identity" refTypeAc="MI:0356"/>
+        </xref>
+        <interactorType>
+          <names>
+            <shortLabel>protein</shortLabel>
+            <fullName>protein</fullName>
+          </names>
+          <xref>
+            <primaryRef db="psi-mi" dbAc="MI:0488" id="MI:0326" refType="identity" refTypeAc="MI:0356"/>
+          </xref>
+        </interactorType>
+      </interactor>
+    </interactorList>    <interactionList>      <interaction id="154">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="155">
+            <interactorRef>125</interactorRef>
+          </participant>
+          <participant id="156">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.875</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="157">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="155">
+            <interactorRef>125</interactorRef>
+          </participant>
+          <participant id="156">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.129</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="158">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="155">
+            <interactorRef>125</interactorRef>
+          </participant>
+          <participant id="156">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.826</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="159">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="155">
+            <interactorRef>125</interactorRef>
+          </participant>
+          <participant id="156">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.824</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="160">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="155">
+            <interactorRef>125</interactorRef>
+          </participant>
+          <participant id="156">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.134</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="154">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="155">
+            <interactorRef>125</interactorRef>
+          </participant>
+          <participant id="156">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.973</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="161">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.931</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="164">
+        <experimentList>
+          <experimentRef>3</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.054</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="165">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.058</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="166">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.592</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="167">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.810</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="168">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.108</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="161">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="162">
+            <interactorRef>108</interactorRef>
+          </participant>
+          <participant id="163">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.927</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="169">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="170">
+            <interactorRef>142</interactorRef>
+          </participant>
+          <participant id="171">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.051</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="172">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="170">
+            <interactorRef>142</interactorRef>
+          </participant>
+          <participant id="171">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.602</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="173">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="170">
+            <interactorRef>142</interactorRef>
+          </participant>
+          <participant id="171">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.575</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="174">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="170">
+            <interactorRef>142</interactorRef>
+          </participant>
+          <participant id="171">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.181</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="175">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="170">
+            <interactorRef>142</interactorRef>
+          </participant>
+          <participant id="171">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.850</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="176">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="177">
+            <interactorRef>104</interactorRef>
+          </participant>
+          <participant id="178">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.071</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="179">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="177">
+            <interactorRef>104</interactorRef>
+          </participant>
+          <participant id="178">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.541</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="180">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="177">
+            <interactorRef>104</interactorRef>
+          </participant>
+          <participant id="178">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.364</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="181">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="177">
+            <interactorRef>104</interactorRef>
+          </participant>
+          <participant id="178">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.488</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="182">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="177">
+            <interactorRef>104</interactorRef>
+          </participant>
+          <participant id="178">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.842</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="183">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="184">
+            <interactorRef>144</interactorRef>
+          </participant>
+          <participant id="185">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.662</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="186">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="184">
+            <interactorRef>144</interactorRef>
+          </participant>
+          <participant id="185">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.380</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="187">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="184">
+            <interactorRef>144</interactorRef>
+          </participant>
+          <participant id="185">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.229</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="188">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="184">
+            <interactorRef>144</interactorRef>
+          </participant>
+          <participant id="185">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.824</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="189">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="190">
+            <interactorRef>141</interactorRef>
+          </participant>
+          <participant id="191">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.123</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="192">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="190">
+            <interactorRef>141</interactorRef>
+          </participant>
+          <participant id="191">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.599</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="193">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="190">
+            <interactorRef>141</interactorRef>
+          </participant>
+          <participant id="191">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.366</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="194">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="190">
+            <interactorRef>141</interactorRef>
+          </participant>
+          <participant id="191">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.757</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="195">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="196">
+            <interactorRef>147</interactorRef>
+          </participant>
+          <participant id="197">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.123</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="198">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="196">
+            <interactorRef>147</interactorRef>
+          </participant>
+          <participant id="197">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.599</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="199">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="196">
+            <interactorRef>147</interactorRef>
+          </participant>
+          <participant id="197">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.366</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="200">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="196">
+            <interactorRef>147</interactorRef>
+          </participant>
+          <participant id="197">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.757</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="201">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="202">
+            <interactorRef>134</interactorRef>
+          </participant>
+          <participant id="203">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.046</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="204">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="202">
+            <interactorRef>134</interactorRef>
+          </participant>
+          <participant id="203">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.206</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="205">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="202">
+            <interactorRef>134</interactorRef>
+          </participant>
+          <participant id="203">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.153</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="206">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="202">
+            <interactorRef>134</interactorRef>
+          </participant>
+          <participant id="203">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.584</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="207">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="202">
+            <interactorRef>134</interactorRef>
+          </participant>
+          <participant id="203">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.697</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="208">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="209">
+            <interactorRef>145</interactorRef>
+          </participant>
+          <participant id="210">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.059</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="211">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="209">
+            <interactorRef>145</interactorRef>
+          </participant>
+          <participant id="210">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.428</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="212">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="209">
+            <interactorRef>145</interactorRef>
+          </participant>
+          <participant id="210">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.237</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="213">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="209">
+            <interactorRef>145</interactorRef>
+          </participant>
+          <participant id="210">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.234</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="214">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="209">
+            <interactorRef>145</interactorRef>
+          </participant>
+          <participant id="210">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.643</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="215">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="216">
+            <interactorRef>111</interactorRef>
+          </participant>
+          <participant id="217">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.042</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="218">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="216">
+            <interactorRef>111</interactorRef>
+          </participant>
+          <participant id="217">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.485</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="219">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="216">
+            <interactorRef>111</interactorRef>
+          </participant>
+          <participant id="217">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.155</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="220">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="216">
+            <interactorRef>111</interactorRef>
+          </participant>
+          <participant id="217">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.182</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="221">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="216">
+            <interactorRef>111</interactorRef>
+          </participant>
+          <participant id="217">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.613</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="222">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="223">
+            <interactorRef>139</interactorRef>
+          </participant>
+          <participant id="224">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.590</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="225">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="223">
+            <interactorRef>139</interactorRef>
+          </participant>
+          <participant id="224">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.590</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="226">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="227">
+            <interactorRef>107</interactorRef>
+          </participant>
+          <participant id="228">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.082</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="229">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="227">
+            <interactorRef>107</interactorRef>
+          </participant>
+          <participant id="228">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.162</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="230">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="227">
+            <interactorRef>107</interactorRef>
+          </participant>
+          <participant id="228">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.462</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="231">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="227">
+            <interactorRef>107</interactorRef>
+          </participant>
+          <participant id="228">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.549</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="232">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="233">
+            <interactorRef>106</interactorRef>
+          </participant>
+          <participant id="234">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.112</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="235">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="233">
+            <interactorRef>106</interactorRef>
+          </participant>
+          <participant id="234">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.079</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="236">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="233">
+            <interactorRef>106</interactorRef>
+          </participant>
+          <participant id="234">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.487</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="237">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="233">
+            <interactorRef>106</interactorRef>
+          </participant>
+          <participant id="234">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.543</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="238">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="239">
+            <interactorRef>130</interactorRef>
+          </participant>
+          <participant id="240">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.045</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="241">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="239">
+            <interactorRef>130</interactorRef>
+          </participant>
+          <participant id="240">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.197</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="242">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="239">
+            <interactorRef>130</interactorRef>
+          </participant>
+          <participant id="240">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.240</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="243">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="239">
+            <interactorRef>130</interactorRef>
+          </participant>
+          <participant id="240">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.243</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="244">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="239">
+            <interactorRef>130</interactorRef>
+          </participant>
+          <participant id="240">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.499</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="245">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="246">
+            <interactorRef>135</interactorRef>
+          </participant>
+          <participant id="247">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.194</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="248">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="246">
+            <interactorRef>135</interactorRef>
+          </participant>
+          <participant id="247">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.257</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="249">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="246">
+            <interactorRef>135</interactorRef>
+          </participant>
+          <participant id="247">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.231</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="250">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="246">
+            <interactorRef>135</interactorRef>
+          </participant>
+          <participant id="247">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.499</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="251">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="252">
+            <interactorRef>101</interactorRef>
+          </participant>
+          <participant id="253">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.045</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="254">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="252">
+            <interactorRef>101</interactorRef>
+          </participant>
+          <participant id="253">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.201</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="255">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="252">
+            <interactorRef>101</interactorRef>
+          </participant>
+          <participant id="253">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.240</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="256">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="252">
+            <interactorRef>101</interactorRef>
+          </participant>
+          <participant id="253">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.198</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="257">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="252">
+            <interactorRef>101</interactorRef>
+          </participant>
+          <participant id="253">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.472</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="258">
+        <experimentList>
+          <experimentRef>4</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="259">
+            <interactorRef>132</interactorRef>
+          </participant>
+          <participant id="260">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.045</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="261">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="259">
+            <interactorRef>132</interactorRef>
+          </participant>
+          <participant id="260">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.201</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="262">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="259">
+            <interactorRef>132</interactorRef>
+          </participant>
+          <participant id="260">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.240</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="263">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="259">
+            <interactorRef>132</interactorRef>
+          </participant>
+          <participant id="260">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.198</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="264">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="259">
+            <interactorRef>132</interactorRef>
+          </participant>
+          <participant id="260">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.472</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="265">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="266">
+            <interactorRef>126</interactorRef>
+          </participant>
+          <participant id="267">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.413</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="268">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="266">
+            <interactorRef>126</interactorRef>
+          </participant>
+          <participant id="267">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.074</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="269">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="266">
+            <interactorRef>126</interactorRef>
+          </participant>
+          <participant id="267">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.433</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="270">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="271">
+            <interactorRef>113</interactorRef>
+          </participant>
+          <participant id="272">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.179</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="273">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="271">
+            <interactorRef>113</interactorRef>
+          </participant>
+          <participant id="272">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.232</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="274">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="271">
+            <interactorRef>113</interactorRef>
+          </participant>
+          <participant id="272">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.132</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="275">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="271">
+            <interactorRef>113</interactorRef>
+          </participant>
+          <participant id="272">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.404</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="276">
+        <experimentList>
+          <experimentRef>5</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="277">
+            <interactorRef>116</interactorRef>
+          </participant>
+          <participant id="278">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.222</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="279">
+        <experimentList>
+          <experimentRef>6</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="277">
+            <interactorRef>116</interactorRef>
+          </participant>
+          <participant id="278">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.153</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="280">
+        <experimentList>
+          <experimentRef>7</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="277">
+            <interactorRef>116</interactorRef>
+          </participant>
+          <participant id="278">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.163</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+      <interaction id="281">
+        <experimentList>
+          <experimentRef>0</experimentRef>
+        </experimentList>
+        <participantList>
+          <participant id="277">
+            <interactorRef>116</interactorRef>
+          </participant>
+          <participant id="278">
+            <interactorRef>153</interactorRef>
+          </participant>
+        </participantList>
+        <confidenceList>
+          <confidence>
+            <unit>
+              <names>
+                <shortLabel>likelihood</shortLabel>
+                <fullName>estimated likelihood of predicted functional association being true positive</fullName>
+              </names>
+            </unit>
+            <value>0.400</value>
+          </confidence>
+        </confidenceList>
+      </interaction>
+    </interactionList>  </entry>
+</entrySet>
+
+
