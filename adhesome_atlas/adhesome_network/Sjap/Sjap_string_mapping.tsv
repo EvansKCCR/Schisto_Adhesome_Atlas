@@ -1,0 +1,53 @@
+#queryIndex	queryItem	stringId	identity	bitscore	preferredName	annotation
+1	EWB00_000274	6182.A0A4Z2DJH5	100.0	812.4	EWB00_000274	Collagen alpha-1(V) chain isoform 2.
+2	EWB00_001102	6182.A0A4Z2DGT3	100.0	525.0	EWB00_001102	Collagen alpha-1(IV) chain isoform 1.
+3	EWB00_001311	6182.A0A4Z2DG67	100.0	638.6	EWB00_001311	Collagen alpha-2(I) chain.
+4	EWB00_001328	6182.A0A4Z2DG14	100.0	6762.9	EWB00_001328	Laminin subunit alpha-1.
+5	EWB00_001408	6182.A0A4Z2DX44	100.0	857.8	EWB00_001408	Actin-related protein; Belongs to the actin family.
+6	EWB00_001471	6182.A0A4Z2DFS2	100.0	1624.0	EWB00_001471	Tyrosine-protein kinase.
+7	EWB00_001618	6182.A0A4Z2DF74	100.0	874.0	EWB00_001618	Actin-like protein isoform 3; Belongs to the actin family.
+8	EWB00_002103	6182.A0A4Z2DDE8	100.0	1642.1	EWB00_002103	Fermitin family 1.
+9	EWB00_002502	6182.Q71TT8	100.0	767.3	EWB00_002502	Actin-2 isoform 2.
+10	EWB00_002741	6182.A0A4Z2DB14	100.0	3236.8	EWB00_002741	Laminin subunit beta-2.
+11	EWB00_002775	6182.A0A4Z2DBA8	100.0	5729.8	EWB00_002775	Filamin-A.
+12	EWB00_002869	6182.A0A4Z2DAG8	100.0	1587.0	EWB00_002869	Integrin beta.
+13	EWB00_002919	6182.A0A4Z2DWJ9	100.0	2471.8	EWB00_002919	Integrin alpha-5; Belongs to the integrin alpha chain family.
+14	EWB00_003104	6182.A0A2S1REI0	100.0	1324.3	TK3	Tyrosine-protein kinase.
+15	EWB00_003146	6182.A0A4Z2D9E0	100.0	5102.7	EWB00_003146	Talin-1.
+16	EWB00_003359	6182.C1LMR7	100.0	266.9	EWB00_003359	Cofilin/actin-depolymerizing factor; Belongs to the actin-binding proteins ADF family.
+17	EWB00_003429	6182.A0A4Z2DWH7	100.0	942.6	EWB00_003429	Paxillin isoform 1.
+18	EWB00_003565	6182.A0A4Z2D923	100.0	2014.6	EWB00_003565	Vinculin.
+19	EWB00_003590	6182.A0A4Z2D831	100.0	1206.0	EWB00_003590	Four and a half LIM domains protein.
+20	EWB00_004122	6182.A0A4Z2D6I6	100.0	792.0	EWB00_004122	LIM domain-containing protein isoform 1.
+21	EWB00_004406	6182.A0A4Z2D5D6	100.0	1135.2	EWB00_004406	Tyrosine-protein kinase.
+22	EWB00_004876	6182.A0A4Z2DUG9	100.0	764.2	EWB00_004876	Actin-1.
+23	EWB00_004878	6182.A0A4Z2DUX1	100.0	760.4	EWB00_004878	Actin-1.
+24	EWB00_004965	6182.A0A4Z2D4A5	100.0	1069.3	EWB00_004965	LIM domain-containing protein isoform 1.
+25	EWB00_006002	6182.A0A4Z2DTC9	100.0	675.6	EWB00_006002	Actin-related protein; Belongs to the actin family.
+26	EWB00_006050	6182.A0A4Z2DTJ0	100.0	1814.7	EWB00_006050	Alpha-actinin-2.
+27	EWB00_006199	6182.A0A4Z2D0J4	100.0	520.0	EWB00_006199	Collagen alpha-1(IV) chain.
+28	EWB00_006200	6182.A0A4Z2CZM0	100.0	494.2	EWB00_006200	Collagen alpha-2(IV) chain isoform 2.
+29	EWB00_006201	6182.A0A4Z2CZR4	100.0	363.6	EWB00_006201	Collagen-like protein.
+30	EWB00_006234	6182.A0A4Z2CZ44	100.0	5073.8	EWB00_006234	Filamin-A isoform 2.
+31	EWB00_006505	6182.A0A4Z2CYG9	100.0	6207.5	EWB00_006505	Talin-2 isoform 1.
+32	EWB00_006747	6182.A0A4Z2CWY6	100.0	2170.6	EWB00_006747	B41 domain-containing protein.
+33	EWB00_007322	6182.A0A4Z2CUR2	100.0	1743.4	EWB00_007322	Focal adhesion kinase 1; Belongs to the protein kinase superfamily. Tyr protein kinase family.
+34	EWB00_007395	6182.A0A4Z2CUS5	100.0	448.7	EWB00_007395	Collagen alpha-2(V) chain isoform 1.
+35	EWB00_007426	6182.C1LJL2	100.0	766.1	EWB00_007426	Actin-related protein isoform 1; Belongs to the actin family.
+36	EWB00_007517	6182.Q5DF69	100.0	773.1	Act5C	SJCHGC06318 protein.
+37	EWB00_007520	6182.A0A4Z2CUE7	100.0	1607.8	EWB00_007520	Tyrosine-protein kinase.
+38	EWB00_007873	6182.C1LGZ6	100.0	1187.9	fyn-prov	Tyrosine-protein kinase.
+39	EWB00_008239	6182.A0A4Z2CQY2	100.0	506.1	EWB00_008239	Collagen alpha-2(I) chain isoform 1.
+40	EWB00_008747	6182.C1LG63	100.0	879.0	EWB00_008747	Putative LIM domain binding 3.
+41	EWB00_008807	6182.Q86ES4	100.0	277.3	tsr	Actin depolymerizing factor-like protein; Belongs to the actin-binding proteins ADF family.
+42	EWB00_008857	6182.A0A4Z2DY79	100.0	722.2	EWB00_008857	Alpha-centractin; Belongs to the actin family.
+43	EWB00_009161	6182.C1L3T0	100.0	763.5	EWB00_009161	Actin; Belongs to the actin family.
+44	EWB00_009162	6182.A0A4Z2CMV9	100.0	783.5	EWB00_009162	Actin-1; Belongs to the actin family.
+45	EWB00_009388	6182.C1LEH1	100.0	557.4	FHL-2	Four and a half LIM domains protein 2.
+46	EWB00_009541	6182.A0A4Z2DR60	100.0	795.4	EWB00_009541	LIM domain-containing protein.
+47	EWB00_010398	6182.A0A4Z2DXN3	100.0	925.2	EWB00_010398	Integrin-linked protein kinase pat-4.
+48	EWB00_010449	6182.A0A4Z2DXL3	100.0	240.7	EWB00_010449	Collagen alpha-1(XXI) chain.
+49	EWB00_010450	6182.A0A4Z2DXW2	100.0	475.7	EWB00_010450	Collagen-like protein isoform 2.
+50	EWB00_010647	6182.Q5DHL6	100.0	804.3	EWB00_010647	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
+51	EWB00_010649	6182.A0A4Z2DN32	100.0	1582.0	EWB00_010649	Alpha-actinin.
+52	EWB00_011039	6182.A0A4Z2DN82	100.0	2456.8	EWB00_011039	Integrin alpha-7; Belongs to the integrin alpha chain family.
