@@ -1,0 +1,6 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	97.4/98	6	Hsap,Shae,Sjap,Sman	Hsap__GeneID_1432,Hsap__GeneID_5600,Hsap__GeneID_6300,Shae__MS3_00006560,Sjap__EWB00_009122,Sman__Smp_133020	9		unrooted split; no ancestry or duplication timing assigned
+B0003	93.2/95	3	Hsap	Hsap__GeneID_1432,Hsap__GeneID_5600,Hsap__GeneID_6300	0		unrooted split; no ancestry or duplication timing assigned
+B0004	74.7/78	2	Hsap	Hsap__GeneID_1432,Hsap__GeneID_5600	0		unrooted split; no ancestry or duplication timing assigned
+B0005	100/100	3	Shae,Sjap,Sman	Shae__MS3_00006560,Sjap__EWB00_009122,Sman__Smp_133020	0		unrooted split; no ancestry or duplication timing assigned
+B0006	77.8/76	2	Sjap,Sman	Sjap__EWB00_009122,Sman__Smp_133020	0		unrooted split; no ancestry or duplication timing assigned
