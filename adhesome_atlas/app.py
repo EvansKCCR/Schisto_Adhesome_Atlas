@@ -14,15 +14,34 @@ from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
-st.markdown('''<style>
-.block-container{padding-top:2rem;max-width:1500px}
-.hero{background:linear-gradient(115deg,#112d43,#125e70 65%,#148b8b);color:white;padding:32px 38px;border-radius:20px;margin-bottom:24px}
-.hero h1{color:white;font-size:2.7rem;margin:4px 0 10px;letter-spacing:-1.5px}
-.hero p{color:#d8eeee;max-width:780px;font-size:1.05rem}
-.eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:#a6e3df}
-[data-testid="stMetric"]{background:white;border:1px solid #dce6ed;border-radius:14px;padding:16px}
-[data-testid="stSidebar"]{border-right:1px solid #dce6ed}
-</style>''', unsafe_allow_html=True)
+st.markdown("""<style>
+.block-container{padding-top:2rem;max-width:1500px;padding-bottom:3rem}
+[data-testid="stAppViewContainer"]{background:radial-gradient(ellipse at 95% 0%,#e1efec 0,transparent 42%),#f5f7fb}
+h1,h2,h3{letter-spacing:-.035em;color:#18344b}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 95% 10%,#287d88 0,transparent 40%),linear-gradient(115deg,#132d48,#145461);color:white;padding:38px 42px;border-radius:24px;margin-bottom:24px;border:1px solid #326674;box-shadow:0 12px 32px #193c4c18}
+.hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #ffffff18;border-radius:50%;right:-75px;top:-100px;pointer-events:none}
+.hero h1{color:#fff;font-size:clamp(2rem,3.5vw,3.1rem);line-height:1.12;margin:12px 0 16px;letter-spacing:-.045em}
+.hero p{color:#e0edf0;max-width:800px;font-size:1.05rem;line-height:1.7;margin-bottom:0}
+.eyebrow{font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;color:#bde9df;font-weight:650}
+[data-testid="stMetric"]{background:linear-gradient(145deg,#fff,#f0f7f7);border:1px solid #d9e5ea;border-top:3px solid #168b89;border-radius:16px;padding:20px;box-shadow:0 4px 14px #17384d08}
+[data-testid="stMetricValue"]{color:#145b67;letter-spacing:-.04em}
+[data-testid="stSidebar"]{background:#eaf0f5;border-right:1px solid #d5e0e8}
+[data-testid="stSidebar"] h2{font-size:1.35rem;line-height:1.35}
+[data-testid="stSidebar"] [role="radiogroup"]{gap:4px}
+[data-testid="stSidebar"] [role="radiogroup"] label{border-radius:10px;padding:7px 10px;transition:background .15s ease}
+[data-testid="stSidebar"] [role="radiogroup"] label:hover{background:#dce8ef}
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked){background:#d5e9e7;box-shadow:inset 3px 0 #127d80}
+[data-testid="stButton"] button,[data-testid="stDownloadButton"] button{border-radius:10px;border-color:#c7d9e1;box-shadow:0 2px 5px #143c4b05}
+[data-testid="stButton"] button:hover,[data-testid="stDownloadButton"] button:hover{border-color:#127d80;background:#eaf6f3;color:#13566a}
+[data-testid="stDataFrame"],[data-testid="stPlotlyChart"]{border:1px solid #dfe7ed;border-radius:16px;background:white;padding:6px;box-shadow:0 4px 18px #13314805}
+[data-testid="stExpander"]{border-radius:12px;background:#ffffffb3;border-color:#dce6eb}
+[data-testid="stTabs"] [role="tablist"]{gap:12px;border-bottom:1px solid #dae5eb}
+[data-testid="stTabs"] [role="tab"]{padding:10px 12px;border-radius:8px 8px 0 0}
+[data-testid="stTabs"] [aria-selected="true"]{background:#e3f1ef;color:#11666b;font-weight:650}
+[data-testid="stCaptionContainer"]{color:#536b7b}
+@media(max-width:640px){.hero{padding:26px 22px;border-radius:18px}.eyebrow{letter-spacing:1.5px}.block-container{padding-top:1.2rem}[data-testid="stMetric"]{padding:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>""", unsafe_allow_html=True)
 
 @st.cache_data(show_spinner='Reading annotation and evidence library…')
 def cached_data(signature):
@@ -37,7 +56,7 @@ except Exception as exc:
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('INTEGRIN · ADHESOME · EVIDENCE')
-    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Phylogeny', 'Source Library', 'Protein dossier', 'Motif explorer', 'Citations'])
+    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Source Library', 'Citations'])
     page = section
     if section == 'Components':
         page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
@@ -63,7 +82,7 @@ if query:
 ids = set(df.sequence_id)
 network_candidates = pd.concat([cohorts['Adhesome candidates'],cohorts['FN3 / fibronectin-like review']],ignore_index=True)
 hits = motifs[motifs.sequence_id.isin(ids)]
-palette = ['#087f8c', '#dd8751', '#6976b8', '#69a893', '#bb6590', '#99a9b7']
+palette = ['#127f83', '#cb7836', '#7563ac', '#39876c', '#b34f78', '#527b9b']
 
 def chart(fig):
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font_color='#18354a', margin=dict(l=12,r=12,t=45,b=20), colorway=palette)
