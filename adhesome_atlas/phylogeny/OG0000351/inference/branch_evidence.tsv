@@ -1,0 +1,13 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	94.5/86	13	Cele,Hsap,Shae,Sjap,Sman	Cele__WBGene00001539,Cele__WBGene00001540,Cele__WBGene00001542,Cele__WBGene00001545,Cele__WBGene00001547,Hsap__GeneID_2986,Hsap__GeneID_3000,Shae__MS3_00006209,Shae__MS3_00008672,Sjap__EWB00_008992,Sjap__EWB00_010753,Sman__Smp_085680,Sman__Smp_125450	7		unrooted split; no ancestry or duplication timing assigned
+B0003	98.4/94	10	Cele,Hsap,Shae,Sjap,Sman	Cele__WBGene00001539,Cele__WBGene00001547,Hsap__GeneID_2986,Hsap__GeneID_3000,Shae__MS3_00006209,Shae__MS3_00008672,Sjap__EWB00_008992,Sjap__EWB00_010753,Sman__Smp_085680,Sman__Smp_125450	4		unrooted split; no ancestry or duplication timing assigned
+B0004	32/49	2	Cele	Cele__WBGene00001539,Cele__WBGene00001547	0		unrooted split; no ancestry or duplication timing assigned
+B0005	100/100	8	Hsap,Shae,Sjap,Sman	Hsap__GeneID_2986,Hsap__GeneID_3000,Shae__MS3_00006209,Shae__MS3_00008672,Sjap__EWB00_008992,Sjap__EWB00_010753,Sman__Smp_085680,Sman__Smp_125450	2		unrooted split; no ancestry or duplication timing assigned
+B0006	90.1/91	5	Hsap,Shae,Sjap,Sman	Hsap__GeneID_2986,Hsap__GeneID_3000,Shae__MS3_00006209,Sjap__EWB00_010753,Sman__Smp_125450	0		unrooted split; no ancestry or duplication timing assigned
+B0007	100/100	2	Hsap	Hsap__GeneID_2986,Hsap__GeneID_3000	0		unrooted split; no ancestry or duplication timing assigned
+B0008	100/100	3	Shae,Sjap,Sman	Shae__MS3_00006209,Sjap__EWB00_010753,Sman__Smp_125450	0		unrooted split; no ancestry or duplication timing assigned
+B0009	72.1/60	2	Shae,Sman	Shae__MS3_00006209,Sman__Smp_125450	0		unrooted split; no ancestry or duplication timing assigned
+B0010	100/100	3	Shae,Sjap,Sman	Shae__MS3_00008672,Sjap__EWB00_008992,Sman__Smp_085680	0		unrooted split; no ancestry or duplication timing assigned
+B0011	89.6/84	2	Shae,Sman	Shae__MS3_00008672,Sman__Smp_085680	0		unrooted split; no ancestry or duplication timing assigned
+B0012	90/87	3	Cele	Cele__WBGene00001540,Cele__WBGene00001542,Cele__WBGene00001545	0		unrooted split; no ancestry or duplication timing assigned
+B0013	100/100	2	Cele	Cele__WBGene00001540,Cele__WBGene00001545	0		unrooted split; no ancestry or duplication timing assigned

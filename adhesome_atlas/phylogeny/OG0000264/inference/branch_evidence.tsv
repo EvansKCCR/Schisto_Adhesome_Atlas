@@ -1,0 +1,17 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	97.9/99	14	Hsap	Hsap__GeneID_1969,Hsap__GeneID_2041,Hsap__GeneID_2042,Hsap__GeneID_2043,Hsap__GeneID_2044,Hsap__GeneID_2045,Hsap__GeneID_2046,Hsap__GeneID_2047,Hsap__GeneID_2048,Hsap__GeneID_2049,Hsap__GeneID_2050,Hsap__GeneID_2051,Hsap__GeneID_284656,Hsap__GeneID_285220	0		unrooted split; no ancestry or duplication timing assigned
+B0003	98.1/100	2	Hsap	Hsap__GeneID_1969,Hsap__GeneID_2041	0		unrooted split; no ancestry or duplication timing assigned
+B0004	92.1/86	12	Hsap	Hsap__GeneID_2042,Hsap__GeneID_2043,Hsap__GeneID_2044,Hsap__GeneID_2045,Hsap__GeneID_2046,Hsap__GeneID_2047,Hsap__GeneID_2048,Hsap__GeneID_2049,Hsap__GeneID_2050,Hsap__GeneID_2051,Hsap__GeneID_284656,Hsap__GeneID_285220	0		unrooted split; no ancestry or duplication timing assigned
+B0005	87.4/72	7	Hsap	Hsap__GeneID_2042,Hsap__GeneID_2043,Hsap__GeneID_2044,Hsap__GeneID_2045,Hsap__GeneID_2046,Hsap__GeneID_284656,Hsap__GeneID_285220	0		unrooted split; no ancestry or duplication timing assigned
+B0006	91.9/52	6	Hsap	Hsap__GeneID_2042,Hsap__GeneID_2044,Hsap__GeneID_2045,Hsap__GeneID_2046,Hsap__GeneID_284656,Hsap__GeneID_285220	0		unrooted split; no ancestry or duplication timing assigned
+B0007	87.8/45	2	Hsap	Hsap__GeneID_2042,Hsap__GeneID_2044	0		unrooted split; no ancestry or duplication timing assigned
+B0008	15.9/15	4	Hsap	Hsap__GeneID_2045,Hsap__GeneID_2046,Hsap__GeneID_284656,Hsap__GeneID_285220	0		unrooted split; no ancestry or duplication timing assigned
+B0009	99.8/100	2	Hsap	Hsap__GeneID_2045,Hsap__GeneID_284656	0		unrooted split; no ancestry or duplication timing assigned
+B0010	93.4/41	2	Hsap	Hsap__GeneID_2046,Hsap__GeneID_285220	0		unrooted split; no ancestry or duplication timing assigned
+B0011	100/98	5	Hsap	Hsap__GeneID_2047,Hsap__GeneID_2048,Hsap__GeneID_2049,Hsap__GeneID_2050,Hsap__GeneID_2051	0		unrooted split; no ancestry or duplication timing assigned
+B0012	77.1/32	4	Hsap	Hsap__GeneID_2047,Hsap__GeneID_2049,Hsap__GeneID_2050,Hsap__GeneID_2051	0		unrooted split; no ancestry or duplication timing assigned
+B0013	97.2/42	3	Hsap	Hsap__GeneID_2049,Hsap__GeneID_2050,Hsap__GeneID_2051	0		unrooted split; no ancestry or duplication timing assigned
+B0014	87.6/50	2	Hsap	Hsap__GeneID_2050,Hsap__GeneID_2051	0		unrooted split; no ancestry or duplication timing assigned
+B0015	100/100	4	Shae,Sjap,Sman	Shae__MS3_00001438,Sjap__EWB00_008162,Sjap__EWB00_008163,Sman__Smp_139480	0		unrooted split; no ancestry or duplication timing assigned
+B0016	96.6/98	3	Shae,Sjap,Sman	Shae__MS3_00001438,Sjap__EWB00_008163,Sman__Smp_139480	0		unrooted split; no ancestry or duplication timing assigned
+B0017	65/71	2	Shae,Sjap	Shae__MS3_00001438,Sjap__EWB00_008163	0		unrooted split; no ancestry or duplication timing assigned
