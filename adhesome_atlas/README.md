@@ -89,9 +89,6 @@ Introduction and Interactions now open the six-layer reconstruction. Interaction
 
 Degree, normalized betweenness, corrected closeness, communities, interface counts and complete-case seven-feature prioritization are downloadable. Missing phylogeny, motif conservation or host-divergence evidence remains unassessed. See `adhesome_network/curation/README.md` for the input schema and interpretation rules.
 
-After this update, run `bash launch_atlas.sh --setup` from inside `adhesome_atlas` to install NetworkX and start the app. The launcher now resolves `app.py` and `requirements.txt` in its own folder. Run `~/.venvs/schistoatlas/bin/python test_reconstruction.py` for reconstruction validation.
-
-
 ## Orthology-aware catalogue
 
 Updated candidate workbooks are read with their orthology report sheets, direct-orthologue relationships and HOG copy counts. Candidate worksheet detection tolerates the FN3 worksheet rename. Excel temporary lock files are ignored. Original source statuses and rows remain unchanged.
