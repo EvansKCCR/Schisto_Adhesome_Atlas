@@ -109,8 +109,8 @@ def download(frame, name):
     st.download_button('↓ Download table · CSV', frame.to_csv(index=False).encode('utf-8-sig'), name, 'text/csv')
 
 identity_banner()
-st.markdown('<div class="hero"><div class="eyebrow">Comparative molecular atlas · Schistosoma</div><h1>Schisto-Adhesome Atlas</h1><p>Explore integrin–adhesome candidates across three schistosome species, from family hypotheses to domains, sequence motifs and localization evidence.</p></div>', unsafe_allow_html=True)
-st.caption(f'{cohort}  /  {len(df):,} filtered hypothesis records  /  {df.sequence_id.nunique():,} distinct proteins')
+st.markdown('<div class="hero"><div class="eyebrow">Comparative molecular atlas · Schistosoma</div><h1>Schisto-Adhesome Atlas</h1><p>Explore integrin–adhesome candidates across three schistosome species, from family assignments to domains, sequence motifs and localization evidence.</p></div>', unsafe_allow_html=True)
+st.caption(f'{cohort}  /  {len(df):,} filtered assignment records  /  {df.sequence_id.nunique():,} distinct proteins')
 
 if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny'] and df.empty:
     st.info('No candidates match these filters. Select a species or broaden your search.')
@@ -121,7 +121,7 @@ if page == 'Introduction':
     st.write('A comparative catalogue of integrin–adhesome candidates in S. haematobium, S. japonicum and S. mansoni. Explore protein families, domain architectures, localization predictions and the supplied STRING association networks.')
     st.caption('Collection totals below describe all records in each source collection. The filtered selection is shown above. Network species and score controls are independent.')
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
-        col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} hypothesis records', delta_color='off')
+        col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
     st.markdown('### Network graphs')
     reconstruction_panel(network_candidates, load_network, 'intro_reconstruction_')
 
@@ -168,7 +168,7 @@ elif page == 'Summary graphs':
     with right:
         counts = df.groupby(['species','status']).sequence_id.nunique().reset_index(name='proteins')
         chart(px.bar(counts, x='species', y='proteins', color='status', barmode='group', color_discrete_sequence=palette, title='Candidate status across species'))
-    st.info('Counts are distinct proteins within each plotted group. A protein may have multiple family hypotheses, so group totals can exceed the collection’s distinct-protein count. Source status is retained; it does not establish experimental function or orthology.')
+    st.info('Counts are distinct proteins within each plotted group. Multiple family assignments can make group totals exceed the collection’s distinct-protein count. Original source statuses are retained.')
     st.markdown('### Follow the evidence')
     for col, title, body in zip(st.columns(3), ['01 / Find a candidate', '02 / Inspect its architecture', '03 / Compare the repertoire'], ['Search identifiers, families and Pfam annotations in the catalogue.', 'Open a dossier for positional domains, motifs, topology and raw predictor results.', 'Compare species using absolute counts or within-species family representation.']):
         with col:
@@ -196,7 +196,7 @@ elif page == 'Protein dossier':
     seq = sequences.get(key, '')
     a,b,c = st.columns(3)
     a.metric('Sequence length', f'{len(seq):,} aa' if seq else 'Unavailable')
-    b.metric('Family hypotheses in selection', len(records))
+    b.metric('Family assignments in selection', len(records))
     local_hits = motifs[motifs.sequence_id.eq(key)]
     c.metric('Reported motif hits', len(local_hits))
     tracks = []
@@ -258,7 +258,7 @@ elif page == 'Comparative lab':
 
 elif page == 'Motif explorer':
     st.subheader('Motif explorer')
-    st.info('These are sequence-pattern hypotheses. Motif counts do not establish interactions. Context and source review notes accompany every hit.')
+    st.info('Motif hits are shown with sequence position, domain/topology context and source annotations to support integrated interpretation.')
     if hits.empty:
         st.info('No reported motif hits for the selected proteins.')
     else:
@@ -316,5 +316,5 @@ st.divider()
 with st.expander('Resource citations and acknowledgements'):
     st.markdown('Networks: [STRING](https://version-12-5.string-db.org/) · Motifs: [ELM](http://elm.eu.org/) · Protein references: [UniProt](https://www.uniprot.org/) · Domains: [InterPro](https://www.ebi.ac.uk/interpro/) and [NCBI CDD](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) · Predictions: [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/), [DeepLoc 2.1](https://services.healthtech.dtu.dk/services/DeepLoc-2.1/), [DeepTMHMM](https://services.healthtech.dtu.dk/services/DeepTMHMM-1.0/) · Genomes: [WormBase ParaSite](https://parasite.wormbase.org/).')
     st.caption('Open Citations in the sidebar for publication references and the downloadable bibliography.')
-st.caption('SCHISTO-ADHESOME ATLAS  /  Local annotation atlas  /  Source: adhesome_atlas  /  Predictions remain hypotheses')
+st.caption('SCHISTO-ADHESOME ATLAS  /  Local annotation atlas  /  Source: adhesome_atlas  /  Assignments integrate complementary evidence')
 creator_credit()

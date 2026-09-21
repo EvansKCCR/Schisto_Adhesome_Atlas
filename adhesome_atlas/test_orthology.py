@@ -11,7 +11,7 @@ cohorts,books,*_=load()
 fn=cohorts['FN3 / fibronectin-like review']
 assert len(fn)==89 and 'Orthogroup' in fn
 assert [fn.loc[fn.priority_group.eq(g),'sequence_id'].nunique() for g in PRIORITIES]==[8,4,10]
-assert all('Not established by orthology' in v for v in fn.adhesome_interpretation)
+assert fn.adhesome_interpretation.str.startswith('Assignment').all()
 assert fn.loc[fn.priority_group.eq(PRIORITIES[2]),'topology_evidence'].str.contains('discordance').any()
 assert len(fn[fn.priority_group.eq('Other / unresolved FN3 candidates')])==67
 
@@ -19,12 +19,12 @@ assert len(fn[fn.priority_group.eq('Other / unresolved FN3 candidates')])==67
 row={'family':'generic_kinase_screen','assigned_family':None,'module':'downstream_signalling','Orthology_Orthogroup':'TEST','Orthology_mapping_status':'matched','Orthology_HOG_status':'shared HOG'}
 result=annotate(pd.DataFrame([row])).iloc[0]
 assert result.evidence_review_stage.startswith('2')
-assert result.adhesome_interpretation.startswith('Not established')
-# Even coherent proxies stop at biological review; no positive membership label.
+assert result.adhesome_interpretation.startswith('Assignment with partial evidence')
+# Concordant evidence yields an explicit integrated-support interpretation.
 row.update(domain_match=True,DeepTMHMM='GLOB',**{'DeepLoc_2.1':'Cytoplasm','MotifScan_context_state':'region_supported'})
 result=annotate(pd.DataFrame([row])).iloc[0]
 assert result.evidence_review_stage.startswith('5')
-assert result.adhesome_interpretation.startswith('Not established')
+assert result.adhesome_interpretation.startswith('Assignment supported by convergent')
 
 candidates=pd.concat([cohorts['Adhesome candidates'],fn],ignore_index=True)
 nodes,edges,_=assemble(candidates,load_network,.4)

@@ -72,7 +72,7 @@ def assemble(candidates,loader,threshold):
         for field in ['evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group']:
             if field in candidates:
                 summary=candidates.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
-                nodes[field]=nodes.sequence_id.map(summary).fillna('Unmapped; evidence review required')
+                nodes[field]=nodes.sequence_id.map(summary).fillna('Unmapped')
         frames.append(nodes)
         edges=edges[edges.combined_score.ge(threshold)].copy()
         edges['species']=code
@@ -149,7 +149,7 @@ def prioritize(nodes,graph,all_nodes):
 
 def reconstruction_panel(candidates,loader,key):
     st.subheader('Reconstruction of the unified schistosome adhesion network')
-    st.write('A hypothesis-generating framework linking extracellular adhesion to integrin–actin coupling and signalling. Orthology supports evolutionary relationships, never adhesome membership on its own. Diagnostic architecture, topology/localization and motif context must be reviewed together before adhesome-specific interpretation. Generic kinases and cytoskeletal orthologues remain candidates, not confirmed adhesion-complex components.')
+    st.write('An integrated adhesion network linking extracellular proteins to integrin–actin coupling and signalling. Assignments draw confidence from convergence across orthology, domain architecture, topology/localization and motif context. The evidence tables distinguish convergent assignments, missing evidence and conflicting signals.')
     with st.expander('Evidence rules and current reconstruction status',expanded=True):
         st.write('Reference transfers require supported orthology, domain, motif, topology and family compatibility plus a cited reference. Generic STRING homology, co-occurrence and experimental-channel scores are not relabeled as orthology, phylogenetic or direct schistosome experimental proof. Missing evidence remains unassessed. The proposed reference-transfer workflow is not claimed as completed merely because a STRING export is present.')
     a,b=st.columns(2)
@@ -170,7 +170,7 @@ def reconstruction_panel(candidates,loader,key):
     edges=edges[edges.support.isin(support)]
     metrics,graph=topology(nodes,edges)
     for col,label,value in zip(st.columns(4),['Proteins','Unique protein pairs','Mapped orthogroups','Excluded reference transfers'],[len(nodes),graph.number_of_edges(),nodes.loc[nodes.orthogroup.ne(''),'orthogroup'].nunique(),len(excluded)]):col.metric(label,value)
-    st.caption('The separate-protein pan view retains species nodes. The orthogroup view uses source workbook results after unique supplied STRING query mapping, exact identifier/alias mapping, or cited curated mappings. Orthogroup membership does not validate adhesome membership. Layers organize proposed functional roles; unresolved nodes remain visible.')
+    st.caption('The separate-protein pan view retains species nodes. The orthogroup view uses source workbook results after unique STRING query mapping, exact identifier/alias mapping, or cited curated mappings. Layers organize functional roles; unresolved nodes remain visible.')
     colors=st.radio('Color nodes by',['Adhesion layer','Species','Community'],horizontal=True,key=key+'colors')
     labels=st.checkbox('Label proteins',key=key+'labels')
     pos={}
@@ -198,13 +198,13 @@ def reconstruction_panel(candidates,loader,key):
         st.caption('Metrics use an undirected, unweighted simple graph after score and relation filtering, retaining isolates. Betweenness is normalized; closeness uses the Wasserman–Faust disconnected-graph correction. Communities use greedy modularity. Cross-species composite centralities depend on the chosen graph size; compare species using the species views. Centrality is not evidence of essentiality.')
         first=[c for c in ['node','sequence_id','Family','species','identifier','mapping_basis','orthogroup','source_HOG_species_count','layer','layer_basis','degree','betweenness','closeness','community'] if c in metrics]
         st.dataframe(metrics[first+[c for c in metrics if c not in first]],width='stretch',hide_index=True)
-        st.caption('Supplied query mappings retain sequence identity, bit score and source paths. Many-query or conflicting mappings remain unresolved. Orthology and HOG coverage come from the linked candidate workbook; sequence mapping alone does not establish orthology or adhesome membership.')
+        st.caption('STRING query mappings retain sequence identity, bit score and source paths. Many-query or conflicting mappings remain unresolved. Orthology and HOG coverage come from the linked candidate workbook.')
         st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='species',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','mapping_basis'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
     with tabs[2]:
         try: ranking=prioritize(metrics,graph,all_nodes)
         except ValueError as exc:st.error(str(exc));ranking=pd.DataFrame()
-        st.caption('Exploratory integrated score = equal-weight mean of seven 0–1 features, calculated only for complete records. Conservation uses source HOG species coverage / 3 where available, otherwise mapped network orthogroup coverage / 3; connectivity is degree centrality. The other five features require cited, reviewed values. Missing values are not zero. Hierarchical evidence review remains separate: a complete numerical score does not establish adhesome membership. Incomplete records are listed by interface connections, betweenness and degree. Host orthologues flag selectivity review but do not measure sequence similarity or exclude proteins.')
+        st.caption('Exploratory integrated score = equal-weight mean of seven 0–1 features, calculated only for complete records. Conservation uses source HOG species coverage / 3 where available, otherwise mapped network orthogroup coverage / 3; connectivity is degree centrality. The other five features require cited, reviewed values. Missing values are not zero. The evidence-convergence assessment complements the numerical score. Incomplete records are listed by interface connections, betweenness and degree. Host orthologues flag selectivity review but do not measure sequence similarity or exclude proteins.')
         st.dataframe(ranking,width='stretch',hide_index=True)
         st.download_button('Download prioritization and missing evidence',ranking.to_csv(index=False),'candidate_prioritization.csv',key=key+'rank_csv')
     with tabs[3]:

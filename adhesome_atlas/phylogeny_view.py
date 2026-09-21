@@ -126,7 +126,7 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
 def phylogeny_panel():
     st.subheader('Phylogenetic evidence explorer')
     st.write('Inspect gene_tree.treefile with species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
-    st.info('The supplied trees are unrooted. The rectangular display uses the Newick serialization origin, not an inferred ancestor. Phylogenetic support alone does not establish adhesome membership; interpret it alongside diagnostic domains, topology/localization and motif context.')
+    st.info('The supplied trees are unrooted. The rectangular display uses the Newick serialization origin, not an inferred ancestor. Phylogenetic support contributes to assignment confidence alongside domain architecture, topology/localization and motif context.')
     folders = sorted(p for p in (ROOT/'phylogeny').glob('*') if p.is_dir() and (p/'inference/gene_tree.treefile').exists())
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')

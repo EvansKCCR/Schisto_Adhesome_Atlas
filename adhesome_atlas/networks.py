@@ -41,14 +41,14 @@ def node_links(code,nodes,candidates):
         # even if only one query currently occurs in the catalogue.
         ambiguous=len(matches | supplied)>1
         seq=next(iter(matches)) if len(matches)==1 and not ambiguous else ''
-        basis=('Supplied STRING query mapping' if seq in supplied else 'Exact node identifier' if seq==direct else 'Exact STRING alias token') if seq else ('Ambiguous mapping; review required' if ambiguous else 'Unmapped')
+        basis=('STRING query mapping' if seq in supplied else 'Exact node identifier' if seq==direct else 'Exact STRING alias token') if seq else ('Ambiguous mapping' if ambiguous else 'Unmapped')
         rows.append({'identifier':r.identifier,'sequence_id':seq,'mapping_basis':basis,
                      'mapping_candidates':' | '.join(sorted(matches | supplied)),
                      'mapping_source':' | '.join(sorted(set(records.mapping_source))),
                      'mapping_identity_percent':' | '.join(sorted(set(records.identity))),
                      'mapping_bitscore':' | '.join(sorted(set(records.bitscore))),
                      'mapping_query_evidence':'; '.join(f'{x.queryItem}: identity={x.identity}%; bitscore={x.bitscore}' for x in records.itertuples()),
-                     'mapping_review':'Sequence mapping is not orthology or adhesome-membership evidence' if len(records) else 'Exact identifiers only'})
+                     'mapping_review':'Sequence identity and bit score recorded' if len(records) else 'Exact identifiers only'})
     result=pd.DataFrame(rows)
     interpretation=ROOT/'adhesome_network/curation/node_interpretations.tsv'
     if interpretation.exists():
@@ -78,7 +78,7 @@ def load_network(code, candidates):
     return nodes, edges, annotations
 
 def network_panel(candidates, key, detailed=False):
-    st.caption('STRING associations from the supplied exports. These can include functional associations and transferred evidence; they do not by themselves establish direct physical binding in schistosomes. Network controls are independent of component filters.')
+    st.caption('STRING functional associations integrate the reported evidence channels. Network controls are independent of component filters.')
     a,b,c = st.columns(3)
     code = a.selectbox('Network species', list(SPECIES), format_func=SPECIES.get, key=key+'species')
     color_by = b.selectbox('Node colors', ['STRING localization','Family','DeepLoc localization','Original STRING colors'], key=key+'color')
@@ -124,7 +124,7 @@ def network_panel(candidates, key, detailed=False):
             fig.add_trace(go.Scatter(x=group.x_position,y=group.y_position,mode='markers+text' if labels else 'markers',text=group.node,textposition='top center',name=category,marker=dict(size=9+group.filtered_degree.pow(.5)*2,color=group.color.tolist() if color_by=='Original STRING colors' else ('#9aa5ae' if category in ['Unmapped','Unannotated'] else colors[category]),line=dict(color='white',width=1)),customdata=group[['node','identifier','Family','STRING localization','filtered_degree','annotation']].fillna('').values,hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Family: %{customdata[2]}<br>Compartment: %{customdata[3]}<br>Degree: %{customdata[4]}<br>%{customdata[5]}<extra></extra>'))
         fig.update_layout(height=650,paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)',xaxis=dict(visible=False),yaxis=dict(visible=False,autorange='reversed',scaleanchor='x'),margin=dict(l=0,r=0,t=10,b=0),legend=dict(orientation='h',y=-.05),hoverlabel=dict(namelength=-1))
         st.plotly_chart(fig,width='stretch',key=key+'graph',config={'displaylogo':False})
-    st.caption('Positions retain the supplied STRING layout; node size reflects degree after filtering. Family and DeepLoc labels require a unique supplied STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in hover details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
+    st.caption('Positions retain the supplied STRING layout; node size reflects degree after filtering. Family and DeepLoc labels require a unique STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in hover details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
     if detailed:
         tabs=st.tabs(['Interaction table','Protein table','Functional annotations','Network statistics'])
         with tabs[0]:
@@ -152,7 +152,7 @@ def extra_resources(code,nodes,key):
         st.dataframe(data[data.identifier.isin(nodes.identifier)],width='stretch',hide_index=True)
     enrichment=list(folder.glob('*.all'))
     if enrichment:
-        st.markdown('#### Supplied network enrichment')
+        st.markdown('#### Network enrichment')
         st.caption('Statistics describe the original exported network and background. They are not recomputed for the displayed subnetwork and do not establish individual protein membership.')
         for path in enrichment:
             data=pd.read_csv(path,sep='\t')
