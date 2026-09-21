@@ -49,7 +49,14 @@ def node_links(code,nodes,candidates):
                      'mapping_bitscore':' | '.join(sorted(set(records.bitscore))),
                      'mapping_query_evidence':'; '.join(f'{x.queryItem}: identity={x.identity}%; bitscore={x.bitscore}' for x in records.itertuples()),
                      'mapping_review':'Sequence mapping is not orthology or adhesome-membership evidence' if len(records) else 'Exact identifiers only'})
-    return pd.DataFrame(rows)
+    result=pd.DataFrame(rows)
+    interpretation=ROOT/'adhesome_network/curation/node_interpretations.tsv'
+    if interpretation.exists():
+        notes=pd.read_csv(interpretation,sep='\t',dtype=str).fillna('')
+        if notes.string_id.duplicated().any():
+            raise ValueError('Duplicate node interpretation IDs')
+        result=result.merge(notes.rename(columns={'string_id':'identifier'}),on='identifier',how='left',validate='one_to_one').fillna('')
+    return result
 
 def load_network(code, candidates):
     folder = ROOT / 'adhesome_network' / code

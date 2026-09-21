@@ -209,8 +209,8 @@ def reconstruction_panel(candidates,loader,key):
         st.download_button('Download prioritization and missing evidence',ranking.to_csv(index=False),'candidate_prioritization.csv',key=key+'rank_csv')
     with tabs[3]:
         st.write('Populate the TSV templates in adhesome_network/curation. No illustrative biological records are prefilled. Reload source files after editing. References must identify the evidence supporting each assessment.')
-        st.dataframe(metrics[[c for c in ['identifier','sequence_id','mapping_basis','mapping_candidates','mapping_source','mapping_identity_percent','mapping_bitscore','mapping_query_evidence','mapping_review','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
-        for name in ['node_mapping.tsv','reference_interactions.tsv','candidate_evidence.tsv']:
+        st.dataframe(metrics[[c for c in ['identifier','sequence_id','mapping_basis','mapping_candidates','mapping_source','mapping_identity_percent','mapping_bitscore','mapping_query_evidence','mapping_review','user_nominated_sequence_ids','user_mapping_interpretation','user_mapping_note','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
+        for name in ['node_mapping.tsv','reference_interactions.tsv','candidate_evidence.tsv','node_interpretations.tsv']:
             p=EVIDENCE_DIR/name
             if p.exists():st.download_button('Download '+name,p.read_bytes(),name,key=key+name)
 
