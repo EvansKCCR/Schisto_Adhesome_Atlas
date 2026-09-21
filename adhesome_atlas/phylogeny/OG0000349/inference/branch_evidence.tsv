@@ -1,0 +1,13 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	91.5/63	11	Cele,Hsap,Shae,Sjap,Sman	Cele__WBGene00021314,Hsap__GeneID_5789,Hsap__GeneID_5792,Hsap__GeneID_5802,Shae__MS3_00002886,Shae__MS3_00004247,Sjap__EWB00_000603,Sjap__EWB00_009052,Sman__Smp_244080,Sman__Smp_342880,Sman__Smp_345130	24		unrooted split; no ancestry or duplication timing assigned
+B0003	56.1/25	8	Cele,Shae,Sjap,Sman	Cele__WBGene00021314,Shae__MS3_00002886,Shae__MS3_00004247,Sjap__EWB00_000603,Sjap__EWB00_009052,Sman__Smp_244080,Sman__Smp_342880,Sman__Smp_345130	6		unrooted split; no ancestry or duplication timing assigned
+B0004	43/30	4	Cele,Shae,Sjap,Sman	Cele__WBGene00021314,Shae__MS3_00002886,Sjap__EWB00_009052,Sman__Smp_342880	3		unrooted split; no ancestry or duplication timing assigned
+B0005	67.2/90	3	Shae,Sjap,Sman	Shae__MS3_00002886,Sjap__EWB00_009052,Sman__Smp_342880	0		unrooted split; no ancestry or duplication timing assigned
+B0006	88.1/96	2	Shae,Sman	Shae__MS3_00002886,Sman__Smp_342880	0		unrooted split; no ancestry or duplication timing assigned
+B0007	80/29	4	Shae,Sjap,Sman	Shae__MS3_00004247,Sjap__EWB00_000603,Sman__Smp_244080,Sman__Smp_345130	0		unrooted split; no ancestry or duplication timing assigned
+B0008	99.6/96	3	Shae,Sjap,Sman	Shae__MS3_00004247,Sjap__EWB00_000603,Sman__Smp_244080	0		unrooted split; no ancestry or duplication timing assigned
+B0009	4.7/38	2	Shae,Sman	Shae__MS3_00004247,Sman__Smp_244080	0		unrooted split; no ancestry or duplication timing assigned
+B0010	99.7/71	3	Hsap	Hsap__GeneID_5789,Hsap__GeneID_5792,Hsap__GeneID_5802	0		unrooted split; no ancestry or duplication timing assigned
+B0011	99.1/100	2	Hsap	Hsap__GeneID_5789,Hsap__GeneID_5802	0		unrooted split; no ancestry or duplication timing assigned
+B0012	100/99	3	Shae,Sjap,Sman	Shae__MS3_00000599,Sjap__EWB00_004939,Sman__Smp_344760	0		unrooted split; no ancestry or duplication timing assigned
+B0013	83.5/86	2	Shae,Sman	Shae__MS3_00000599,Sman__Smp_344760	0		unrooted split; no ancestry or duplication timing assigned
