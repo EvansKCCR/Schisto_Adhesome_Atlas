@@ -1,0 +1,55 @@
+#queryIndex	queryItem	stringId	identity	bitscore	preferredName	annotation
+1	MS3_00000278	6185.A0A095C865	96.3	5665.1	MS3_06750	Talin-1.
+2	MS3_00000359	6185.A0A095AWE8	68.5	267.7	MS3_07374	Actin-2.
+3	MS3_00000487	6185.A0A095A147	98.1	3168.6	MS3_08997	Laminin subunit beta-2.
+4	MS3_00000825	6185.A0A095AWE8	67.5	261.9	MS3_07374	Actin-2.
+5	MS3_00000941	6185.A0A095AHJ7	75.4	360.9	MS3_01602	Collagen alpha-1(IV) chain.
+6	MS3_00001381	6185.A0A094ZXH0	100.0	1080.1	MS3_08067	Paxillin.
+7	MS3_00001484	6185.A0A095A5F3	100.0	845.5	MS3_09318	Tyrosine-protein kinase BTK.
+8	MS3_00001716	6185.A0A095A335	98.6	761.9	MS3_08434	Collagen alpha-2(I) chain.
+9	MS3_00001825	6185.A0A095A3P2	100.0	540.0	MS3_08655	LIM domain-containing protein unc-97.
+10	MS3_00001861	6185.A0A094ZV34	100.0	471.1	MS3_05320	Collagen alpha-1(IV) chain.
+11	MS3_00002568	6185.A0A094ZQP5	99.6	575.5	MS3_05397	Prickle-like protein 3.
+12	MS3_00002771	6185.A0A094ZT02	100.0	1181.0	MS3_05644	Tyrosine-protein kinase.
+13	MS3_00002824	6185.A0A094ZWG6	90.2	1679.5	MS3_07063	Focal adhesion kinase 1; Belongs to the protein kinase superfamily. Tyr protein kinase family.
+14	MS3_00003235	6185.A0A095C4C1	100.0	1710.7	MS3_04979	Fermitin family 1.
+15	MS3_00003616	6185.A0A094ZVX7	91.3	542.7	MS3_05600	Four and a half LIM domains protein 2.
+16	MS3_00004068	6185.A0A094ZIB8	100.0	1215.3	MS3_02455	Tyrosine-protein kinase.
+17	MS3_00004525	6185.A0A095AWE8	100.0	767.3	MS3_07374	Actin-2.
+18	MS3_00004774	6185.A0A095C2B3	100.0	763.8	MS3_04014	Alpha-centractin; Belongs to the actin family.
+19	MS3_00005166	6185.A0A095AQX5	38.5	112.8	MS3_05026	Cofilin; Belongs to the actin-binding proteins ADF family.
+20	MS3_00005610	6185.A0A095APB9	97.8	365.9	MS3_04420	Collagen alpha-1(XXIV) chain.
+20	MS3_00005610	6185.A0A095APB9	100.0	125.2	MS3_04420	Collagen alpha-1(XXIV) chain.
+21	MS3_00005611	6185.A0A094ZPR3	92.5	458.8	MS3_04409	Collagen alpha-2(V) chain.
+22	MS3_00005632	6185.A0A095B398	100.0	754.6	MS3_10188	Integrin-linked protein kinase.
+23	MS3_00005799	6185.A0A094ZGB5	100.0	5014.1	MS3_01744	Filamin-A.
+24	MS3_00006333	6185.A0A095BVY6	100.0	844.0	MS3_01298	PDZ and LIM domain protein 7.
+25	MS3_00006657	6185.A0A094ZD96	85.7	1283.1	MS3_00361	Alpha-actinin-1.
+26	MS3_00006934	6185.A0A094ZPS9	100.0	1555.4	MS3_04427	Alpha-actinin, sarcomeric.
+27	MS3_00007047	6185.A0A095A3M6	99.7	1174.5	MS3_08642	Vinculin.
+27	MS3_00007047	6185.A0A095A3M6	53.1	64.7	MS3_08642	Vinculin.
+28	MS3_00007363	6185.A0A094ZIB4	100.0	417.2	MS3_00783	Collagen alpha-2(I) chain.
+29	MS3_00007430	6185.A0A095AW46	26.2	111.7	MS3_07221	Actin; Belongs to the actin family.
+30	MS3_00007700	6185.A0A094ZCZ2	94.0	795.0	MS3_00256	Actin-related protein 6; Belongs to the actin family.
+31	MS3_00007701	6185.A0A094ZGZ0	90.5	488.0	MS3_00254	Collagen alpha-2(I) chain.
+32	MS3_00007742	6185.A0A094ZHK3	97.9	2546.2	MS3_02183	Integrin alpha ina-1; Belongs to the integrin alpha chain family.
+33	MS3_00007970	6185.A0A094ZFZ8	74.5	4402.0	MS3_00852	Filamin-A.
+34	MS3_00008174	6185.A0A095AGB3	89.5	601.3	MS3_01079	Actin-like protein 6A; Belongs to the actin family.
+35	MS3_00008246	6185.A0A095A048	67.9	489.6	MS3_07220	Actin; Belongs to the actin family.
+36	MS3_00008247	6185.A0A095AW46	100.0	762.7	MS3_07221	Actin; Belongs to the actin family.
+37	MS3_00008284	6185.A0A095APX4	89.5	582.8	MS3_04616	LIM domain-containing protein jub.
+38	MS3_00008660	6185.A0A095AWE8	95.8	715.7	MS3_07374	Actin-2.
+39	MS3_00008661	6185.A0A095AWE8	96.3	746.9	MS3_07374	Actin-2.
+40	MS3_00008738	6185.A0A094ZWE3	97.0	1023.8	MS3_05835	Tyrosine-protein kinase yes.
+41	MS3_00008744	6185.A0A095AWE8	91.5	722.6	MS3_07374	Actin-2.
+42	MS3_00008746	6185.A0A095AWE8	90.6	712.6	MS3_07374	Actin-2.
+43	MS3_00008957	6185.A0A095B548	99.7	744.2	MS3_11012	Uncharacterized protein.
+44	MS3_00009264	6185.A0A095BRI5	83.3	445.3	MS3_10940	Non-specific protein-tyrosine kinase.
+45	MS3_00009375	6185.A0A094ZVS1	100.0	1337.8	MS3_07408	Unc-112-related protein.
+46	MS3_00009865	6185.A0A094ZSZ5	97.0	1704.1	MS3_05634	Integrin beta.
+47	MS3_00009872	6185.A0A095A2S1	97.0	2435.2	MS3_08281	Integrin alpha-5; Belongs to the integrin alpha chain family.
+48	MS3_00010057	6185.A0A095AG66	99.1	650.2	MS3_01006	Collagen alpha-1(V) chain.
+49	MS3_00010191	6185.A0A094ZQH5	100.0	520.0	MS3_05316	Collagen alpha-1(IV) chain.
+50	MS3_00010441	6185.A0A094ZXG3	99.7	797.3	MS3_06212	LIM and senescent cell antigen-like-containing domain protein 1.
+51	MS3_00010803	6185.A0A095BTU9	99.4	672.9	MS3_00351	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
+52	MS3_00011163	6185.A0A094ZPG8	100.0	559.7	MS3_04907	Actin-related protein 3; Belongs to the actin family.
