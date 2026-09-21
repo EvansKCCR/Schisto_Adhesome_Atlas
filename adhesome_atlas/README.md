@@ -1,13 +1,12 @@
 # Schisto-Adhesome Atlas — integrin–adhesome catalogue
 
-A local, read-only Streamlit atlas of every file in the `adhesome_atlas` directory.
+A Streamlit atlas for exploring schistosome adhesome.
 
 ## Launch in WSL (Linux)
 
-In your WSL terminal, run:
+In your terminal window, run:
 
 ```bash
-cd /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/adhesome_atlas
 bash launch_atlas.sh --setup
 ```
 
@@ -93,7 +92,7 @@ Degree, normalized betweenness, corrected closeness, communities, interface coun
 After this update, run `bash launch_atlas.sh --setup` from inside `adhesome_atlas` to install NetworkX and start the app. The launcher now resolves `app.py` and `requirements.txt` in its own folder. Run `~/.venvs/schistoatlas/bin/python test_reconstruction.py` for reconstruction validation.
 
 
-## Orthology-aware catalogue update
+## Orthology-aware catalogue
 
 Updated candidate workbooks are read with their orthology report sheets, direct-orthologue relationships and HOG copy counts. Candidate worksheet detection tolerates the FN3 worksheet rename. Excel temporary lock files are ignored. Original source statuses and rows remain unchanged.
 
