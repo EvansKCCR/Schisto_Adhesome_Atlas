@@ -170,7 +170,7 @@ def reconstruction_panel(candidates,loader,key):
     edges=edges[edges.support.isin(support)]
     metrics,graph=topology(nodes,edges)
     for col,label,value in zip(st.columns(4),['Proteins','Unique protein pairs','Mapped orthogroups','Excluded reference transfers'],[len(nodes),graph.number_of_edges(),nodes.loc[nodes.orthogroup.ne(''),'orthogroup'].nunique(),len(excluded)]):col.metric(label,value)
-    st.caption('The separate-protein pan view retains species nodes. The orthogroup view uses source workbook results after exact identifier/alias mapping, or cited curated mappings. Orthogroup membership does not validate adhesome membership. Layers organize proposed functional roles; unresolved nodes remain visible.')
+    st.caption('The separate-protein pan view retains species nodes. The orthogroup view uses source workbook results after unique supplied STRING query mapping, exact identifier/alias mapping, or cited curated mappings. Orthogroup membership does not validate adhesome membership. Layers organize proposed functional roles; unresolved nodes remain visible.')
     colors=st.radio('Color nodes by',['Adhesion layer','Species','Community'],horizontal=True,key=key+'colors')
     labels=st.checkbox('Label proteins',key=key+'labels')
     pos={}
@@ -196,8 +196,10 @@ def reconstruction_panel(candidates,loader,key):
         if len(excluded):st.warning(f'{len(excluded)} reference transfers failed the evidence gate.');st.dataframe(excluded)
     with tabs[1]:
         st.caption('Metrics use an undirected, unweighted simple graph after score and relation filtering, retaining isolates. Betweenness is normalized; closeness uses the Wasserman–Faust disconnected-graph correction. Communities use greedy modularity. Cross-species composite centralities depend on the chosen graph size; compare species using the species views. Centrality is not evidence of essentiality.')
-        st.dataframe(metrics,width='stretch',hide_index=True)
-        st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='species',hover_name='node',size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
+        first=[c for c in ['node','sequence_id','Family','species','identifier','mapping_basis','orthogroup','source_HOG_species_count','layer','layer_basis','degree','betweenness','closeness','community'] if c in metrics]
+        st.dataframe(metrics[first+[c for c in metrics if c not in first]],width='stretch',hide_index=True)
+        st.caption('Supplied query mappings retain sequence identity, bit score and source paths. Many-query or conflicting mappings remain unresolved. Orthology and HOG coverage come from the linked candidate workbook; sequence mapping alone does not establish orthology or adhesome membership.')
+        st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='species',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','mapping_basis'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
     with tabs[2]:
         try: ranking=prioritize(metrics,graph,all_nodes)
@@ -207,7 +209,7 @@ def reconstruction_panel(candidates,loader,key):
         st.download_button('Download prioritization and missing evidence',ranking.to_csv(index=False),'candidate_prioritization.csv',key=key+'rank_csv')
     with tabs[3]:
         st.write('Populate the TSV templates in adhesome_network/curation. No illustrative biological records are prefilled. Reload source files after editing. References must identify the evidence supporting each assessment.')
-        st.dataframe(metrics[[c for c in ['identifier','sequence_id','mapping_basis','mapping_candidates','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
+        st.dataframe(metrics[[c for c in ['identifier','sequence_id','mapping_basis','mapping_candidates','mapping_source','mapping_identity_percent','mapping_bitscore','mapping_query_evidence','mapping_review','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
         for name in ['node_mapping.tsv','reference_interactions.tsv','candidate_evidence.tsv']:
             p=EVIDENCE_DIR/name
             if p.exists():st.download_button('Download '+name,p.read_bytes(),name,key=key+name)

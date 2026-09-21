@@ -5,21 +5,50 @@ import plotly.graph_objects as go
 import streamlit as st
 from data import ROOT, SPECIES
 
+def mapping_export(code):
+    frames=[]
+    taxon={'Shae':'6185','Sjap':'6182','Sman':'6183'}[code]
+    for path in sorted((ROOT/'adhesome_network').rglob(f'{code}_string_mapping.tsv')):
+        frame=pd.read_csv(path,sep='\t',dtype=str).fillna('')
+        required={'queryItem','stringId','identity','bitscore'}
+        if not required <= set(frame):
+            raise ValueError(f'{path.name}: missing mapping columns')
+        if not frame.stringId.str.startswith(taxon+'.').all():
+            raise ValueError(f'{path.name}: STRING taxon does not match {code}')
+        frame['mapping_source']=path.relative_to(ROOT).as_posix()
+        frames.append(frame)
+    return pd.concat(frames,ignore_index=True) if frames else pd.DataFrame(columns=['queryItem','stringId','identity','bitscore','mapping_source'])
+
+
 def node_links(code,nodes,candidates):
-    """Exact, species-scoped identifier tokens only; ambiguous aliases stay unresolved."""
+    """Join supplied query mappings; preserve conflicts and mapping provenance."""
     path=ROOT/'adhesome_network'/code/f'{code}_string_protein_annotations.tsv'
     aliases={}
     if path.exists():
         source=pd.read_csv(path,sep='\t').fillna('')
         aliases=source.set_index('identifier').other_names_and_aliases.to_dict()
+    export=mapping_export(code)
     known=set(candidates.sequence_id)
     rows=[]
     for r in nodes.itertuples():
         direct=code+'__'+r.node
-        matches={code+'__'+token.strip() for token in aliases.get(r.identifier,'').split(',') if code+'__'+token.strip() in known}
-        if direct in known:matches.add(direct)
-        seq=next(iter(matches)) if len(matches)==1 else ''
-        rows.append({'identifier':r.identifier,'sequence_id':seq,'mapping_basis':('Exact node identifier' if seq==direct else 'Exact STRING alias token') if seq else ('Ambiguous alias matches' if matches else 'Unmapped'), 'mapping_candidates':' | '.join(sorted(matches))})
+        exact={code+'__'+token.strip() for token in aliases.get(r.identifier,'').split(',') if code+'__'+token.strip() in known}
+        if direct in known: exact.add(direct)
+        records=export[export.stringId.eq(r.identifier)]
+        supplied={q if q.startswith(code+'__') else code+'__'+q for q in records.queryItem}
+        matches=exact | (supplied & known)
+        # A many-query STRING representative is not a unique catalogue protein,
+        # even if only one query currently occurs in the catalogue.
+        ambiguous=len(matches | supplied)>1
+        seq=next(iter(matches)) if len(matches)==1 and not ambiguous else ''
+        basis=('Supplied STRING query mapping' if seq in supplied else 'Exact node identifier' if seq==direct else 'Exact STRING alias token') if seq else ('Ambiguous mapping; review required' if ambiguous else 'Unmapped')
+        rows.append({'identifier':r.identifier,'sequence_id':seq,'mapping_basis':basis,
+                     'mapping_candidates':' | '.join(sorted(matches | supplied)),
+                     'mapping_source':' | '.join(sorted(set(records.mapping_source))),
+                     'mapping_identity_percent':' | '.join(sorted(set(records.identity))),
+                     'mapping_bitscore':' | '.join(sorted(set(records.bitscore))),
+                     'mapping_query_evidence':'; '.join(f'{x.queryItem}: identity={x.identity}%; bitscore={x.bitscore}' for x in records.itertuples()),
+                     'mapping_review':'Sequence mapping is not orthology or adhesome-membership evidence' if len(records) else 'Exact identifiers only'})
     return pd.DataFrame(rows)
 
 def load_network(code, candidates):
@@ -88,7 +117,7 @@ def network_panel(candidates, key, detailed=False):
             fig.add_trace(go.Scatter(x=group.x_position,y=group.y_position,mode='markers+text' if labels else 'markers',text=group.node,textposition='top center',name=category,marker=dict(size=9+group.filtered_degree.pow(.5)*2,color=group.color.tolist() if color_by=='Original STRING colors' else ('#9aa5ae' if category in ['Unmapped','Unannotated'] else colors[category]),line=dict(color='white',width=1)),customdata=group[['node','identifier','Family','STRING localization','filtered_degree','annotation']].fillna('').values,hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Family: %{customdata[2]}<br>Compartment: %{customdata[3]}<br>Degree: %{customdata[4]}<br>%{customdata[5]}<extra></extra>'))
         fig.update_layout(height=650,paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)',xaxis=dict(visible=False),yaxis=dict(visible=False,autorange='reversed',scaleanchor='x'),margin=dict(l=0,r=0,t=10,b=0),legend=dict(orientation='h',y=-.05),hoverlabel=dict(namelength=-1))
         st.plotly_chart(fig,width='stretch',key=key+'graph',config={'displaylogo':False})
-    st.caption('Positions retain the supplied STRING layout; node size reflects degree after filtering. Family and DeepLoc labels require an exact species-qualified catalogue ID or unique exact STRING alias match. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in hover details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
+    st.caption('Positions retain the supplied STRING layout; node size reflects degree after filtering. Family and DeepLoc labels require a unique supplied STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in hover details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
     if detailed:
         tabs=st.tabs(['Interaction table','Protein table','Functional annotations','Network statistics'])
         with tabs[0]:

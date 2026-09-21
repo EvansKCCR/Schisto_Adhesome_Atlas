@@ -29,10 +29,13 @@ assert result.adhesome_interpretation.startswith('Not established')
 candidates=pd.concat([cohorts['Adhesome candidates'],fn],ignore_index=True)
 nodes,edges,_=assemble(candidates,load_network,.4)
 assert len(nodes)==150 and len(edges)==907
-assert nodes.loc[nodes.species.eq('Shae'),'sequence_id'].eq('').all()
+assert nodes.loc[nodes.species.eq('Shae'),'sequence_id'].ne('').sum()==43
 assert nodes.loc[nodes.species.eq('Sjap'),'sequence_id'].ne('').sum()==52
-assert nodes.loc[nodes.species.eq('Sman'),'sequence_id'].ne('').sum()==28
-assert nodes.orthogroup.ne('').any()
+assert nodes.loc[nodes.species.eq('Sman'),'sequence_id'].ne('').sum()==51
+assert nodes.orthogroup.ne('').sum()==145
+assert nodes.loc[nodes.mapping_basis.str.contains('Ambiguous'),'sequence_id'].eq('').all()
+assert nodes.mapping_basis.str.contains('Ambiguous').sum()==4
+assert nodes.loc[nodes.species.eq('Sman'),'mapping_source'].str.contains('Sjap/Sman_string_mapping.tsv',regex=False).all()
 metrics,graph=topology(nodes,edges)
 rank=prioritize(metrics,graph,nodes)
 assert rank.integrated_score.isna().all()
