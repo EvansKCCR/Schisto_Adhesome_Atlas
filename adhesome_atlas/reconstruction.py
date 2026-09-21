@@ -73,6 +73,18 @@ def assemble(candidates,loader,threshold):
             if field in candidates:
                 summary=candidates.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
                 nodes[field]=nodes.sequence_id.map(summary).fillna('Unmapped')
+        for field in ['domain_architecture','motif_conservation','topology_compatibility','phylogenetic_support','host_divergence']:
+            if field in candidates:
+                values=candidates.groupby('sequence_id')[field].min()
+                nodes[field]=nodes.sequence_id.map(values)
+            basis=field+'_basis'
+            if basis in candidates:
+                values=candidates.groupby('sequence_id')[basis].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
+                nodes[basis]=nodes.sequence_id.map(values).fillna('No unique catalogue mapping')
+        for field in ['motif_hit_details','assignment_evidence_summary']:
+            if field in candidates:
+                values=candidates.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
+                nodes[field]=nodes.sequence_id.map(values).fillna('No unique catalogue mapping')
         frames.append(nodes)
         edges=edges[edges.combined_score.ge(threshold)].copy()
         edges['species']=code
@@ -127,7 +139,12 @@ def prioritize(nodes,graph,all_nodes):
     if 'source_HOG_species_count' in nodes:
         result['conservation']=pd.to_numeric(nodes.source_HOG_species_count,errors='coerce').div(3).where(nodes.orthogroup.ne('')).combine_first(result.conservation)
     result['network_connectivity']=result.identifier.map(nx.degree_centrality(graph))
-    result['host_similarity_flag']='Not assessed'
+    for feature in ['domain_architecture','motif_conservation','topology_compatibility','phylogenetic_support','host_divergence']:
+        if feature in nodes: result[feature]=pd.to_numeric(nodes[feature],errors='coerce').values
+        basis=feature+'_basis'
+        if basis in nodes: result[basis]=nodes[basis].values
+    result['host_similarity_flag']=result.host_divergence.map(lambda x:'Aligned human homologue available' if pd.notna(x) else 'No comparable human alignment')
+
     reviewed=read_optional('candidate_evidence.tsv',['string_id','domain_architecture','motif_conservation','topology_compatibility','phylogenetic_support','host_divergence','host_similarity_flag','reference'])
     if reviewed.string_id.duplicated().any() or not set(reviewed.string_id)<=set(all_nodes.identifier):
         raise ValueError('candidate_evidence.tsv needs unique, known STRING IDs')
@@ -196,15 +213,15 @@ def reconstruction_panel(candidates,loader,key):
         if len(excluded):st.warning(f'{len(excluded)} reference transfers failed the evidence gate.');st.dataframe(excluded)
     with tabs[1]:
         st.caption('Metrics use an undirected, unweighted simple graph after score and relation filtering, retaining isolates. Betweenness is normalized; closeness uses the Wasserman–Faust disconnected-graph correction. Communities use greedy modularity. Cross-species composite centralities depend on the chosen graph size; compare species using the species views. Centrality is not evidence of essentiality.')
-        first=[c for c in ['node','sequence_id','Family','species','identifier','mapping_basis','orthogroup','source_HOG_species_count','layer','layer_basis','degree','betweenness','closeness','community'] if c in metrics]
-        st.dataframe(metrics[first+[c for c in metrics if c not in first]],width='stretch',hide_index=True)
+        first=[c for c in ['node','sequence_id','Family','species','identifier','orthogroup','source_HOG_species_count','layer','degree','betweenness','closeness','community'] if c in metrics]
+        st.dataframe(metrics[first+[c for c in ['motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group','assignment_evidence_summary'] if c in metrics]],width='stretch',hide_index=True)
         st.caption('STRING query mappings retain sequence identity, bit score and source paths. Many-query or conflicting mappings remain unresolved. Orthology and HOG coverage come from the linked candidate workbook.')
         st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='species',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','mapping_basis'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
     with tabs[2]:
         try: ranking=prioritize(metrics,graph,all_nodes)
         except ValueError as exc:st.error(str(exc));ranking=pd.DataFrame()
-        st.caption('Exploratory integrated score = equal-weight mean of seven 0–1 features, calculated only for complete records. Conservation uses source HOG species coverage / 3 where available, otherwise mapped network orthogroup coverage / 3; connectivity is degree centrality. The other five features require cited, reviewed values. Missing values are not zero. The evidence-convergence assessment complements the numerical score. Incomplete records are listed by interface connections, betweenness and degree. Host orthologues flag selectivity review but do not measure sequence similarity or exclude proteins.')
+        st.caption('Workbook domain coverage and topology agreement, aligned motif residue conservation, branch support and aligned host divergence populate the evidence features. Calculation details are retained in the basis columns. Exploratory integrated score = equal-weight mean of seven 0–1 features, calculated only for complete records. Conservation uses source HOG species coverage / 3 where available, otherwise mapped network orthogroup coverage / 3; connectivity is degree centrality. Source-derived values can be overridden by cited curated values. Motif conservation measures aligned peptide residue identity; host divergence is one minus identity to the closest aligned human homologue over paired amino-acid sites. Phylogenetic support uses the smaller SH-aLRT/UFBoot value for the smallest multispecies Schistosoma clade; it is branch support, not an orthology probability. Missing values are not zero. The evidence-convergence assessment complements the numerical score. Incomplete records are listed by interface connections, betweenness and degree. Host orthologues flag selectivity review but do not measure sequence similarity or exclude proteins.')
         st.dataframe(ranking,width='stretch',hide_index=True)
         st.download_button('Download prioritization and missing evidence',ranking.to_csv(index=False),'candidate_prioritization.csv',key=key+'rank_csv')
     with tabs[3]:

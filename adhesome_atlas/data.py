@@ -52,6 +52,9 @@ def load():
         cohorts[label] = annotate(df)
     motifs = pd.concat([books['files/adhesome_candidates_list.xlsx']['MotifScan_hits'].assign(source='files/adhesome_candidates_list.xlsx / MotifScan_hits'),
                         books['files/fibronectin_like_candidate.xlsx']['motif_scan_hits'].assign(source='files/fibronectin_like_candidate.xlsx / motif_scan_hits')], ignore_index=True)
+    from prioritization_evidence import enrich
+    for label in ['Adhesome candidates','FN3 / fibronectin-like review']:
+        cohorts[label] = enrich(cohorts[label], motifs, ROOT)
     sequences, memberships, conflicts = {}, [], []
     for p in (p for p in source_files() if p.suffix == '.fasta'):
         for key, sequence in fasta(p).items():

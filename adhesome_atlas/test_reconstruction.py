@@ -15,10 +15,11 @@ metrics,graph=topology(nodes,edges)
 assert graph.number_of_nodes()==150 and graph.number_of_edges()==907
 assert sum(dict(graph.degree()).values())==1814
 ranking=prioritize(metrics,graph,nodes)
-assert ranking.integrated_score.isna().all()
+assert ranking.integrated_score.notna().any()
+assert ranking.loc[ranking.available_features.lt(7),'integrated_score'].isna().all()
 assert ranking.conservation.notna().any()
 assert nodes.orthogroup.ne('').any()
-assert ranking.host_similarity_flag.eq('Not assessed').all()
+assert ranking.host_similarity_flag.eq('Aligned human homologue available').any()
 
 # A three-node path plus an isolate: center is a bottleneck; isolate stays zero.
 small=pd.DataFrame({'identifier':['a','b','c','d'],'layer':['Membrane','Membrane-proximal','Actin-coupling','Unresolved']})

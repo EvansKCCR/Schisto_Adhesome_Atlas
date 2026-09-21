@@ -11,7 +11,7 @@ cohorts,books,*_=load()
 fn=cohorts['FN3 / fibronectin-like review']
 assert len(fn)==89 and 'Orthogroup' in fn
 assert [fn.loc[fn.priority_group.eq(g),'sequence_id'].nunique() for g in PRIORITIES]==[8,4,10]
-assert fn.adhesome_interpretation.str.startswith('Assignment').all()
+assert fn.adhesome_interpretation.str.startswith(('Integrated assignment:', 'Convergent assignment:')).all()
 assert fn.loc[fn.priority_group.eq(PRIORITIES[2]),'topology_evidence'].str.contains('discordance').any()
 assert len(fn[fn.priority_group.eq('Other / unresolved FN3 candidates')])==67
 
@@ -38,7 +38,8 @@ assert nodes.mapping_basis.str.contains('Ambiguous').sum()==4
 assert nodes.loc[nodes.species.eq('Sman'),'mapping_source'].str.contains('Sjap/Sman_string_mapping.tsv',regex=False).all()
 metrics,graph=topology(nodes,edges)
 rank=prioritize(metrics,graph,nodes)
-assert rank.integrated_score.isna().all()
+assert rank.integrated_score.notna().any()
+assert rank.loc[rank.available_features.lt(7),'integrated_score'].isna().all()
 assert rank.conservation.notna().any()
 assert {'.xml','.all'} <= {p.suffix for p in source_files()}
 
