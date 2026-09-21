@@ -1,0 +1,8 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	76.7/77	8	Cele,Hsap,Shae,Sjap,Sman	Cele__WBGene00002198,Hsap__GeneID_2241,Hsap__GeneID_2242,Shae__MS3_00009762,Sjap__EWB00_003747,Sman__Smp_331960,Sman__Smp_332370,Sman__Smp_335950	15		unrooted split; no ancestry or duplication timing assigned
+B0003	100/100	7	Hsap,Shae,Sjap,Sman	Hsap__GeneID_2241,Hsap__GeneID_2242,Shae__MS3_00009762,Sjap__EWB00_003747,Sman__Smp_331960,Sman__Smp_332370,Sman__Smp_335950	10		unrooted split; no ancestry or duplication timing assigned
+B0004	99.9/100	2	Hsap	Hsap__GeneID_2241,Hsap__GeneID_2242	0		unrooted split; no ancestry or duplication timing assigned
+B0005	99.9/100	5	Shae,Sjap,Sman	Shae__MS3_00009762,Sjap__EWB00_003747,Sman__Smp_331960,Sman__Smp_332370,Sman__Smp_335950	0		unrooted split; no ancestry or duplication timing assigned
+B0006	66.3/37	4	Shae,Sjap,Sman	Shae__MS3_00009762,Sjap__EWB00_003747,Sman__Smp_331960,Sman__Smp_332370	0		unrooted split; no ancestry or duplication timing assigned
+B0007	99.2/53	2	Shae,Sjap	Shae__MS3_00009762,Sjap__EWB00_003747	0		unrooted split; no ancestry or duplication timing assigned
+B0008	73.3/80	2	Sman	Sman__Smp_331960,Sman__Smp_332370	0		unrooted split; no ancestry or duplication timing assigned

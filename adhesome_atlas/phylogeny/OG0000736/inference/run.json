@@ -1,0 +1,93 @@
+{
+  "versions": {
+    "mafft": "v7.526 (2024/Apr/26)\n",
+    "trimal": "\ntrimAl v1.5.rev0 build[2024-05-27]\n\n",
+    "iqtree": "IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Feb 12 2025\nDeveloped by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor, Heiko Schmidt,\nDominik Schrempf, Michael Woodhams, Ly Trong Nhan, Thomas Wong\n\n"
+  },
+  "settings": {
+    "project": "06_phylogenies/all_candidates",
+    "hog": null,
+    "outgroup": [],
+    "threads": 8,
+    "seed": 20260920,
+    "aligner": "linsi",
+    "min_sites": 50,
+    "max_gap": 0.9,
+    "mafft": "mafft",
+    "trimal": "trimal",
+    "iqtree": "iqtree2"
+  },
+  "commands": [
+    [
+      "/home/evans_adu/miniconda3/envs/integrin-phylogeny/bin/mafft",
+      "--amino",
+      "--thread",
+      "8",
+      "--threadit",
+      "0",
+      "--localpair",
+      "--maxiterate",
+      "1000",
+      "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/04_phylogenetic_classification/orthofinder_project/06_phylogenies/all_candidates/OG0000736/members.faa"
+    ],
+    [
+      "/home/evans_adu/miniconda3/envs/integrin-phylogeny/bin/trimal",
+      "-in",
+      "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/04_phylogenetic_classification/orthofinder_project/06_phylogenies/all_candidates/OG0000736/inference/aligned.faa",
+      "-out",
+      "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/04_phylogenetic_classification/orthofinder_project/06_phylogenies/all_candidates/OG0000736/inference/trimmed.faa",
+      "-automated1"
+    ],
+    [
+      "/home/evans_adu/miniconda3/envs/integrin-phylogeny/bin/iqtree2",
+      "-s",
+      "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/04_phylogenetic_classification/orthofinder_project/06_phylogenies/all_candidates/OG0000736/inference/trimmed.faa",
+      "-st",
+      "AA",
+      "-m",
+      "MFP",
+      "-B",
+      "1000",
+      "--alrt",
+      "1000",
+      "-bnni",
+      "-seed",
+      "20260920",
+      "-T",
+      "8",
+      "-keep-ident",
+      "--prefix",
+      "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/04_phylogenetic_classification/orthofinder_project/06_phylogenies/all_candidates/OG0000736/inference/gene_tree"
+    ]
+  ],
+  "status": "complete",
+  "input_hashes": {
+    "duplication_evidence.tsv": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+    "members.faa": "415e2a391804b2d7ab38e897ab398ac22c54977d59899c844f745b19bc50503c",
+    "orthology_edges.tsv": "8cadeadfc9a5b9d78daa856c4d488058a77b99a620bf678e75cb9edf3cefcfff",
+    "tips.tsv": "d37bbf7c26e51b09204ebac6906d8d6d0eefe9761cfc3c86da472d58f3a3699a"
+  },
+  "started_utc": "2026-09-21T01:05:49.691305+00:00",
+  "outputs": {
+    "aligned.faa": "b54e9197917ecb1b947c0de52895a4bdfc8e817f5dba3261b8bcbf8ce0762aad",
+    "alignment_qc.json": "5fa6e4a811866a5a4fe6cccf9f70d7bd5265a09d2bbba36094d26e60fa4d4b29",
+    "branch_evidence.tsv": "67db0d706db12d9f2616656cf2eb913aa6792132e0e0b36e3ad2931766bfa755",
+    "command_1.stderr.log": "8105d1a35526a25cd5feaff33dde786a8f8c51ba893bbb66c58a227d97958826",
+    "command_2.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "command_2.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "command_3.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "command_3.stdout.log": "730bcfe091d67035c5634591f03401e941cfb95c4872fbe3280eb5fa209f16ca",
+    "gene_tree.bionj": "75c234eea6666ab52117c8fb0ff08321d868ab9a63d0d91def8c87bcd99d3bcd",
+    "gene_tree.ckp.gz": "2e21fe48bbaca0af68066bcd0ea8011235cf90abd343ecd4d93e5d51dc92db6a",
+    "gene_tree.contree": "f4557f432777e8a7e8095ca3d37e8ad6d51745c0b762301fff782e4dc9972c86",
+    "gene_tree.iqtree": "830140588a199bd9cc67d9fa2bfe14b69b11e2a997b03a452c8639e0d1d6885c",
+    "gene_tree.log": "730bcfe091d67035c5634591f03401e941cfb95c4872fbe3280eb5fa209f16ca",
+    "gene_tree.mldist": "ef3b721edac9b3d1250c6150e7792d9a9af17334d20ee0ece5efc524d33c6e89",
+    "gene_tree.model.gz": "a40da533275255373b5ff12334c30117197d9c9bdc75e5e88cc1a89d5f746f7b",
+    "gene_tree.splits.nex": "0624807c241e90249ba4ac5ad4a7520d9eb55144f3fde3c8e33c06b0836a7215",
+    "gene_tree.treefile": "446e273002aec24411d9a44f60bcbb79f2eb820cbea8d92a66a0df2a4a730cee",
+    "gene_tree.ufboot": "eaab0e2904bc7f421479860c8ff4ad1d41a85ad468284b47c7f1ae80b091e393",
+    "sequence_qc.tsv": "6c644001e6068f6fdc9c257050dcac89f798e5dc65f274b9b4410db8fb3ea6ad",
+    "trimmed.faa": "adba73b8670da5d188ba111f7349c0aad3664ee8ce2937554060cee7d7c567b0"
+  }
+}
