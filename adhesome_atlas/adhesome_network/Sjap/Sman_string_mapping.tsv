@@ -1,0 +1,56 @@
+#queryIndex	queryItem	stringId	identity	bitscore	preferredName	annotation
+1	Smp_000100	6183.A0A3Q0KB95	100.0	5017.2	A0A3Q0KB95	Filamin.
+2	Smp_006920	6183.A0A3Q0KBZ0	100.0	1182.2	A0A3Q0KBZ0	Tyrosine-protein kinase.
+3	Smp_014780	6183.G4VBW4	100.0	1811.6	Smp_014780.2	Putative alpha-actinin.
+4	Smp_020540	6183.A0A3Q0KD53	100.0	803.1	A0A3Q0KD53	Pinch, putative.
+5	Smp_034550	6183.A0A3Q0KE94	100.0	1814.7	A0A3Q0KE94	Putative alpha-actinin.
+6	Smp_048560	6183.B1AAM6	100.0	1144.0	B1AAM6_SCHMA	LIMPETin; Putative four and A half lim domains.
+7	Smp_053420	6183.G4VRK9	100.0	1716.8	Smp_053420	PH domain-containing protein.
+8	Smp_063040	6183.G4LXV8	100.0	825.5	Smp_063040	Actin-like protein 6, acl6; Belongs to the actin family.
+9	Smp_070640	6183.A0A3Q0KHF0	100.0	2139.4	A0A3Q0KHF0	B41 domain-containing protein.
+10	Smp_072870	6183.G4LW08	100.0	763.8	Smp_072870	Actin, putative; Belongs to the actin family.
+11	Smp_077850	6183.G4VL76	100.0	759.2	Smp_077850	Putative actin; Belongs to the actin family.
+12	Smp_077860	6183.G4VL77	100.0	790.4	Smp_077860	Putative actin; Belongs to the actin family.
+13	Smp_079760	6183.A0A3Q0KIA3	100.0	747.3	A0A3Q0KIA3	Protein kinase.
+14	Smp_086590	6183.G4VGX1	100.0	293.5	Smp_086590	Putative actin-depolymerizing factor; Belongs to the actin-binding proteins ADF family.
+15	Smp_089700	6183.A0A3Q0KIZ6	100.0	1629.8	A0A3Q0KIZ6	Integrin beta; Belongs to the integrin beta chain family.
+16	Smp_093230	6183.G4V8Q5	100.0	826.2	Smp_093230	Actin-related protein 10, arp10; Belongs to the actin family.
+17	Smp_101290	6183.A0A3Q0KJS3	100.0	804.7	A0A3Q0KJS3	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
+18	Smp_120700	6183.G4LX89	100.0	272.3	Smp_120700.1	Cofilin, actophorin, putative; Belongs to the actin-binding proteins ADF family.
+19	Smp_123830	6183.A0A3Q0KKN8	100.0	834.7	A0A3Q0KKN8	Putative collagen alpha-1(V) chain.
+20	Smp_126140	6183.A0A3Q0KL07	100.0	2762.3	A0A3Q0KL07	Alpha integrin receptor 1; Putative integrin alpha; Belongs to the integrin alpha chain family.
+21	Smp_130900	6183.A0A3Q0KLP6	100.0	1720.3	A0A3Q0KLP6	Putative alpha catenin.
+22	Smp_135560	6183.A0A3Q0KME1	100.0	505.8	A0A3Q0KME1	Putative collagen alpha-1(I) chain.
+23	Smp_135570	6183.A0A5K4ENU1	100.0	859.0	A0A5K4ENU1	Actin-like protein.
+24	Smp_136300	6183.A0A3Q0KMQ4	100.0	1211.1	A0A3Q0KMQ4	Tyrosine-protein kinase.
+25	Smp_137610	6183.A0A3Q0KMP3	100.0	2044.2	A0A3Q0KMP3	Tyrosine kinase.
+26	Smp_143130	6183.A0A3Q0KNU4	100.0	561.6	A0A3Q0KNU4	Putative four and A half lim domains.
+27	Smp_148790	6183.G4LWP4	100.0	3190.2	Smp_148790	Laminin beta chain-related.
+28	Smp_157310	6183.A0A3Q0KQT0	100.0	877.9	A0A3Q0KQT0	Putative lim domain.
+29	Smp_159600	6183.A0A5K4EV73	100.0	521.2	A0A5K4EV73	Putative collagen alpha chain.
+30	Smp_164590	6183.A0A3Q0KS63	100.0	611.7	A0A3Q0KS63	Putative collagen alpha-1(V) chain.
+31	Smp_165070	6183.A0A3Q0KRT5	100.0	790.8	A0A3Q0KRT5	LIM domain-containing protein.
+32	Smp_167010	6183.A0A3Q0KS78	100.0	6006.4	A0A3Q0KS78	Putative talin.
+33	Smp_170340	6183.G4V8A8	100.0	520.8	Smp_170340	Putative collagen alpha-1(V) chain.
+34	Smp_172200	6183.A0A3Q0KT01	100.0	1707.6	A0A3Q0KT01	Tyrosine-protein kinase.
+35	Smp_183710	6183.G4VLW1	100.0	766.1	Smp_183710	Putative actin.
+36	Smp_196840	6183.A0A3Q0KUI3	100.0	860.1	A0A3Q0KUI3	Fibrillar collagen NC1 domain-containing protein.
+37	Smp_197370	6183.G4VFE1	100.0	481.1	Smp_197370	Fibrillar collagen NC1 domain-containing protein.
+38	Smp_202970	6183.A0A3Q0KUY4	100.0	779.2	A0A3Q0KUY4	Smp_202970.
+39	Smp_203130	6183.A0A3Q0KUT3	100.0	771.2	A0A3Q0KUT3	Uncharacterized protein.
+40	Smp_210740	6183.A0A3Q0KVF2	100.0	758.8	A0A3Q0KVF2	Prolyl oligopeptidase (S09 family); Belongs to the actin family.
+41	Smp_212730	6183.A0A3Q0KVD3	100.0	1329.3	A0A3Q0KVD3	Tyrosine-protein kinase.
+42	Smp_213900	6183.A0A5K4F2I7	100.0	515.8	A0A5K4F2I7	Uncharacterized protein.
+43	Smp_213910	6183.A0A5K4EZW0	100.0	495.7	A0A5K4EZW0	Uncharacterized protein.
+44	Smp_246050	6183.A0A5K4F2D8	100.0	1692.2	A0A5K4F2D8	Uncharacterized protein.
+45	Smp_248010	6183.A0A5K4F186	100.0	677.6	A0A5K4F186	Uncharacterized protein.
+46	Smp_306600	6183.P53470	100.0	766.5	ACT1_SCHMA	Actin-1; Actins are highly conserved proteins that are involved in various types of cell motility and are ubiquitously expressed in all eukaryotic cells; Belongs to the actin family.
+47	Smp_306910	6183.A0A5K4F4I2	100.0	2618.2	A0A5K4F4I2	Integrin.
+48	Smp_307010	6183.P53471	100.0	767.3	ACT2_SCHMA	Actin-2; Actins are highly conserved proteins that are involved in various types of cell motility and are ubiquitously expressed in all eukaryotic cells; Belongs to the actin family.
+49	Smp_307020	6183.P53471	100.0	767.3	ACT2_SCHMA	Actin-2; Actins are highly conserved proteins that are involved in various types of cell motility and are ubiquitously expressed in all eukaryotic cells; Belongs to the actin family.
+50	Smp_315700	6183.A0A5K4F5L7	100.0	1069.3	A0A5K4F5L7	Uncharacterized protein.
+51	Smp_317420	6183.A0A5K4F492	100.0	4776.8	A0A5K4F492	Filamin-related.
+52	Smp_343540	6183.A0A5K4FCV3	99.9	5051.1	A0A5K4FCV3	Putative talin.
+53	Smp_343650	6183.A0A5K4FDV5	100.0	6971.7	A0A5K4FDV5	Uncharacterized protein.
+54	Smp_343740	6183.A0A5K4FDX2	100.0	464.2	A0A5K4FDX2	Putative collagen alpha-1(V) chain.
+55	Smp_348670	6183.A0A3Q0KBZ0	93.1	1112.4	A0A3Q0KBZ0	Tyrosine-protein kinase.
