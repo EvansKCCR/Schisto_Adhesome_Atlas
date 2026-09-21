@@ -1,11 +1,12 @@
 """Verify every supplied tree and its annotations, plus the explorer controls."""
 import json
 from streamlit.testing.v1 import AppTest
-from phylogeny_view import ROOT, KEEP, read_group, layout, tree_figure, parse_newick
+from phylogeny_view import ROOT, KEEP, read_group, layout, tree_figure, parse_newick, tree_collection
 
 def test_library():
     folders = sorted((ROOT/'phylogeny').glob('OG*'))
-    assert len(folders) == 120
+    assert folders
+    assert any(tree_collection(p) == 'Fibronectin-like' for p in folders)
     for folder in folders:
         assert all((folder/p).is_file() for p in KEEP), folder
         root,tips,branches = read_group(folder)
@@ -23,7 +24,7 @@ def test_library():
     positions,_,leaves = layout(root)
     assert [n.name for n in leaves] == ['tip A','b','c']
     assert positions[leaves[1]][0] == 6
-    print('All 120 trees, tip metadata, branch support and alignment identifiers verified.')
+    print(f'All {len(folders)} trees, tip metadata, branch support and alignment identifiers verified.')
 
 def test_page():
     app = AppTest.from_file(str(ROOT/'app.py'),default_timeout=120).run()
@@ -36,6 +37,13 @@ def test_page():
         checkbox.set_value(not checkbox.value)
     app.run()
     assert not app.exception
+    app.text_input(key='phylo_search').set_value('').run()
+    app.selectbox(key='phylo_collection').set_value('Fibronectin-like').run()
+    assert not app.exception
+    selector = next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup')
+    assert all('Fibronectin-like' in label for label in selector.options)
+    app.text_input(key='phylo_search').set_value('OG0000761').run()
+    assert next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup').value.name == 'OG0000761_fib'
     app.text_input(key='phylo_search').set_value('no_such_tip').run()
     assert not app.exception
     print('Phylogeny page, search, empty results and display controls passed.')

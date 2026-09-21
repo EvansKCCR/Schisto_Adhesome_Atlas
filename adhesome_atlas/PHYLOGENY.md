@@ -4,7 +4,7 @@ Select **Phylogeny** in the atlas. Search by orthogroup or protein ID; these con
 
 The display reads `gene_tree.treefile`, preserves branch lengths and topology, and joins branch evidence by exact descendant-tip sets. Internal support labels are reproduced verbatim. The supplied IQ-TREE reports identify paired labels as SH-aLRT (%) / ultrafast bootstrap (%). The rectangular origin is a drawing convention for these unrooted trees, not an inferred ancestor. The optional cladogram changes only displayed lengths. Phylogeny never independently establishes adhesome membership.
 
-The library contains 120 groups and 990 tips. Each group retains:
+The library currently contains 136 tree runs and 1,167 tips across runs: 120 all-candidate runs and 16 fibronectin-like runs. The collection filter reads `settings.project` from each `run.json`. Runs for the same orthogroup remain separate, including `OG0000761` and `OG0000761_fib`; counts describe tree runs rather than unique orthogroups or unique proteins. Each group retains:
 
 - `tips.tsv`
 - `inference/gene_tree.treefile`

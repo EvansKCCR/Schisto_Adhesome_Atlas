@@ -75,6 +75,15 @@ def read_group(folder):
     branches = pd.read_csv(folder/'inference/branch_evidence.tsv', sep='\t', dtype=str).fillna('')
     return root, tips, branches
 
+def tree_collection(folder):
+    """Use recorded analysis provenance, not candidate names, to group trees."""
+    try:
+        project = json.loads((folder/'inference/run.json').read_text(encoding='utf-8')).get('settings', {}).get('project', '')
+    except (OSError, ValueError):
+        return 'Unclassified runs'
+    project = str(project).replace('\\', '/').rstrip('/').split('/')[-1]
+    return {'fibronectin': 'Fibronectin-like', 'all_candidates': 'All-candidate analysis'}.get(project, 'Unclassified runs')
+
 def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
     positions, descendants, leaves = layout(root, cladogram)
     metadata = tips.set_index('sequence_id').to_dict('index')
@@ -119,12 +128,16 @@ def phylogeny_panel():
     st.write('Inspect gene_tree.treefile with species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
     st.info('The supplied trees are unrooted. The rectangular display uses the Newick serialization origin, not an inferred ancestor. Phylogenetic support alone does not establish adhesome membership; interpret it alongside diagnostic domains, topology/localization and motif context.')
     folders = sorted(p for p in (ROOT/'phylogeny').glob('*') if p.is_dir() and (p/'inference/gene_tree.treefile').exists())
+    collections = {p: tree_collection(p) for p in folders}
+    collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
+    selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
     query = st.text_input('Find an orthogroup or protein', key='phylo_search')
-    options = [p for p in folders if not query or query.lower() in p.name.lower() or query.lower() in (p/'tips.tsv').read_text(encoding='utf-8').lower()]
+    options = [p for p in selected if not query or query.lower() in p.name.lower() or query.lower() in (p/'tips.tsv').read_text(encoding='utf-8').lower()]
     st.caption(f'{len(options)} of {len(folders)} trees · independent of the catalogue sidebar filters')
     if not options:
         st.info('No matching phylogenetic groups.'); return
-    folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:p.name)
+    folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{p.name} · {collections[p]}')
+    st.caption(f'Analysis collection: {collections[folder]} · Source folder: {folder.relative_to(ROOT).as_posix()}')
     try:
         root,tips,branches = read_group(folder)
         run = json.loads((folder/'inference/run.json').read_text(encoding='utf-8'))
