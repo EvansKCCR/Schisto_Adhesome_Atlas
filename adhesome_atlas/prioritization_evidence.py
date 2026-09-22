@@ -50,6 +50,7 @@ def enrich(frame, hits, root):
             ungapped=''.join(a for a in seq if a not in '-.')
             columns=[i for i,a in enumerate(seq) if a not in '-.']
             for hit in by_id[key].itertuples():
+                if getattr(hit,'role','encoded_motif') != 'encoded_motif': continue
                 peptide=str(hit.peptide).upper()
                 if not peptide or peptide=='NAN': continue
                 starts=[m.start() for m in re.finditer('(?='+re.escape(peptide)+')',ungapped)]
@@ -64,15 +65,18 @@ def enrich(frame, hits, root):
                             comparisons.append(sum(other[i]==a for i,a in zip(positions,peptide))/len(peptide))
                     if comparisons: scores.append(sum(comparisons)/len(comparisons))
                 if scores:
-                    motif_scores.setdefault((key,hit.family),[]).append((sum(scores)/len(scores),f'{folder.name}: {hit.elm_class}; uniquely retained peptide {peptide}; mean aligned residue identity across other Schistosoma species'))
+                    motif_scores.setdefault((key,hit.family),[]).append((sum(scores)/len(scores),f'{folder.name}: {getattr(hit,'motif_label',getattr(hit,'elm_class','Motif'))}; uniquely retained peptide {peptide}; mean aligned residue identity across other Schistosoma species'))
     records=[]
     for _,r in out.iterrows():
         key=r.sequence_id
         h=by_id.get(key,pd.DataFrame())
         if len(h) and 'family' in h: h=h[h.family.eq(r.family)]
-        context='; '.join(f'{x.elm_class} {x.start}-{x.end}: {x.context_state}' for x in h.itertuples()) if len(h) else 'No motif hits recorded for this protein-family assignment'
-        states=set(h.context_state.dropna()) if len(h) else set()
-        motif='Region-supported motif' if 'region_supported' in states and not any('outside_expected' in str(s) for s in states) else 'Context conflict reported' if any('outside_expected' in str(s) for s in states) else 'Sequence/window match only; context unresolved' if states else 'No contextual motif support reported'
+        context='; '.join(f'{getattr(x,'motif_label',getattr(x,'elm_class','Motif'))} {x.start}-{x.end}: {x.context_state}' for x in h.itertuples()) if len(h) else 'No motif hits recorded for this protein-family assignment'
+        encoded=h[h.role.eq('encoded_motif')] if len(h) and 'role' in h else h
+        states=set(encoded.context_state.dropna()) if len(encoded) else set()
+        tiers='; '.join(f'{tier}: {count}' for tier,count in h.candidate_tier.value_counts().items()) if len(h) and 'candidate_tier' in h else ''
+
+        motif='Region-supported motif' if 'region_supported' in states and not any('outside_expected' in str(s) for s in states) else 'Context conflict reported' if any('outside_expected' in str(s) for s in states) else 'Review-only motif annotation' if states=={'review_only'} else 'Sequence/window match only; context unresolved' if states else 'No contextual motif support reported'
         domain=pd.to_numeric(r.get('domain_type_fraction'),errors='coerce')
         if pd.isna(domain):
             raw=str(r.get('domain_match','')).lower()
@@ -87,6 +91,9 @@ def enrich(frame, hits, root):
                 record[field]=score; record[field+'_basis']=basis
             else: record[field]=float('nan');record[field+'_basis']=reason
         host=str(r.get('Orthology_Hsap_direct_orthologues',r.get('Hsap_orthologues','')))
+        record['motif_assignment_tiers']=tiers or 'No candidate tiers recorded'
+        record['motif_functional_assignment']=' | '.join(sorted(set(h.functional_hypothesis.dropna().astype(str)))) if len(h) and 'functional_hypothesis' in h else ''
+        record['motif_context_evidence']=tiers if tiers else motif
         record['host_orthology_flag']='Human orthologues: '+host if host and host!='nan' else 'No human orthologue in source orthology results'
         record['priority_group']=r.get('priority_group','')
         if record['priority_group']=='Not in FN3 review collection': record['priority_group']='Adhesome / '+str(r.family)

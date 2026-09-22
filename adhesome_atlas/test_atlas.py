@@ -8,7 +8,7 @@ def main():
     cohorts, books, motifs, sequences, memberships, raw, topology, conflicts = load()
     assert len(cohorts['Adhesome candidates']) == 597
     assert cohorts['All screening hypotheses'].sequence_id.nunique() == 3305
-    assert len(motifs) == 605
+    assert len(motifs) == 406
     assert not conflicts, conflicts
     for label, frame in cohorts.items():
         missing = set(frame.sequence_id)-sequences.keys()

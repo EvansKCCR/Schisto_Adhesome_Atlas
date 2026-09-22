@@ -206,7 +206,7 @@ elif page == 'Protein dossier':
         if 'CDD' in name:
             for _, r in evidence[evidence.sequence_id.eq(key) & evidence['Hit type'].eq('specific')].iterrows():
                 tracks.append(dict(track='CDD · specific', label=r['Short name'], start=r['From'], end=r['To']))
-    tracks.extend(dict(track='Motif · predicted',label=r.elm_class,start=r.start,end=r.end) for r in local_hits.itertuples())
+    tracks.extend(dict(track='Motif · predicted',label=r.motif_label,start=r.start,end=r.end) for r in local_hits.itertuples())
     tracks.extend(dict(track='Topology',label=n,start=s,end=e) for n,s,e in state_intervals(topologies.get(key,'')))
     st.markdown('### Sequence architecture')
     if tracks:
@@ -223,7 +223,7 @@ elif page == 'Protein dossier':
     with tabs[0]:
         table(records.T.reset_index().rename(columns={'index':'field'}).astype(str))
     with tabs[1]:
-        st.caption('Regex motif candidates are not validated binding sites. Review context_state and review_note before interpretation.')
+        st.caption('Motif annotations include candidate tiers, supported and conflicting criteria, functional assignments, partners and primary references. Library confidence and candidate context are shown separately.')
         table(local_hits)
     with tabs[2]:
         for name, evidence in raw.items():
@@ -262,15 +262,15 @@ elif page == 'Motif explorer':
     if hits.empty:
         st.info('No reported motif hits for the selected proteins.')
     else:
-        classes = st.multiselect('ELM classes', sorted(hits.elm_class.unique()))
-        context = st.multiselect('Context states', sorted(hits.context_state.dropna().unique()))
+        classes = st.multiselect('Motif IDs and names', sorted(hits.motif_label.unique()))
+        context = st.multiselect('Candidate assignment tiers', sorted(hits.candidate_tier.dropna().unique()))
         if classes:
-            hits = hits[hits.elm_class.isin(classes)]
+            hits = hits[hits.motif_label.isin(classes)]
         if context:
-            hits = hits[hits.context_state.isin(context)]
+            hits = hits[hits.candidate_tier.isin(context)]
         if not hits.empty:
-            summary = hits.groupby(['elm_class','context_state']).size().reset_index(name='hits')
-            chart(px.bar(summary,x='hits',y='elm_class',color='context_state',color_discrete_sequence=palette,title='Motif candidates and their sequence context'))
+            summary = hits.groupby(['motif_label','candidate_tier']).size().reset_index(name='hits')
+            chart(px.bar(summary,x='hits',y='motif_label',color='candidate_tier',color_discrete_sequence=palette,title='Motif annotations by candidate assignment tier'))
         table(hits)
         download(hits, 'motif_candidates.csv')
 

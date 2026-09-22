@@ -50,8 +50,25 @@ def load():
         if 'Pfam_architecture' in df:
             df['architecture'] = df.Pfam_architecture
         cohorts[label] = annotate(df)
-    motifs = pd.concat([books['files/adhesome_candidates_list.xlsx']['MotifScan_hits'].assign(source='files/adhesome_candidates_list.xlsx / MotifScan_hits'),
-                        books['files/fibronectin_like_candidate.xlsx']['motif_scan_hits'].assign(source='files/fibronectin_like_candidate.xlsx / motif_scan_hits')], ignore_index=True)
+    motif_frames=[]
+    for workbook, choices in [('files/adhesome_candidates_list.xlsx',['Motif_annotations','MotifScan_hits']),
+                              ('files/fibronectin_like_candidate.xlsx',['motif_scan_hits','Motif_annotations'])]:
+        sheet=next((name for name in choices if name in books[workbook]),None)
+        if sheet is None: raise ValueError(f'{workbook}: motif annotation worksheet missing')
+        annotations=books[workbook][sheet].copy()
+        annotations['source']=workbook+' / '+sheet
+        if 'motif_id' in annotations:
+            annotations['motif_label']=annotations.motif_id.fillna('')+' · '+annotations.motif_name.fillna('')
+            annotations['context_state']=annotations.candidate_tier.map({
+                'context_supported_candidate':'region_supported',
+                'context_conflict':'outside_expected_region',
+                'sequence_only_candidate':'sequence_only',
+                'review_only':'review_only'}).fillna(annotations.candidate_tier)
+        else:
+            annotations['motif_label']=annotations.elm_class
+            annotations['candidate_tier']=annotations.context_state
+        motif_frames.append(annotations)
+    motifs=pd.concat(motif_frames,ignore_index=True)
     from prioritization_evidence import enrich
     for label in ['Adhesome candidates','FN3 / fibronectin-like review']:
         cohorts[label] = enrich(cohorts[label], motifs, ROOT)

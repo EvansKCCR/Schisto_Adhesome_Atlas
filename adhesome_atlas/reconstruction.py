@@ -81,7 +81,7 @@ def assemble(candidates,loader,threshold):
             if basis in candidates:
                 values=candidates.groupby('sequence_id')[basis].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
                 nodes[basis]=nodes.sequence_id.map(values).fillna('No unique catalogue mapping')
-        for field in ['motif_hit_details','assignment_evidence_summary']:
+        for field in ['motif_hit_details','motif_assignment_tiers','motif_functional_assignment','assignment_evidence_summary']:
             if field in candidates:
                 values=candidates.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
                 nodes[field]=nodes.sequence_id.map(values).fillna('No unique catalogue mapping')
@@ -214,7 +214,7 @@ def reconstruction_panel(candidates,loader,key):
     with tabs[1]:
         st.caption('Metrics use an undirected, unweighted simple graph after score and relation filtering, retaining isolates. Betweenness is normalized; closeness uses the Wasserman–Faust disconnected-graph correction. Communities use greedy modularity. Cross-species composite centralities depend on the chosen graph size; compare species using the species views. Centrality is not evidence of essentiality.')
         first=[c for c in ['node','sequence_id','Family','species','identifier','orthogroup','source_HOG_species_count','layer','degree','betweenness','closeness','community'] if c in metrics]
-        st.dataframe(metrics[first+[c for c in ['motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group','assignment_evidence_summary'] if c in metrics]],width='stretch',hide_index=True)
+        st.dataframe(metrics[first+[c for c in ['motif_context_evidence','motif_functional_assignment','adhesome_interpretation','host_orthology_flag','priority_group','assignment_evidence_summary'] if c in metrics]],width='stretch',hide_index=True)
         st.caption('STRING query mappings retain sequence identity, bit score and source paths. Many-query or conflicting mappings remain unresolved. Orthology and HOG coverage come from the linked candidate workbook.')
         st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='species',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','mapping_basis'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
