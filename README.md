@@ -10,7 +10,7 @@ The repository supports the generation of an interactive adhesome atlas that con
 
 The final adhesome dataset has been integrated into an interactive Streamlit application:
 
-**Atlas:** https://thesis-h5trcx3waczuh7mvz5l7af.streamlit.app/
+**Atlas:** https://schistoadhesomeatlas-u8uiyupvejqlmumglumgsl.streamlit.app/
 
 The atlas provides:
 
