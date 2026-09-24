@@ -13,7 +13,7 @@ def read_collection(folder):
     return tuple(pd.read_csv(folder/name,sep='\t',dtype=str).fillna('') for name in ['candidate_report.tsv','candidate_HOGs.tsv','direct_orthologues.tsv'])
 
 
-def orthology_panel():
+def orthology_panel(candidates=None):
     st.header('Orthology')
     st.write('Explore evolutionary relationships, reference orthologues and gene-family copy counts across eight species.')
     st.caption('References: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758). Controls here are independent of the catalogue sidebar filters.')
@@ -23,6 +23,17 @@ def orthology_panel():
     labels={'adhesome_candidates_list':'Adhesome candidates','fibronectin_like_candidate':'Fibronectin-like candidates'}
     folder=st.selectbox('Orthology collection',folders,format_func=lambda p:labels.get(p.name,p.name),key='orthology_collection')
     report,hogs,direct=read_collection(folder)
+    if candidates is not None and {'sequence_id','family','source'} <= set(candidates):
+        subset=candidates[candidates.source.str.contains(folder.name,regex=False,na=False)]
+        families=subset.groupby('sequence_id').family.agg(lambda values:' | '.join(sorted(set(values.dropna()))))
+        report['family']=report.candidate_id.map(families).fillna('Unassigned family')
+    else:
+        report['family']='Unassigned family'
+    grouping=ROOT/'phylogeny_family_groups.tsv'
+    if grouping.exists():
+        curated=pd.read_csv(grouping,sep='\t')
+        labels_by_og=curated.groupby('orthogroup').family.agg(lambda values:' | '.join(sorted(set(values))))
+        report['family']=report.Orthogroup.map(labels_by_og).fillna(report.family)
     annotations=identifier_annotations()
     lookup={key:key.split('__')[0]+'__'+row.protein_annotation_id for key,row in annotations.iterrows() if row.protein_annotation_id}
     def display_ids(frame):
@@ -33,9 +44,12 @@ def orthology_panel():
     st.caption('Protein accessions are displayed using identifier maps. Original gene IDs remain available in the source downloads; search accepts either identifier.')
 
     species=st.multiselect('Candidate species',['Shae','Sjap','Sman'],default=['Shae','Sjap','Sman'],format_func=NAMES.get,key='orthology_species')
+    families=sorted({family for value in report.family for family in value.split(' | ')})
+    family=st.selectbox('Protein family',['All families']+families,key='orthology_family')
     scope=st.multiselect('Evolutionary scope',sorted(report.HOG_status.unique()),key='orthology_scope')
     query=st.text_input('Find a candidate, reference protein or orthogroup',key='orthology_search')
     selected=report[report.candidate_id.str.split('__').str[0].isin(species)].copy()
+    if family!='All families': selected=selected[selected.family.map(lambda value:family in value.split(' | '))]
     if scope: selected=selected[selected.HOG_status.isin(scope)]
     if query: selected=selected[selected.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1) | display_ids(selected).apply(lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
     selected_hogs=hogs[hogs.Orthogroup.isin(set(selected.Orthogroup)-{''})]
@@ -45,6 +59,10 @@ def orthology_panel():
     st.caption('Relationship records may contain multiple orthologue IDs; they are not individual protein-pair counts. Copy counts describe all members of each selected orthogroup, including non-candidates.')
     tabs=st.tabs(['Summary','Candidate assignments','Orthogroup membership','Direct orthologues','Provenance & downloads'])
     with tabs[0]:
+        if family!='All families' and not selected.empty:
+            st.subheader('Family orthogroups')
+            family_members=selected.groupby('Orthogroup').candidate_id.agg(lambda values:', '.join(sorted(set(values)))).reset_index(name='Candidate proteins')
+            st.dataframe(display_ids(family_members),width='stretch',hide_index=True)
         if selected.empty: st.info('No candidates match these filters.')
         else:
             summary=selected.assign(species=selected.candidate_id.str.split('__').str[0].map(NAMES)).groupby(['species','HOG_status']).candidate_id.nunique().reset_index(name='Candidates')

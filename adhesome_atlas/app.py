@@ -131,7 +131,7 @@ if page == 'Introduction':
         st.info('Prototype image unavailable. Include Prototype_schistosome_integrin_adhesome.png alongside app.py.')
 
 elif page == 'Orthology':
-    orthology_panel()
+    orthology_panel(network_candidates)
 
 elif page == 'Phylogeny':
     phylogeny_panel(network_candidates)
