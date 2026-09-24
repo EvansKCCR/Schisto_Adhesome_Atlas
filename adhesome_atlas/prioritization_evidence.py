@@ -32,7 +32,7 @@ def enrich(frame, hits, root):
                 paired=[(a,b) for a,b in zip(seq,other) if a in 'ACDEFGHIKLMNPQRSTVWY' and b in 'ACDEFGHIKLMNPQRSTVWY']
                 if paired:
                     score=sum(a!=b for a,b in paired)/len(paired)
-                    divergence.setdefault(key,[]).append((score,f'{folder.relative_to(root/'phylogeny').as_posix()}: {host}; {len(paired)} paired amino-acid sites'))
+                    divergence.setdefault(key,[]).append((score,f'{folder.relative_to(root/'Phylogeny').as_posix()}: {host}; {len(paired)} paired amino-acid sites'))
             eligible=[]
             for row in branches.itertuples():
                 tips=row.tip_ids.split(',')
