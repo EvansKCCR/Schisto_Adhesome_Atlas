@@ -1,0 +1,5 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	97.6/99	5	Shae,Sjap,Sman,Xlae	Shae__MS3_00010678,Sjap__EWB00_008932,Sman__Smp_346490,Xlae__GeneID_108698255,Xlae__GeneID_414527	2		unrooted split; no ancestry or duplication timing assigned
+B0003	99.1/95	4	Shae,Sjap,Sman,Xlae	Shae__MS3_00010678,Sjap__EWB00_008932,Sman__Smp_346490,Xlae__GeneID_108698255	1		unrooted split; no ancestry or duplication timing assigned
+B0004	99.8/100	3	Shae,Sjap,Sman	Shae__MS3_00010678,Sjap__EWB00_008932,Sman__Smp_346490	0		unrooted split; no ancestry or duplication timing assigned
+B0005	98.2/97	2	Shae,Sman	Shae__MS3_00010678,Sman__Smp_346490	0		unrooted split; no ancestry or duplication timing assigned

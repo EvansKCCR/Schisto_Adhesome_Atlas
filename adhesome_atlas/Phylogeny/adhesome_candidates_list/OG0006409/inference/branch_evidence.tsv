@@ -1,0 +1,5 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	97.7/100	3	Hsap,Mmus,Xlae	Hsap__GeneID_8558,Mmus__GeneID_234854,Xlae__GeneID_100036925	0		unrooted split; no ancestry or duplication timing assigned
+B0003	96.7/100	2	Hsap,Mmus	Hsap__GeneID_8558,Mmus__GeneID_234854	0		unrooted split; no ancestry or duplication timing assigned
+B0004	100/100	3	Shae,Sjap,Sman	Shae__MS3_00002179,Sjap__EWB00_003234,Sman__Smp_103950	0		unrooted split; no ancestry or duplication timing assigned
+B0005	44.8/72	2	Shae,Sman	Shae__MS3_00002179,Sman__Smp_103950	0		unrooted split; no ancestry or duplication timing assigned
