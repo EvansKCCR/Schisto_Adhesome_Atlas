@@ -71,7 +71,7 @@ def layout(root, cladogram=False):
 
 def discover_trees(root=ROOT):
     """Discover tree files by name; report incomplete runs instead of hiding them."""
-    base=root/'phylogeny'
+    base=root/'Phylogeny'
     trees=sorted(p for p in base.rglob('gene_tree.treefile') if p.is_file())
     folders=[]; incomplete=[]
     for tree in trees:
