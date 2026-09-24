@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from data import ROOT
+from family_merges import atlas_group, merge_memberships
 from identifier_labels import identifier_annotations
 import re
 from phylogeny_view import NAMES
@@ -54,6 +55,10 @@ def orthology_panel(candidates=None):
     if query: selected=selected[selected.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1) | display_ids(selected).apply(lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
     selected_hogs=hogs[hogs.Orthogroup.isin(set(selected.Orthogroup)-{''})]
     selected_direct=direct[direct.candidate_id.isin(selected.candidate_id)]
+    selected['Source orthogroup']=selected.Orthogroup
+    selected['Orthogroup']=selected.Orthogroup.map(atlas_group)
+    selected_hogs=merge_memberships(selected_hogs)
+    st.caption('Integrin alpha combines OG0000401 and OG0001220 as one atlas family group. Source orthogroup IDs remain in the tables; reference relationships retain their original assignments.')
     for col,label,value in zip(st.columns(4),['Candidates','Mapped candidates','Orthogroups','Reference relationship records'],[selected.candidate_id.nunique(),selected.loc[selected.mapping_status.eq('matched'),'candidate_id'].nunique(),selected_hogs.Orthogroup.nunique(),len(selected_direct)]):
         col.metric(label,value)
     st.caption('Relationship records may contain multiple orthologue IDs; they are not individual protein-pair counts. Copy counts describe all members of each selected orthogroup, including non-candidates.')

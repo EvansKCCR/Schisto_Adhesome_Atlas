@@ -10,6 +10,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 from data import ROOT
+from family_merges import atlas_group
 from identifier_labels import annotate_tips, identifier_annotations
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
@@ -239,8 +240,21 @@ def phylogeny_panel(candidates=None):
 
     if not options:
         st.info('No matching phylogenetic groups.'); return
-    folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{" / ".join(info[p]["families"])} · {p.name} · {collections[p]}')
-    st.caption(f'Analysis collection: {collections[folder]} · Source folder: {folder.relative_to(ROOT).as_posix()}')
+    grouped={}
+    for p in options:
+        grouped.setdefault((collections[p],atlas_group(info[p]['orthogroup'])),[]).append(p)
+    chosen=st.selectbox('Phylogenetic orthogroup',list(grouped),format_func=lambda value:f'{value[1]} · {value[0]}')
+    members=grouped[chosen]
+    if len(members)>1:
+        st.subheader('Integrin α · combined family group')
+        st.caption('Both source trees are shown below as one browsing group. Branch lengths and support remain specific to each original tree; no connecting branch is inferred.')
+    for folder in members:
+        if len(members)>1: st.subheader(folder.name)
+        render_tree_run(folder,collections[folder])
+
+
+def render_tree_run(folder,collection):
+    st.caption(f'Analysis collection: {collection} · Source folder: {folder.relative_to(ROOT).as_posix()}')
     export_name=folder.relative_to(phylogeny_root(ROOT)).as_posix().replace('/','_')
     try:
         root,tips,branches = read_group(folder)
@@ -249,23 +263,23 @@ def phylogeny_panel(candidates=None):
         st.error(f'Unable to read this phylogeny: {exc}'); return
     a,b,c = st.columns(3)
     a.metric('Tree tips',len(layout(root)[2])); b.metric('Candidate tips',tips.candidate.eq('1').sum()); c.metric('Species',tips.species.nunique())
-    supports = st.checkbox('Show branch support labels',value=True)
-    cladogram = st.checkbox('Equal branch lengths (cladogram)',value=False)
-    focus = st.text_input('Highlight a tip ID',key='phylo_focus')
+    supports = st.checkbox('Show branch support labels',value=True,key=export_name+'_supports')
+    cladogram = st.checkbox('Equal branch lengths (cladogram)',value=False,key=export_name+'_cladogram')
+    focus = st.text_input('Highlight a tip ID',key=export_name+'_focus')
     fig,matched = tree_figure(root,tips,branches,supports,cladogram,focus)
     report = companion_path(folder,'inference/gene_tree.iqtree').read_text(encoding='utf-8')
     if 'SH-aLRT support (%) / ultrafast bootstrap support (%)' in report:
         st.caption('Support labels: SH-aLRT (%) / ultrafast bootstrap (%), as documented in gene_tree.iqtree. Neither value is a probability of adhesome membership.')
     else:
         st.caption('Support labels are reproduced verbatim; consult the IQ-TREE report for their definition.')
-    st.plotly_chart(fig,width='stretch',config={'scrollZoom':True,'displaylogo':False})
+    st.plotly_chart(fig,width='stretch',config={'scrollZoom':True,'displaylogo':False},key=export_name+'_plot')
     if len(matched) != len(branches):
         st.warning(f'{len(branches)-len(matched)} branch-evidence rows could not be joined to the displayed tree; see the original table below.')
-    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{export_name}_tree.html','text/html')
+    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{export_name}_tree.html','text/html',key=export_name+'_html')
     tabs = st.tabs(['Tip annotations','Branch evidence','Reproducibility'])
     with tabs[0]:
         st.dataframe(tips[['display_label','protein_annotation_id']+[c for c in tips if c not in ['display_label','protein_annotation_id']]],width='stretch',hide_index=True)
-        st.download_button('Download mapped tip annotations',tips.to_csv(index=False),export_name+'_mapped_tips.csv','text/csv')
+        st.download_button('Download mapped tip annotations',tips.to_csv(index=False),export_name+'_mapped_tips.csv','text/csv',key=export_name+'_tips')
     with tabs[1]:
         display_branches=branches.copy()
         labels=tips.set_index('sequence_id').display_label.to_dict()
@@ -282,5 +296,5 @@ def phylogeny_panel(candidates=None):
                 path = companion_path(folder,relative)
                 if path.exists():
                     archive.write(path,f'{export_name}/{relative}')
-                    st.download_button(f'Download {path.name}',path.read_bytes(),path.name,key=f'phylo_{relative}')
+                    st.download_button(f'Download {path.name}',path.read_bytes(),path.name,key=f'{export_name}_{relative}')
         st.download_button('Download tree and companions · ZIP',bundle.getvalue(),f'{export_name}_phylogeny.zip','application/zip')

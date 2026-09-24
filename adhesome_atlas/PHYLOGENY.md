@@ -42,3 +42,6 @@ The Phylogeny page defaults to Protein family browsing, with Functional module a
 
 
 Src, FAK and ILK are independent browsing families, using resolved workbook assignments: Src OG0000213/OG0001055/OG0003193; FAK OG0002086; ILK OG0003976. Other kinase screening rows without resolved assignment appear under Unassigned kinase candidates. Classification is applied to the matching family rows, excluding cross-family screening hypotheses. Classification offers Supported, Provisional and All (default). It uses original catalogue status (`supported candidate`/`supported`, or `provisional`), within the selected collection. A run is included if it has a matching assignment; complete trees remain intact. Mixed-status runs may occur in both subsets. The group inventory reports the selected source classifications.
+
+
+Integrin alpha OG0000401 and OG0001220 are combined into one atlas display group in Orthology and the phylogenetic group selector. Orthology membership unions unique identifiers and preserves source group IDs. Phylogeny renders both original trees under the one selected group, without introducing an artificial connecting branch. Original files and orthology relationships are unchanged.
