@@ -1,9 +1,0 @@
-branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
-B0002	12.3/39	9	Shae,Sjap,Sman	Shae__MS3_00002992,Shae__MS3_00008992,Shae__MS3_00011110,Sjap__EWB00_004506,Sjap__EWB00_004507,Sjap__EWB00_006350,Sman__Smp_133490,Sman__Smp_134260,Sman__Smp_347000	0		unrooted split; no ancestry or duplication timing assigned
-B0003	100/100	3	Shae,Sjap,Sman	Shae__MS3_00002992,Sjap__EWB00_006350,Sman__Smp_134260	0		unrooted split; no ancestry or duplication timing assigned
-B0004	97.9/100	2	Shae,Sman	Shae__MS3_00002992,Sman__Smp_134260	0		unrooted split; no ancestry or duplication timing assigned
-B0005	99.9/100	6	Shae,Sjap,Sman	Shae__MS3_00008992,Shae__MS3_00011110,Sjap__EWB00_004506,Sjap__EWB00_004507,Sman__Smp_133490,Sman__Smp_347000	0		unrooted split; no ancestry or duplication timing assigned
-B0006	99.6/100	3	Shae,Sjap,Sman	Shae__MS3_00008992,Sjap__EWB00_004506,Sman__Smp_347000	0		unrooted split; no ancestry or duplication timing assigned
-B0007	79/78	2	Shae,Sjap	Shae__MS3_00008992,Sjap__EWB00_004506	0		unrooted split; no ancestry or duplication timing assigned
-B0008	98.2/100	3	Shae,Sjap,Sman	Shae__MS3_00011110,Sjap__EWB00_004507,Sman__Smp_133490	0		unrooted split; no ancestry or duplication timing assigned
-B0009	3.9/51	2	Shae,Sman	Shae__MS3_00011110,Sman__Smp_133490	0		unrooted split; no ancestry or duplication timing assigned

@@ -1,3 +1,0 @@
-branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
-B0002	98.9/100	3	Shae,Sjap,Sman	Shae__MS3_00007430,Sjap__EWB00_006002,Sman__Smp_093230	0		unrooted split; no ancestry or duplication timing assigned
-B0003	51/74	2	Shae,Sman	Shae__MS3_00007430,Sman__Smp_093230	0		unrooted split; no ancestry or duplication timing assigned
