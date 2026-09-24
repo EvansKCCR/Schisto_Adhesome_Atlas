@@ -1,0 +1,13 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	45.8/58	11	Dmel,Hsap,Mmus,Xlae	Dmel__GeneID_34068,Hsap__GeneID_22798,Hsap__GeneID_3912,Hsap__GeneID_3913,Mmus__GeneID_16777,Mmus__GeneID_16779,Xlae__GeneID_108711178,Xlae__GeneID_108711179,Xlae__GeneID_108713081,Xlae__GeneID_108715891,Xlae__GeneID_494988	0		unrooted split; no ancestry or duplication timing assigned
+B0003	100/100	10	Hsap,Mmus,Xlae	Hsap__GeneID_22798,Hsap__GeneID_3912,Hsap__GeneID_3913,Mmus__GeneID_16777,Mmus__GeneID_16779,Xlae__GeneID_108711178,Xlae__GeneID_108711179,Xlae__GeneID_108713081,Xlae__GeneID_108715891,Xlae__GeneID_494988	0		unrooted split; no ancestry or duplication timing assigned
+B0004	100/100	2	Hsap,Xlae	Hsap__GeneID_22798,Xlae__GeneID_108711178	0		unrooted split; no ancestry or duplication timing assigned
+B0005	99.8/99	8	Hsap,Mmus,Xlae	Hsap__GeneID_3912,Hsap__GeneID_3913,Mmus__GeneID_16777,Mmus__GeneID_16779,Xlae__GeneID_108711179,Xlae__GeneID_108713081,Xlae__GeneID_108715891,Xlae__GeneID_494988	0		unrooted split; no ancestry or duplication timing assigned
+B0006	100/100	4	Hsap,Mmus,Xlae	Hsap__GeneID_3912,Mmus__GeneID_16777,Xlae__GeneID_108711179,Xlae__GeneID_108713081	0		unrooted split; no ancestry or duplication timing assigned
+B0007	100/100	2	Hsap,Mmus	Hsap__GeneID_3912,Mmus__GeneID_16777	0		unrooted split; no ancestry or duplication timing assigned
+B0008	100/100	2	Xlae	Xlae__GeneID_108711179,Xlae__GeneID_108713081	0		unrooted split; no ancestry or duplication timing assigned
+B0009	100/100	4	Hsap,Mmus,Xlae	Hsap__GeneID_3913,Mmus__GeneID_16779,Xlae__GeneID_108715891,Xlae__GeneID_494988	0		unrooted split; no ancestry or duplication timing assigned
+B0010	100/100	2	Hsap,Mmus	Hsap__GeneID_3913,Mmus__GeneID_16779	0		unrooted split; no ancestry or duplication timing assigned
+B0011	100/100	2	Xlae	Xlae__GeneID_108715891,Xlae__GeneID_494988	0		unrooted split; no ancestry or duplication timing assigned
+B0012	100/100	3	Shae,Sjap,Sman	Shae__MS3_00000487,Sjap__EWB00_002741,Sman__Smp_148790	0		unrooted split; no ancestry or duplication timing assigned
+B0013	91/90	2	Shae,Sman	Shae__MS3_00000487,Sman__Smp_148790	0		unrooted split; no ancestry or duplication timing assigned
