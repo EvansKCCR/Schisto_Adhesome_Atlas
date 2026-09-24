@@ -1,0 +1,285 @@
+candidate_id	reference_species	orthologues	relationship	source_group_size	target_group_size	source_file
+Shae__MS3_00009815	Cele	Cele__WBGene00009717, Cele__WBGene00010558, Cele__WBGene00021314	one-to-many	1	3	Orthologues/Cele.tsv
+Shae__MS3_00002673	Cele	Cele__WBGene00001000, Cele__WBGene00003860, Cele__WBGene00003861, Cele__WBGene00019727	one-to-many	1	4	Orthologues/Cele.tsv
+Shae__MS3_00007710	Cele	Cele__WBGene00004729	many-to-one	2	1	Orthologues/Cele.tsv
+Shae__MS3_00004868	Cele	Cele__WBGene00004729	many-to-one	2	1	Orthologues/Cele.tsv
+Shae__MS3_00010198	Cele	Cele__WBGene00002243, Cele__WBGene00004732, Cele__WBGene00023520	many-to-many	3	3	Orthologues/Cele.tsv
+Shae__MS3_00011072	Cele	Cele__WBGene00002243, Cele__WBGene00004732, Cele__WBGene00023520	many-to-many	3	3	Orthologues/Cele.tsv
+Shae__MS3_00003925	Cele	Cele__WBGene00016354	one-to-one	1	1	Orthologues/Cele.tsv
+Shae__MS3_00002886	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00000599	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00004247	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00009248	Cele	Cele__WBGene00004214	many-to-one	2	1	Orthologues/Cele.tsv
+Shae__MS3_00010503	Cele	Cele__WBGene00007944	one-to-one	1	1	Orthologues/Cele.tsv
+Shae__MS3_00006710	Cele	Cele__WBGene00002181	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00006969	Cele	Cele__WBGene00002181	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00010433	Cele	Cele__WBGene00002181	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00001233	Cele	Cele__WBGene00006981, Cele__WBGene00017184	one-to-many	1	2	Orthologues/Cele.tsv
+Shae__MS3_00001568	Cele	Cele__WBGene00007750	many-to-one	2	1	Orthologues/Cele.tsv
+Shae__MS3_00006635	Cele	Cele__WBGene00007750	many-to-one	2	1	Orthologues/Cele.tsv
+Shae__MS3_00001541	Cele	Cele__WBGene00016539	one-to-one	1	1	Orthologues/Cele.tsv
+Shae__MS3_00009394	Cele	Cele__WBGene00018215	many-to-one	3	1	Orthologues/Cele.tsv
+Shae__MS3_00005143	Cele	Cele__WBGene00006759	one-to-one	1	1	Orthologues/Cele.tsv
+Sjap__EWB00_002123	Cele	Cele__WBGene00009717, Cele__WBGene00010558, Cele__WBGene00021314	one-to-many	1	3	Orthologues/Cele.tsv
+Sjap__EWB00_002236	Cele	Cele__WBGene00004729	many-to-one	2	1	Orthologues/Cele.tsv
+Sjap__EWB00_006149	Cele	Cele__WBGene00002243, Cele__WBGene00004732, Cele__WBGene00023520	many-to-many	2	3	Orthologues/Cele.tsv
+Sjap__EWB00_009360	Cele	Cele__WBGene00016354	one-to-one	1	1	Orthologues/Cele.tsv
+Sjap__EWB00_000603	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Sjap__EWB00_009052	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Sjap__EWB00_003964	Cele	Cele__WBGene00000898	many-to-one	2	1	Orthologues/Cele.tsv
+Sjap__EWB00_006448	Cele	Cele__WBGene00007944	one-to-one	1	1	Orthologues/Cele.tsv
+Sjap__EWB00_003810	Cele	Cele__WBGene00002181	many-to-one	4	1	Orthologues/Cele.tsv
+Sjap__EWB00_010663	Cele	Cele__WBGene00002181	many-to-one	4	1	Orthologues/Cele.tsv
+Sjap__EWB00_002345	Cele	Cele__WBGene00002181	many-to-one	4	1	Orthologues/Cele.tsv
+Sjap__EWB00_003808	Cele	Cele__WBGene00002181	many-to-one	4	1	Orthologues/Cele.tsv
+Sjap__EWB00_002463	Cele	Cele__WBGene00006981, Cele__WBGene00017184	one-to-many	1	2	Orthologues/Cele.tsv
+Sjap__EWB00_006815	Cele	Cele__WBGene00007750	many-to-one	3	1	Orthologues/Cele.tsv
+Sjap__EWB00_004279	Cele	Cele__WBGene00007750	many-to-one	3	1	Orthologues/Cele.tsv
+Sjap__EWB00_004250	Cele	Cele__WBGene00016539	one-to-one	1	1	Orthologues/Cele.tsv
+Sjap__EWB00_005094	Cele	Cele__WBGene00018215	many-to-one	2	1	Orthologues/Cele.tsv
+Sjap__EWB00_011116	Cele	Cele__WBGene00006759	one-to-one	1	1	Orthologues/Cele.tsv
+Sman__Smp_152750	Cele	Cele__WBGene00009717, Cele__WBGene00010558, Cele__WBGene00021314	one-to-many	1	3	Orthologues/Cele.tsv
+Sman__Smp_303910	Cele	Cele__WBGene00001000, Cele__WBGene00003860, Cele__WBGene00003861, Cele__WBGene00019727	one-to-many	1	4	Orthologues/Cele.tsv
+Sman__Smp_204750	Cele	Cele__WBGene00004729	many-to-one	2	1	Orthologues/Cele.tsv
+Sman__Smp_024660	Cele	Cele__WBGene00004729	many-to-one	2	1	Orthologues/Cele.tsv
+Sman__Smp_148020	Cele	Cele__WBGene00002243, Cele__WBGene00004732, Cele__WBGene00023520	many-to-many	3	3	Orthologues/Cele.tsv
+Sman__Smp_176350	Cele	Cele__WBGene00016354	one-to-one	1	1	Orthologues/Cele.tsv
+Sman__Smp_244080	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Sman__Smp_344760	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Sman__Smp_342880	Cele	Cele__WBGene00004215	many-to-one	3	1	Orthologues/Cele.tsv
+Sman__Smp_266820	Cele	Cele__WBGene00007944	one-to-one	1	1	Orthologues/Cele.tsv
+Sman__Smp_159450	Cele	Cele__WBGene00002181	many-to-one	3	1	Orthologues/Cele.tsv
+Sman__Smp_311870	Cele	Cele__WBGene00002181	many-to-one	3	1	Orthologues/Cele.tsv
+Sman__Smp_346250	Cele	Cele__WBGene00002181	many-to-one	3	1	Orthologues/Cele.tsv
+Sman__Smp_171460	Cele	Cele__WBGene00006981, Cele__WBGene00017184	one-to-many	1	2	Orthologues/Cele.tsv
+Sman__Smp_132700	Cele	Cele__WBGene00007750	many-to-one	2	1	Orthologues/Cele.tsv
+Sman__Smp_130070	Cele	Cele__WBGene00007750	many-to-one	2	1	Orthologues/Cele.tsv
+Sman__Smp_332470	Cele	Cele__WBGene00016539	one-to-one	1	1	Orthologues/Cele.tsv
+Sman__Smp_181250	Cele	Cele__WBGene00018215	many-to-one	2	1	Orthologues/Cele.tsv
+Sman__Smp_126240	Cele	Cele__WBGene00006759	one-to-one	1	1	Orthologues/Cele.tsv
+Shae__MS3_00009815	Dmel	Dmel__GeneID_31425, Dmel__GeneID_32115, Dmel__GeneID_32975, Dmel__GeneID_32976, Dmel__GeneID_43469	one-to-many	1	5	Orthologues/Dmel.tsv
+Shae__MS3_00002673	Dmel	Dmel__GeneID_38384	one-to-one	1	1	Orthologues/Dmel.tsv
+Shae__MS3_00007710	Dmel	Dmel__GeneID_33314, Dmel__GeneID_37603, Dmel__GeneID_44522	many-to-many	2	3	Orthologues/Dmel.tsv
+Shae__MS3_00004868	Dmel	Dmel__GeneID_33314, Dmel__GeneID_37603, Dmel__GeneID_44522	many-to-many	2	3	Orthologues/Dmel.tsv
+Shae__MS3_00010198	Dmel	Dmel__GeneID_31792	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00011072	Dmel	Dmel__GeneID_31792	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00003925	Dmel	Dmel__GeneID_40553	one-to-one	1	1	Orthologues/Dmel.tsv
+Shae__MS3_00002886	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00000599	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00004247	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00009248	Dmel	Dmel__GeneID_45278	many-to-one	2	1	Orthologues/Dmel.tsv
+Shae__MS3_00010503	Dmel	Dmel__GeneID_34987	one-to-one	1	1	Orthologues/Dmel.tsv
+Shae__MS3_00006710	Dmel	Dmel__GeneID_42865	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00006969	Dmel	Dmel__GeneID_42865	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00010433	Dmel	Dmel__GeneID_42865	many-to-one	3	1	Orthologues/Dmel.tsv
+Shae__MS3_00001233	Dmel	Dmel__GeneID_31364	one-to-one	1	1	Orthologues/Dmel.tsv
+Shae__MS3_00001568	Dmel	Dmel__GeneID_44097, Dmel__GeneID_44129	many-to-many	2	2	Orthologues/Dmel.tsv
+Shae__MS3_00006635	Dmel	Dmel__GeneID_44097, Dmel__GeneID_44129	many-to-many	2	2	Orthologues/Dmel.tsv
+Shae__MS3_00001541	Dmel	Dmel__GeneID_34453	one-to-one	1	1	Orthologues/Dmel.tsv
+Shae__MS3_00009394	Dmel	Dmel__GeneID_33613, Dmel__GeneID_33619	many-to-many	3	2	Orthologues/Dmel.tsv
+Shae__MS3_00005143	Dmel	Dmel__GeneID_43814	one-to-one	1	1	Orthologues/Dmel.tsv
+Sjap__EWB00_002123	Dmel	Dmel__GeneID_31425, Dmel__GeneID_32115, Dmel__GeneID_32975, Dmel__GeneID_32976, Dmel__GeneID_43469	one-to-many	1	5	Orthologues/Dmel.tsv
+Sjap__EWB00_003324	Dmel	Dmel__GeneID_38384	many-to-one	2	1	Orthologues/Dmel.tsv
+Sjap__EWB00_002236	Dmel	Dmel__GeneID_33314, Dmel__GeneID_37603, Dmel__GeneID_44522	many-to-many	2	3	Orthologues/Dmel.tsv
+Sjap__EWB00_006149	Dmel	Dmel__GeneID_31792	many-to-one	2	1	Orthologues/Dmel.tsv
+Sjap__EWB00_009360	Dmel	Dmel__GeneID_40553	one-to-one	1	1	Orthologues/Dmel.tsv
+Sjap__EWB00_000603	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Sjap__EWB00_009052	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Sjap__EWB00_003964	Dmel	Dmel__GeneID_41809, Dmel__GeneID_42549	many-to-many	2	2	Orthologues/Dmel.tsv
+Sjap__EWB00_006448	Dmel	Dmel__GeneID_34987	one-to-one	1	1	Orthologues/Dmel.tsv
+Sjap__EWB00_003810	Dmel	Dmel__GeneID_42865	many-to-one	4	1	Orthologues/Dmel.tsv
+Sjap__EWB00_010663	Dmel	Dmel__GeneID_42865	many-to-one	4	1	Orthologues/Dmel.tsv
+Sjap__EWB00_002345	Dmel	Dmel__GeneID_42865	many-to-one	4	1	Orthologues/Dmel.tsv
+Sjap__EWB00_003808	Dmel	Dmel__GeneID_42865	many-to-one	4	1	Orthologues/Dmel.tsv
+Sjap__EWB00_002463	Dmel	Dmel__GeneID_31364	one-to-one	1	1	Orthologues/Dmel.tsv
+Sjap__EWB00_003878	Dmel	Dmel__GeneID_2769008, Dmel__GeneID_35652, Dmel__GeneID_38788, Dmel__GeneID_42103	one-to-many	1	4	Orthologues/Dmel.tsv
+Sjap__EWB00_006815	Dmel	Dmel__GeneID_44097, Dmel__GeneID_44129	many-to-many	3	2	Orthologues/Dmel.tsv
+Sjap__EWB00_004279	Dmel	Dmel__GeneID_44097, Dmel__GeneID_44129	many-to-many	3	2	Orthologues/Dmel.tsv
+Sjap__EWB00_004250	Dmel	Dmel__GeneID_34453	one-to-one	1	1	Orthologues/Dmel.tsv
+Sjap__EWB00_005094	Dmel	Dmel__GeneID_33613, Dmel__GeneID_33619	many-to-many	2	2	Orthologues/Dmel.tsv
+Sjap__EWB00_011116	Dmel	Dmel__GeneID_43814	one-to-one	1	1	Orthologues/Dmel.tsv
+Sman__Smp_152750	Dmel	Dmel__GeneID_31425, Dmel__GeneID_32115, Dmel__GeneID_32975, Dmel__GeneID_32976, Dmel__GeneID_43469	one-to-many	1	5	Orthologues/Dmel.tsv
+Sman__Smp_303910	Dmel	Dmel__GeneID_38384	one-to-one	1	1	Orthologues/Dmel.tsv
+Sman__Smp_204750	Dmel	Dmel__GeneID_33314, Dmel__GeneID_37603, Dmel__GeneID_44522	many-to-many	2	3	Orthologues/Dmel.tsv
+Sman__Smp_024660	Dmel	Dmel__GeneID_33314, Dmel__GeneID_37603, Dmel__GeneID_44522	many-to-many	2	3	Orthologues/Dmel.tsv
+Sman__Smp_148020	Dmel	Dmel__GeneID_31792	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_176350	Dmel	Dmel__GeneID_40553	one-to-one	1	1	Orthologues/Dmel.tsv
+Sman__Smp_244080	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_344760	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_342880	Dmel	Dmel__GeneID_35259	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_266820	Dmel	Dmel__GeneID_34987	one-to-one	1	1	Orthologues/Dmel.tsv
+Sman__Smp_159450	Dmel	Dmel__GeneID_42865	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_311870	Dmel	Dmel__GeneID_42865	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_346250	Dmel	Dmel__GeneID_42865	many-to-one	3	1	Orthologues/Dmel.tsv
+Sman__Smp_171460	Dmel	Dmel__GeneID_31364	one-to-one	1	1	Orthologues/Dmel.tsv
+Sman__Smp_164270	Dmel	Dmel__GeneID_2769008, Dmel__GeneID_35652, Dmel__GeneID_38788, Dmel__GeneID_42103	one-to-many	1	4	Orthologues/Dmel.tsv
+Sman__Smp_132700	Dmel	Dmel__GeneID_44097, Dmel__GeneID_44129	many-to-many	2	2	Orthologues/Dmel.tsv
+Sman__Smp_130070	Dmel	Dmel__GeneID_44097, Dmel__GeneID_44129	many-to-many	2	2	Orthologues/Dmel.tsv
+Sman__Smp_332470	Dmel	Dmel__GeneID_34453	one-to-one	1	1	Orthologues/Dmel.tsv
+Sman__Smp_181250	Dmel	Dmel__GeneID_33613, Dmel__GeneID_33619	many-to-many	2	2	Orthologues/Dmel.tsv
+Sman__Smp_126240	Dmel	Dmel__GeneID_43814	one-to-one	1	1	Orthologues/Dmel.tsv
+Shae__MS3_00009815	Hsap	Hsap__GeneID_5787, Hsap__GeneID_5793, Hsap__GeneID_5794, Hsap__GeneID_5795, Hsap__GeneID_5800, Hsap__GeneID_5803	one-to-many	1	6	Orthologues/Hsap.tsv
+Shae__MS3_00002673	Hsap	Hsap__GeneID_283284, Hsap__GeneID_343263, Hsap__GeneID_4604, Hsap__GeneID_4606, Hsap__GeneID_4607, Hsap__GeneID_4608, Hsap__GeneID_7273	one-to-many	1	7	Orthologues/Hsap.tsv
+Shae__MS3_00007710	Hsap	Hsap__GeneID_54538, Hsap__GeneID_6091, Hsap__GeneID_6092, Hsap__GeneID_64221	many-to-many	2	4	Orthologues/Hsap.tsv
+Shae__MS3_00004868	Hsap	Hsap__GeneID_54538, Hsap__GeneID_6091, Hsap__GeneID_6092, Hsap__GeneID_64221	many-to-many	2	4	Orthologues/Hsap.tsv
+Shae__MS3_00010198	Hsap	Hsap__GeneID_10752, Hsap__GeneID_23114, Hsap__GeneID_3897, Hsap__GeneID_4897	many-to-many	3	4	Orthologues/Hsap.tsv
+Shae__MS3_00011072	Hsap	Hsap__GeneID_10752, Hsap__GeneID_23114, Hsap__GeneID_3897, Hsap__GeneID_4897	many-to-many	3	4	Orthologues/Hsap.tsv
+Shae__MS3_00003925	Hsap	Hsap__GeneID_1272, Hsap__GeneID_152330, Hsap__GeneID_27255, Hsap__GeneID_5067, Hsap__GeneID_53942, Hsap__GeneID_6900	one-to-many	1	6	Orthologues/Hsap.tsv
+Shae__MS3_00002886	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Shae__MS3_00000599	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Shae__MS3_00004247	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Shae__MS3_00009248	Hsap	Hsap__GeneID_5777, Hsap__GeneID_5781	many-to-many	2	2	Orthologues/Hsap.tsv
+Shae__MS3_00010503	Hsap	Hsap__GeneID_22862, Hsap__GeneID_64778	one-to-many	1	2	Orthologues/Hsap.tsv
+Shae__MS3_00006710	Hsap	Hsap__GeneID_3730	many-to-one	3	1	Orthologues/Hsap.tsv
+Shae__MS3_00006969	Hsap	Hsap__GeneID_3730	many-to-one	3	1	Orthologues/Hsap.tsv
+Shae__MS3_00010433	Hsap	Hsap__GeneID_3730	many-to-one	3	1	Orthologues/Hsap.tsv
+Shae__MS3_00001233	Hsap	Hsap__GeneID_4684, Hsap__GeneID_4685	one-to-many	1	2	Orthologues/Hsap.tsv
+Shae__MS3_00001568	Hsap	Hsap__GeneID_4868	many-to-one	2	1	Orthologues/Hsap.tsv
+Shae__MS3_00006635	Hsap	Hsap__GeneID_4868	many-to-one	2	1	Orthologues/Hsap.tsv
+Shae__MS3_00001541	Hsap	Hsap__GeneID_114088, Hsap__GeneID_440730	one-to-many	1	2	Orthologues/Hsap.tsv
+Shae__MS3_00008826	Hsap	Hsap__GeneID_100131137, Hsap__GeneID_4318, Hsap__GeneID_64100	one-to-many	1	3	Orthologues/Hsap.tsv
+Sjap__EWB00_002123	Hsap	Hsap__GeneID_5787, Hsap__GeneID_5793, Hsap__GeneID_5794, Hsap__GeneID_5795, Hsap__GeneID_5800, Hsap__GeneID_5803	one-to-many	1	6	Orthologues/Hsap.tsv
+Sjap__EWB00_002236	Hsap	Hsap__GeneID_54538, Hsap__GeneID_6091, Hsap__GeneID_6092, Hsap__GeneID_64221	many-to-many	2	4	Orthologues/Hsap.tsv
+Sjap__EWB00_006149	Hsap	Hsap__GeneID_10752, Hsap__GeneID_23114, Hsap__GeneID_3897, Hsap__GeneID_4897	many-to-many	2	4	Orthologues/Hsap.tsv
+Sjap__EWB00_009360	Hsap	Hsap__GeneID_1272, Hsap__GeneID_152330, Hsap__GeneID_27255, Hsap__GeneID_5067, Hsap__GeneID_53942, Hsap__GeneID_6900	one-to-many	1	6	Orthologues/Hsap.tsv
+Sjap__EWB00_000603	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Sjap__EWB00_009052	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Sjap__EWB00_003964	Hsap	Hsap__GeneID_3480, Hsap__GeneID_3643, Hsap__GeneID_3645	many-to-many	2	3	Orthologues/Hsap.tsv
+Sjap__EWB00_006448	Hsap	Hsap__GeneID_22862, Hsap__GeneID_64778	one-to-many	1	2	Orthologues/Hsap.tsv
+Sjap__EWB00_003810	Hsap	Hsap__GeneID_3730	many-to-one	4	1	Orthologues/Hsap.tsv
+Sjap__EWB00_010663	Hsap	Hsap__GeneID_3730	many-to-one	4	1	Orthologues/Hsap.tsv
+Sjap__EWB00_002345	Hsap	Hsap__GeneID_3730	many-to-one	4	1	Orthologues/Hsap.tsv
+Sjap__EWB00_003808	Hsap	Hsap__GeneID_3730	many-to-one	4	1	Orthologues/Hsap.tsv
+Sjap__EWB00_002463	Hsap	Hsap__GeneID_4684, Hsap__GeneID_4685	one-to-many	1	2	Orthologues/Hsap.tsv
+Sjap__EWB00_003878	Hsap	Hsap__GeneID_1826, Hsap__GeneID_57453	one-to-many	1	2	Orthologues/Hsap.tsv
+Sjap__EWB00_006815	Hsap	Hsap__GeneID_4868	many-to-one	3	1	Orthologues/Hsap.tsv
+Sjap__EWB00_004279	Hsap	Hsap__GeneID_4868	many-to-one	3	1	Orthologues/Hsap.tsv
+Sjap__EWB00_004250	Hsap	Hsap__GeneID_114088, Hsap__GeneID_440730	one-to-many	1	2	Orthologues/Hsap.tsv
+Sjap__EWB00_005294	Hsap	Hsap__GeneID_100131137, Hsap__GeneID_4318, Hsap__GeneID_64100	one-to-many	1	3	Orthologues/Hsap.tsv
+Sjap__EWB00_003778	Hsap	Hsap__GeneID_26095	one-to-one	1	1	Orthologues/Hsap.tsv
+Sman__Smp_152750	Hsap	Hsap__GeneID_5787, Hsap__GeneID_5793, Hsap__GeneID_5794, Hsap__GeneID_5795, Hsap__GeneID_5800, Hsap__GeneID_5803	one-to-many	1	6	Orthologues/Hsap.tsv
+Sman__Smp_303910	Hsap	Hsap__GeneID_283284, Hsap__GeneID_343263, Hsap__GeneID_4604, Hsap__GeneID_4606, Hsap__GeneID_4607, Hsap__GeneID_4608, Hsap__GeneID_7273	one-to-many	1	7	Orthologues/Hsap.tsv
+Sman__Smp_204750	Hsap	Hsap__GeneID_54538, Hsap__GeneID_6091, Hsap__GeneID_6092, Hsap__GeneID_64221	many-to-many	2	4	Orthologues/Hsap.tsv
+Sman__Smp_024660	Hsap	Hsap__GeneID_54538, Hsap__GeneID_6091, Hsap__GeneID_6092, Hsap__GeneID_64221	many-to-many	2	4	Orthologues/Hsap.tsv
+Sman__Smp_148020	Hsap	Hsap__GeneID_10752, Hsap__GeneID_23114, Hsap__GeneID_3897, Hsap__GeneID_4897	many-to-many	3	4	Orthologues/Hsap.tsv
+Sman__Smp_176350	Hsap	Hsap__GeneID_1272, Hsap__GeneID_152330, Hsap__GeneID_27255, Hsap__GeneID_5067, Hsap__GeneID_53942, Hsap__GeneID_6900	one-to-many	1	6	Orthologues/Hsap.tsv
+Sman__Smp_244080	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Sman__Smp_344760	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Sman__Smp_342880	Hsap	Hsap__GeneID_5789, Hsap__GeneID_5792, Hsap__GeneID_5802	many-to-many	3	3	Orthologues/Hsap.tsv
+Sman__Smp_266820	Hsap	Hsap__GeneID_22862, Hsap__GeneID_64778	one-to-many	1	2	Orthologues/Hsap.tsv
+Sman__Smp_159450	Hsap	Hsap__GeneID_3730	many-to-one	3	1	Orthologues/Hsap.tsv
+Sman__Smp_311870	Hsap	Hsap__GeneID_3730	many-to-one	3	1	Orthologues/Hsap.tsv
+Sman__Smp_346250	Hsap	Hsap__GeneID_3730	many-to-one	3	1	Orthologues/Hsap.tsv
+Sman__Smp_171460	Hsap	Hsap__GeneID_4684, Hsap__GeneID_4685	one-to-many	1	2	Orthologues/Hsap.tsv
+Sman__Smp_164270	Hsap	Hsap__GeneID_1826, Hsap__GeneID_57453	one-to-many	1	2	Orthologues/Hsap.tsv
+Sman__Smp_132700	Hsap	Hsap__GeneID_4868	many-to-one	2	1	Orthologues/Hsap.tsv
+Sman__Smp_130070	Hsap	Hsap__GeneID_4868	many-to-one	2	1	Orthologues/Hsap.tsv
+Sman__Smp_332470	Hsap	Hsap__GeneID_114088, Hsap__GeneID_440730	one-to-many	1	2	Orthologues/Hsap.tsv
+Sman__Smp_346180	Hsap	Hsap__GeneID_26095	one-to-one	1	1	Orthologues/Hsap.tsv
+Shae__MS3_00009815	Mmus	Mmus__GeneID_19263, Mmus__GeneID_19270, Mmus__GeneID_19271, Mmus__GeneID_19277, Mmus__GeneID_19283, Mmus__GeneID_545902	one-to-many	1	6	Orthologues/Mmus.tsv
+Shae__MS3_00002673	Mmus	Mmus__GeneID_109272, Mmus__GeneID_17868, Mmus__GeneID_22138, Mmus__GeneID_233199, Mmus__GeneID_53311, Mmus__GeneID_68753	one-to-many	1	6	Orthologues/Mmus.tsv
+Shae__MS3_00007710	Mmus	Mmus__GeneID_19649, Mmus__GeneID_19876, Mmus__GeneID_268902, Mmus__GeneID_74144	many-to-many	2	4	Orthologues/Mmus.tsv
+Shae__MS3_00004868	Mmus	Mmus__GeneID_19649, Mmus__GeneID_19876, Mmus__GeneID_268902, Mmus__GeneID_74144	many-to-many	2	4	Orthologues/Mmus.tsv
+Shae__MS3_00010198	Mmus	Mmus__GeneID_12661, Mmus__GeneID_16728, Mmus__GeneID_269116, Mmus__GeneID_319504	many-to-many	3	4	Orthologues/Mmus.tsv
+Shae__MS3_00011072	Mmus	Mmus__GeneID_12661, Mmus__GeneID_16728, Mmus__GeneID_269116, Mmus__GeneID_319504	many-to-many	3	4	Orthologues/Mmus.tsv
+Shae__MS3_00003925	Mmus	Mmus__GeneID_12805, Mmus__GeneID_18488, Mmus__GeneID_21367, Mmus__GeneID_244682, Mmus__GeneID_269784, Mmus__GeneID_53870	one-to-many	1	6	Orthologues/Mmus.tsv
+Shae__MS3_00002886	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Shae__MS3_00000599	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Shae__MS3_00004247	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Shae__MS3_00009248	Mmus	Mmus__GeneID_15170, Mmus__GeneID_19247	many-to-many	2	2	Orthologues/Mmus.tsv
+Shae__MS3_00010503	Mmus	Mmus__GeneID_319448, Mmus__GeneID_331491, Mmus__GeneID_333564, Mmus__GeneID_72007	one-to-many	1	4	Orthologues/Mmus.tsv
+Shae__MS3_00001233	Mmus	Mmus__GeneID_17967, Mmus__GeneID_17968	one-to-many	1	2	Orthologues/Mmus.tsv
+Shae__MS3_00001568	Mmus	Mmus__GeneID_54631	many-to-one	2	1	Orthologues/Mmus.tsv
+Shae__MS3_00006635	Mmus	Mmus__GeneID_54631	many-to-one	2	1	Orthologues/Mmus.tsv
+Shae__MS3_00001541	Mmus	Mmus__GeneID_330863, Mmus__GeneID_94090	one-to-many	1	2	Orthologues/Mmus.tsv
+Shae__MS3_00008826	Mmus	Mmus__GeneID_17395, Mmus__GeneID_330470, Mmus__GeneID_77684	one-to-many	1	3	Orthologues/Mmus.tsv
+Shae__MS3_00009394	Mmus	Mmus__GeneID_12483	many-to-one	3	1	Orthologues/Mmus.tsv
+Sjap__EWB00_002123	Mmus	Mmus__GeneID_19263, Mmus__GeneID_19270, Mmus__GeneID_19271, Mmus__GeneID_19277, Mmus__GeneID_19283, Mmus__GeneID_545902	one-to-many	1	6	Orthologues/Mmus.tsv
+Sjap__EWB00_002236	Mmus	Mmus__GeneID_19649, Mmus__GeneID_19876, Mmus__GeneID_268902, Mmus__GeneID_74144	many-to-many	2	4	Orthologues/Mmus.tsv
+Sjap__EWB00_006149	Mmus	Mmus__GeneID_12661, Mmus__GeneID_16728, Mmus__GeneID_269116, Mmus__GeneID_319504	many-to-many	2	4	Orthologues/Mmus.tsv
+Sjap__EWB00_009360	Mmus	Mmus__GeneID_12805, Mmus__GeneID_18488, Mmus__GeneID_21367, Mmus__GeneID_244682, Mmus__GeneID_269784, Mmus__GeneID_53870	one-to-many	1	6	Orthologues/Mmus.tsv
+Sjap__EWB00_000603	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Sjap__EWB00_009052	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Sjap__EWB00_003964	Mmus	Mmus__GeneID_16001, Mmus__GeneID_16337, Mmus__GeneID_23920	many-to-many	2	3	Orthologues/Mmus.tsv
+Sjap__EWB00_006448	Mmus	Mmus__GeneID_319448, Mmus__GeneID_331491, Mmus__GeneID_333564, Mmus__GeneID_72007	one-to-many	1	4	Orthologues/Mmus.tsv
+Sjap__EWB00_002463	Mmus	Mmus__GeneID_17967, Mmus__GeneID_17968	one-to-many	1	2	Orthologues/Mmus.tsv
+Sjap__EWB00_003878	Mmus	Mmus__GeneID_114873, Mmus__GeneID_13508	one-to-many	1	2	Orthologues/Mmus.tsv
+Sjap__EWB00_006815	Mmus	Mmus__GeneID_54631	many-to-one	3	1	Orthologues/Mmus.tsv
+Sjap__EWB00_004279	Mmus	Mmus__GeneID_54631	many-to-one	3	1	Orthologues/Mmus.tsv
+Sjap__EWB00_004250	Mmus	Mmus__GeneID_330863, Mmus__GeneID_94090	one-to-many	1	2	Orthologues/Mmus.tsv
+Sjap__EWB00_005294	Mmus	Mmus__GeneID_17395, Mmus__GeneID_330470, Mmus__GeneID_77684	one-to-many	1	3	Orthologues/Mmus.tsv
+Sjap__EWB00_005094	Mmus	Mmus__GeneID_12483	many-to-one	2	1	Orthologues/Mmus.tsv
+Sjap__EWB00_003778	Mmus	Mmus__GeneID_19256	one-to-one	1	1	Orthologues/Mmus.tsv
+Sman__Smp_152750	Mmus	Mmus__GeneID_19263, Mmus__GeneID_19270, Mmus__GeneID_19271, Mmus__GeneID_19277, Mmus__GeneID_19283, Mmus__GeneID_545902	one-to-many	1	6	Orthologues/Mmus.tsv
+Sman__Smp_303910	Mmus	Mmus__GeneID_109272, Mmus__GeneID_17868, Mmus__GeneID_22138, Mmus__GeneID_233199, Mmus__GeneID_53311, Mmus__GeneID_68753	one-to-many	1	6	Orthologues/Mmus.tsv
+Sman__Smp_204750	Mmus	Mmus__GeneID_19649, Mmus__GeneID_19876, Mmus__GeneID_268902, Mmus__GeneID_74144	many-to-many	2	4	Orthologues/Mmus.tsv
+Sman__Smp_024660	Mmus	Mmus__GeneID_19649, Mmus__GeneID_19876, Mmus__GeneID_268902, Mmus__GeneID_74144	many-to-many	2	4	Orthologues/Mmus.tsv
+Sman__Smp_148020	Mmus	Mmus__GeneID_12661, Mmus__GeneID_16728, Mmus__GeneID_269116, Mmus__GeneID_319504	many-to-many	3	4	Orthologues/Mmus.tsv
+Sman__Smp_176350	Mmus	Mmus__GeneID_12805, Mmus__GeneID_18488, Mmus__GeneID_21367, Mmus__GeneID_244682, Mmus__GeneID_269784, Mmus__GeneID_53870	one-to-many	1	6	Orthologues/Mmus.tsv
+Sman__Smp_244080	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Sman__Smp_344760	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Sman__Smp_342880	Mmus	Mmus__GeneID_19266, Mmus__GeneID_19268, Mmus__GeneID_19280	many-to-many	3	3	Orthologues/Mmus.tsv
+Sman__Smp_266820	Mmus	Mmus__GeneID_319448, Mmus__GeneID_331491, Mmus__GeneID_333564, Mmus__GeneID_72007	one-to-many	1	4	Orthologues/Mmus.tsv
+Sman__Smp_171460	Mmus	Mmus__GeneID_17967, Mmus__GeneID_17968	one-to-many	1	2	Orthologues/Mmus.tsv
+Sman__Smp_164270	Mmus	Mmus__GeneID_114873, Mmus__GeneID_13508	one-to-many	1	2	Orthologues/Mmus.tsv
+Sman__Smp_132700	Mmus	Mmus__GeneID_54631	many-to-one	2	1	Orthologues/Mmus.tsv
+Sman__Smp_130070	Mmus	Mmus__GeneID_54631	many-to-one	2	1	Orthologues/Mmus.tsv
+Sman__Smp_332470	Mmus	Mmus__GeneID_330863, Mmus__GeneID_94090	one-to-many	1	2	Orthologues/Mmus.tsv
+Sman__Smp_181250	Mmus	Mmus__GeneID_12483	many-to-one	2	1	Orthologues/Mmus.tsv
+Sman__Smp_346180	Mmus	Mmus__GeneID_19256	one-to-one	1	1	Orthologues/Mmus.tsv
+Shae__MS3_00009815	Xlae	Xlae__GeneID_108696762, Xlae__GeneID_108697805, Xlae__GeneID_108704986, Xlae__GeneID_108704988, Xlae__GeneID_108705000, Xlae__GeneID_108710688, Xlae__GeneID_108711100, Xlae__GeneID_108713150, Xlae__GeneID_108713433, Xlae__GeneID_108713595, Xlae__GeneID_108715053, Xlae__GeneID_121396151, Xlae__GeneID_121396156, Xlae__GeneID_121399206, Xlae__GeneID_121399248, Xlae__GeneID_121399559, Xlae__GeneID_399352, Xlae__GeneID_432027	one-to-many	1	18	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00002673	Xlae	Xlae__GeneID_108695905, Xlae__GeneID_108697262, Xlae__GeneID_108701391, Xlae__GeneID_108702272, Xlae__GeneID_108710244, Xlae__GeneID_108712385, Xlae__GeneID_108713456, Xlae__GeneID_398261, Xlae__GeneID_398625	one-to-many	1	9	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00007710	Xlae	Xlae__GeneID_100462919, Xlae__GeneID_108696400, Xlae__GeneID_108696402, Xlae__GeneID_108704930, Xlae__GeneID_108704932, Xlae__GeneID_108707903, Xlae__GeneID_108709204, Xlae__GeneID_399392	many-to-many	2	8	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00004868	Xlae	Xlae__GeneID_100462919, Xlae__GeneID_108696400, Xlae__GeneID_108696402, Xlae__GeneID_108704930, Xlae__GeneID_108704932, Xlae__GeneID_108707903, Xlae__GeneID_108709204, Xlae__GeneID_399392	many-to-many	2	8	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00010198	Xlae	Xlae__GeneID_108705354, Xlae__GeneID_108709439, Xlae__GeneID_108713127, Xlae__GeneID_373742, Xlae__GeneID_443913	many-to-many	3	5	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00011072	Xlae	Xlae__GeneID_108705354, Xlae__GeneID_108709439, Xlae__GeneID_108713127, Xlae__GeneID_373742, Xlae__GeneID_443913	many-to-many	3	5	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00003925	Xlae	Xlae__GeneID_108707575, Xlae__GeneID_108708146, Xlae__GeneID_108710006, Xlae__GeneID_108714621, Xlae__GeneID_378666, Xlae__GeneID_397710, Xlae__GeneID_432118	one-to-many	1	7	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00002886	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00000599	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00004247	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00009248	Xlae	Xlae__GeneID_100380954, Xlae__GeneID_108697240, Xlae__GeneID_108697335, Xlae__GeneID_108716965, Xlae__GeneID_399291, Xlae__GeneID_444193	many-to-many	2	6	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00010503	Xlae	Xlae__GeneID_108700166, Xlae__GeneID_108708664, Xlae__GeneID_108709916, Xlae__GeneID_108717008, Xlae__GeneID_108718096, Xlae__GeneID_446899	one-to-many	1	6	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00006710	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	3	2	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00006969	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	3	2	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00010433	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	3	2	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00001233	Xlae	Xlae__GeneID_108707426, Xlae__GeneID_108709214, Xlae__GeneID_397761, Xlae__GeneID_397762	one-to-many	1	4	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00001568	Xlae	Xlae__GeneID_734213	many-to-one	2	1	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00006635	Xlae	Xlae__GeneID_734213	many-to-one	2	1	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00001541	Xlae	Xlae__GeneID_108698771, Xlae__GeneID_108699783, Xlae__GeneID_108716120, Xlae__GeneID_108717840	one-to-many	1	4	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Shae__MS3_00008826	Xlae	Xlae__GeneID_100037129, Xlae__GeneID_108702732, Xlae__GeneID_379663	one-to-many	1	3	Orthologues/Orthologues_Shae/Shae__v__Xlae.tsv
+Sjap__EWB00_002123	Xlae	Xlae__GeneID_108696762, Xlae__GeneID_108697805, Xlae__GeneID_108704986, Xlae__GeneID_108704988, Xlae__GeneID_108705000, Xlae__GeneID_108710688, Xlae__GeneID_108711100, Xlae__GeneID_108713150, Xlae__GeneID_108713433, Xlae__GeneID_108713595, Xlae__GeneID_108715053, Xlae__GeneID_121396151, Xlae__GeneID_121396156, Xlae__GeneID_121399206, Xlae__GeneID_121399248, Xlae__GeneID_121399559, Xlae__GeneID_399352, Xlae__GeneID_432027	one-to-many	1	18	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_002236	Xlae	Xlae__GeneID_100462919, Xlae__GeneID_108696400, Xlae__GeneID_108696402, Xlae__GeneID_108704930, Xlae__GeneID_108704932, Xlae__GeneID_108707903, Xlae__GeneID_108709204, Xlae__GeneID_399392	many-to-many	2	8	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_006149	Xlae	Xlae__GeneID_108705354, Xlae__GeneID_108709439, Xlae__GeneID_108713127, Xlae__GeneID_373742, Xlae__GeneID_443913	many-to-many	2	5	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_009360	Xlae	Xlae__GeneID_108707575, Xlae__GeneID_108708146, Xlae__GeneID_108710006, Xlae__GeneID_108714621, Xlae__GeneID_378666, Xlae__GeneID_397710, Xlae__GeneID_432118	one-to-many	1	7	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_000603	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_009052	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_003964	Xlae	Xlae__GeneID_100158430, Xlae__GeneID_108700357, Xlae__GeneID_108711478, Xlae__GeneID_398006, Xlae__GeneID_398022, Xlae__GeneID_398941	many-to-many	2	6	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_006448	Xlae	Xlae__GeneID_108700166, Xlae__GeneID_108708664, Xlae__GeneID_108709916, Xlae__GeneID_108717008, Xlae__GeneID_108718096, Xlae__GeneID_446899	one-to-many	1	6	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_003810	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	4	2	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_010663	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	4	2	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_002345	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	4	2	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_003808	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	4	2	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_002463	Xlae	Xlae__GeneID_108707426, Xlae__GeneID_108709214, Xlae__GeneID_397761, Xlae__GeneID_397762	one-to-many	1	4	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_003878	Xlae	Xlae__GeneID_108696466, Xlae__GeneID_108697593, Xlae__GeneID_108708870, Xlae__GeneID_735085	one-to-many	1	4	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_006815	Xlae	Xlae__GeneID_734213	many-to-one	3	1	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_004279	Xlae	Xlae__GeneID_734213	many-to-one	3	1	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_004250	Xlae	Xlae__GeneID_108698771, Xlae__GeneID_108699783, Xlae__GeneID_108716120, Xlae__GeneID_108717840	one-to-many	1	4	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sjap__EWB00_005294	Xlae	Xlae__GeneID_100037129, Xlae__GeneID_108702732, Xlae__GeneID_379663	one-to-many	1	3	Orthologues/Orthologues_Sjap/Sjap__v__Xlae.tsv
+Sman__Smp_152750	Xlae	Xlae__GeneID_108696762, Xlae__GeneID_108697805, Xlae__GeneID_108704986, Xlae__GeneID_108704988, Xlae__GeneID_108705000, Xlae__GeneID_108710688, Xlae__GeneID_108711100, Xlae__GeneID_108713150, Xlae__GeneID_108713433, Xlae__GeneID_108713595, Xlae__GeneID_108715053, Xlae__GeneID_121396151, Xlae__GeneID_121396156, Xlae__GeneID_121399206, Xlae__GeneID_121399248, Xlae__GeneID_121399559, Xlae__GeneID_399352, Xlae__GeneID_432027	one-to-many	1	18	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_303910	Xlae	Xlae__GeneID_108695905, Xlae__GeneID_108697262, Xlae__GeneID_108701391, Xlae__GeneID_108702272, Xlae__GeneID_108710244, Xlae__GeneID_108712385, Xlae__GeneID_108713456, Xlae__GeneID_398261, Xlae__GeneID_398625	one-to-many	1	9	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_204750	Xlae	Xlae__GeneID_100462919, Xlae__GeneID_108696400, Xlae__GeneID_108696402, Xlae__GeneID_108704930, Xlae__GeneID_108704932, Xlae__GeneID_108707903, Xlae__GeneID_108709204, Xlae__GeneID_399392	many-to-many	2	8	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_024660	Xlae	Xlae__GeneID_100462919, Xlae__GeneID_108696400, Xlae__GeneID_108696402, Xlae__GeneID_108704930, Xlae__GeneID_108704932, Xlae__GeneID_108707903, Xlae__GeneID_108709204, Xlae__GeneID_399392	many-to-many	2	8	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_148020	Xlae	Xlae__GeneID_108705354, Xlae__GeneID_108709439, Xlae__GeneID_108713127, Xlae__GeneID_373742, Xlae__GeneID_443913	many-to-many	3	5	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_176350	Xlae	Xlae__GeneID_108707575, Xlae__GeneID_108708146, Xlae__GeneID_108710006, Xlae__GeneID_108714621, Xlae__GeneID_378666, Xlae__GeneID_397710, Xlae__GeneID_432118	one-to-many	1	7	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_244080	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_344760	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_342880	Xlae	Xlae__GeneID_108711853, Xlae__GeneID_108714090, Xlae__GeneID_108715545, Xlae__GeneID_398160, Xlae__GeneID_398161, Xlae__GeneID_399155	many-to-many	3	6	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_266820	Xlae	Xlae__GeneID_108700166, Xlae__GeneID_108708664, Xlae__GeneID_108709916, Xlae__GeneID_108717008, Xlae__GeneID_108718096, Xlae__GeneID_446899	one-to-many	1	6	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_159450	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	3	2	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_311870	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	3	2	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_346250	Xlae	Xlae__GeneID_108707973, Xlae__GeneID_108709163	many-to-many	3	2	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_171460	Xlae	Xlae__GeneID_108707426, Xlae__GeneID_108709214, Xlae__GeneID_397761, Xlae__GeneID_397762	one-to-many	1	4	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_164270	Xlae	Xlae__GeneID_108696466, Xlae__GeneID_108697593, Xlae__GeneID_108708870, Xlae__GeneID_735085	one-to-many	1	4	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_132700	Xlae	Xlae__GeneID_734213	many-to-one	2	1	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_130070	Xlae	Xlae__GeneID_734213	many-to-one	2	1	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv
+Sman__Smp_332470	Xlae	Xlae__GeneID_108698771, Xlae__GeneID_108699783, Xlae__GeneID_108716120, Xlae__GeneID_108717840	one-to-many	1	4	Orthologues/Orthologues_Sman/Sman__v__Xlae.tsv

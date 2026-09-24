@@ -10,6 +10,7 @@ from networks import network_panel
 from networks import load_network
 from reconstruction import reconstruction_panel
 from orthology_views import evidence_view, priority_view
+from orthology_explorer import orthology_panel
 from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
 
@@ -64,7 +65,7 @@ except Exception as exc:
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('INTEGRIN · ADHESOME · EVIDENCE')
-    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Source Library', 'Citations'])
+    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Source Library', 'Citations'])
     page = section
     if section == 'Components':
         page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
@@ -112,7 +113,7 @@ identity_banner()
 st.markdown('<div class="hero"><div class="eyebrow">Comparative molecular atlas · Schistosoma</div><h1>Schisto-Adhesome Atlas</h1><p>Explore integrin–adhesome candidates across three schistosome species, from family assignments to domains, sequence motifs and localization evidence.</p></div>', unsafe_allow_html=True)
 st.caption(f'{cohort}  /  {len(df):,} filtered assignment records  /  {df.sequence_id.nunique():,} distinct proteins')
 
-if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny'] and df.empty:
+if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny', 'Orthology'] and df.empty:
     st.info('No candidates match these filters. Select a species or broaden your search.')
     st.stop()
 
@@ -124,6 +125,9 @@ if page == 'Introduction':
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
     st.markdown('### Network graphs')
     reconstruction_panel(network_candidates, load_network, 'intro_reconstruction_')
+
+elif page == 'Orthology':
+    orthology_panel()
 
 elif page == 'Phylogeny':
     phylogeny_panel()
