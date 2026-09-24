@@ -244,13 +244,33 @@ def phylogeny_panel(candidates=None):
     for p in options:
         grouped.setdefault((collections[p],atlas_group(info[p]['orthogroup'])),[]).append(p)
     chosen=st.selectbox('Phylogenetic orthogroup',list(grouped),format_func=lambda value:f'{value[1]} · {value[0]}')
-    members=grouped[chosen]
+    # Search selects the family group, not an incomplete subset of its runs.
+    members=[p for p in folders if collections[p]==chosen[0] and atlas_group(p.name.removesuffix('_fib'))==chosen[1]]
     if len(members)>1:
         st.subheader('Integrin α · combined family group')
-        st.caption('Both source trees are shown below as one browsing group. Branch lengths and support remain specific to each original tree; no connecting branch is inferred.')
-    for folder in members:
-        if len(members)>1: st.subheader(folder.name)
-        render_tree_run(folder,collections[folder])
+        tables=[]
+        for folder in members:
+            _,tips,_=read_group(folder)
+            tables.append(tips.assign(source_orthogroup=folder.name))
+        all_tips=pd.concat(tables,ignore_index=True)
+        candidate_tips=all_tips[all_tips.candidate.eq('1')]
+        a,b,c=st.columns(3)
+        a.metric('Source orthogroups',len(members))
+        b.metric('Distinct candidate proteins',candidate_tips.sequence_id.nunique())
+        c.metric('Distinct tree proteins',all_tips.sequence_id.nunique())
+        st.caption('The combined member list includes both orthogroups. Select either tree tab below; each retains its original branch lengths and support. Search and classification select the family group without removing its other source tree.')
+        tabs=st.tabs(['Combined members']+[p.name+' · tree' for p in members])
+        with tabs[0]:
+            st.markdown('**Schistosome candidates from both orthogroups**')
+            columns=['source_orthogroup','display_label','sequence_id','species','candidate']
+            st.dataframe(candidate_tips[columns],width='stretch',hide_index=True)
+            with st.expander('All reference and candidate proteins'):
+                st.dataframe(all_tips[columns],width='stretch',hide_index=True)
+            st.download_button('Download combined member list',all_tips.to_csv(index=False),'integrin_alpha_combined_members.csv','text/csv')
+        for tab,folder in zip(tabs[1:],members):
+            with tab: render_tree_run(folder,collections[folder])
+    else:
+        render_tree_run(members[0],collections[members[0]])
 
 
 def render_tree_run(folder,collection):

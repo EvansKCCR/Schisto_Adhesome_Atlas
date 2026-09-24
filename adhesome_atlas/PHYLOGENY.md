@@ -45,3 +45,5 @@ Src, FAK and ILK are independent browsing families, using resolved workbook assi
 
 
 Integrin alpha OG0000401 and OG0001220 are combined into one atlas display group in Orthology and the phylogenetic group selector. Orthology membership unions unique identifiers and preserves source group IDs. Phylogeny renders both original trees under the one selected group, without introducing an artificial connecting branch. Original files and orthology relationships are unchanged.
+
+The combined Integrin alpha view opens with a combined member list and separate, immediately visible OG0000401 and OG0001220 tree tabs. Summary counts cover both runs. Searching for either orthogroup selects the complete family group, preserving both source trees.
