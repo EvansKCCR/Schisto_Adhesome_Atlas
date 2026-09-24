@@ -119,12 +119,16 @@ if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', '
 
 if page == 'Introduction':
     st.subheader('About the Schisto-Adhesome Atlas')
-    st.write('A comparative catalogue of integrin–adhesome candidates in S. haematobium, S. japonicum and S. mansoni. Explore protein families, domain architectures, localization predictions and the supplied STRING association networks.')
-    st.caption('Collection totals below describe all records in each source collection. The filtered selection is shown above. Network species and score controls are independent.')
+    st.markdown('The **Schisto-Adhesome Atlas** is an interactive platform for exploring adhesion-associated proteins across medically important *Schistosoma* species. It integrates protein annotations, orthology, phylogeny, conserved domains and motif exploration to reveal evolutionary relationships, parasite-specific features and potential functional interaction modules. By connecting comparative bioinformatics with experimental prioritization, the Atlas supports the discovery of candidate drug targets, vaccine antigens and biomarkers for schistosomiasis research.')
+    st.caption('Collection totals below describe all records in each source collection. The filtered selection is shown above.')
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
-    st.markdown('### Network graphs')
-    reconstruction_panel(network_candidates, load_network, 'intro_reconstruction_')
+    st.subheader('Prototype schistosome integrin adhesome')
+    prototype = ROOT / 'Prototype_schistosome_integrin_adhesome.png'
+    if prototype.is_file():
+        st.image(str(prototype), caption='Prototype schistosome integrin adhesome', width='stretch')
+    else:
+        st.info('Prototype image unavailable. Include Prototype_schistosome_integrin_adhesome.png alongside app.py.')
 
 elif page == 'Orthology':
     orthology_panel()
