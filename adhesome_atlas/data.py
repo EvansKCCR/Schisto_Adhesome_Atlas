@@ -1,3 +1,4 @@
+from atlas_paths import phylogeny_root
 """Read-only, provenance-preserving adapters for the supplied annotation library."""
 from pathlib import Path
 import re
@@ -12,7 +13,7 @@ def fingerprint():
                  for p in source_files())
 
 def source_files():
-    folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network','phylogeny','orthology']
+    folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network',phylogeny_root(ROOT).name,'orthology']
     return [p for folder in folders for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() in {'.xlsx','.fasta','.faa','.csv','.tsv','.txt','.3line','.xml','.all','.treefile','.iqtree','.json'}]
 
 def fasta(path):

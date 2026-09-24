@@ -1,3 +1,4 @@
+from atlas_paths import phylogeny_root
 """Source-preserving IQ-TREE viewer; internal annotations join by tip sets."""
 from dataclasses import dataclass, field
 from html import escape
@@ -72,7 +73,7 @@ def layout(root, cladogram=False):
 
 def discover_trees(root=ROOT):
     """Discover tree files by name; report incomplete runs instead of hiding them."""
-    base=root/'Phylogeny'
+    base=phylogeny_root(root)
     trees=sorted(p for p in base.rglob('gene_tree.treefile') if p.is_file())
     folders=[]; incomplete=[]
     for tree in trees:
@@ -155,12 +156,12 @@ def phylogeny_panel():
         with st.expander('Incomplete phylogeny files'): st.dataframe(pd.DataFrame(incomplete),hide_index=True)
     if not folders:
         st.error('No complete phylogeny runs are available in this app environment.')
-        st.code(str(ROOT/'Phylogeny'),language=None)
+        st.code(str(phylogeny_root(ROOT)),language=None)
         st.write(f'Tree files found: {len(tree_files)}. The phylogeny directory must be deployed alongside app.py, including gene_tree.treefile, tips.tsv, trimmed.faa, gene_tree.iqtree, branch_evidence.tsv and run.json for each run.')
         st.code('app.py\nphylogeny/\n  adhesome_candidates_list/OG…/tips.tsv\n  adhesome_candidates_list/OG…/inference/gene_tree.treefile\n  fibronectin_like_candidate/OG…/tips.tsv\n  fibronectin_like_candidate/OG…/inference/gene_tree.treefile',language=None)
         return
     with st.expander('Phylogeny source location'):
-        st.code(str(ROOT/'Phylogeny'),language=None)
+        st.code(str(phylogeny_root(ROOT)),language=None)
         st.caption(f'{len(tree_files)} tree files found; {len(folders)} complete runs.')
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
@@ -178,7 +179,7 @@ def phylogeny_panel():
         st.info('No matching phylogenetic groups.'); return
     folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{p.name} · {collections[p]}')
     st.caption(f'Analysis collection: {collections[folder]} · Source folder: {folder.relative_to(ROOT).as_posix()}')
-    export_name=folder.relative_to(ROOT/'Phylogeny').as_posix().replace('/','_')
+    export_name=folder.relative_to(phylogeny_root(ROOT)).as_posix().replace('/','_')
     try:
         root,tips,branches = read_group(folder)
         run = json.loads(companion_path(folder,'inference/run.json').read_text(encoding='utf-8'))
@@ -201,9 +202,13 @@ def phylogeny_panel():
     st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{export_name}_tree.html','text/html')
     tabs = st.tabs(['Tip annotations','Branch evidence','Reproducibility'])
     with tabs[0]:
-        st.dataframe(tips,width='stretch',hide_index=True)
+        st.dataframe(tips[['display_label','protein_annotation_id']+[c for c in tips if c not in ['display_label','protein_annotation_id']]],width='stretch',hide_index=True)
         st.download_button('Download mapped tip annotations',tips.to_csv(index=False),export_name+'_mapped_tips.csv','text/csv')
-    with tabs[1]: st.dataframe(branches,width='stretch',hide_index=True)
+    with tabs[1]:
+        display_branches=branches.copy()
+        labels=tips.set_index('sequence_id').display_label.to_dict()
+        display_branches.insert(0,'protein_tip_ids',display_branches.tip_ids.map(lambda value:', '.join(labels.get(key.strip(),key.strip()) for key in value.split(','))))
+        st.dataframe(display_branches,width='stretch',hide_index=True)
     with tabs[2]:
         st.caption('Original tree and tip IDs are preserved. Display labels use the representative protein ID; mapped tip annotations are downloadable separately.')
         st.caption('The retained trimmed alignment supports rerunning tree inference. run.json preserves original commands and hashes, including references to removed intermediate files; it is not a promise that upstream alignment can be rerun from this reduced library.')

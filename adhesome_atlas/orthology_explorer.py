@@ -4,6 +4,8 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from data import ROOT
+from identifier_labels import identifier_annotations
+import re
 from phylogeny_view import NAMES
 
 
@@ -21,12 +23,21 @@ def orthology_panel():
     labels={'adhesome_candidates_list':'Adhesome candidates','fibronectin_like_candidate':'Fibronectin-like candidates'}
     folder=st.selectbox('Orthology collection',folders,format_func=lambda p:labels.get(p.name,p.name),key='orthology_collection')
     report,hogs,direct=read_collection(folder)
+    annotations=identifier_annotations()
+    lookup={key:key.split('__')[0]+'__'+row.protein_annotation_id for key,row in annotations.iterrows() if row.protein_annotation_id}
+    def display_ids(frame):
+        displayed=frame.copy()
+        for col in displayed:
+            displayed[col]=displayed[col].map(lambda value:re.sub(r'[A-Za-z]+__[A-Za-z0-9_.-]+',lambda match:lookup.get(match.group(),match.group()),str(value)))
+        return displayed
+    st.caption('Protein accessions are displayed using identifier maps. Original gene IDs remain available in the source downloads; search accepts either identifier.')
+
     species=st.multiselect('Candidate species',['Shae','Sjap','Sman'],default=['Shae','Sjap','Sman'],format_func=NAMES.get,key='orthology_species')
     scope=st.multiselect('Evolutionary scope',sorted(report.HOG_status.unique()),key='orthology_scope')
     query=st.text_input('Find a candidate, reference protein or orthogroup',key='orthology_search')
     selected=report[report.candidate_id.str.split('__').str[0].isin(species)].copy()
     if scope: selected=selected[selected.HOG_status.isin(scope)]
-    if query: selected=selected[selected.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1)]
+    if query: selected=selected[selected.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1) | display_ids(selected).apply(lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
     selected_hogs=hogs[hogs.Orthogroup.isin(set(selected.Orthogroup)-{''})]
     selected_direct=direct[direct.candidate_id.isin(selected.candidate_id)]
     for col,label,value in zip(st.columns(4),['Candidates','Mapped candidates','Orthogroups','Reference relationship records'],[selected.candidate_id.nunique(),selected.loc[selected.mapping_status.eq('matched'),'candidate_id'].nunique(),selected_hogs.Orthogroup.nunique(),len(selected_direct)]):
@@ -49,19 +60,19 @@ def orthology_panel():
             st.plotly_chart(px.imshow(matrix.rename(columns=NAMES),aspect='auto',color_continuous_scale='YlGn',labels={'color':'Proteins'},title='Orthogroup copy counts',height=max(350,len(matrix)*20)),width='stretch')
             st.caption(f'Showing {len(display)} of {len(selected_hogs)} selected orthogroups in alphabetical order. Search to focus the heatmap; the membership table includes every selected group.')
     with tabs[1]:
-        st.dataframe(selected,width='stretch',hide_index=True)
-        st.download_button('Download filtered candidate assignments',selected.to_csv(index=False),folder.name+'_candidates.csv','text/csv')
+        st.dataframe(display_ids(selected),width='stretch',hide_index=True)
+        st.download_button('Download filtered candidate assignments',display_ids(selected).to_csv(index=False),folder.name+'_candidates.csv','text/csv')
     with tabs[2]:
-        st.dataframe(selected_hogs,width='stretch',hide_index=True)
-        st.download_button('Download filtered orthogroups',selected_hogs.to_csv(index=False),folder.name+'_orthogroups.csv','text/csv')
+        st.dataframe(display_ids(selected_hogs),width='stretch',hide_index=True)
+        st.download_button('Download filtered orthogroups',display_ids(selected_hogs).to_csv(index=False),folder.name+'_orthogroups.csv','text/csv')
     with tabs[3]:
         refs=st.multiselect('Reference species',sorted(direct.reference_species.unique()),format_func=NAMES.get,key='orthology_refs')
         types=st.multiselect('Relationship types',sorted(direct.relationship.unique()),key='orthology_relationships')
         filtered=selected_direct
         if refs: filtered=filtered[filtered.reference_species.isin(refs)]
         if types: filtered=filtered[filtered.relationship.isin(types)]
-        st.dataframe(filtered,width='stretch',hide_index=True)
-        st.download_button('Download filtered direct orthologues',filtered.to_csv(index=False),folder.name+'_direct_orthologues.csv','text/csv')
+        st.dataframe(display_ids(filtered),width='stretch',hide_index=True)
+        st.download_button('Download filtered direct orthologues',display_ids(filtered).to_csv(index=False),folder.name+'_direct_orthologues.csv','text/csv')
     with tabs[4]:
         provenance=folder/'provenance.json'
         if provenance.exists(): st.json(json.loads(provenance.read_text(encoding='utf-8')),expanded=False)

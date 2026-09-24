@@ -1,19 +1,20 @@
+from atlas_paths import phylogeny_root
 """Exact prepared-ID to representative-protein annotations."""
 from functools import lru_cache
 from pathlib import Path
 import pandas as pd
+import re
 from data import ROOT
 
 @lru_cache(maxsize=2)
 def _read(path,mtime,size,tip_signature,supplement_signature):
     data=pd.read_csv(path,sep='\t',dtype=str).fillna('')
     tree_ids=set()
-    for tip_path,_,_ in tip_signature:
-        with open(tip_path,encoding='utf-8') as stream:
-            next(stream,None)
-            tree_ids.update(line.split('\t')[0] for line in stream if line.strip())
+    for source_path,_,_ in tip_signature:
+        text=Path(source_path).read_text(encoding='utf-8')
+        tree_ids.update(re.findall(r'[A-Za-z]+__[A-Za-z0-9_.-]+',text))
     data=data[data.prepared_id.isin(tree_ids)].copy()
-    data['identifier_mapping_source']='identifier_map.tsv'
+    data['identifier_mapping_source']=Path(path).name
     if supplement_signature:
         supplement=pd.read_csv(supplement_signature[0],sep='\t',dtype=str).fillna('')
         supplement=supplement[supplement.prepared_id.isin(tree_ids) & ~supplement.prepared_id.isin(data.prepared_id)].copy()
@@ -34,9 +35,10 @@ def _read(path,mtime,size,tip_signature,supplement_signature):
 
 def identifier_annotations():
     path=ROOT/'identifier_map.tsv'
+    if not path.exists(): path=ROOT/'identifier_map_expanded8.tsv.gz'
     if not path.exists(): return pd.DataFrame(columns=['sequence_id','protein_annotation_id','original_gene_id','identifier_mapping_status','alternative_protein_ids'])
     stat=path.stat()
-    signature=tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted((ROOT/'Phylogeny').rglob('tips.tsv')))
+    signature=tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted(list(phylogeny_root(ROOT).rglob('tips.tsv'))+list((ROOT/'orthology').rglob('*.tsv'))))
     supplement=ROOT/'identifier_map_expanded8.tsv.gz'
     if not supplement.exists(): supplement=ROOT/'identifier_map_expanded8.tsv'
     extra=(str(supplement),supplement.stat().st_mtime_ns,supplement.stat().st_size) if supplement.exists() else ()
