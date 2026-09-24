@@ -172,7 +172,7 @@ def phylogeny_panel():
         st.info('No matching phylogenetic groups.'); return
     folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{p.name} · {collections[p]}')
     st.caption(f'Analysis collection: {collections[folder]} · Source folder: {folder.relative_to(ROOT).as_posix()}')
-    export_name=folder.relative_to(ROOT/'phylogeny').as_posix().replace('/','_')
+    export_name=folder.relative_to(ROOT/'Phylogeny').as_posix().replace('/','_')
     try:
         root,tips,branches = read_group(folder)
         run = json.loads(companion_path(folder,'inference/run.json').read_text(encoding='utf-8'))
