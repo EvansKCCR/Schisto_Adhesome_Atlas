@@ -9,6 +9,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 from data import ROOT
+from identifier_labels import annotate_tips, identifier_annotations
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
         'inference/gene_tree.iqtree', 'inference/branch_evidence.tsv', 'inference/run.json')
@@ -93,7 +94,7 @@ def read_group(folder):
     root = parse_newick(companion_path(folder,'inference/gene_tree.treefile').read_text(encoding='utf-8'))
     tips = pd.read_csv(companion_path(folder,'tips.tsv'), sep='\t', dtype=str).fillna('')
     branches = pd.read_csv(companion_path(folder,'inference/branch_evidence.tsv'), sep='\t', dtype=str).fillna('')
-    return root, tips, branches
+    return root, annotate_tips(tips), branches
 
 def tree_collection(folder):
     """Use recorded analysis provenance, not candidate names, to group trees."""
@@ -132,10 +133,10 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
         candidate = [metadata.get(n.name,{}).get('candidate') == '1' for n in group]
         fig.add_trace(go.Scatter(x=[positions[n][0] for n in group],y=[positions[n][1] for n in group],
             mode='markers+text',name=NAMES.get(sp,sp),
-            text=[escape(('★ ' if c else '')+n.name) for n,c in zip(group,candidate)],textposition='middle right',
-            hovertext=[escape(f'{n.name} | {NAMES.get(sp,sp)} | Candidate: {c} | Length: {metadata.get(n.name,{}).get("length","unknown")} aa') for n,c in zip(group,candidate)],hoverinfo='text',
+            text=[escape(('★ ' if c else '')+metadata.get(n.name,{}).get('display_label',n.name)) for n,c in zip(group,candidate)],textposition='middle right',
+            hovertext=[escape(f'{metadata.get(n.name,{}).get("display_label",n.name)} | Gene/tree ID: {n.name} | {NAMES.get(sp,sp)} | Candidate: {c} | Length: {metadata.get(n.name,{}).get("length","unknown")} aa') for n,c in zip(group,candidate)],hoverinfo='text',
             marker=dict(color=COLORS.get(sp,'#999999'),symbol=['diamond' if c else 'circle' for c in candidate],
-                        size=[14 if focus and focus.lower() in n.name.lower() else 8 for n in group]),cliponaxis=False))
+                        size=[14 if focus and (focus.lower() in n.name.lower() or focus.lower() in metadata.get(n.name,{}).get('display_label','').lower()) else 8 for n in group]),cliponaxis=False))
     xmax = max(x for x,y in positions.values()) or 1
     fig.update_layout(height=max(500, min(12000,len(leaves)*24+150)),margin=dict(l=20,r=260,t=50,b=60),
         xaxis=dict(title='Topological depth (equal branch lengths)' if cladogram else 'Branch length · substitutions per site',range=[-xmax*.02,xmax*1.08]),
@@ -146,7 +147,7 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
 def phylogeny_panel():
     st.subheader('Phylogenetic evidence explorer')
     st.caption('Reference proteomes: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758).')
-    st.write('Inspect gene_tree.treefile with species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
+    st.write('Inspect gene_tree.treefile with representative protein identifiers from identifier_map.tsv, species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
     st.info('The supplied trees are unrooted. The rectangular display uses the Newick serialization origin, not an inferred ancestor. Phylogenetic support contributes to assignment confidence alongside domain architecture, topology/localization and motif context.')
     folders,incomplete,tree_files = discover_trees()
     if incomplete:
@@ -154,19 +155,24 @@ def phylogeny_panel():
         with st.expander('Incomplete phylogeny files'): st.dataframe(pd.DataFrame(incomplete),hide_index=True)
     if not folders:
         st.error('No complete phylogeny runs are available in this app environment.')
-        st.code(str(ROOT/'phylogeny'),language=None)
+        st.code(str(ROOT/'Phylogeny'),language=None)
         st.write(f'Tree files found: {len(tree_files)}. The phylogeny directory must be deployed alongside app.py, including gene_tree.treefile, tips.tsv, trimmed.faa, gene_tree.iqtree, branch_evidence.tsv and run.json for each run.')
         st.code('app.py\nphylogeny/\n  adhesome_candidates_list/OG…/tips.tsv\n  adhesome_candidates_list/OG…/inference/gene_tree.treefile\n  fibronectin_like_candidate/OG…/tips.tsv\n  fibronectin_like_candidate/OG…/inference/gene_tree.treefile',language=None)
-        st.caption('If running from GitHub, check that the phylogeny files are committed to the deployed branch. A local folder is not automatically uploaded with the Python scripts.')
         return
     with st.expander('Phylogeny source location'):
-        st.code(str(ROOT/'phylogeny'),language=None)
+        st.code(str(ROOT/'Phylogeny'),language=None)
         st.caption(f'{len(tree_files)} tree files found; {len(folders)} complete runs.')
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
     selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
     query = st.text_input('Find an orthogroup or protein', key='phylo_search')
-    options = [p for p in selected if not query or query.lower() in p.name.lower() or query.lower() in (p/'tips.tsv').read_text(encoding='utf-8').lower()]
+    lookup=identifier_annotations()
+    matched_ids=set(lookup.loc[lookup.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1),'sequence_id']) if query else set()
+    options=[]
+    for p in selected:
+        text=companion_path(p,'tips.tsv').read_text(encoding='utf-8')
+        if not query or query.lower() in p.name.lower() or query.lower() in text.lower() or any(line.split('\t')[0] in matched_ids for line in text.splitlines()[1:]): options.append(p)
+
     st.caption(f'{len(options)} of {len(folders)} trees · independent of the catalogue sidebar filters')
     if not options:
         st.info('No matching phylogenetic groups.'); return
@@ -194,9 +200,12 @@ def phylogeny_panel():
         st.warning(f'{len(branches)-len(matched)} branch-evidence rows could not be joined to the displayed tree; see the original table below.')
     st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{export_name}_tree.html','text/html')
     tabs = st.tabs(['Tip annotations','Branch evidence','Reproducibility'])
-    with tabs[0]: st.dataframe(tips,width='stretch',hide_index=True)
+    with tabs[0]:
+        st.dataframe(tips,width='stretch',hide_index=True)
+        st.download_button('Download mapped tip annotations',tips.to_csv(index=False),export_name+'_mapped_tips.csv','text/csv')
     with tabs[1]: st.dataframe(branches,width='stretch',hide_index=True)
     with tabs[2]:
+        st.caption('Original tree and tip IDs are preserved. Display labels use the representative protein ID; mapped tip annotations are downloadable separately.')
         st.caption('The retained trimmed alignment supports rerunning tree inference. run.json preserves original commands and hashes, including references to removed intermediate files; it is not a promise that upstream alignment can be rerun from this reduced library.')
         st.json(run,expanded=False)
         with st.expander('IQ-TREE report'): st.text(report)
