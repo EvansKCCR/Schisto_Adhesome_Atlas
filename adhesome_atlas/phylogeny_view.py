@@ -69,16 +69,36 @@ def layout(root, cladogram=False):
     visit(root, 0)
     return positions, descendants, leaves
 
+def discover_trees(root=ROOT):
+    """Discover tree files by name; report incomplete runs instead of hiding them."""
+    base=root/'phylogeny'
+    trees=sorted(p for p in base.rglob('gene_tree.treefile') if p.is_file())
+    folders=[]; incomplete=[]
+    for tree in trees:
+        folder=tree.parent.parent if tree.parent.name=='inference' else tree.parent
+        missing=[name for name in KEEP if not companion_path(folder,name).is_file()]
+        if missing: incomplete.append({'tree':str(tree),'missing':', '.join(missing)})
+        else: folders.append(folder)
+    return sorted(set(folders)),incomplete,trees
+
+
+def companion_path(folder, relative):
+    expected=folder/relative
+    if expected.is_file(): return expected
+    # Also accept exports where the six retained files sit together in OG…/.
+    return folder/relative.split('/')[-1]
+
+
 def read_group(folder):
-    root = parse_newick((folder/'inference/gene_tree.treefile').read_text(encoding='utf-8'))
-    tips = pd.read_csv(folder/'tips.tsv', sep='\t', dtype=str).fillna('')
-    branches = pd.read_csv(folder/'inference/branch_evidence.tsv', sep='\t', dtype=str).fillna('')
+    root = parse_newick(companion_path(folder,'inference/gene_tree.treefile').read_text(encoding='utf-8'))
+    tips = pd.read_csv(companion_path(folder,'tips.tsv'), sep='\t', dtype=str).fillna('')
+    branches = pd.read_csv(companion_path(folder,'inference/branch_evidence.tsv'), sep='\t', dtype=str).fillna('')
     return root, tips, branches
 
 def tree_collection(folder):
     """Use recorded analysis provenance, not candidate names, to group trees."""
     try:
-        project = json.loads((folder/'inference/run.json').read_text(encoding='utf-8')).get('settings', {}).get('project', '')
+        project = json.loads(companion_path(folder,'inference/run.json').read_text(encoding='utf-8')).get('settings', {}).get('project', '')
     except (OSError, ValueError):
         return 'Unclassified runs'
     project = str(project).replace('\\', '/').rstrip('/').split('/')[-1]
@@ -128,7 +148,20 @@ def phylogeny_panel():
     st.caption('Reference proteomes: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758).')
     st.write('Inspect gene_tree.treefile with species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
     st.info('The supplied trees are unrooted. The rectangular display uses the Newick serialization origin, not an inferred ancestor. Phylogenetic support contributes to assignment confidence alongside domain architecture, topology/localization and motif context.')
-    folders = sorted(p.parent.parent for p in (ROOT/'phylogeny').rglob('inference/gene_tree.treefile'))
+    folders,incomplete,tree_files = discover_trees()
+    if incomplete:
+        st.warning(f'{len(incomplete)} tree runs have missing companion files.')
+        with st.expander('Incomplete phylogeny files'): st.dataframe(pd.DataFrame(incomplete),hide_index=True)
+    if not folders:
+        st.error('No complete phylogeny runs are available in this app environment.')
+        st.code(str(ROOT/'phylogeny'),language=None)
+        st.write(f'Tree files found: {len(tree_files)}. The phylogeny directory must be deployed alongside app.py, including gene_tree.treefile, tips.tsv, trimmed.faa, gene_tree.iqtree, branch_evidence.tsv and run.json for each run.')
+        st.code('app.py\nphylogeny/\n  adhesome_candidates_list/OG…/tips.tsv\n  adhesome_candidates_list/OG…/inference/gene_tree.treefile\n  fibronectin_like_candidate/OG…/tips.tsv\n  fibronectin_like_candidate/OG…/inference/gene_tree.treefile',language=None)
+        st.caption('If running from GitHub, check that the phylogeny files are committed to the deployed branch. A local folder is not automatically uploaded with the Python scripts.')
+        return
+    with st.expander('Phylogeny source location'):
+        st.code(str(ROOT/'phylogeny'),language=None)
+        st.caption(f'{len(tree_files)} tree files found; {len(folders)} complete runs.')
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
     selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
@@ -142,7 +175,7 @@ def phylogeny_panel():
     export_name=folder.relative_to(ROOT/'phylogeny').as_posix().replace('/','_')
     try:
         root,tips,branches = read_group(folder)
-        run = json.loads((folder/'inference/run.json').read_text(encoding='utf-8'))
+        run = json.loads(companion_path(folder,'inference/run.json').read_text(encoding='utf-8'))
     except (ValueError, OSError, IndexError) as exc:
         st.error(f'Unable to read this phylogeny: {exc}'); return
     a,b,c = st.columns(3)
@@ -151,7 +184,7 @@ def phylogeny_panel():
     cladogram = st.checkbox('Equal branch lengths (cladogram)',value=False)
     focus = st.text_input('Highlight a tip ID',key='phylo_focus')
     fig,matched = tree_figure(root,tips,branches,supports,cladogram,focus)
-    report = (folder/'inference/gene_tree.iqtree').read_text(encoding='utf-8')
+    report = companion_path(folder,'inference/gene_tree.iqtree').read_text(encoding='utf-8')
     if 'SH-aLRT support (%) / ultrafast bootstrap support (%)' in report:
         st.caption('Support labels: SH-aLRT (%) / ultrafast bootstrap (%), as documented in gene_tree.iqtree. Neither value is a probability of adhesome membership.')
     else:
@@ -170,7 +203,7 @@ def phylogeny_panel():
         bundle = BytesIO()
         with zipfile.ZipFile(bundle,'w',zipfile.ZIP_DEFLATED) as archive:
             for relative in KEEP:
-                path = folder/relative
+                path = companion_path(folder,relative)
                 if path.exists():
                     archive.write(path,f'{export_name}/{relative}')
                     st.download_button(f'Download {path.name}',path.read_bytes(),path.name,key=f'phylo_{relative}')

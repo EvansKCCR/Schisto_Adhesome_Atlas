@@ -18,13 +18,13 @@ def enrich(frame, hits, root):
     ids=set(out.sequence_id)
     phylo={}; divergence={}; motif_scores={}
     by_id={k:g for k,g in hits.groupby('sequence_id')}
-    for folder in sorted(p.parent.parent for p in (root/'phylogeny').rglob('inference/trimmed.faa')):
-        path=folder/'inference/trimmed.faa'
+    for path in sorted((root/'phylogeny').rglob('trimmed.faa')):
+        folder=path.parent.parent if path.parent.name=='inference' else path.parent
         if not path.exists(): continue
         seqs=alignment(path)
         present=ids & seqs.keys()
         if not present: continue
-        branches=pd.read_csv(folder/'inference/branch_evidence.tsv',sep='\t',dtype=str).fillna('')
+        branches=pd.read_csv(path.parent/'branch_evidence.tsv',sep='\t',dtype=str).fillna('')
         for key in present:
             seq=seqs[key]
             for host,other in seqs.items():
