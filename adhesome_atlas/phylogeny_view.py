@@ -159,6 +159,11 @@ def tree_groups(folders, candidates=None, classification="All"):
             if 'source' in matches:
                 token='fibronectin_like_candidate' if collection=='Fibronectin-like' else 'adhesome_candidates_list'
                 matches=matches[matches.source.str.contains(token,regex=False,na=False)]
+        names=sorted(set(curated.loc[curated.orthogroup.eq(og),'family']))
+        kinase_names=set(names) & {'Src','FAK','ILK'}
+        if kinase_names and not matches.empty:
+            # Exclude cross-family screening hypotheses before classifying a run.
+            matches=matches[matches.family.isin(kinase_names)]
         if classification!='All':
             if matches.empty or 'status' not in matches: continue
             status=matches.status.fillna('').astype(str).str.strip().str.lower()
@@ -169,7 +174,8 @@ def tree_groups(folders, candidates=None, classification="All"):
 
         if not names and not matches.empty:
             names=sorted(set(matches.family.dropna().astype(str)))
-        names=sorted({'Src / FAK / ILK' if name in {'Src','FAK','ILK'} else name for name in names})
+        if not kinase_names:
+            names=sorted({'Unassigned kinase candidates' if name in {'Src','FAK','ILK'} else name for name in names})
         modules=sorted(set(matches.module.dropna().astype(str))) if not matches.empty and 'module' in matches else []
         rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection,'classification':' / '.join(sorted(set(matches.status.dropna().astype(str)))) if not matches.empty and 'status' in matches else 'Not recorded'})
     return rows
