@@ -36,7 +36,7 @@ def identifier_annotations():
     path=ROOT/'identifier_map.tsv'
     if not path.exists(): return pd.DataFrame(columns=['sequence_id','protein_annotation_id','original_gene_id','identifier_mapping_status','alternative_protein_ids'])
     stat=path.stat()
-    signature=tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted((ROOT/'phylogeny').rglob('tips.tsv')))
+    signature=tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted((ROOT/'Phylogeny').rglob('tips.tsv')))
     supplement=ROOT/'identifier_map_expanded8.tsv.gz'
     if not supplement.exists(): supplement=ROOT/'identifier_map_expanded8.tsv'
     extra=(str(supplement),supplement.stat().st_mtime_ns,supplement.stat().st_size) if supplement.exists() else ()
