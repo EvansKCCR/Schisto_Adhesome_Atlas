@@ -134,7 +134,7 @@ elif page == 'Orthology':
     orthology_panel()
 
 elif page == 'Phylogeny':
-    phylogeny_panel()
+    phylogeny_panel(network_candidates)
 
 elif page == 'Interactions':
     mode = st.radio('Network workspace', ['Unified reconstruction', 'Species STRING explorer'], horizontal=True)

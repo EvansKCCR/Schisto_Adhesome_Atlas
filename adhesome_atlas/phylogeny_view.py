@@ -145,7 +145,29 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
         legend=dict(orientation='h',y=1.03),dragmode='pan')
     return fig, matched
 
-def phylogeny_panel():
+def tree_groups(folders, candidates=None):
+    """Group original runs by catalogue annotations and explicit family assignments."""
+    explicit=ROOT/'phylogeny_family_groups.tsv'
+    curated=pd.read_csv(explicit,sep='\t').fillna('') if explicit.exists() else pd.DataFrame(columns=['family','orthogroup'])
+    rows=[]
+    for folder in folders:
+        og=folder.name.removesuffix('_fib')
+        collection=tree_collection(folder)
+        matches=pd.DataFrame()
+        if candidates is not None and 'orthogroup' in candidates:
+            matches=candidates[candidates.orthogroup.eq(og)]
+            if 'source' in matches:
+                token='fibronectin_like_candidate' if collection=='Fibronectin-like' else 'adhesome_candidates_list'
+                matches=matches[matches.source.str.contains(token,regex=False,na=False)]
+        names=sorted(set(curated.loc[curated.orthogroup.eq(og),'family']))
+        if not names and not matches.empty:
+            names=sorted(set(matches.family.dropna().astype(str)))
+        modules=sorted(set(matches.module.dropna().astype(str))) if not matches.empty and 'module' in matches else []
+        rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection})
+    return rows
+
+
+def phylogeny_panel(candidates=None):
     st.subheader('Phylogenetic evidence explorer')
     st.caption('Reference proteomes: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758).')
     st.write('Inspect gene_tree.treefile with representative protein identifiers from identifier_map.tsv, species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
@@ -166,6 +188,25 @@ def phylogeny_panel():
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
     selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
+    metadata=tree_groups(selected,candidates)
+    browse=st.radio('Browse trees by',['Protein family','Functional module','Orthogroup'],horizontal=True,key='phylo_browse')
+    field='families' if browse=='Protein family' else 'modules'
+    if browse!='Orthogroup':
+        categories=sorted({value for row in metadata for value in row[field]})
+        category=st.selectbox(browse,['All groups']+categories,key='phylo_group_'+field,format_func=lambda value:value.replace('_',' '))
+        if category!='All groups':
+            selected=[row['folder'] for row in metadata if category in row[field]]
+        st.caption('Family and module groups collect existing orthogroup trees. Each tree retains its own topology, branch lengths and support values.')
+        if browse=='Protein family' and category!='All groups':
+            group_file=ROOT/'phylogeny_family_groups.tsv'
+            if group_file.exists():
+                requested=pd.read_csv(group_file,sep='\t')
+                expected=set(requested.loc[requested.family.eq(category),'orthogroup'])
+                available={row['orthogroup'] for row in metadata}
+                missing=sorted(expected-available)
+                if missing: st.info('Tree unavailable in this collection: '+', '.join(missing))
+
+    info={row['folder']:row for row in metadata}
     query = st.text_input('Find an orthogroup or protein', key='phylo_search')
     lookup=identifier_annotations()
     matched_ids=set(lookup.loc[lookup.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1),'sequence_id']) if query else set()
@@ -175,9 +216,13 @@ def phylogeny_panel():
         if not query or query.lower() in p.name.lower() or query.lower() in text.lower() or any(line.split('\t')[0] in matched_ids for line in text.splitlines()[1:]): options.append(p)
 
     st.caption(f'{len(options)} of {len(folders)} trees · independent of the catalogue sidebar filters')
+    with st.expander('Trees in this group'):
+        inventory=pd.DataFrame([{'Family':' / '.join(info[p]['families']),'Functional module':' / '.join(info[p]['modules']),'Orthogroup':info[p]['orthogroup'],'Collection':collections[p]} for p in options])
+        st.dataframe(inventory,width='stretch',hide_index=True)
+
     if not options:
         st.info('No matching phylogenetic groups.'); return
-    folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{p.name} · {collections[p]}')
+    folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{" / ".join(info[p]["families"])} · {p.name} · {collections[p]}')
     st.caption(f'Analysis collection: {collections[folder]} · Source folder: {folder.relative_to(ROOT).as_posix()}')
     export_name=folder.relative_to(phylogeny_root(ROOT)).as_posix().replace('/','_')
     try:

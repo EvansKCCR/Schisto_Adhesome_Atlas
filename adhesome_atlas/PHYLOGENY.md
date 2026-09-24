@@ -27,3 +27,15 @@ Validation: `python test_phylogeny.py` checks every tree against tip metadata, b
 
 
 Reference proteomes (updated 2026-09-24): H. sapiens GRCh38.p14; Mus musculus GRCm39; Xenopus laevis Xenopus_laevis_v10.1; Drosophila melanogaster GCF_000001215.4; C. elegans PRJNA13758. Each reference species has a distinct tree color. New cleanup records are in `phylogeny_cleanup_manifest_2026-09-24.csv`; all six files listed above are retained per run. The older cleanup manifest describes the superseded library.
+
+
+Tree tip labels now use species-qualified representative protein annotation accessions from the atlas-root `identifier_map.tsv`. Mapping joins exact prepared IDs and retains unresolved/conflicting IDs unchanged. Original gene IDs remain in hover details and source files; the tip tab offers a mapped CSV. Search includes representative and alternative protein IDs. Deploy `identifier_map.tsv` alongside `app.py` and `identifier_labels.py`.
+
+The expanded eight-species identifier map is copied from `04_orthology_phylogenetic_classification/03_qc/expanded8/identifier_map.tsv` to `identifier_map_expanded8.tsv`. It fills only prepared IDs absent from the primary map. The mapped-tip table records the mapping source. Deploy both map files alongside the scripts.
+
+For GitHub upload, use `identifier_map_expanded8.tsv.gz` in place of the uncompressed expanded map. The loader prefers gzip and pandas decompresses it automatically. Keep `identifier_map.tsv` as the primary map. The uncompressed expanded map is retained locally but is not needed in deployment.
+
+
+### Family and functional-module browsing
+The Phylogeny page defaults to Protein family browsing, with Functional module and Orthogroup modes. `phylogeny_family_groups.tsv` records the user-specified Integrin α, Kindlin, Src, PTP-PEST and Paxillin groupings. Other family and module labels come from the candidate catalogue, matched by orthogroup and collection. These labels organize existing trees; they do not merge alignments, modify source family assignments or infer new inter-orthogroup branches. The group inventory lists all matching runs, and the tree selector retains orthogroup IDs. Deploy the grouping TSV alongside app.py.
+`OG0013508` (Kindlin) and `OG0013668` (Paxillin) are listed in the requested groups but currently have no discoverable tree. Their family views show an explicit unavailable notice; new runs will be discovered automatically when added.
