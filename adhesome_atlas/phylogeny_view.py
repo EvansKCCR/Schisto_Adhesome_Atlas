@@ -145,7 +145,7 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
         legend=dict(orientation='h',y=1.03),dragmode='pan')
     return fig, matched
 
-def tree_groups(folders, candidates=None):
+def tree_groups(folders, candidates=None, classification="All"):
     """Group original runs by catalogue annotations and explicit family assignments."""
     explicit=ROOT/'phylogeny_family_groups.tsv'
     curated=pd.read_csv(explicit,sep='\t').fillna('') if explicit.exists() else pd.DataFrame(columns=['family','orthogroup'])
@@ -159,11 +159,19 @@ def tree_groups(folders, candidates=None):
             if 'source' in matches:
                 token='fibronectin_like_candidate' if collection=='Fibronectin-like' else 'adhesome_candidates_list'
                 matches=matches[matches.source.str.contains(token,regex=False,na=False)]
+        if classification!='All':
+            if matches.empty or 'status' not in matches: continue
+            status=matches.status.fillna('').astype(str).str.strip().str.lower()
+            allowed=['supported','supported candidate'] if classification=='Supported' else ['provisional']
+            matches=matches[status.isin(allowed)]
+            if matches.empty: continue
         names=sorted(set(curated.loc[curated.orthogroup.eq(og),'family']))
+
         if not names and not matches.empty:
             names=sorted(set(matches.family.dropna().astype(str)))
+        names=sorted({'Src / FAK / ILK' if name in {'Src','FAK','ILK'} else name for name in names})
         modules=sorted(set(matches.module.dropna().astype(str))) if not matches.empty and 'module' in matches else []
-        rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection})
+        rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection,'classification':' / '.join(sorted(set(matches.status.dropna().astype(str)))) if not matches.empty and 'status' in matches else 'Not recorded'})
     return rows
 
 
@@ -188,7 +196,10 @@ def phylogeny_panel(candidates=None):
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
     selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
-    metadata=tree_groups(selected,candidates)
+    classification=st.radio('Classification',['Supported','Provisional','All'],index=2,horizontal=True,key='phylo_classification')
+    metadata=tree_groups(selected,candidates,classification)
+    selected=[row['folder'] for row in metadata]
+    st.caption('Classification uses catalogue status. A tree is included when it contains a matching candidate assignment; all its tips are retained. Mixed-status trees can appear in both classifications. All also includes unresolved or unclassified assignments.')
     browse=st.radio('Browse trees by',['Protein family','Functional module','Orthogroup'],horizontal=True,key='phylo_browse')
     field='families' if browse=='Protein family' else 'modules'
     if browse!='Orthogroup':
@@ -217,7 +228,7 @@ def phylogeny_panel(candidates=None):
 
     st.caption(f'{len(options)} of {len(folders)} trees · independent of the catalogue sidebar filters')
     with st.expander('Trees in this group'):
-        inventory=pd.DataFrame([{'Family':' / '.join(info[p]['families']),'Functional module':' / '.join(info[p]['modules']),'Orthogroup':info[p]['orthogroup'],'Collection':collections[p]} for p in options])
+        inventory=pd.DataFrame([{'Family':' / '.join(info[p]['families']),'Functional module':' / '.join(info[p]['modules']),'Orthogroup':info[p]['orthogroup'],'Collection':collections[p],'Classification':info[p]['classification']} for p in options])
         st.dataframe(inventory,width='stretch',hide_index=True)
 
     if not options:
