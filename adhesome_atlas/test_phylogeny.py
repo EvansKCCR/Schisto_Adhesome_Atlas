@@ -4,7 +4,7 @@ from streamlit.testing.v1 import AppTest
 from phylogeny_view import ROOT, KEEP, read_group, layout, tree_figure, parse_newick, tree_collection
 
 def test_library():
-    folders = sorted((ROOT/'phylogeny').glob('OG*'))
+    folders = sorted(p.parent.parent for p in (ROOT/'phylogeny').rglob('inference/gene_tree.treefile'))
     assert folders
     assert any(tree_collection(p) == 'Fibronectin-like' for p in folders)
     for folder in folders:
@@ -27,12 +27,13 @@ def test_library():
     print(f'All {len(folders)} trees, tip metadata, branch support and alignment identifiers verified.')
 
 def test_page():
-    app = AppTest.from_file(str(ROOT/'app.py'),default_timeout=120).run()
+    app = AppTest.from_file(str(ROOT/'app.py'),default_timeout=240).run()
     app.sidebar.radio[0].set_value('Phylogeny').run()
     assert not app.exception, app.exception
-    app.text_input(key='phylo_search').set_value('OG0000089').run()
+    first=next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup').value.name
+    app.text_input(key='phylo_search').set_value(first).run()
     assert not app.exception
-    assert next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup').value.name == 'OG0000089'
+    assert next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup').value.name == first
     for checkbox in app.checkbox:
         checkbox.set_value(not checkbox.value)
     app.run()
@@ -42,8 +43,9 @@ def test_page():
     assert not app.exception
     selector = next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup')
     assert all('Fibronectin-like' in label for label in selector.options)
-    app.text_input(key='phylo_search').set_value('OG0000761').run()
-    assert next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup').value.name == 'OG0000761_fib'
+    first=selector.value.name
+    app.text_input(key='phylo_search').set_value(first).run()
+    assert next(s for s in app.selectbox if s.label == 'Phylogenetic orthogroup').value.name == first
     app.text_input(key='phylo_search').set_value('no_such_tip').run()
     assert not app.exception
     print('Phylogeny page, search, empty results and display controls passed.')

@@ -12,9 +12,9 @@ from data import ROOT
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
         'inference/gene_tree.iqtree', 'inference/branch_evidence.tsv', 'inference/run.json')
-COLORS = {'Shae':'#008b8b','Sjap':'#d98632','Sman':'#7665bc','Hsap':'#b65179','Cele':'#628049'}
+COLORS = {'Shae':'#008b8b','Sjap':'#d98632','Sman':'#7665bc','Hsap':'#b65179','Cele':'#628049','Mmus':'#3975b5','Xlae':'#a56b23','Dmel':'#cf4750'}
 NAMES = {'Shae':'S. haematobium','Sjap':'S. japonicum','Sman':'S. mansoni',
-         'Hsap':'H. sapiens','Cele':'C. elegans'}
+         'Hsap':'H. sapiens','Cele':'C. elegans','Mmus':'M. musculus','Xlae':'X. laevis','Dmel':'D. melanogaster'}
 
 @dataclass(eq=False)
 class Node:
@@ -82,7 +82,7 @@ def tree_collection(folder):
     except (OSError, ValueError):
         return 'Unclassified runs'
     project = str(project).replace('\\', '/').rstrip('/').split('/')[-1]
-    return {'fibronectin': 'Fibronectin-like', 'all_candidates': 'All-candidate analysis'}.get(project, 'Unclassified runs')
+    return {'fibronectin': 'Fibronectin-like', 'fibronectin_8species': 'Fibronectin-like', 'all_candidates': 'All-candidate analysis', 'all_candidates_8species': 'All-candidate analysis'}.get(project, 'Unclassified runs')
 
 def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
     positions, descendants, leaves = layout(root, cladogram)
@@ -125,9 +125,10 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
 
 def phylogeny_panel():
     st.subheader('Phylogenetic evidence explorer')
+    st.caption('Reference proteomes: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758).')
     st.write('Inspect gene_tree.treefile with species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
     st.info('The supplied trees are unrooted. The rectangular display uses the Newick serialization origin, not an inferred ancestor. Phylogenetic support contributes to assignment confidence alongside domain architecture, topology/localization and motif context.')
-    folders = sorted(p for p in (ROOT/'phylogeny').glob('*') if p.is_dir() and (p/'inference/gene_tree.treefile').exists())
+    folders = sorted(p.parent.parent for p in (ROOT/'phylogeny').rglob('inference/gene_tree.treefile'))
     collections = {p: tree_collection(p) for p in folders}
     collection = st.selectbox('Phylogeny collection', ['All trees'] + sorted(set(collections.values())), key='phylo_collection')
     selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
@@ -138,6 +139,7 @@ def phylogeny_panel():
         st.info('No matching phylogenetic groups.'); return
     folder = st.selectbox('Phylogenetic orthogroup', options, format_func=lambda p:f'{p.name} · {collections[p]}')
     st.caption(f'Analysis collection: {collections[folder]} · Source folder: {folder.relative_to(ROOT).as_posix()}')
+    export_name=folder.relative_to(ROOT/'phylogeny').as_posix().replace('/','_')
     try:
         root,tips,branches = read_group(folder)
         run = json.loads((folder/'inference/run.json').read_text(encoding='utf-8'))
@@ -157,7 +159,7 @@ def phylogeny_panel():
     st.plotly_chart(fig,width='stretch',config={'scrollZoom':True,'displaylogo':False})
     if len(matched) != len(branches):
         st.warning(f'{len(branches)-len(matched)} branch-evidence rows could not be joined to the displayed tree; see the original table below.')
-    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{folder.name}_tree.html','text/html')
+    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{export_name}_tree.html','text/html')
     tabs = st.tabs(['Tip annotations','Branch evidence','Reproducibility'])
     with tabs[0]: st.dataframe(tips,width='stretch',hide_index=True)
     with tabs[1]: st.dataframe(branches,width='stretch',hide_index=True)
@@ -170,6 +172,6 @@ def phylogeny_panel():
             for relative in KEEP:
                 path = folder/relative
                 if path.exists():
-                    archive.write(path,f'{folder.name}/{relative}')
+                    archive.write(path,f'{export_name}/{relative}')
                     st.download_button(f'Download {path.name}',path.read_bytes(),path.name,key=f'phylo_{relative}')
-        st.download_button('Download tree and companions · ZIP',bundle.getvalue(),f'{folder.name}_phylogeny.zip','application/zip')
+        st.download_button('Download tree and companions · ZIP',bundle.getvalue(),f'{export_name}_phylogeny.zip','application/zip')

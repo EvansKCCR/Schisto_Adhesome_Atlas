@@ -5,6 +5,7 @@ from evidence import PRIORITIES
 
 def evidence_view(df):
     st.subheader('Integrated evidence and assignment confidence')
+    st.caption('Orthology references: H. sapiens (GRCh38.p14), M. musculus (GRCm39), X. laevis (Xenopus_laevis_v10.1), D. melanogaster (GCF_000001215.4), and C. elegans (PRJNA13758).')
     st.info('Assignments integrate orthology → domain architecture → topology/localization → motif context. Agreement across these evidence types strengthens confidence in the biological assignment. Original source statuses are preserved.')
     counts=df.groupby(['species','evidence_review_stage']).sequence_id.nunique().reset_index(name='proteins')
     st.plotly_chart(px.bar(counts,x='species',y='proteins',color='evidence_review_stage',title='Evidence convergence · distinct proteins by stage'),width='stretch')
@@ -12,7 +13,7 @@ def evidence_view(df):
     cols=[c for c in ['sequence_id','species','family','assigned_family','status','orthogroup','orthology_scope','schistosome_species_in_HOG','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag','adhesome_interpretation'] if c in df]
     st.dataframe(df[cols],width='stretch',hide_index=True)
     st.download_button('Download hierarchical evidence review',df.to_csv(index=False),'hierarchical_evidence.csv')
-    orthcols=[c for c in df if c.startswith('Orthology_') or c in ['Orthogroup','HOG_status','Hsap_orthologues','Hsap_relationship','Cele_orthologues','Cele_relationship']]
+    orthcols=[c for c in df if c.startswith('Orthology_') or c in ['Orthogroup','HOG_status'] or c.endswith(('_orthologues','_relationship','_HOG_copy_counts'))]
     with st.expander('Original orthology assignments and relationship types'):
         st.dataframe(df[['sequence_id']+orthcols],width='stretch',hide_index=True)
     st.caption('Human orthologues trigger selectivity review, not exclusion. They do not quantify host sequence similarity. Schistosoma-only means only within the sampled HOG/reference species, not proven absence throughout metazoans. One-to-many and many-to-many relationships preclude automatic gene-name transfer.')

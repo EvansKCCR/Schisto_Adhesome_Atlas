@@ -18,7 +18,7 @@ def enrich(frame, hits, root):
     ids=set(out.sequence_id)
     phylo={}; divergence={}; motif_scores={}
     by_id={k:g for k,g in hits.groupby('sequence_id')}
-    for folder in sorted((root/'phylogeny').glob('*')):
+    for folder in sorted(p.parent.parent for p in (root/'phylogeny').rglob('inference/trimmed.faa')):
         path=folder/'inference/trimmed.faa'
         if not path.exists(): continue
         seqs=alignment(path)
@@ -32,7 +32,7 @@ def enrich(frame, hits, root):
                 paired=[(a,b) for a,b in zip(seq,other) if a in 'ACDEFGHIKLMNPQRSTVWY' and b in 'ACDEFGHIKLMNPQRSTVWY']
                 if paired:
                     score=sum(a!=b for a,b in paired)/len(paired)
-                    divergence.setdefault(key,[]).append((score,f'{folder.name}: {host}; {len(paired)} paired amino-acid sites'))
+                    divergence.setdefault(key,[]).append((score,f'{folder.relative_to(root/'phylogeny').as_posix()}: {host}; {len(paired)} paired amino-acid sites'))
             eligible=[]
             for row in branches.itertuples():
                 tips=row.tip_ids.split(',')
@@ -45,7 +45,7 @@ def enrich(frame, hits, root):
             if eligible:
                 smallest=min(x[0] for x in eligible)
                 for _,score,branch,label in eligible:
-                    if _==smallest: phylo.setdefault(key,[]).append((score,f'{folder.name}/{branch}: SH-aLRT/UFBoot {label}; smallest multispecies Schistosoma clade'))
+                    if _==smallest: phylo.setdefault(key,[]).append((score,f'{folder.relative_to(root/'phylogeny').as_posix()}/{branch}: SH-aLRT/UFBoot {label}; smallest multispecies Schistosoma clade'))
             if key not in by_id: continue
             ungapped=''.join(a for a in seq if a not in '-.')
             columns=[i for i,a in enumerate(seq) if a not in '-.']
@@ -65,7 +65,7 @@ def enrich(frame, hits, root):
                             comparisons.append(sum(other[i]==a for i,a in zip(positions,peptide))/len(peptide))
                     if comparisons: scores.append(sum(comparisons)/len(comparisons))
                 if scores:
-                    motif_scores.setdefault((key,hit.family),[]).append((sum(scores)/len(scores),f'{folder.name}: {getattr(hit,'motif_label',getattr(hit,'elm_class','Motif'))}; uniquely retained peptide {peptide}; mean aligned residue identity across other Schistosoma species'))
+                    motif_scores.setdefault((key,hit.family),[]).append((sum(scores)/len(scores),f'{folder.relative_to(root/'phylogeny').as_posix()}: {getattr(hit,'motif_label',getattr(hit,'elm_class','Motif'))}; uniquely retained peptide {peptide}; mean aligned residue identity across other Schistosoma species'))
     records=[]
     for _,r in out.iterrows():
         key=r.sequence_id
