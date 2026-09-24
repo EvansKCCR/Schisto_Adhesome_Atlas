@@ -1,0 +1,10 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	70.2/70	10	Hsap,Mmus,Shae,Sjap,Sman,Xlae	Hsap__GeneID_11329,Hsap__GeneID_23012,Mmus__GeneID_106504,Mmus__GeneID_232533,Shae__MS3_00006767,Sjap__EWB00_005385,Sman__Smp_103570,Xlae__GeneID_108710710,Xlae__GeneID_380110,Xlae__GeneID_414693	21		unrooted split; no ancestry or duplication timing assigned
+B0003	99.9/100	7	Hsap,Mmus,Xlae	Hsap__GeneID_11329,Hsap__GeneID_23012,Mmus__GeneID_106504,Mmus__GeneID_232533,Xlae__GeneID_108710710,Xlae__GeneID_380110,Xlae__GeneID_414693	0		unrooted split; no ancestry or duplication timing assigned
+B0004	98.1/98	3	Hsap,Mmus,Xlae	Hsap__GeneID_11329,Mmus__GeneID_106504,Xlae__GeneID_380110	0		unrooted split; no ancestry or duplication timing assigned
+B0005	95.5/100	2	Hsap,Mmus	Hsap__GeneID_11329,Mmus__GeneID_106504	0		unrooted split; no ancestry or duplication timing assigned
+B0006	92.7/100	4	Hsap,Mmus,Xlae	Hsap__GeneID_23012,Mmus__GeneID_232533,Xlae__GeneID_108710710,Xlae__GeneID_414693	0		unrooted split; no ancestry or duplication timing assigned
+B0007	87.7/88	2	Hsap,Mmus	Hsap__GeneID_23012,Mmus__GeneID_232533	0		unrooted split; no ancestry or duplication timing assigned
+B0008	96.5/98	2	Xlae	Xlae__GeneID_108710710,Xlae__GeneID_414693	0		unrooted split; no ancestry or duplication timing assigned
+B0009	100/100	3	Shae,Sjap,Sman	Shae__MS3_00006767,Sjap__EWB00_005385,Sman__Smp_103570	0		unrooted split; no ancestry or duplication timing assigned
+B0010	56.9/49	2	Shae,Sjap	Shae__MS3_00006767,Sjap__EWB00_005385	0		unrooted split; no ancestry or duplication timing assigned
