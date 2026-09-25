@@ -62,6 +62,37 @@ except Exception as exc:
     st.error(f'Unable to read annotation library at {ROOT}: {exc}')
     st.stop()
 
+# Cloud deployments can retain cached cohorts from an older data loader while
+# serving a newer app.py. Normalize that schema before any page uses it.
+def ensure_audit_columns(frame):
+    if {'audit_classification','reviewed_family','family_assignment_basis'} <= set(frame.columns):
+        return frame
+    out = frame.copy()
+    if 'family_decision' in out:
+        supported = {'Retain family assignment','Retain; resolves competing family'}
+        provisional = {'Retain provisionally','Family-level provisional only'}
+        decisions = out.family_decision.fillna('')
+        out['audit_classification'] = decisions.map(
+            lambda decision: 'Supported' if decision in supported else
+            'Provisional' if decision in provisional else
+            'Ambiguous' if decision.startswith('Ambiguous') else 'Unassigned'
+        )
+        out['reviewed_family'] = out.family.where(out.audit_classification.isin(['Supported','Provisional']))
+        out['family_assignment_basis'] = decisions
+    elif {'recommended_family','grade'} <= set(out.columns):
+        out['audit_classification'] = out.grade.map({'A':'Supported','B':'Supported','C':'Provisional','D':'Unassigned'}).fillna('Unassigned')
+        out['reviewed_family'] = out.recommended_family.where(out.audit_classification.ne('Unassigned'))
+        out['family_assignment_basis'] = out.rationale if 'rationale' in out else 'Workbook recommended family and grade'
+    else:
+        out['audit_classification'] = 'Screening hypothesis'
+        out['reviewed_family'] = pd.NA
+        out['family_assignment_basis'] = 'Audited workbook columns are unavailable in this deployment'
+    return out
+
+cohorts = {name: ensure_audit_columns(frame) for name, frame in cohorts.items()}
+missing_audit_sources = [name for name, required in [('Adhesome candidates','family_decision'),('FN3 / fibronectin-like review','recommended_family')]
+                         if required not in cohorts[name]]
+
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('INTEGRIN · ADHESOME · EVIDENCE')
@@ -111,6 +142,8 @@ def download(frame, name):
 
 identity_banner()
 st.markdown('<div class="hero"><div class="eyebrow">Comparative molecular atlas · Schistosoma</div><h1>Schisto-Adhesome Atlas</h1><p>Explore integrin–adhesome candidates across three schistosome species, from family assignments to domains, sequence motifs and localization evidence.</p></div>', unsafe_allow_html=True)
+if missing_audit_sources:
+    st.warning('Audited workbook columns are unavailable for '+', '.join(missing_audit_sources)+'. Deploy the updated files/ workbooks together with app.py, data.py and family_audit.py, then use Reload source files.')
 st.caption(f'{cohort}  /  {len(df):,} filtered assignment records  /  {df.sequence_id.nunique():,} distinct proteins')
 
 if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny', 'Orthology'] and df.empty:
