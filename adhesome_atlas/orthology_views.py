@@ -6,11 +6,11 @@ from evidence import PRIORITIES
 def evidence_view(df):
     st.subheader('Integrated evidence and assignment confidence')
     st.caption('Orthology references: H. sapiens (GRCh38.p14), M. musculus (GRCm39), X. laevis (Xenopus_laevis_v10.1), D. melanogaster (GCF_000001215.4), and C. elegans (PRJNA13758).')
-    st.info('Assignments integrate orthology → domain architecture → topology/localization → motif context. Agreement across these evidence types strengthens confidence in the biological assignment. Original source statuses are preserved.')
+    st.info('The audited family decision uses domain architecture as its primary gate. Orthology, motif context and topology/localization support the interpretation. Original screening labels and source statuses remain visible.')
     counts=df.groupby(['species','evidence_review_stage']).sequence_id.nunique().reset_index(name='proteins')
     st.plotly_chart(px.bar(counts,x='species',y='proteins',color='evidence_review_stage',title='Evidence convergence · distinct proteins by stage'),width='stretch')
     st.caption('Stages show convergence across all four evidence types or the first incomplete/conflicting component. A protein with multiple family assignments can occur in multiple stages.')
-    cols=[c for c in ['sequence_id','species','family','assigned_family','status','orthogroup','orthology_scope','schistosome_species_in_HOG','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag','adhesome_interpretation'] if c in df]
+    cols=[c for c in ['sequence_id','species','family','reviewed_family','audit_classification','grade','family_decision','status','orthogroup','orthology_scope','schistosome_species_in_HOG','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag','adhesome_interpretation'] if c in df]
     st.dataframe(df[cols],width='stretch',hide_index=True)
     st.download_button('Download hierarchical evidence review',df.to_csv(index=False),'hierarchical_evidence.csv')
     orthcols=[c for c in df if c.startswith('Orthology_') or c in ['Orthogroup','HOG_status'] or c.endswith(('_orthologues','_relationship','_HOG_copy_counts'))]
@@ -30,7 +30,7 @@ def priority_view(frame):
     if not subset.empty:
         summary=subset.groupby(['species','topology_evidence']).sequence_id.nunique().reset_index(name='proteins')
         st.plotly_chart(px.bar(summary,x='species',y='proteins',color='topology_evidence',title='Priority group · localization agreement and review needs'),width='stretch')
-    cols=['sequence_id','species','assigned_family','orthogroup','orthology_scope','schistosome_species_in_HOG','architecture','DeepTMHMM','DeepLoc_2.1','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag']
+    cols=['sequence_id','species','reviewed_family','audit_classification','grade','orthogroup','orthology_scope','schistosome_species_in_HOG','architecture','DeepTMHMM','DeepLoc_2.1','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag']
     st.dataframe(subset[[c for c in cols if c in subset]],width='stretch',hide_index=True)
     st.download_button('Download this priority group',subset.to_csv(index=False),'fn3_priority_group.csv')
     st.caption('Conserved secreted group: shared HOG with copies reported in all three schistosome species and source assignment secreted_FN3_protein_like. The two Schistosoma-only groups require that exact sampled-HOG status and the corresponding receptor class. General single-pass membrane FN3 proteins are not automatically classified as adhesion receptors.')

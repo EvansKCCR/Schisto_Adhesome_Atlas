@@ -4,7 +4,7 @@ Select **Phylogeny** in the atlas. Search by orthogroup or protein ID; these con
 
 The display reads `gene_tree.treefile`, preserves branch lengths and topology, and joins branch evidence by exact descendant-tip sets. Internal support labels are reproduced verbatim. The supplied IQ-TREE reports identify paired labels as SH-aLRT (%) / ultrafast bootstrap (%). The rectangular origin is a drawing convention for these unrooted trees, not an inferred ancestor. The optional cladogram changes only displayed lengths. Phylogeny never independently establishes adhesome membership.
 
-The replacement library contains 152 tree runs and 2,261 tips across runs: 135 all-candidate runs and 17 fibronectin-like runs. Trees are discovered recursively under `phylogeny/adhesome_candidates_list` and `phylogeny/fibronectin_like_candidate`. The collection filter reads `settings.project` from each `run.json`. Runs for the same orthogroup remain distinct, and exports include collection paths in their names. Each group retains:
+The replacement library contains 152 tree runs and 2,261 tips across runs: 135 all-candidate runs and 17 fibronectin-like runs. Trees are discovered recursively under `Phylogeny/adhesome_candidates_list` and `Phylogeny/fibronectin_like_candidate`. The collection filter reads `settings.project` from each `run.json`. Runs for the same orthogroup remain distinct, and exports include collection paths in their names. Each group retains:
 
 - `tips.tsv`
 - `inference/gene_tree.treefile`
@@ -41,7 +41,7 @@ The Phylogeny page defaults to Protein family browsing, with Functional module a
 `OG0013508` (Kindlin) and `OG0013668` (Paxillin) are listed in the requested groups but currently have no discoverable tree. Their family views show an explicit unavailable notice; new runs will be discovered automatically when added.
 
 
-Src, FAK and ILK are independent browsing families, using resolved workbook assignments: Src OG0000213/OG0001055/OG0003193; FAK OG0002086; ILK OG0003976. Other kinase screening rows without resolved assignment appear under Unassigned kinase candidates. Classification is applied to the matching family rows, excluding cross-family screening hypotheses. Classification offers Supported, Provisional and All (default). It uses original catalogue status (`supported candidate`/`supported`, or `provisional`), within the selected collection. A run is included if it has a matching assignment; complete trees remain intact. Mixed-status runs may occur in both subsets. The group inventory reports the selected source classifications.
+Src, FAK and ILK remain independent browsing families: Src OG0000213/OG0001055/OG0003193; FAK OG0002086; ILK OG0003976. The family heading identifies the analysis run; per-protein family support is reported separately by the audited workbook. Classification offers Supported, Provisional and All (default), using the audited family decision within the selected collection. A run is included if it has a matching candidate; complete trees remain intact. A run with mixed decisions can appear in both subsets. The group inventory reports the selected audited classifications.
 
 
 Integrin alpha OG0000401 and OG0001220 are combined into one atlas display group in Orthology and the phylogenetic group selector. Orthology membership unions unique identifiers and preserves source group IDs. Phylogeny renders both original trees under the one selected group, without introducing an artificial connecting branch. Original files and orthology relationships are unchanged.

@@ -26,8 +26,13 @@ def orthology_panel(candidates=None):
     report,hogs,direct=read_collection(folder)
     if candidates is not None and {'sequence_id','family','source'} <= set(candidates):
         subset=candidates[candidates.source.str.contains(folder.name,regex=False,na=False)]
+        # Standalone orthology exports can retain proteins removed from a later audited workbook.
+        report=report[report.candidate_id.isin(subset.sequence_id)].copy()
         families=subset.groupby('sequence_id').family.agg(lambda values:' | '.join(sorted(set(values.dropna()))))
         report['family']=report.candidate_id.map(families).fillna('Unassigned family')
+        report['Screening family']=report.family
+        report['Reviewed family']=report.candidate_id.map(subset.groupby('sequence_id').reviewed_family.agg(lambda values:' | '.join(sorted(set(values.dropna()))))).fillna('')
+        report['Audit classification']=report.candidate_id.map(subset.groupby('sequence_id').audit_classification.agg(lambda values:' | '.join(sorted(set(values.dropna()))))).fillna('')
     else:
         report['family']='Unassigned family'
     grouping=ROOT/'phylogeny_family_groups.tsv'
@@ -42,7 +47,7 @@ def orthology_panel(candidates=None):
         for col in displayed:
             displayed[col]=displayed[col].map(lambda value:re.sub(r'[A-Za-z]+__[A-Za-z0-9_.-]+',lambda match:lookup.get(match.group(),match.group()),str(value)))
         return displayed
-    st.caption('Protein accessions are displayed using identifier maps. Original gene IDs remain available in the source downloads; search accepts either identifier.')
+    st.caption('Protein accessions are displayed using identifier maps. Original gene IDs remain available in the source downloads; search accepts either identifier. Family browsing uses curated orthogroup labels; the table separately shows each current candidate’s screened and audited family.')
 
     species=st.multiselect('Candidate species',['Shae','Sjap','Sman'],default=['Shae','Sjap','Sman'],format_func=NAMES.get,key='orthology_species')
     families=sorted({family for value in report.family for family in value.split(' | ')})

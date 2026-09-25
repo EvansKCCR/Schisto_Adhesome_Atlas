@@ -68,7 +68,7 @@ with st.sidebar:
     section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Source Library', 'Citations'])
     page = section
     if section == 'Components':
-        page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
+        page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Family assignment audit', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
     st.divider()
     cohort = st.selectbox('Collection', list(cohorts))
     base = cohorts[cohort]
@@ -161,6 +161,9 @@ elif page == 'Summary statistics':
     st.markdown('### Family and status counts')
     counts = df.groupby(['species','family','status']).sequence_id.nunique().reset_index(name='distinct_proteins')
     table(counts)
+    st.markdown('### Audited family assignments')
+    classification = df.groupby(['species','audit_classification']).agg(assignment_records=('sequence_id','size'),distinct_proteins=('sequence_id','nunique')).reset_index()
+    table(classification)
     st.caption('Length summaries use one record per protein. Family and status groups may overlap; they are not additive protein totals. Sequence availability reflects only the files currently supplied.')
 
 elif page == 'Summary graphs':
@@ -177,6 +180,9 @@ elif page == 'Summary graphs':
         counts = df.groupby(['species','status']).sequence_id.nunique().reset_index(name='proteins')
         chart(px.bar(counts, x='species', y='proteins', color='status', barmode='group', color_discrete_sequence=palette, title='Candidate status across species'))
     st.info('Counts are distinct proteins within each plotted group. Multiple family assignments can make group totals exceed the collection’s distinct-protein count. Original source statuses are retained.')
+    st.markdown('### Family assignment audit')
+    classification = df.groupby(['family','audit_classification']).size().reset_index(name='assignment records')
+    chart(px.bar(classification,x='family',y='assignment records',color='audit_classification',barmode='stack',title='Family screening labels by audited classification'))
     st.markdown('### Follow the evidence')
     for col, title, body in zip(st.columns(3), ['01 / Find a candidate', '02 / Inspect its architecture', '03 / Compare the repertoire'], ['Search identifiers, families and Pfam annotations in the catalogue.', 'Open a dossier for positional domains, motifs, topology and raw predictor results.', 'Compare species using absolute counts or within-species family representation.']):
         with col:
@@ -185,7 +191,7 @@ elif page == 'Summary graphs':
 
 elif page == 'Candidate catalogue':
     st.subheader('Candidate catalogue')
-    defaults = [c for c in ['sequence_id','species','family','assigned_family','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
+    defaults = [c for c in ['sequence_id','species','family','reviewed_family','audit_classification','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
     columns = st.multiselect('Visible annotation fields', list(df.columns), default=defaults)
     table(df[columns])
     a,b = st.columns(2)
@@ -194,6 +200,38 @@ elif page == 'Candidate catalogue':
     with b:
         st.download_button('↓ Filtered proteins · FASTA', fasta_export(df.sequence_id, sequences), 'filtered_proteins.fasta', 'text/plain')
     st.caption(f'{len(ids.intersection(sequences)):,} of {len(ids):,} filtered proteins have a source sequence. FASTA exports deduplicate protein IDs; CSV retains each hypothesis.')
+
+elif page == 'Family assignment audit':
+    st.subheader('Conservative family assignment audit')
+    st.caption('The screening family remains visible. Reviewed family follows the audited decision; domain architecture is the primary gate, with orthology, motif context and localization as supporting evidence. Experimental validation is downstream and was not used in the audit.')
+    grades = [c for c in ['grade','family_decision','recommended_family'] if c in df]
+    if not grades:
+        st.info('This source collection has no family-assignment audit. Choose Adhesome candidates or FN3 / fibronectin-like review.')
+    else:
+        classes = st.multiselect('Audited classification',sorted(df.audit_classification.dropna().unique()))
+        reviewed = df[df.audit_classification.isin(classes)] if classes else df
+        a,b,c,d = st.columns(4)
+        for col,label in zip([a,b,c,d],['Supported','Provisional','Ambiguous','Unassigned']):
+            col.metric(label,f'{reviewed.audit_classification.eq(label).sum():,} records')
+        count = reviewed.groupby(['family','audit_classification']).size().reset_index(name='records')
+        if not count.empty:
+            chart(px.bar(count,x='family',y='records',color='audit_classification',barmode='stack',title='Audited decisions by screening family'))
+        cols=[c for c in ['sequence_id','species','family','assigned_family','recommended_family','reviewed_family','audit_classification','grade','family_decision','FN1_count','FN2_count','FN3_count','domain_match','domain_type_fraction','domain_copy_fraction','domain_score_0_4','orthology_score_0_3','motif_score_0_2','motif_score_0_1','localization_score_0_1','total_score_0_10','rationale','competing_supported_families'] if c in reviewed]
+        table(reviewed[cols])
+        download(reviewed,'audited_family_assignments.csv')
+        if cohort=='Adhesome candidates':
+            conflicts=books['files/adhesome_candidates_list.xlsx'].get('Multi_family_conflicts')
+            if conflicts is not None:
+                with st.expander(f'Competing family labels · {len(conflicts)} proteins'):
+                    table(conflicts)
+            with st.expander('Audit rules and per-family summary'):
+                for sheet in ['Family_assignment_rule','Family_Audit']:
+                    st.markdown(f'**{sheet.replace("_"," ")}**')
+                    table(books['files/adhesome_candidates_list.xlsx'][sheet])
+        elif cohort=='FN3 / fibronectin-like review':
+            st.info('No reviewed protein meets the strict canonical fibronectin architecture. The workbook assigns specific FN3-containing receptor, secreted, intracellular and other protein classes.')
+            with st.expander('FN3 family assignment rules'):
+                table(books['files/fibronectin_like_candidate.xlsx']['Family_assignment_rule'])
 
 elif page == 'Protein dossier':
     key = st.selectbox('Protein', sorted(ids))

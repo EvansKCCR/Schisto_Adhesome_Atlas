@@ -9,11 +9,16 @@ from reconstruction import assemble, topology, prioritize
 
 cohorts,books,*_=load()
 fn=cohorts['FN3 / fibronectin-like review']
-assert len(fn)==89 and 'Orthogroup' in fn
-assert [fn.loc[fn.priority_group.eq(g),'sequence_id'].nunique() for g in PRIORITIES]==[8,4,10]
-assert fn.adhesome_interpretation.str.startswith(('Integrated assignment:', 'Convergent assignment:')).all()
+assert len(fn)==87 and 'Orthogroup' in fn
+assert [fn.loc[fn.priority_group.eq(g),'sequence_id'].nunique() for g in PRIORITIES]==[10,4,10]
+assert fn.adhesome_interpretation.str.startswith(('Supported family assignment:', 'Provisional family assignment:')).all()
 assert fn.loc[fn.priority_group.eq(PRIORITIES[2]),'topology_evidence'].str.contains('discordance').any()
-assert len(fn[fn.priority_group.eq('Other / unresolved FN3 candidates')])==67
+assert len(fn[fn.priority_group.eq('Other / unresolved FN3 candidates')])==63
+adhesome=cohorts['Adhesome candidates']
+assert adhesome.audit_classification.value_counts().to_dict()=={'Unassigned':353,'Supported':178,'Provisional':42,'Ambiguous':24}
+assert adhesome.loc[adhesome.audit_classification.eq('Unassigned'),'reviewed_family'].isna().all()
+assert adhesome.loc[adhesome.audit_classification.eq('Supported'),'reviewed_family'].notna().all()
+assert fn.reviewed_family.eq(fn.recommended_family).all()
 
 # A mapped conserved generic kinase is not promoted; architecture is unresolved.
 row={'family':'generic_kinase_screen','assigned_family':None,'module':'downstream_signalling','Orthology_Orthogroup':'TEST','Orthology_mapping_status':'matched','Orthology_HOG_status':'shared HOG'}
@@ -32,7 +37,7 @@ assert len(nodes)==150 and len(edges)==907
 assert nodes.loc[nodes.species.eq('Shae'),'sequence_id'].ne('').sum()==43
 assert nodes.loc[nodes.species.eq('Sjap'),'sequence_id'].ne('').sum()==52
 assert nodes.loc[nodes.species.eq('Sman'),'sequence_id'].ne('').sum()==51
-assert nodes.orthogroup.ne('').sum()==145
+assert nodes.orthogroup.ne('').sum()==146
 assert nodes.loc[nodes.mapping_basis.str.contains('Ambiguous'),'sequence_id'].eq('').all()
 assert nodes.mapping_basis.str.contains('Ambiguous').sum()==4
 assert nodes.loc[nodes.species.eq('Sman'),'mapping_source'].str.contains('Sjap/Sman_string_mapping.tsv',regex=False).all()
@@ -42,11 +47,12 @@ assert rank.integrated_score.notna().any()
 assert rank.loc[rank.available_features.lt(7),'integrated_score'].isna().all()
 assert rank.conservation.notna().any()
 assert {'.xml','.all'} <= {p.suffix for p in source_files()}
+assert {p.name for p in source_files() if p.parent.name=='conservative_adhesome_family_assignment_audit'} == {'README_conservative_adhesome_audit.md','conservative_adhesome_audit.py','SHA256SUMS_adhesome_audit.txt'}
 
 app=AppTest.from_file(str(Path(__file__).with_name('app.py')),default_timeout=120).run()
 assert not app.exception and not app.error,[e.message for e in app.exception]
 app.sidebar.radio[0].set_value('Components').run()
-for view in ['Orthology & evidence','FN3 / RPTP priorities']:
+for view in ['Family assignment audit','Orthology & evidence','FN3 / RPTP priorities']:
     app.sidebar.radio[1].set_value(view).run()
     assert not app.exception,[e.message for e in app.exception]
     print('PASS',view,flush=True)

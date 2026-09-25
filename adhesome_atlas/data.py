@@ -4,6 +4,7 @@ from pathlib import Path
 import re
 import pandas as pd
 from evidence import annotate
+from family_audit import apply_family_audit
 
 ROOT = Path(__file__).resolve().parent
 SPECIES = {'Shae': 'S. haematobium', 'Sjap': 'S. japonicum', 'Sman': 'S. mansoni'}
@@ -13,8 +14,8 @@ def fingerprint():
                  for p in source_files())
 
 def source_files():
-    folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network',phylogeny_root(ROOT).name,'orthology']
-    return [p for folder in folders for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() in {'.xlsx','.fasta','.faa','.csv','.tsv','.txt','.3line','.xml','.all','.treefile','.iqtree','.json'}]
+    folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network',phylogeny_root(ROOT).name,'orthology','conservative_adhesome_family_assignment_audit']
+    return [p for folder in folders for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() in {'.xlsx','.fasta','.faa','.csv','.tsv','.txt','.3line','.xml','.all','.treefile','.iqtree','.json','.md','.py'}]
 
 def fasta(path):
     records = {}
@@ -50,7 +51,7 @@ def load():
         df['source'] = name + ' / ' + sheet
         if 'Pfam_architecture' in df:
             df['architecture'] = df.Pfam_architecture
-        cohorts[label] = annotate(df)
+        cohorts[label] = annotate(apply_family_audit(df))
     motif_frames=[]
     for workbook, choices in [('files/adhesome_candidates_list.xlsx',['Motif_annotations','MotifScan_hits']),
                               ('files/fibronectin_like_candidate.xlsx',['motif_scan_hits','Motif_annotations'])]:

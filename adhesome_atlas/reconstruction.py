@@ -30,7 +30,9 @@ def assemble(candidates,loader,threshold):
         raise ValueError('node_mapping.tsv contains duplicate STRING IDs')
     if len(mapping) and (mapping.reference.eq('').any() or not set(mapping.sequence_id)<=set(candidates.sequence_id)):
         raise ValueError('Every node mapping requires a reference and an existing candidate sequence_id')
-    catalogue=candidates.groupby('sequence_id').agg(module=('module',lambda x:' | '.join(sorted(set(x)))),family=('family',lambda x:' | '.join(sorted(set(x)))))
+    candidates=candidates.copy()
+    candidates['display_family']=candidates.reviewed_family.fillna('Unassigned') if 'reviewed_family' in candidates else candidates.family
+    catalogue=candidates.groupby('sequence_id').agg(module=('module',lambda x:' | '.join(sorted(set(x)))),family=('display_family',lambda x:' | '.join(sorted(set(x)))))
     for code in SPECIES:
         nodes,edges,_=loader(code,candidates)
         nodes['species']=code
@@ -69,7 +71,7 @@ def assemble(candidates,loader,threshold):
             return 'Unresolved','No supported layer assignment'
         assignments=nodes.apply(layer,axis=1)
         nodes['layer']=[x[0] for x in assignments];nodes['layer_basis']=[x[1] for x in assignments]
-        for field in ['evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group']:
+        for field in ['audit_classification','family_assignment_basis','evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group']:
             if field in candidates:
                 summary=candidates.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
                 nodes[field]=nodes.sequence_id.map(summary).fillna('Unmapped')

@@ -68,7 +68,8 @@ def load_network(code, candidates):
     edges = edges.sort_values('combined_score',ascending=False).drop_duplicates('pair').drop(columns='pair')
     exact = candidates[candidates.sequence_id.str.startswith(code+'__')].copy()
     exact['node'] = exact.sequence_id.str.split('__').str[-1]
-    family = exact.groupby('node').family.agg(lambda x:' | '.join(sorted(set(x.dropna()))))
+    exact['display_family'] = exact.reviewed_family.fillna('Unassigned') if 'reviewed_family' in exact else exact.family
+    family = exact.groupby('node').display_family.agg(lambda x:' | '.join(sorted(set(x.dropna()))))
     nodes['Family'] = nodes.sequence_id.str.removeprefix(code+'__').map(family).fillna('Unmapped')
     if 'DeepLoc_2.1' in exact:
         loc = exact.groupby('node')['DeepLoc_2.1'].agg(lambda x:' | '.join(sorted(set(x.dropna()))))

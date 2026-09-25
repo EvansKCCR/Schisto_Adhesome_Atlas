@@ -79,12 +79,16 @@ def enrich(frame, hits, root):
 
         motif='Region-supported motif' if 'region_supported' in states and not any('outside_expected' in str(s) for s in states) else 'Context conflict reported' if any('outside_expected' in str(s) for s in states) else 'Review-only motif annotation' if states=={'review_only'} else 'Sequence/window match only; context unresolved' if states else 'No contextual motif support reported'
         domain=pd.to_numeric(r.get('domain_type_fraction'),errors='coerce')
+        copy_fraction=pd.to_numeric(r.get('domain_copy_fraction'),errors='coerce')
+        if pd.notna(domain) and pd.notna(copy_fraction): domain=min(domain,copy_fraction)
         if pd.isna(domain):
             raw=str(r.get('domain_match','')).lower()
             domain=1.0 if raw in ('true','1','1.0') else 0.0 if raw in ('false','0','0.0') else float('nan')
         top=str(r.get('topology_evidence',''))
         topology=1.0 if top.startswith('Consistent') else 0.0 if 'discordance' in top else float('nan')
-        record=dict(motif_context_evidence=motif,motif_hit_details=context,domain_architecture=domain,domain_architecture_basis='Workbook domain_type_fraction; domain_match fallback',topology_compatibility=topology,topology_compatibility_basis=top)
+        audit_topology=pd.to_numeric(r.get('localization_score_0_1'),errors='coerce')
+        if pd.notna(audit_topology): topology=float(audit_topology)
+        record=dict(motif_context_evidence=motif,motif_hit_details=context,domain_architecture=domain,domain_architecture_basis='Minimum of workbook domain-type and domain-copy coverage where available; domain_match fallback',topology_compatibility=topology,topology_compatibility_basis='Workbook family-audit localization score' if pd.notna(audit_topology) else top)
         for field,values,reason in [('phylogenetic_support',phylo,'No supported multispecies Schistosoma clade with paired support labels'),('host_divergence',divergence,'No aligned human homologue with comparable amino-acid sites'),('motif_conservation',motif_scores,'No uniquely retained motif peptide with other Schistosoma species in trimmed alignment')]:
             entries=values.get((key,r.family) if field=='motif_conservation' else key,[])
             if entries:
@@ -100,6 +104,15 @@ def enrich(frame, hits, root):
         if record['priority_group']=='Not in FN3 review collection': record['priority_group']='Adhesome / '+str(r.family)
         agree=bool(str(r.get('orthogroup',''))) and domain==1 and topology==1 and motif=='Region-supported motif'
         record['adhesome_interpretation']=('Convergent assignment: ' if agree else 'Integrated assignment: ')+str(r.get('assigned_family') if pd.notna(r.get('assigned_family')) else r.family)
+        if 'audit_classification' in out:
+            cls=r.audit_classification
+            family=r.get('reviewed_family')
+            label=str(family) if pd.notna(family) else str(r.family)
+            record['adhesome_interpretation']=(
+                f'{cls} family assignment: {label}' if cls in ('Supported','Provisional') else
+                f'Ambiguous family assignment: {label}' if cls=='Ambiguous' else
+                f'Family-level assignment not supported: {label}'
+            )
         record['evidence_review_stage']=('1 · Orthology unresolved' if not str(r.get('orthogroup','')) else '2 · Architecture incomplete or mismatched' if pd.isna(domain) or domain<1 else '3 · Topology/localization incomplete or discordant' if pd.isna(topology) or topology<1 else '4 · Motif context incomplete or conflicting' if motif!='Region-supported motif' else '5 · Convergent integrated evidence')
         record['assignment_evidence_summary']=f"Orthology: {r.get('orthogroup','') or 'not recorded'}; domains: {r.get('domain_evidence','')}; topology: {top}; motifs: {motif}"
         records.append(record)

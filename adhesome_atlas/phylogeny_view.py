@@ -166,10 +166,8 @@ def tree_groups(folders, candidates=None, classification="All"):
             # Exclude cross-family screening hypotheses before classifying a run.
             matches=matches[matches.family.isin(kinase_names)]
         if classification!='All':
-            if matches.empty or 'status' not in matches: continue
-            status=matches.status.fillna('').astype(str).str.strip().str.lower()
-            allowed=['supported','supported candidate'] if classification=='Supported' else ['provisional']
-            matches=matches[status.isin(allowed)]
+            if matches.empty or 'audit_classification' not in matches: continue
+            matches=matches[matches.audit_classification.eq(classification)]
             if matches.empty: continue
         names=sorted(set(curated.loc[curated.orthogroup.eq(og),'family']))
 
@@ -178,7 +176,7 @@ def tree_groups(folders, candidates=None, classification="All"):
         if not kinase_names:
             names=sorted({'Unassigned kinase candidates' if name in {'Src','FAK','ILK'} else name for name in names})
         modules=sorted(set(matches.module.dropna().astype(str))) if not matches.empty and 'module' in matches else []
-        rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection,'classification':' / '.join(sorted(set(matches.status.dropna().astype(str)))) if not matches.empty and 'status' in matches else 'Not recorded'})
+        rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection,'classification':' / '.join(sorted(set(matches.audit_classification.dropna().astype(str)))) if not matches.empty and 'audit_classification' in matches else 'Not recorded'})
     return rows
 
 
@@ -206,7 +204,7 @@ def phylogeny_panel(candidates=None):
     classification=st.radio('Classification',['Supported','Provisional','All'],index=2,horizontal=True,key='phylo_classification')
     metadata=tree_groups(selected,candidates,classification)
     selected=[row['folder'] for row in metadata]
-    st.caption('Classification uses catalogue status. A tree is included when it contains a matching candidate assignment; all its tips are retained. Mixed-status trees can appear in both classifications. All also includes unresolved or unclassified assignments.')
+    st.caption('Classification uses the audited family assignment, not the original screening status. A tree is included when it contains a matching candidate; all original tips and branches remain visible. A tree with mixed decisions can appear in both classifications.')
     browse=st.radio('Browse trees by',['Protein family','Functional module','Orthogroup'],horizontal=True,key='phylo_browse')
     field='families' if browse=='Protein family' else 'modules'
     if browse!='Orthogroup':
