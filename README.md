@@ -1,8 +1,8 @@
-# Thesis: Computational Discovery and Prioritisation of Schistosome Adhesion and Lipid Acquisition Proteins
+# Computational Discovery and Prioritisation of Schistosome Adhesion Protein Candidates 
 
 ## Overview
 
-This repository contains the datasets, analysis workflows, and custom scripts developed for a PhD thesis investigating the molecular networks underlying adhesion and lipid acquisition in *Schistosoma* species. The project integrates proteome-scale domain discovery, orthology inference, phylogenetic analysis, motif annotation, membrane topology prediction, network analysis, and evidence-based target prioritisation.
+This repository contains the datasets, analysis workflows, and custom scripts developed for a PhD thesis investigating the molecular networks underlying adhesion signalling in *Schistosoma* species. The project integrates proteome-scale domain discovery, orthology inference, phylogenetic analysis, motif annotation, membrane topology prediction, network analysis, and evidence-based target prioritisation.
 
 The repository supports the generation of an interactive adhesome atlas that consolidates standardized protein identifiers, species distributions, orthology relationships, domain architectures, conserved motifs, membrane topology, functional modules, phylogenetic classifications, network positions, evidence levels, and prioritisation scores.
 
