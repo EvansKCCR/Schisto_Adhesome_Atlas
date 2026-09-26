@@ -6,26 +6,6 @@ This repository contains the datasets, analysis workflows, and custom scripts de
 
 The repository supports the generation of an interactive adhesome atlas that consolidates standardized protein identifiers, species distributions, orthology relationships, domain architectures, conserved motifs, membrane topology, functional modules, phylogenetic classifications, network positions, evidence levels, and prioritisation scores.
 
-## Interactive Adhesome Atlas
-
-The final adhesome dataset has been integrated into an interactive Streamlit application:
-
-**Atlas:** https://schistoadhesomeatlas-u8uiyupvejqlmumglumgsl.streamlit.app/
-
-The atlas provides:
-
-- Standardized protein identifiers
-- Species distribution profiles
-- Predicted orthology relationships
-- Domain architecture annotations
-- Conserved motif predictions
-- Membrane topology predictions
-- Functional module assignments
-- Phylogenetic classifications
-- Network positions
-- Evidence levels
-- Prioritisation scores
-
 ## Repository Contents
 
 - Data retrieval and preprocessing workflows
