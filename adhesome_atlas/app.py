@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib.parse import urlencode, quote
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pandas as pd
@@ -96,7 +97,7 @@ missing_audit_sources = [name for name, required in [('Adhesome candidates','fam
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('INTEGRIN · ADHESOME · EVIDENCE')
-    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Source Library', 'Citations'])
+    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Comments & feedback', 'Source Library', 'Citations'])
     page = section
     if section == 'Components':
         page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Family assignment audit', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
@@ -352,6 +353,37 @@ elif page == 'Motif explorer':
             chart(px.bar(summary,x='hits',y='motif_label',color='candidate_tier',color_discrete_sequence=palette,title='Motif annotations by candidate assignment tier'))
         table(hits)
         download(hits, 'motif_candidates.csv')
+
+elif page == 'Comments & feedback':
+    st.subheader('Comments & feedback')
+    st.write('Share a catalogue correction, interpretation, suggestion, or question with the Atlas curator. Include a protein accession, orthogroup, or source file when relevant.')
+    with st.form('atlas_feedback_form'):
+        kind = st.selectbox('Message type', ['Comment or correction', 'Feedback or suggestion', 'Scientific query'])
+        subject_detail = st.text_input('Protein, orthogroup, or topic (optional)', max_chars=120)
+        sender = st.text_input('Your name (optional)', max_chars=100)
+        reply_to = st.text_input('Your email for a reply (optional)', max_chars=200)
+        message = st.text_area('Your message', max_chars=2000, height=170)
+        prepare = st.form_submit_button('Prepare email draft')
+    if prepare:
+        if not message.strip():
+            st.error('Enter a comment, suggestion, or question to prepare the email draft.')
+        else:
+            subject = 'Schisto-Adhesome Atlas · ' + kind
+            if subject_detail.strip():
+                subject += ' · ' + subject_detail.strip()
+            body = '\n'.join([
+                f'Message type: {kind}',
+                f'Topic: {subject_detail.strip() or "Not specified"}',
+                f'Name: {sender.strip() or "Not provided"}',
+                f'Reply email: {reply_to.strip() or "Not provided"}',
+                '', message.strip(),
+            ])
+            mailto = 'mailto:evansasamoahadu@gmail.com?' + urlencode({'subject': subject, 'body': body}, quote_via=quote)
+            st.success('Your draft is ready. Open it in your email app, review it, and send it.')
+            st.markdown(f'[Open email draft addressed to evansasamoahadu@gmail.com]({mailto})')
+    st.markdown('### Direct queries')
+    st.markdown('For scientific queries or correspondence, email [evansasamoahadu@gmail.com](mailto:evansasamoahadu@gmail.com).')
+    st.caption('The Atlas does not store or send form entries. The email draft opens in your own mail app.')
 
 elif page == 'Citations':
     bibliography = (ROOT / 'CITATIONS.md').read_text(encoding='utf-8')
