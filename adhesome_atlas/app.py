@@ -1,5 +1,6 @@
 from pathlib import Path
 from urllib.parse import urlencode, quote
+import json
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pandas as pd
@@ -14,6 +15,7 @@ from orthology_views import evidence_view, priority_view
 from orthology_explorer import orthology_panel
 from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
+from prototype import candidate_rows, interactive_html, hypothesis, FAMILY_NODES, MAP_EDGES
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -158,11 +160,61 @@ if page == 'Introduction':
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
     st.subheader('Prototype schistosome integrin adhesome')
-    prototype = ROOT / 'Prototype_schistosome_integrin_adhesome.png'
+    prototype = ROOT / 'Integrin_adhesome_presentation.png'
     if prototype.is_file():
-        st.image(str(prototype), caption='Prototype schistosome integrin adhesome', width='stretch')
+        st.image(str(prototype), caption='Evidence-stratified reconstruction of the candidate schistosome integrin adhesome', width='stretch')
+        emf = ROOT / 'Integrin_adhesome_presentation.emf'
+        if emf.is_file():
+            st.download_button('↓ Download original presentation · EMF', emf.read_bytes(), emf.name, 'image/emf')
     else:
-        st.info('Prototype image unavailable. Include Prototype_schistosome_integrin_adhesome.png alongside app.py.')
+        st.info('Presentation preview unavailable. Include Integrin_adhesome_presentation.png alongside app.py.')
+    st.markdown('Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The hypothetical network comprises 189 core family-retained hypotheses and 43 provisional hypotheses, but their assembly and functional interactions in endogenous adhesion complexes remain unconfirmed. ECM counts represent motif-prioritized putative ligands, whereas sidebar counts summarize the broader family inventory. Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Coloured dashed arrows denote predicted ligand–receptor relationships; ligand binding and integrin-subunit specificity require experimental validation.')
+    st.subheader('Explore the prototype map')
+    map_rows = candidate_rows(cohorts['Adhesome candidates'], cohorts['FN3 / fibronectin-like review'])
+    map_families = sorted(map_rows.prototype_family.unique())
+    focus_family = st.selectbox('Locate a protein family', ['All families'] + map_families,
+                                format_func=lambda name: name.replace('_',' ') if name!='All families' else name)
+    focus_pool = map_rows if focus_family=='All families' else map_rows[map_rows.prototype_family.eq(focus_family)]
+    focus_candidate = st.selectbox('Locate a candidate protein', ['No protein selected'] + sorted(focus_pool.sequence_id.unique()))
+    if focus_candidate!='No protein selected' and focus_family=='All families':
+        focus_family = focus_pool.loc[focus_pool.sequence_id.eq(focus_candidate),'prototype_family'].iloc[0]
+    interactive_source = ROOT / 'Schistosome_adhesome_interactive.html'
+    if interactive_source.is_file():
+        st.iframe(interactive_html(interactive_source, map_rows,
+                                   None if focus_family=='All families' else focus_family,
+                                   None if focus_candidate=='No protein selected' else focus_candidate),
+                  height=920)
+    else:
+        st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
+    st.caption('Select a family or protein above, or click a map node to inspect candidate records and its drawn family-level partners. Dashed and structural relationships remain hypotheses; the map does not assert protein-level binding.')
+    st.markdown('### Build an evidence-stratified schistosome adhesome hypothesis')
+    scope = st.radio('Hypothesis scope', ['All mapped families', 'Focused family and linked partners', 'Custom families'], horizontal=True)
+    if scope=='Custom families':
+        selected_families = st.multiselect('Families to include', map_families, default=map_families)
+    elif scope=='Focused family and linked partners' and focus_family!='All families':
+        focus_node = FAMILY_NODES[focus_family]
+        linked_nodes = {focus_node} | {b if a==focus_node else a for a,b,_,_ in MAP_EDGES if focus_node in (a,b)}
+        selected_families = [family for family in map_families if FAMILY_NODES[family] in linked_nodes]
+        st.caption('Included families: '+', '.join(name.replace('_',' ') for name in selected_families))
+    else:
+        selected_families = map_families
+        if scope=='Focused family and linked partners':
+            st.caption('Select a family above to focus the hypothesis; showing all mapped families for now.')
+    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Provisional','Exploratory FN3 screen'],
+                                     default=['Core family-retained','Provisional'])
+    selected_edges = st.multiselect('Relationship classes', ['inferred','structural','exploratory'],
+                                     default=['inferred','structural','exploratory'])
+    model = hypothesis(map_rows, selected_families, selected_tiers, selected_edges)
+    a,b = st.columns(2)
+    a.metric('Selected candidate hypotheses', model['candidate_count'])
+    b.metric('Drawn family relationships', model['relationship_count'])
+    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Relationship exports contain family-level edges from the supplied interactive prototype; no pairwise protein interaction is inferred by the builder.')
+    st.download_button('↓ Download hypothesis · JSON', json.dumps(model, ensure_ascii=False, indent=2).encode('utf-8'),
+                       'schistosome_adhesome_hypothesis.json', 'application/json')
+    st.download_button('↓ Download selected candidates · CSV', pd.DataFrame(model['candidates']).to_csv(index=False).encode('utf-8-sig'),
+                       'schistosome_adhesome_hypothesis_candidates.csv', 'text/csv')
+    st.download_button('↓ Download drawn relationships · CSV', pd.DataFrame(model['family_relationships']).to_csv(index=False).encode('utf-8-sig'),
+                       'schistosome_adhesome_hypothesis_relationships.csv', 'text/csv')
 
 elif page == 'Orthology':
     orthology_panel(network_candidates)
@@ -406,6 +458,11 @@ elif page == 'Source Library':
         table(pd.read_csv(path, sep='\t'))
     elif path.name in raw:
         table(raw[path.name])
+    elif path.suffix == '.png':
+        st.image(str(path), width='stretch')
+    elif path.suffix == '.emf':
+        preview = path.with_suffix('.png')
+        if preview.is_file(): st.image(str(preview), caption='Browser preview of the original EMF', width='stretch')
     elif path.suffix == '.fasta':
         table(memberships[memberships.source.eq(chosen)])
         st.code(path.read_text()[:6000], language=None)

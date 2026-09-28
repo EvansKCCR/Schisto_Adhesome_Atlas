@@ -6,7 +6,7 @@ from networks import load_network
 
 def main():
     cohorts, books, motifs, sequences, memberships, raw, topology, conflicts = load()
-    assert len(cohorts['Adhesome candidates']) == 597
+    assert len(cohorts['Adhesome candidates']) == 561
     assert cohorts['All screening hypotheses'].sequence_id.nunique() == 3305
     assert len(motifs) == 236
     assert not conflicts, conflicts

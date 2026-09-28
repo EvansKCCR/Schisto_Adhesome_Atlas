@@ -15,7 +15,7 @@ assert fn.adhesome_interpretation.str.startswith(('Supported family assignment:'
 assert fn.loc[fn.priority_group.eq(PRIORITIES[2]),'topology_evidence'].str.contains('discordance').any()
 assert len(fn[fn.priority_group.eq('Other / unresolved FN3 candidates')])==63
 adhesome=cohorts['Adhesome candidates']
-assert adhesome.audit_classification.value_counts().to_dict()=={'Unassigned':353,'Supported':178,'Provisional':42,'Ambiguous':24}
+assert adhesome.audit_classification.value_counts().to_dict()=={'Unassigned':329,'Supported':189,'Provisional':43}
 assert adhesome.loc[adhesome.audit_classification.eq('Unassigned'),'reviewed_family'].isna().all()
 assert adhesome.loc[adhesome.audit_classification.eq('Supported'),'reviewed_family'].notna().all()
 assert fn.reviewed_family.eq(fn.recommended_family).all()
