@@ -159,15 +159,6 @@ if page == 'Introduction':
     st.caption('Collection totals below describe all records in each source collection. The filtered selection is shown above.')
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
-    st.subheader('Prototype schistosome integrin adhesome')
-    prototype = ROOT / 'Integrin_adhesome_presentation.png'
-    if prototype.is_file():
-        st.image(str(prototype), caption='Evidence-stratified reconstruction of the candidate schistosome integrin adhesome', width='stretch')
-        emf = ROOT / 'Integrin_adhesome_presentation.emf'
-        if emf.is_file():
-            st.download_button('↓ Download original presentation · EMF', emf.read_bytes(), emf.name, 'image/emf')
-    else:
-        st.info('Presentation preview unavailable. Include Integrin_adhesome_presentation.png alongside app.py.')
     st.markdown('Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The hypothetical network comprises 189 core family-retained hypotheses and 43 provisional hypotheses, but their assembly and functional interactions in endogenous adhesion complexes remain unconfirmed. ECM counts represent motif-prioritized putative ligands, whereas sidebar counts summarize the broader family inventory. Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Coloured dashed arrows denote predicted ligand–receptor relationships; ligand binding and integrin-subunit specificity require experimental validation.')
     st.subheader('Explore the prototype map')
     map_rows = candidate_rows(cohorts['Adhesome candidates'], cohorts['FN3 / fibronectin-like review'])
@@ -458,11 +449,8 @@ elif page == 'Source Library':
         table(pd.read_csv(path, sep='\t'))
     elif path.name in raw:
         table(raw[path.name])
-    elif path.suffix == '.png':
-        st.image(str(path), width='stretch')
     elif path.suffix == '.emf':
-        preview = path.with_suffix('.png')
-        if preview.is_file(): st.image(str(preview), caption='Browser preview of the original EMF', width='stretch')
+        st.info('The original EMF is available from the download button above. Explore the interactive map on the Introduction page.')
     elif path.suffix == '.fasta':
         table(memberships[memberships.source.eq(chosen)])
         st.code(path.read_text()[:6000], language=None)
