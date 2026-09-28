@@ -15,7 +15,7 @@ from orthology_views import evidence_view, priority_view
 from orthology_explorer import orthology_panel
 from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
-from prototype import candidate_rows, interactive_html, hypothesis, FAMILY_NODES, MAP_EDGES
+from prototype import candidate_rows, interactive_html, hypothesis, FAMILY_NODES, MAP_EDGES, COMPLEX_NODE
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -177,7 +177,7 @@ if page == 'Introduction':
                   height=920)
     else:
         st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
-    st.caption('Select a family or protein above, or click a map node to inspect candidate records and its drawn family-level partners. Dashed and structural relationships remain hypotheses; the map does not assert protein-level binding.')
+    st.caption('Select a family or protein above, or click a map node to inspect candidate records and linked families. Every motif-prioritized extracellular ligand class points to the putative integrin αβ heterodimer; specific subunit pairing and protein-level binding remain unresolved.')
     st.markdown('### Build an evidence-stratified schistosome adhesome hypothesis')
     scope = st.radio('Hypothesis scope', ['All mapped families', 'Focused family and linked partners', 'Custom families'], horizontal=True)
     if scope=='Custom families':
@@ -185,6 +185,10 @@ if page == 'Introduction':
     elif scope=='Focused family and linked partners' and focus_family!='All families':
         focus_node = FAMILY_NODES[focus_family]
         linked_nodes = {focus_node} | {b if a==focus_node else a for a,b,_,_ in MAP_EDGES if focus_node in (a,b)}
+        if COMPLEX_NODE in linked_nodes:
+            linked_nodes.update({'inta', 'intb'})
+            if focus_node in {'inta', 'intb'}:
+                linked_nodes.update(a for a,b,_,_ in MAP_EDGES if b == COMPLEX_NODE)
         selected_families = [family for family in map_families if FAMILY_NODES[family] in linked_nodes]
         st.caption('Included families: '+', '.join(name.replace('_',' ') for name in selected_families))
     else:
@@ -199,7 +203,7 @@ if page == 'Introduction':
     a,b = st.columns(2)
     a.metric('Selected candidate hypotheses', model['candidate_count'])
     b.metric('Drawn family relationships', model['relationship_count'])
-    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Relationship exports contain family-level edges from the supplied interactive prototype; no pairwise protein interaction is inferred by the builder.')
+    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Ligand–receptor edges are exported only when both integrin subunit families are included; the virtual αβ complex has no assigned protein pair or candidate count.')
     st.download_button('↓ Download hypothesis · JSON', json.dumps(model, ensure_ascii=False, indent=2).encode('utf-8'),
                        'schistosome_adhesome_hypothesis.json', 'application/json')
     st.download_button('↓ Download selected candidates · CSV', pd.DataFrame(model['candidates']).to_csv(index=False).encode('utf-8-sig'),

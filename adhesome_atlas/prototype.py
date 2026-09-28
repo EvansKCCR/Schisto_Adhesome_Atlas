@@ -13,12 +13,16 @@ FAMILY_NODES = {
     'zyxin_like': 'zyxin', 'FAK': 'fak', 'Src': 'src', 'actin': 'actin',
     'cofilin': 'cofilin', 'PTP_PEST': 'ptp_pest', 'profilin': 'profilin',
 }
+COMPLEX_NODE = 'integrin_ab'
+COMPLEX_LABEL = 'Putative integrin αβ heterodimer'
 
 # These are the relationships drawn in the supplied HTML, at family level.
 MAP_EDGES = [
-    ('collagen','inta','inferred','putative ligand–receptor'),
-    ('fn3','inta','inferred','putative ligand–receptor'),
-    ('laminin','intb','inferred','putative ligand–receptor'),
+    ('collagen',COMPLEX_NODE,'inferred','putative ligand–αβ heterodimer'),
+    ('fn3',COMPLEX_NODE,'inferred','putative ligand–αβ heterodimer'),
+    ('laminin',COMPLEX_NODE,'inferred','putative ligand–αβ heterodimer'),
+    (COMPLEX_NODE,'inta','structural','putative αβ complex constituent family'),
+    (COMPLEX_NODE,'intb','structural','putative αβ complex constituent family'),
     ('intb','talin','inferred','predicted association'),
     ('intb','kindlin','inferred','predicted association'),
     ('kindlin','ilk','inferred','predicted association'),
@@ -77,19 +81,26 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
 const atlasPayload = __ATLAS_PAYLOAD__;
 const atlasOriginalShow = show;
 const atlasExtras = [
-  {id:'ptp_pest',x:950,y:535,w:135,h:60,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',provisional:'Family retained; functional placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge was provided in the prototype diagram.'},
-  {id:'profilin',x:20,y:650,w:120,h:60,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'prov',provisional:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge was provided in the prototype diagram.'}
+  {id:'ptp_pest',x:950,y:575,w:135,h:60,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',provisional:'Family retained; functional placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge was provided in the prototype diagram.'},
+  {id:'profilin',x:20,y:700,w:120,h:60,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'prov',provisional:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge was provided in the prototype diagram.'}
 ];
 atlasExtras.forEach(n=>{nodes.push(n);initial.push(JSON.parse(JSON.stringify(n)))});
 drawNodes();drawEdges();
 function atlasFocus(n){
   const neighbors=new Set(edges.filter(e=>e.a===n.id||e.b===n.id).map(e=>e.a===n.id?e.b:e.a));
+  if(n.id==='inta'||n.id==='intb')edges.filter(e=>e.b==='integrin_ab'&&e.class==='ligand').forEach(e=>neighbors.add(e.a));
+  if(edges.some(e=>e.a===n.id&&e.b==='integrin_ab'&&e.class==='ligand')){neighbors.add('inta');neighbors.add('intb')}
   document.querySelectorAll('.node').forEach(g=>{
     g.classList.toggle('atlas-focus',g.dataset.id===n.id);
     g.classList.toggle('atlas-neighbor',neighbors.has(g.dataset.id));
     g.classList.toggle('atlas-dim',g.dataset.id!==n.id&&!neighbors.has(g.dataset.id));
   });
-  document.querySelectorAll('.edge').forEach((line,i)=>line.classList.toggle('atlas-dim',edges[i].a!==n.id&&edges[i].b!==n.id));
+  document.querySelectorAll('.edge').forEach((line,i)=>{
+    const e=edges[i];
+    const viaComplex=(['inta','intb'].includes(n.id)&&e.b==='integrin_ab'&&e.class==='ligand')||
+      (neighbors.has('integrin_ab')&&e.a==='integrin_ab'&&['inta','intb'].includes(e.b));
+    line.classList.toggle('atlas-dim',e.a!==n.id&&e.b!==n.id&&!viaComplex);
+  });
 }
 function atlasText(parent,tag,text){const el=document.createElement(tag);el.textContent=text;parent.appendChild(el);return el}
 function atlasCandidateDetail(parent,record){
@@ -107,10 +118,18 @@ show=function(n){
   atlasText(info,'h3','Potential linked families');
   if(connected.length){const list=document.createElement('ul');info.appendChild(list);connected.forEach(e=>{
     const other=nodes.find(x=>x.id===(e.a===n.id?e.b:e.a));
-    atlasText(list,'li',other.title+' · '+e.kind+(e.class==='ligand'?' · putative ligand–receptor':''));
+    atlasText(list,'li',other.title+' · '+e.kind+(e.class==='ligand'?' · putative ligand–αβ heterodimer':''));
   })}else atlasText(info,'p','No explicit partner edge in the supplied prototype.');
-  const records=atlasPayload.candidates.filter(r=>r.map_node===n.id);
-  atlasText(info,'h3','Candidate proteins ('+records.length+')');
+  if(connected.some(e=>e.a===n.id&&e.b==='integrin_ab'&&e.class==='ligand'))
+    atlasText(info,'p','This ligand class is linked to the putative receptor containing both integrin α and β families. The participating protein pair is unresolved.');
+  if(n.id==='inta'||n.id==='intb'){
+    atlasText(info,'h3','Putative ligands via the αβ heterodimer');
+    const ligands=document.createElement('ul');info.appendChild(ligands);
+    edges.filter(e=>e.b==='integrin_ab'&&e.class==='ligand').forEach(e=>atlasText(ligands,'li',nodes.find(x=>x.id===e.a).title));
+  }
+  const records=atlasPayload.candidates.filter(r=>n.id==='integrin_ab'?['inta','intb'].includes(r.map_node):r.map_node===n.id);
+  if(n.id==='integrin_ab')atlasText(info,'p','Constituent family candidates are listed below; specific α–β protein pairings are not assigned.');
+  atlasText(info,'h3',(n.id==='integrin_ab'?'Constituent family candidates':'Candidate proteins')+' ('+records.length+')');
   if(records.length){
     const select=document.createElement('select');select.setAttribute('aria-label','Select candidate protein');info.appendChild(select);
     const prompt=document.createElement('option');prompt.value='';prompt.textContent='Select a protein';select.appendChild(prompt);
@@ -134,18 +153,21 @@ def hypothesis(rows, families, tiers, edge_kinds):
     subset = rows[rows.prototype_family.isin(families) & rows.evidence_tier.isin(tiers)].copy()
     nodes = set(subset.map_node)
     counts = subset.groupby('map_node').sequence_id.nunique().to_dict()
-    relations = [dict(source_family=next(f for f,n in FAMILY_NODES.items() if n==a),
-                      target_family=next(f for f,n in FAMILY_NODES.items() if n==b),
-                      source_candidate_count=counts[a], target_candidate_count=counts[b],
+    active_nodes = nodes | ({COMPLEX_NODE} if {'inta', 'intb'} <= nodes else set())
+    node_names = {node: family for family, node in FAMILY_NODES.items()}
+    node_names[COMPLEX_NODE] = COMPLEX_LABEL
+    relations = [dict(source_family=node_names[a],
+                      target_family=node_names[b],
+                      source_candidate_count=counts.get(a), target_candidate_count=counts.get(b),
                       evidence_class=kind, interpretation=label,
                       source='Schistosome_adhesome_interactive.html')
-                 for a,b,kind,label in MAP_EDGES if a in nodes and b in nodes and kind in edge_kinds]
+                 for a,b,kind,label in MAP_EDGES if a in active_nodes and b in active_nodes and kind in edge_kinds]
     columns = ['sequence_id','species','prototype_family','map_node','module','evidence_tier',
                'grade','family_decision','orthogroup','domain_evidence','topology_evidence',
                'motif_context_evidence','host_orthology_flag','source_collection']
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',
-            'interpretation':'Family-level computational hypotheses; edges are those drawn in the supplied interactive prototype, not experimentally established schistosome protein interactions.',
+            'interpretation':'Family-level computational hypotheses. Ligand relationships target a putative integrin αβ heterodimer only when both subunit families are selected; no specific α–β protein pairing or experimentally established interaction is inferred.',
             'selection':{'families':list(families),'evidence_tiers':list(tiers),'relationship_classes':list(edge_kinds)},
             'candidate_count':len(candidates),'relationship_count':len(relations),
             'candidates':candidates,'family_relationships':relations}
