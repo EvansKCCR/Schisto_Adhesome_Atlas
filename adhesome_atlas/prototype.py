@@ -8,7 +8,7 @@ import pandas as pd
 FAMILY_NODES = {
     'collagen_like': 'collagen', 'C_type_lectin_Ig_FN3_like': 'fn3',
     'laminin_like': 'laminin', 'integrin_alpha': 'inta', 'integrin_beta': 'intb',
-    'talin': 'talin', 'kindlin': 'kindlin', 'ILK': 'ilk', 'vinculin': 'vinculin',
+    'talin': 'talin', 'kindlin': 'kindlin', 'PINCH_like': 'pinch', 'ILK': 'ilk', 'vinculin': 'vinculin',
     'alpha_actinin': 'actinin', 'filamin': 'filamin', 'paxillin_like': 'paxillin',
     'zyxin_like': 'zyxin', 'FAK': 'fak', 'Src': 'src', 'actin': 'actin',
     'cofilin': 'cofilin', 'PTP_PEST': 'ptp_pest', 'profilin': 'profilin',
@@ -25,7 +25,8 @@ MAP_EDGES = [
     (COMPLEX_NODE,'intb','structural','putative αβ complex constituent family'),
     ('intb','talin','inferred','predicted association'),
     ('intb','kindlin','inferred','predicted association'),
-    ('kindlin','ilk','inferred','predicted association'),
+    ('kindlin','pinch','exploratory','exploratory adaptor association'),
+    ('pinch','ilk','correctedEdge','audit-corrected PINCH–ILK association'),
     ('kindlin','paxillin','inferred','predicted association'),
     ('talin','vinculin','inferred','predicted association'),
     ('talin','actinin','inferred','predicted association'),
@@ -42,7 +43,7 @@ MAP_EDGES = [
 def candidate_rows(adhesome, fn3):
     """Keep audit-retained rows; separate the FN3 ligand screen from the 189/43 counts."""
     retained = adhesome[adhesome.audit_classification.isin(['Supported','Provisional'])].copy()
-    retained['prototype_family'] = retained.family
+    retained['prototype_family'] = retained.reviewed_family
     retained['evidence_tier'] = retained.audit_classification.map({'Supported':'Core family-retained','Provisional':'Provisional'})
     retained['source_collection'] = 'Adhesome candidates'
     exploratory = fn3[fn3.reviewed_family.eq('C_type_lectin_Ig_FN3_like')].copy()
@@ -55,7 +56,7 @@ def candidate_rows(adhesome, fn3):
 
 
 def map_payload(rows, focus_family=None, focus_candidate=None):
-    fields = ['sequence_id','species','prototype_family','map_node','evidence_tier','grade',
+    fields = ['sequence_id','species','family','assigned_family','prototype_family','map_node','evidence_tier','grade',
               'family_decision','orthogroup','domain_evidence','topology_evidence',
               'motif_context_evidence','source_collection']
     displayed = rows.reindex(columns=fields).fillna('').astype(str)
@@ -81,8 +82,8 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
 const atlasPayload = __ATLAS_PAYLOAD__;
 const atlasOriginalShow = show;
 const atlasExtras = [
-  {id:'ptp_pest',x:950,y:575,w:135,h:60,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',provisional:'Family retained; functional placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge was provided in the prototype diagram.'},
-  {id:'profilin',x:20,y:700,w:120,h:60,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'prov',provisional:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge was provided in the prototype diagram.'}
+  {id:'ptp_pest',x:990,y:625,w:135,h:60,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',extra:'Family retained; functional placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge was provided in the prototype diagram.'},
+  {id:'profilin',x:20,y:740,w:120,h:60,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'prov',extra:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge was provided in the prototype diagram.'}
 ];
 atlasExtras.forEach(n=>{nodes.push(n);initial.push(JSON.parse(JSON.stringify(n)))});
 drawNodes();drawEdges();
@@ -107,6 +108,7 @@ function atlasCandidateDetail(parent,record){
   const box=document.createElement('div');box.className='atlas-candidate';parent.appendChild(box);
   atlasText(box,'strong',record.sequence_id+' · '+record.species);
   atlasText(box,'p',record.evidence_tier+' · '+(record.family_decision||record.grade||'FN3 architecture screen'));
+  if(record.family&&record.family!==record.prototype_family)atlasText(box,'p','Screening family: '+record.family+' → reviewed family: '+record.prototype_family);
   if(record.orthogroup)atlasText(box,'p','Orthogroup: '+record.orthogroup);
   if(record.domain_evidence)atlasText(box,'p','Domains: '+record.domain_evidence);
   if(record.topology_evidence)atlasText(box,'p','Topology: '+record.topology_evidence);
@@ -162,7 +164,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                       evidence_class=kind, interpretation=label,
                       source='Schistosome_adhesome_interactive.html')
                  for a,b,kind,label in MAP_EDGES if a in active_nodes and b in active_nodes and kind in edge_kinds]
-    columns = ['sequence_id','species','prototype_family','map_node','module','evidence_tier',
+    columns = ['sequence_id','species','family','assigned_family','prototype_family','map_node','module','evidence_tier',
                'grade','family_decision','orthogroup','domain_evidence','topology_evidence',
                'motif_context_evidence','host_orthology_flag','source_collection']
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')

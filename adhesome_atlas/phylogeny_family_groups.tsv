@@ -13,7 +13,7 @@ PTP-PEST	OG0007341	User-specified family grouping
 Paxillin	OG0000150	User-specified family grouping
 Paxillin	OG0000730	User-specified family grouping
 Paxillin	OG0002006	User-specified family grouping
-Paxillin	OG0002150	User-specified family grouping
-Paxillin	OG0013668	User-specified family grouping
+PINCH	OG0002150	PINCH/parvin architecture-first re-audit
+PINCH	OG0013668	PINCH/parvin architecture-first re-audit
 FAK	OG0002086	Workbook assigned_family = FAK
 ILK	OG0003976	Workbook assigned_family = ILK

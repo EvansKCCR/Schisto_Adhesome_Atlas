@@ -101,7 +101,9 @@ def enrich(frame, hits, root):
         record['motif_context_evidence']=tiers if tiers else motif
         record['host_orthology_flag']='Human orthologues: '+host if host and host!='nan' else 'No human orthologue in source orthology results'
         record['priority_group']=r.get('priority_group','')
-        if record['priority_group']=='Not in FN3 review collection': record['priority_group']='Adhesome / '+str(r.family)
+        if record['priority_group']=='Not in FN3 review collection':
+            family=r.get('reviewed_family')
+            record['priority_group']='Adhesome / '+str(family if pd.notna(family) else r.family)
         agree=bool(str(r.get('orthogroup',''))) and domain==1 and topology==1 and motif=='Region-supported motif'
         record['adhesome_interpretation']=('Convergent assignment: ' if agree else 'Integrated assignment: ')+str(r.get('assigned_family') if pd.notna(r.get('assigned_family')) else r.family)
         if 'audit_classification' in out:

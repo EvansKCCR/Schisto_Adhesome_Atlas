@@ -1,5 +1,6 @@
 from pathlib import Path
 from urllib.parse import urlencode, quote
+import hashlib
 import json
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -69,7 +70,11 @@ except Exception as exc:
 # serving a newer app.py. Normalize that schema before any page uses it.
 def ensure_audit_columns(frame):
     if {'audit_classification','reviewed_family','family_assignment_basis'} <= set(frame.columns):
-        return frame
+        out = frame.copy()
+        if 'assigned_family' in out and 'family_decision' in out:
+            accepted = out.audit_classification.isin(['Supported','Provisional'])
+            out['reviewed_family'] = out.assigned_family.combine_first(out.family).where(accepted)
+        return out
     out = frame.copy()
     if 'family_decision' in out:
         supported = {'Retain family assignment','Retain; resolves competing family'}
@@ -80,7 +85,8 @@ def ensure_audit_columns(frame):
             'Provisional' if decision in provisional else
             'Ambiguous' if decision.startswith('Ambiguous') else 'Unassigned'
         )
-        out['reviewed_family'] = out.family.where(out.audit_classification.isin(['Supported','Provisional']))
+        assigned = out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
+        out['reviewed_family'] = assigned.where(out.audit_classification.isin(['Supported','Provisional']))
         out['family_assignment_basis'] = decisions
     elif {'recommended_family','grade'} <= set(out.columns):
         out['audit_classification'] = out.grade.map({'A':'Supported','B':'Supported','C':'Provisional','D':'Unassigned'}).fillna('Unassigned')
@@ -93,6 +99,8 @@ def ensure_audit_columns(frame):
     return out
 
 cohorts = {name: ensure_audit_columns(frame) for name, frame in cohorts.items()}
+cohorts = {name: frame.assign(catalogue_family=frame.reviewed_family.combine_first(frame.family))
+           for name, frame in cohorts.items()}
 missing_audit_sources = [name for name, required in [('Adhesome candidates','family_decision'),('FN3 / fibronectin-like review','recommended_family')]
                          if required not in cohorts[name]]
 
@@ -107,7 +115,7 @@ with st.sidebar:
     cohort = st.selectbox('Collection', list(cohorts))
     base = cohorts[cohort]
     species = st.multiselect('Species', sorted(base.species.unique()), default=sorted(base.species.unique()))
-    families = st.multiselect('Families / screening classes', sorted(base.family.dropna().unique()))
+    families = st.multiselect('Families / screening classes', sorted(base.catalogue_family.dropna().unique()))
     statuses = st.multiselect('Source status', sorted(base.status.dropna().unique()))
     query = st.text_input('Search annotations', placeholder='Protein ID, PF00373, talin…')
     st.caption('Empty family/status selections include all. Clear species to show no records.')
@@ -117,7 +125,7 @@ with st.sidebar:
 
 df = base[base.species.isin(species)].copy()
 if families:
-    df = df[df.family.isin(families)]
+    df = df[df.catalogue_family.isin(families)]
 if statuses:
     df = df[df.status.isin(statuses)]
 if query:
@@ -159,7 +167,7 @@ if page == 'Introduction':
     st.caption('Collection totals below describe all records in each source collection. The filtered selection is shown above.')
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
-    st.markdown('Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The hypothetical network comprises 189 core family-retained hypotheses and 43 provisional hypotheses, but their assembly and functional interactions in endogenous adhesion complexes remain unconfirmed. ECM counts represent motif-prioritized putative ligands. Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Coloured dashed arrows denote predicted ligand–receptor relationships; ligand binding and integrin-subunit specificity require experimental validation.')
+    st.markdown('Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The hypothetical network comprises 189 core family-retained hypotheses and 43 provisional hypotheses, but their assembly and functional interactions in endogenous adhesion complexes remain unconfirmed. ECM counts represent motif-prioritized putative ligands, whereas sidebar counts summarize the broader family inventory. Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Coloured dashed arrows denote predicted ligand–receptor relationships; ligand binding and integrin-subunit specificity require experimental validation.')
     st.subheader('Explore the prototype map')
     map_rows = candidate_rows(cohorts['Adhesome candidates'], cohorts['FN3 / fibronectin-like review'])
     map_families = sorted(map_rows.prototype_family.unique())
@@ -197,8 +205,9 @@ if page == 'Introduction':
             st.caption('Select a family above to focus the hypothesis; showing all mapped families for now.')
     selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Provisional','Exploratory FN3 screen'],
                                      default=['Core family-retained','Provisional'])
-    selected_edges = st.multiselect('Relationship classes', ['inferred','structural','exploratory'],
-                                     default=['inferred','structural','exploratory'])
+    selected_edges = st.multiselect('Relationship classes', ['inferred','structural','exploratory','correctedEdge'],
+                                     default=['inferred','structural','exploratory','correctedEdge'],
+                                     format_func=lambda kind: 'Audit-corrected PINCH–ILK' if kind=='correctedEdge' else kind.title())
     model = hypothesis(map_rows, selected_families, selected_tiers, selected_edges)
     a,b = st.columns(2)
     a.metric('Selected candidate hypotheses', model['candidate_count'])
@@ -233,14 +242,14 @@ elif page == 'FN3 / RPTP priorities':
 elif page == 'Summary statistics':
     st.subheader('Components · Summary statistics')
     unique = df.drop_duplicates('sequence_id')
-    summary = df.groupby('species').agg(hypothesis_records=('sequence_id','size'), distinct_proteins=('sequence_id','nunique'), family_labels=('family','nunique')).reset_index()
+    summary = df.groupby('species').agg(hypothesis_records=('sequence_id','size'), distinct_proteins=('sequence_id','nunique'), family_labels=('catalogue_family','nunique')).reset_index()
     lengths = unique.groupby('species').length.agg(['median','min','max']).rename(columns={'median':'median_length_aa','min':'minimum_length_aa','max':'maximum_length_aa'})
     summary = summary.join(lengths,on='species')
     summary['proteins_with_sequence'] = summary.species.map(unique.assign(available=unique.sequence_id.isin(sequences)).groupby('species').available.sum())
     table(summary)
     download(summary,'component_summary_statistics.csv')
     st.markdown('### Family and status counts')
-    counts = df.groupby(['species','family','status']).sequence_id.nunique().reset_index(name='distinct_proteins')
+    counts = df.groupby(['species','catalogue_family','status']).sequence_id.nunique().reset_index(name='distinct_proteins')
     table(counts)
     st.markdown('### Audited family assignments')
     classification = df.groupby(['species','audit_classification']).agg(assignment_records=('sequence_id','size'),distinct_proteins=('sequence_id','nunique')).reset_index()
@@ -250,20 +259,20 @@ elif page == 'Summary statistics':
 elif page == 'Summary graphs':
     st.subheader('Components · Summary graphs')
     cols = st.columns(4)
-    for col, label, value in zip(cols, ['Distinct proteins', 'Family / class labels', 'Species represented', 'Proteins with motif hits'], [len(ids), df.family.nunique(), df.species.nunique(), hits.sequence_id.nunique()]):
+    for col, label, value in zip(cols, ['Distinct proteins', 'Family / class labels', 'Species represented', 'Proteins with motif hits'], [len(ids), df.catalogue_family.nunique(), df.species.nunique(), hits.sequence_id.nunique()]):
         col.metric(label, f'{value:,}')
     st.markdown('### A landscape of adhesion candidates')
     left, right = st.columns([1.35, 1])
     with left:
-        summary = df.groupby(['module','family']).sequence_id.nunique().reset_index(name='proteins')
-        chart(px.treemap(summary, path=['module','family'], values='proteins', color='module', color_discrete_sequence=palette, title='Explore modules → families'))
+        summary = df.groupby(['module','catalogue_family']).sequence_id.nunique().reset_index(name='proteins')
+        chart(px.treemap(summary, path=['module','catalogue_family'], values='proteins', color='module', color_discrete_sequence=palette, title='Explore modules → audited families'))
     with right:
         counts = df.groupby(['species','status']).sequence_id.nunique().reset_index(name='proteins')
         chart(px.bar(counts, x='species', y='proteins', color='status', barmode='group', color_discrete_sequence=palette, title='Candidate status across species'))
     st.info('Counts are distinct proteins within each plotted group. Multiple family assignments can make group totals exceed the collection’s distinct-protein count. Original source statuses are retained.')
     st.markdown('### Family assignment audit')
-    classification = df.groupby(['family','audit_classification']).size().reset_index(name='assignment records')
-    chart(px.bar(classification,x='family',y='assignment records',color='audit_classification',barmode='stack',title='Family screening labels by audited classification'))
+    classification = df.groupby(['catalogue_family','audit_classification']).size().reset_index(name='assignment records')
+    chart(px.bar(classification,x='catalogue_family',y='assignment records',color='audit_classification',barmode='stack',title='Audited family assignments and screening classes'))
     st.markdown('### Follow the evidence')
     for col, title, body in zip(st.columns(3), ['01 / Find a candidate', '02 / Inspect its architecture', '03 / Compare the repertoire'], ['Search identifiers, families and Pfam annotations in the catalogue.', 'Open a dossier for positional domains, motifs, topology and raw predictor results.', 'Compare species using absolute counts or within-species family representation.']):
         with col:
@@ -272,7 +281,7 @@ elif page == 'Summary graphs':
 
 elif page == 'Candidate catalogue':
     st.subheader('Candidate catalogue')
-    defaults = [c for c in ['sequence_id','species','family','reviewed_family','audit_classification','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
+    defaults = [c for c in ['sequence_id','species','catalogue_family','family','assigned_family','reviewed_family','audit_classification','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
     columns = st.multiselect('Visible annotation fields', list(df.columns), default=defaults)
     table(df[columns])
     a,b = st.columns(2)
@@ -301,6 +310,19 @@ elif page == 'Family assignment audit':
         table(reviewed[cols])
         download(reviewed,'audited_family_assignments.csv')
         if cohort=='Adhesome candidates':
+            pinch_audit = books['files/adhesome_candidates_list.xlsx'].get('PINCH_Parvin_Audit')
+            if pinch_audit is not None:
+                with st.expander('PINCH / parvin re-audit and provenance'):
+                    st.caption('Six PINCH-like assignments were separated from the paxillin-like screening pool. No parvin assignment passed the architecture-first audit. The workbook preserves screening labels alongside reviewed assignments.')
+                    table(pinch_audit)
+                    manifest_path = ROOT/'conservative_adhesome_family_assignment_audit'/'adhesome_candidates_list_PINCH_parvin_corrected.manifest.json'
+                    if manifest_path.is_file():
+                        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+                        current_hash = hashlib.sha256((ROOT/'files'/'adhesome_candidates_list.xlsx').read_bytes()).hexdigest()
+                        st.caption(f"Audit script version {manifest.get('algorithm_version','unknown')} · manifest: {manifest.get('PINCH_like_assignments','?')} PINCH-like, {manifest.get('parvin_like_assignments','?')} parvin-like assignments.")
+                        if current_hash != manifest.get('output_sha256'):
+                            st.info('The manifest records a prior corrected workbook checksum. The deployed workbook differs; the Atlas reads and displays assignments from the deployed workbook.')
+                        st.download_button('↓ Download PINCH audit manifest', manifest_path.read_bytes(), manifest_path.name, 'application/json')
             conflicts=books['files/adhesome_candidates_list.xlsx'].get('Multi_family_conflicts')
             if conflicts is not None:
                 with st.expander(f'Competing family labels · {len(conflicts)} proteins'):
@@ -319,7 +341,7 @@ elif page == 'Protein dossier':
     records = df[df.sequence_id.eq(key)]
     row = records.iloc[0]
     st.subheader(key)
-    st.write(f"{row.species} · {' / '.join(records.family.unique())}")
+    st.write(f"{row.species} · {' / '.join(records.catalogue_family.unique())}")
     seq = sequences.get(key, '')
     a,b,c = st.columns(3)
     a.metric('Sequence length', f'{len(seq):,} aa' if seq else 'Unavailable')
@@ -370,12 +392,12 @@ elif page == 'Comparative lab':
     st.subheader('Comparative lab')
     st.caption('Representation within the selected candidate collection; not proteome-normalized abundance, expression, enrichment or orthology.')
     mode = st.radio('Heatmap units', ['Distinct proteins', '% of filtered species proteins'], horizontal=True)
-    matrix = df.groupby(['family','species']).sequence_id.nunique().unstack(fill_value=0)
+    matrix = df.groupby(['catalogue_family','species']).sequence_id.nunique().unstack(fill_value=0)
     if mode.startswith('%'):
         matrix = matrix.div(df.groupby('species').sequence_id.nunique(), axis=1)*100
     chart(px.imshow(matrix, text_auto='.1f' if mode.startswith('%') else True, aspect='auto', color_continuous_scale='Teal', labels=dict(color=mode), title='Family repertoire by species', height=max(430,len(matrix)*24)))
     download(matrix.reset_index(), 'species_family_matrix.csv')
-    chart(px.box(df, x='family', y='length', color='species', points='outliers', color_discrete_sequence=palette, title='Protein length distributions · hypothesis records', labels={'length':'Length (aa)'}))
+    chart(px.box(df, x='catalogue_family', y='length', color='species', points='outliers', color_discrete_sequence=palette, title='Protein length distributions · hypothesis records', labels={'length':'Length (aa)','catalogue_family':'Audited family / screening class'}))
     selected = st.multiselect('Compare protein annotations (up to 6)', sorted(ids), max_selections=6)
     if selected:
         table(df[df.sequence_id.isin(selected)])

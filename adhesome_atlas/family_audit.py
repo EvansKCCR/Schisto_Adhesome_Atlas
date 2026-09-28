@@ -16,7 +16,8 @@ def apply_family_audit(frame):
             'Ambiguous' if value.startswith('Ambiguous') else 'Unassigned'
         )
         accepted = out.audit_classification.isin(['Supported', 'Provisional'])
-        out['reviewed_family'] = out.family.where(accepted)
+        assigned = out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
+        out['reviewed_family'] = assigned.where(accepted)
         out['family_assignment_basis'] = out.family_decision
     elif 'recommended_family' in out:
         out['audit_classification'] = out.grade.map({'A': 'Supported', 'B': 'Supported', 'C': 'Provisional', 'D': 'Unassigned'}).fillna('Unassigned')
