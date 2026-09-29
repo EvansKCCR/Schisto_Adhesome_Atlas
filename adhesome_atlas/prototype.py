@@ -1,5 +1,6 @@
 """Family-level prototype map and evidence-stratified hypothesis exports."""
 import json
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -15,29 +16,24 @@ FAMILY_NODES = {
 }
 COMPLEX_NODE = 'integrin_ab'
 COMPLEX_LABEL = 'Putative integrin αβ heterodimer'
+REFERENCE_ONLY_NODES = {'parvin': 'Parvin (unassigned reference family)'}
 
-# These are the relationships drawn in the supplied HTML, at family level.
-MAP_EDGES = [
-    ('collagen',COMPLEX_NODE,'inferred','putative ligand–αβ heterodimer'),
-    ('fn3',COMPLEX_NODE,'inferred','putative ligand–αβ heterodimer'),
-    ('laminin',COMPLEX_NODE,'inferred','putative ligand–αβ heterodimer'),
-    (COMPLEX_NODE,'inta','structural','putative αβ complex constituent family'),
-    (COMPLEX_NODE,'intb','structural','putative αβ complex constituent family'),
-    ('intb','talin','inferred','predicted association'),
-    ('intb','kindlin','inferred','predicted association'),
-    ('kindlin','pinch','exploratory','exploratory adaptor association'),
-    ('pinch','ilk','correctedEdge','audit-corrected PINCH–ILK association'),
-    ('kindlin','paxillin','inferred','predicted association'),
-    ('talin','vinculin','inferred','predicted association'),
-    ('talin','actinin','inferred','predicted association'),
-    ('talin','filamin','inferred','predicted association'),
-    ('vinculin','actin','structural','predicted structural association'),
-    ('actinin','actin','structural','predicted structural association'),
-    ('filamin','actin','structural','predicted structural association'),
-    ('paxillin','fak','inferred','predicted association'),
-    ('fak','src','structural','predicted structural association'),
-    ('cofilin','actin','exploratory','exploratory pathway relationship'),
-]
+def read_map_edges(path: Path):
+    """Read edge evidence from the diagram so exports track its architecture."""
+    if not path.is_file():
+        return []
+    block = path.read_text(encoding='utf-8').split('const edges=[', 1)[1].split('];', 1)[0]
+    records = []
+    for match in re.finditer(r"\{a:'[^']+',b:'[^']+',kind:'[^']+'[^{}]*\}", block):
+        record = {}
+        for field in re.finditer(r"(\w+):(?:'([^']*)'|(true|false))", match.group()):
+            record[field.group(1)] = (field.group(3) == 'true' if field.group(3) else field.group(2))
+        records.append(record)
+    return records
+
+
+MAP_EDGE_RECORDS = read_map_edges(Path(__file__).with_name('Schistosome_adhesome_interactive.html'))
+MAP_EDGES = [(edge['a'], edge['b'], edge['kind'], edge['relation']) for edge in MAP_EDGE_RECORDS]
 
 
 def candidate_rows(adhesome, fn3):
@@ -74,16 +70,17 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
     enhancement = r"""
 <style>
 .node.atlas-focus rect{fill:#fff3b0;stroke-width:5}.node.atlas-neighbor rect{fill:#f0fdf4;stroke-width:3}
+.node.provisional rect{stroke-dasharray:6 4;fill:#fffbeb}.chip.provisional{background:#fef3c7;color:#92400e}
 .edge.atlas-dim{opacity:.13}.node.atlas-dim{opacity:.36}
 #info select{width:100%;padding:7px;border:1px solid #94a3b8;border-radius:6px;background:white;color:#0f172a}
 #info .atlas-candidate{padding:8px;background:#f7f9fc;border-left:4px solid #16a34a;margin-top:9px}
 </style>
 <script>
 const atlasPayload = __ATLAS_PAYLOAD__;
-const atlasOriginalShow = show;
+const atlasOriginalShowNode = showNode;
 const atlasExtras = [
-  {id:'ptp_pest',x:990,y:625,w:135,h:60,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',extra:'Family retained; functional placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge was provided in the prototype diagram.'},
-  {id:'profilin',x:20,y:740,w:120,h:60,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'prov',extra:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge was provided in the prototype diagram.'}
+  {id:'ptp_pest',x:90,y:705,w:145,h:62,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',extra:'Family retained; placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge is drawn in this architecture.'},
+  {id:'profilin',x:280,y:705,w:145,h:62,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'provisional',extra:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge is drawn in this architecture.'}
 ];
 atlasExtras.forEach(n=>{nodes.push(n);initial.push(JSON.parse(JSON.stringify(n)))});
 drawNodes();drawEdges();
@@ -114,13 +111,13 @@ function atlasCandidateDetail(parent,record){
   if(record.topology_evidence)atlasText(box,'p','Topology: '+record.topology_evidence);
   if(record.motif_context_evidence)atlasText(box,'p','Motifs: '+record.motif_context_evidence);
 }
-show=function(n){
-  atlasOriginalShow(n);atlasFocus(n);
+showNode=function(n){
+  atlasOriginalShowNode(n);atlasFocus(n);
   const connected=edges.filter(e=>e.a===n.id||e.b===n.id);
   atlasText(info,'h3','Potential linked families');
   if(connected.length){const list=document.createElement('ul');info.appendChild(list);connected.forEach(e=>{
     const other=nodes.find(x=>x.id===(e.a===n.id?e.b:e.a));
-    atlasText(list,'li',other.title+' · '+e.kind+(e.class==='ligand'?' · putative ligand–αβ heterodimer':''));
+    atlasText(list,'li',other.title+' · '+(e.evidence_class||e.kind)+(e.class==='ligand'?' · putative ligand–αβ heterodimer':''));
   })}else atlasText(info,'p','No explicit partner edge in the supplied prototype.');
   if(connected.some(e=>e.a===n.id&&e.b==='integrin_ab'&&e.class==='ligand'))
     atlasText(info,'p','This ligand class is linked to the putative receptor containing both integrin α and β families. The participating protein pair is unresolved.');
@@ -145,31 +142,45 @@ show=function(n){
 };
 const initialFocus=nodes.find(n=>n.id===atlasPayload.focus_node)||
   nodes.find(n=>atlasPayload.candidates.some(r=>r.sequence_id===atlasPayload.focus_candidate&&r.map_node===n.id));
-if(initialFocus)show(initialFocus);
+if(initialFocus)showNode(initialFocus);
 </script>
 """.replace('__ATLAS_PAYLOAD__', payload)
     return html.replace('</body>', enhancement + '</body>')
 
 
 def hypothesis(rows, families, tiers, edge_kinds):
+    edge_records = read_map_edges(Path(__file__).with_name('Schistosome_adhesome_interactive.html'))
     subset = rows[rows.prototype_family.isin(families) & rows.evidence_tier.isin(tiers)].copy()
     nodes = set(subset.map_node)
     counts = subset.groupby('map_node').sequence_id.nunique().to_dict()
     active_nodes = nodes | ({COMPLEX_NODE} if {'inta', 'intb'} <= nodes else set())
+    if 'ilk' in nodes and 'referenceUnresolved' in edge_kinds:
+        active_nodes.add('parvin')
     node_names = {node: family for family, node in FAMILY_NODES.items()}
     node_names[COMPLEX_NODE] = COMPLEX_LABEL
-    relations = [dict(source_family=node_names[a],
-                      target_family=node_names[b],
-                      source_candidate_count=counts.get(a), target_candidate_count=counts.get(b),
-                      evidence_class=kind, interpretation=label,
+    node_names.update(REFERENCE_ONLY_NODES)
+    relations = [dict(source_family=node_names[edge['a']],
+                      target_family=node_names[edge['b']],
+                      source_candidate_count=counts.get(edge['a']),
+                      target_candidate_count=counts.get(edge['b']),
+                      relationship_class=edge['kind'],
+                      evidence_class=edge.get('evidence_class',''),
+                      relation=edge.get('relation',''),
+                      reference=edge.get('reference',''),
+                      transfer_basis=edge.get('transfer_basis',''),
+                      species_support=edge.get('species_support',''),
+                      interpretation=edge.get('interpretation',''),
+                      directional=edge.get('directional',False),
+                      reference_only=edge['kind']=='referenceUnresolved',
                       source='Schistosome_adhesome_interactive.html')
-                 for a,b,kind,label in MAP_EDGES if a in active_nodes and b in active_nodes and kind in edge_kinds]
+                 for edge in edge_records if edge['a'] in active_nodes and edge['b'] in active_nodes
+                 and edge['kind'] in edge_kinds]
     columns = ['sequence_id','species','family','assigned_family','prototype_family','map_node','module','evidence_tier',
                'grade','family_decision','orthogroup','domain_evidence','topology_evidence',
                'motif_context_evidence','host_orthology_flag','source_collection']
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',
-            'interpretation':'Family-level computational hypotheses. Ligand relationships target a putative integrin αβ heterodimer only when both subunit families are selected; no specific α–β protein pairing or experimentally established interaction is inferred.',
+            'interpretation':'Family-level computational hypotheses copied from the interactive architecture. Ligand relationships target a putative integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only and do not claim a schistosome candidate; no specific α–β protein pairing is inferred.',
             'selection':{'families':list(families),'evidence_tiers':list(tiers),'relationship_classes':list(edge_kinds)},
             'candidate_count':len(candidates),'relationship_count':len(relations),
             'candidates':candidates,'family_relationships':relations}

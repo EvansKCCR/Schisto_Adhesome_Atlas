@@ -16,7 +16,7 @@ from orthology_views import evidence_view, priority_view
 from orthology_explorer import orthology_panel
 from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
-from prototype import candidate_rows, interactive_html, hypothesis, FAMILY_NODES, MAP_EDGES, COMPLEX_NODE
+from prototype import candidate_rows, interactive_html, hypothesis, read_map_edges, FAMILY_NODES, COMPLEX_NODE
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -178,11 +178,12 @@ if page == 'Introduction':
     if focus_candidate!='No protein selected' and focus_family=='All families':
         focus_family = focus_pool.loc[focus_pool.sequence_id.eq(focus_candidate),'prototype_family'].iloc[0]
     interactive_source = ROOT / 'Schistosome_adhesome_interactive.html'
+    map_edges = [(edge['a'],edge['b'],edge['kind'],edge['relation']) for edge in read_map_edges(interactive_source)]
     if interactive_source.is_file():
         st.iframe(interactive_html(interactive_source, map_rows,
                                    None if focus_family=='All families' else focus_family,
                                    None if focus_candidate=='No protein selected' else focus_candidate),
-                  height=920)
+                  height=1050)
     else:
         st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
     st.caption('Select a family or protein above, or click a map node to inspect candidate records and linked families. Every motif-prioritized extracellular ligand class points to the putative integrin αβ heterodimer; specific subunit pairing and protein-level binding remain unresolved.')
@@ -192,11 +193,11 @@ if page == 'Introduction':
         selected_families = st.multiselect('Families to include', map_families, default=map_families)
     elif scope=='Focused family and linked partners' and focus_family!='All families':
         focus_node = FAMILY_NODES[focus_family]
-        linked_nodes = {focus_node} | {b if a==focus_node else a for a,b,_,_ in MAP_EDGES if focus_node in (a,b)}
+        linked_nodes = {focus_node} | {b if a==focus_node else a for a,b,_,_ in map_edges if focus_node in (a,b)}
         if COMPLEX_NODE in linked_nodes:
             linked_nodes.update({'inta', 'intb'})
             if focus_node in {'inta', 'intb'}:
-                linked_nodes.update(a for a,b,_,_ in MAP_EDGES if b == COMPLEX_NODE)
+                linked_nodes.update(a for a,b,_,_ in map_edges if b == COMPLEX_NODE)
         selected_families = [family for family in map_families if FAMILY_NODES[family] in linked_nodes]
         st.caption('Included families: '+', '.join(name.replace('_',' ') for name in selected_families))
     else:
@@ -205,14 +206,19 @@ if page == 'Introduction':
             st.caption('Select a family above to focus the hypothesis; showing all mapped families for now.')
     selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Provisional','Exploratory FN3 screen'],
                                      default=['Core family-retained','Provisional'])
-    selected_edges = st.multiselect('Relationship classes', ['inferred','structural','exploratory','correctedEdge'],
-                                     default=['inferred','structural','exploratory','correctedEdge'],
-                                     format_func=lambda kind: 'Audit-corrected PINCH–ILK' if kind=='correctedEdge' else kind.title())
+    edge_kinds = list(dict.fromkeys(kind for _,_,kind,_ in map_edges))
+    selected_edges = st.multiselect('Relationship classes', edge_kinds,
+                                     default=[kind for kind in edge_kinds if kind!='referenceUnresolved'],
+                                     format_func=lambda kind: {'direct':'Established / complex',
+                                                               'inferred':'Reference-inferred',
+                                                               'exploratory':'Exploratory',
+                                                               'referenceUnresolved':'Reference unresolved',
+                                                               'signal':'Directional signalling'}.get(kind,kind))
     model = hypothesis(map_rows, selected_families, selected_tiers, selected_edges)
     a,b = st.columns(2)
     a.metric('Selected candidate hypotheses', model['candidate_count'])
     b.metric('Drawn family relationships', model['relationship_count'])
-    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Ligand–receptor edges are exported only when both integrin subunit families are included; the virtual αβ complex has no assigned protein pair or candidate count.')
+    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Relationship downloads include edge class, reference, transfer basis, species support and directionality. Ligand–receptor edges require both integrin subunit families; the virtual αβ complex has no assigned protein pair or candidate count. Reference-unresolved edges are optional and marked reference-only.')
     st.download_button('↓ Download hypothesis · JSON', json.dumps(model, ensure_ascii=False, indent=2).encode('utf-8'),
                        'schistosome_adhesome_hypothesis.json', 'application/json')
     st.download_button('↓ Download selected candidates · CSV', pd.DataFrame(model['candidates']).to_csv(index=False).encode('utf-8-sig'),

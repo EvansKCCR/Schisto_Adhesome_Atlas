@@ -1,70 +1,359 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Interactive Schistosome Adhesome with PINCH</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Interactive Schistosome Adhesome — Architecture</title>
 <style>
-:root{--navy:#0f172a;--muted:#64748b;--bg:#eef3f8;--blue:#2563eb;--green:#16803c;--purple:#7e22ce;--orange:#d97706;--red:#dc2626;--teal:#0f766e;--pinch:#be185d;--line:#94a3b8}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Aptos,Arial,sans-serif;background:var(--bg);color:var(--navy)}
-header{padding:13px 18px;background:linear-gradient(110deg,#164e63,#173a63);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 2px 12px #0f172a33}header h1{font-size:20px;margin:0 0 4px}header small{opacity:.88}.toolbar{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.toolbar button{border:1px solid #cbd5e1;background:#fff;color:#0f172a;border-radius:8px;padding:7px 9px;cursor:pointer;font-weight:650;font-size:12px}.toolbar button.on{background:#dbeafe;border-color:#2563eb}.toolbar button.warn.on{background:#fce7f3;border-color:#be185d}
-main{display:grid;grid-template-columns:minmax(780px,1fr) 350px;gap:12px;padding:12px;height:calc(100vh - 76px)}#canvasWrap{background:#fff;border:1px solid #cbd5e1;border-radius:12px;overflow:auto;position:relative;box-shadow:0 4px 16px #0f172a0d}svg{width:100%;height:100%;min-height:840px}.panel{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:14px;overflow:auto;box-shadow:0 4px 16px #0f172a0d}.panel h2{font-size:17px;margin:0 0 7px}.panel h3{font-size:13px;margin:14px 0 5px}.panel p,.panel li{font-size:12px;line-height:1.45}.panel code{font-size:10.5px}.chip{display:inline-block;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:750;margin:2px}.core{background:#dcfce7;color:#166534}.prov{background:#fef3c7;color:#92400e}.explore{background:#f3e8ff;color:#6b21a8}.corrected{background:#fce7f3;color:#9d174d}.node{cursor:grab}.node:active{cursor:grabbing}.node rect{fill:#fff;stroke-width:2}.node.provisional rect{stroke-dasharray:6 4;fill:#fffbeb}.node.corrected rect{fill:#fdf2f8;stroke-width:2.4}.node text{pointer-events:none}.edge{fill:none;stroke-width:2}.inferred{stroke:#64748b;stroke-dasharray:7 5}.exploratory{stroke:#d97706;stroke-dasharray:2 5}.structural{stroke:#0f172a;stroke-dasharray:7 4}.correctedEdge{stroke:#be185d;stroke-width:2.6;stroke-dasharray:9 4}.ligand{stroke-width:2.2;stroke-dasharray:8 5}.hidden{display:none}.label{font-size:12px;font-weight:750}.count{font-size:12px;font-weight:850}.subcount{font-size:9px;fill:#64748b}.section{font-size:14px;font-weight:850;fill:#1d4ed8}.zone{fill:#f8fafc;stroke:#dbe3ee;stroke-width:1}.membraneTop{fill:#60a5fa}.membraneBottom{fill:#fbbf24}.zoneLabel{font-size:10px;font-weight:750;fill:#475569}.legendRow{display:flex;gap:7px;align-items:center;margin:6px 0;font-size:11px}.swatch{width:22px;height:5px;background:#64748b}.swatch.dash{background:repeating-linear-gradient(90deg,#64748b 0 7px,transparent 7px 11px)}.swatch.pink{background:repeating-linear-gradient(90deg,#be185d 0 9px,transparent 9px 13px)}.banner{border-left:4px solid #be185d;background:#fdf2f8;padding:8px 10px;border-radius:6px;font-size:11px;line-height:1.4;margin-top:10px}
-@media(max-width:1080px){main{grid-template-columns:1fr;height:auto}.panel{min-height:370px}}
-</style></head><body>
-<header><div><h1>Interactive candidate schistosome integrin adhesome</h1><small>Extracellular ligands connect through a putative integrin αβ heterodimer. Counts: S. haematobium / S. japonicum / S. mansoni.</small></div>
-<div class="toolbar"><button class="on" data-kind="inferred">Inferred</button><button class="on" data-kind="structural">Structural</button><button class="on" data-kind="exploratory">Exploratory</button><button class="warn on" data-kind="correctedEdge">PINCH correction</button><button id="toggleProv" class="on">Provisional notes</button><button id="reset">Reset</button><button id="export">Export SVG</button></div></header>
-<main><section id="canvasWrap"><svg id="net" viewBox="0 0 1160 840" aria-label="Interactive candidate schistosome adhesome network including PINCH">
-<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/></marker><marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#16803c"/></marker><marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/></marker><marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7e22ce"/></marker><marker id="arrowPink" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#be185d"/></marker></defs>
-<rect x="18" y="42" width="1118" height="138" rx="14" class="zone"/><text x="35" y="66" class="section">Extracellular motif-prioritized candidate ligands</text>
-<rect x="18" y="300" width="1118" height="510" rx="14" class="zone"/><text x="35" y="327" class="section">Cytoplasmic adhesome candidates</text>
-<rect x="18" y="230" width="1118" height="15" rx="5" class="membraneTop"/><rect x="18" y="247" width="1118" height="15" rx="5" class="membraneBottom"/><text x="35" y="220" class="zoneLabel">Plasma membrane</text>
-<g id="edges"></g><g id="nodes"></g></svg></section>
-<aside class="panel" id="info"><h2>PINCH correction included</h2><span class="chip corrected">audit-corrected</span><p>The revised map separates PINCH-like proteins from the previous paxillin-like pool and inserts a conservative PINCH–ILK association.</p>
-<div class="banner"><strong>Corrected family counts</strong><br/>PINCH-like core: <strong>1 / 1 / 1</strong><br/>PINCH-like provisional: <strong>1 / 1 / 1</strong><br/>Paxillin-like core after correction: <strong>4 / 4 / 4</strong><br/>Paxillin-like provisional after correction: <strong>1 / 0 / 1</strong></div>
-<h3>Interaction rule</h3><p>The PINCH-to-ILK edge is shown as an inferred, audit-corrected association. No complete ILK–PINCH–parvin complex is asserted because parvin remains unassigned.</p>
-<h3>Controls</h3><p>Drag nodes, click a node for evidence, toggle edge classes, show or hide provisional counts, reset the layout, or export the current layout as SVG.</p>
-<h3>Edge legend</h3><div class="legendRow"><span class="swatch dash"></span>Inferred from conserved adhesomes</div><div class="legendRow"><span class="swatch"></span>Predicted structural/complex association</div><div class="legendRow"><span class="swatch pink"></span>PINCH audit correction</div></aside></main>
+:root{
+  --navy:#0d043f;--muted:#64748b;--bg:#eef3f8;--blue:#2563eb;--green:#16803c;
+  --purple:#7e22ce;--orange:#d97706;--red:#dc2626;--teal:#0f766e;--pinch:#be185d;
+  --line:#64748b;--direct:#0f172a;--inferred:#64748b;--exploratory:#d97706;
+  --unresolved:#94a3b8;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Aptos,Arial,sans-serif;background:var(--bg);color:var(--navy)}
+header{
+  padding:13px 18px;background:linear-gradient(110deg,#164e63,#173a63);color:#fff;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 2px 12px #0f172a33
+}
+header h1{font-size:20px;margin:0 0 4px}
+header small{opacity:.9}
+.toolbar{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.toolbar button{
+  border:1px solid #cbd5e1;background:#fff;color:#0f172a;border-radius:8px;padding:7px 9px;
+  cursor:pointer;font-weight:650;font-size:12px
+}
+.toolbar button.on{background:#dbeafe;border-color:#2563eb}
+main{display:grid;grid-template-columns:minmax(830px,1fr) 370px;gap:12px;padding:12px;height:calc(100vh - 76px)}
+#canvasWrap{
+  background:#fff;border:1px solid #cbd5e1;border-radius:12px;overflow:auto;position:relative;
+  box-shadow:0 4px 16px #0f172a0d
+}
+svg{width:100%;min-width:1050px;height:100%;min-height:920px}
+.panel{
+  background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:14px;overflow:auto;
+  box-shadow:0 4px 16px #0f172a0d
+}
+.panel h2{font-size:17px;margin:0 0 7px}
+.panel h3{font-size:13px;margin:14px 0 5px}
+.panel p,.panel li{font-size:12px;line-height:1.48}
+.panel code{font-size:10.5px}
+.chip{display:inline-block;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:750;margin:2px}
+.core{background:#dcfce7;color:#166534}
+.explore{background:#f3e8ff;color:#6b21a8}
+.complex{background:#fee2e2;color:#991b1b}
+.corrected{background:#fce7f3;color:#9d174d}
+.excluded{background:#e2e8f0;color:#475569}
+.node{cursor:grab}
+.node:active{cursor:grabbing}
+.node rect{fill:#fff;stroke-width:2}
+.node.corrected rect{fill:#fdf2f8;stroke-width:2.5}
+.node.explore rect{stroke-dasharray:5 4;fill:#faf5ff}
+.node.complex rect{fill:#fff7ed;stroke-width:2.5}
+.node.excluded rect{stroke-dasharray:6 5;fill:#f8fafc}
+.node text{pointer-events:none}
+.edge{fill:none;stroke-width:2.2;cursor:pointer;pointer-events:stroke}
+.edge.direct{stroke:var(--direct)}
+.edge.inferred{stroke:var(--inferred);stroke-dasharray:8 5}
+.edge.exploratory{stroke:var(--exploratory);stroke-dasharray:2 5}
+.edge.referenceUnresolved{stroke:var(--unresolved);stroke-dasharray:5 5}
+.edge.signal{stroke:#b91c1c;stroke-dasharray:8 4}
+.edge:hover{stroke-width:4}
+.hidden{display:none}
+.label{font-size:12px;font-weight:750}
+.count{font-size:12px;font-weight:850}
+.subcount{font-size:9px;fill:#64748b}
+.section{font-size:14px;font-weight:850;fill:#1d4ed8}
+.zone{fill:#f8fafc;stroke:#dbe3ee;stroke-width:1}
+.zone.alt{fill:#fbfdff}
+.zoneLabel{font-size:10px;font-weight:750;fill:#475569}
+.membraneTop{fill:#60a5fa}
+.membraneBottom{fill:#fbbf24}
+.groupBox{fill:#fff7ed;stroke:#fb923c;stroke-width:1.4;stroke-dasharray:6 4}
+.groupTitle{font-size:10px;font-weight:800;fill:#9a3412}
+.legendRow{display:flex;gap:7px;align-items:center;margin:6px 0;font-size:11px}
+.swatch{width:25px;height:4px;background:#0f172a}
+.swatch.dash{background:repeating-linear-gradient(90deg,#64748b 0 8px,transparent 8px 13px)}
+.swatch.dot{background:repeating-linear-gradient(90deg,#d97706 0 2px,transparent 2px 7px)}
+.swatch.gray{background:repeating-linear-gradient(90deg,#94a3b8 0 5px,transparent 5px 10px)}
+.swatch.red{background:repeating-linear-gradient(90deg,#b91c1c 0 8px,transparent 8px 13px)}
+.banner{border-left:4px solid #be185d;background:#fdf2f8;padding:8px 10px;border-radius:6px;font-size:11px;line-height:1.4;margin-top:10px}
+.edgeMeta{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;margin-top:8px}
+@media(max-width:1120px){main{grid-template-columns:1fr;height:auto}.panel{min-height:380px}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Interactive candidate schistosome integrin adhesome — Architecture</h1>
+    <small>Functional layers follow extracellular → membrane → membrane-proximal → actin-coupling → scaffolding/signalling → cytoskeleton. Ligands connect through a putative integrin αβ receptor. Counts: S. haematobium / S. japonicum / S. mansoni.</small>
+  </div>
+  <div class="toolbar">
+    <button class="on" data-kind="direct">Established / complex</button>
+    <button class="on" data-kind="inferred">Reference-inferred</button>
+    <button class="on" data-kind="exploratory">Exploratory</button>
+    <button class="on" data-kind="referenceUnresolved">Reference unresolved</button>
+    <button class="on" data-kind="signal">Directional signalling</button>
+    <button id="toggleProv" class="on">Provisional notes</button>
+    <button id="reset">Reset</button>
+    <button id="export">Export SVG</button>
+  </div>
+</header>
+
+<main>
+<section id="canvasWrap">
+<svg id="net" viewBox="0 0 1180 920" aria-label="Interactive candidate schistosome adhesome">
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <rect x="18" y="28" width="1144" height="135" rx="14" class="zone"/>
+  <text x="35" y="52" class="section">Extracellular candidate ligand layer</text>
+
+  <rect x="18" y="185" width="1144" height="105" rx="14" class="zone alt"/>
+  <text x="35" y="207" class="section">Plasma membrane / integrin receptor layer</text>
+  <rect x="18" y="225" width="1144" height="13" rx="4" class="membraneTop"/>
+  <rect x="18" y="241" width="1144" height="13" rx="4" class="membraneBottom"/>
+  <rect x="355" y="194" width="470" height="88" rx="12" class="groupBox"/>
+  <text x="590" y="213" text-anchor="middle" class="groupTitle">Putative integrin αβ receptor — exact α/β pairing and ligand specificity unresolved</text>
+
+  <rect x="18" y="310" width="1144" height="170" rx="14" class="zone"/>
+  <text x="35" y="334" class="section">Membrane-proximal adhesion machinery</text>
+
+  <rect x="18" y="500" width="1144" height="150" rx="14" class="zone alt"/>
+  <text x="35" y="524" class="section">Actin-coupling / scaffold layer</text>
+
+  <rect x="18" y="670" width="1144" height="110" rx="14" class="zone"/>
+  <text x="35" y="694" class="section">Signalling / actin-regulatory layer</text>
+
+  <rect x="18" y="800" width="1144" height="95" rx="14" class="zone alt"/>
+  <text x="35" y="824" class="section">Cytoskeleton</text>
+
+  <g id="edges"></g>
+  <g id="nodes"></g>
+</svg>
+</section>
+
+<aside class="panel" id="info">
+  <h2>Interaction architecture</h2>
+  <p>The layout separates <strong>candidate-family confidence</strong> from <strong>interaction evidence</strong>. Node styling reflects family-assignment status; edge styling reflects the basis of the proposed relationship.</p>
+
+  <div class="banner"><strong>PINCH family</strong><br/>
+  PINCH-like core: <strong>1 / 1 / 1</strong><br/>
+  PINCH-like provisional: <strong>1 / 1 / 1</strong></div>
+
+  <h3>Edge legend</h3>
+  <div class="legendRow"><span class="swatch"></span>Established/direct or conserved complex relationship</div>
+  <div class="legendRow"><span class="swatch dash"></span>Reference-inferred relationship transferred to the schistosome candidate layer</div>
+  <div class="legendRow"><span class="swatch dot"></span>Exploratory relationship</div>
+  <div class="legendRow"><span class="swatch gray"></span>Expected reference relationship where a schistosome family remains unresolved</div>
+  <div class="legendRow"><span class="swatch red"></span>Directional signalling/regulatory relation</div>
+
+  <h3>Controls</h3>
+  <p>Drag nodes, click a node or edge for evidence and provenance, toggle edge classes, show or hide provisional counts, reset the layout, or export the current SVG.</p>
+</aside>
+</main>
+
 <script>
 const nodes=[
-{id:'collagen',x:70,y:83,w:220,h:72,title:'Collagen-like GxOGER subset',count:'4 / 4 / 6',color:'#16803c',status:'core',extra:'Context-supported motif subset',detail:'Motif-prioritized putative ligand candidates. Binding remains unvalidated.'},
-{id:'fn3',x:450,y:83,w:230,h:72,title:'C-type lectin–Ig–FN3-like',count:'1 / 1 / 1',color:'#2563eb',status:'explore',extra:'Sequence/review motif subset',detail:'Exploratory family from a separate screen and outside the family-assignment core.'},
-{id:'laminin',x:840,y:83,w:220,h:72,title:'Laminin-like LRE subset',count:'1 / 1 / 1',color:'#7e22ce',status:'core',extra:'Review-only motif subset',detail:'One LRE-bearing candidate per species; motif evidence remains review-only.'},
-{id:'integrin_ab',x:470,y:187,w:220,h:62,title:'Putative integrin αβ heterodimer',count:'complex model',color:'#b91c1c',status:'explore',extra:'Physiological pairing unresolved',detail:'Ligand classes point to a putative αβ receptor complex. Exact α/β pairing and ligand specificity are unresolved.'},
-{id:'inta',x:330,y:272,w:160,h:66,title:'Integrin α',count:'2 / 2 / 2',color:'#2563eb',status:'core',extra:'+ 1 / 1 / 0 provisional',detail:'Six core-retained α-integrin candidates.'},
-{id:'intb',x:670,y:272,w:160,h:66,title:'Integrin β',count:'1 / 1 / 1',color:'#7e22ce',status:'core',extra:'No provisional layer',detail:'Three core-retained β-integrin candidates; tail docking remains inferred.'},
-{id:'talin',x:115,y:378,w:145,h:68,title:'Talin',count:'1 / 2 / 2',color:'#d97706',status:'core',extra:'+ 2 / 1 / 1 provisional',detail:'Five core-retained and four provisional talin hypotheses.'},
-{id:'kindlin',x:315,y:378,w:145,h:68,title:'Kindlin',count:'1 / 1 / 1',color:'#dc2626',status:'core',extra:'+ 1 / 1 / 1 provisional',detail:'One core and one provisional candidate per species.'},
-{id:'pinch',x:515,y:370,w:170,h:84,title:'PINCH-like',count:'1 / 1 / 1',color:'#be185d',status:'corrected',extra:'+ 1 / 1 / 1 provisional',detail:'Audit-corrected from paxillin-like. Core candidates have five tandem LIM domains, complete PINCH-specific CDD support, compatible localization, and broad orthology. A second group is retained provisionally.'},
-{id:'ilk',x:745,y:378,w:145,h:68,title:'ILK-family',count:'1 / 1 / 1',color:'#16803c',status:'core',extra:'+ 3 / 2 / 2 provisional',detail:'Three core ILK-family candidates. PINCH is now represented, but parvin remains unassigned.'},
-{id:'parvin',x:945,y:378,w:155,h:68,title:'Parvin',count:'not assigned',color:'#64748b',status:'excluded',extra:'Dedicated search target',detail:'No conservative parvin-family assignment was made. Generic tandem CH domains alone were insufficient.'},
-{id:'vinculin',x:90,y:530,w:130,h:62,title:'Vinculin',count:'2 / 2 / 2',color:'#0f766e',status:'core',extra:'No provisional layer',detail:'Six core-retained candidates.'},
-{id:'actinin',x:250,y:530,w:130,h:62,title:'α-actinin',count:'5 / 4 / 5',color:'#0f766e',status:'core',extra:'+ 0 / 0 / 1 provisional',detail:'Fourteen core-retained candidates and one provisional candidate.'},
-{id:'filamin',x:410,y:530,w:130,h:62,title:'Filamin',count:'2 / 2 / 2',color:'#0f766e',status:'core',extra:'No provisional layer',detail:'Six core-retained candidates.'},
-{id:'paxillin',x:630,y:520,w:155,h:74,title:'Paxillin-like',count:'4 / 4 / 4',color:'#7e22ce',status:'core',extra:'+ 1 / 0 / 1 provisional',detail:'Corrected after moving six five-LIM PINCH-like proteins out of the paxillin-like pool. Twelve core paxillin-like candidates remain.'},
-{id:'zyxin',x:815,y:530,w:145,h:62,title:'Zyxin-like',count:'1 / 1 / 1',color:'#7e22ce',status:'core',extra:'No provisional layer',detail:'Three core-retained candidates, displayed in parallel with paxillin-like.'},
-{id:'fak',x:630,y:625,w:145,h:62,title:'FAK-family',count:'1 / 0 / 1',color:'#dc2626',status:'core',extra:'No provisional layer',detail:'Strict core contains no S. japonicum FAK-family candidate.'},
-{id:'src',x:815,y:625,w:145,h:62,title:'Src-family',count:'7 / 7 / 8',color:'#dc2626',status:'core',extra:'+ 1 / 1 / 1 provisional',detail:'Twenty-two core-retained and three provisional candidates.'},
-{id:'actin',x:160,y:742,w:520,h:58,title:'Actin-family candidates',count:'12 / 10 / 12',color:'#ef4444',status:'core',extra:'+ 4 / 3 / 4 provisional',detail:'Family identity does not establish recruitment to an endogenous adhesion complex.'},
-{id:'cofilin',x:825,y:738,w:145,h:64,title:'Cofilin',count:'5 / 4 / 6',color:'#d97706',status:'core',extra:'No provisional layer',detail:'Actin-filament turnover/remodelling regulator.'}
+  {id:'collagen',x:70,y:75,w:225,h:70,title:'Collagen-like GxOGER subset',count:'4 / 4 / 6',color:'#16803c',status:'core',extra:'Context-supported motif subset',detail:'Motif-prioritized putative extracellular ligand candidates. Binding remains unvalidated.'},
+  {id:'fn3',x:465,y:75,w:245,h:70,title:'C-type lectin–Ig–FN3-like',count:'1 / 1 / 1',color:'#2563eb',status:'explore',extra:'Exploratory ligand hypothesis',detail:'Exploratory family from the separate FN3 screen. Family assignment does not establish integrin binding.'},
+  {id:'laminin',x:855,y:75,w:225,h:70,title:'Laminin-like LRE subset',count:'1 / 1 / 1',color:'#7e22ce',status:'core',extra:'Review-only motif subset',detail:'LRE-bearing candidates; ligand interpretation remains review-only.'},
+
+  {id:'inta',x:365,y:216,w:160,h:62,title:'Integrin α',count:'2 / 2 / 2',color:'#2563eb',status:'core',extra:'+ 1 / 1 / 0 provisional',detail:'Core-retained α-integrin candidates. Displayed as a membrane-spanning receptor subunit.'},
+  {id:'integrin_ab',x:535,y:216,w:110,h:62,title:'Integrin αβ',count:'receptor model',color:'#b91c1c',status:'complex',extra:'Pairing unresolved',detail:'Virtual αβ heterodimer receptor. All extracellular ligand-class hypotheses target this complex; exact α/β pairing and ligand specificity are unresolved.'},
+  {id:'intb',x:655,y:216,w:160,h:62,title:'Integrin β',count:'1 / 1 / 1',color:'#7e22ce',status:'core',extra:'No provisional layer',detail:'Core-retained β-integrin candidates. The cytoplasmic β tail is the main docking point for talin, kindlin and filamin in the reference architecture.'},
+
+  {id:'talin',x:90,y:360,w:150,h:68,title:'Talin',count:'1 / 2 / 2',color:'#d97706',status:'core',extra:'+ 2 / 1 / 1 provisional',detail:'Membrane-proximal integrin–actin coupling candidate family.'},
+  {id:'kindlin',x:285,y:360,w:150,h:68,title:'Kindlin',count:'1 / 1 / 1',color:'#dc2626',status:'core',extra:'+ 1 / 1 / 1 provisional',detail:'Membrane-proximal β-integrin adaptor family.'},
+  {id:'pinch',x:480,y:350,w:175,h:84,title:'PINCH-like',count:'1 / 1 / 1',color:'#be185d',status:'corrected',extra:'+ 1 / 1 / 1 provisional',detail:'Audit-corrected from the previous paxillin-like pool. Family correction is kept on the node, not on the PINCH–ILK edge.'},
+  {id:'ilk',x:700,y:360,w:150,h:68,title:'ILK-family',count:'1 / 1 / 1',color:'#16803c',status:'core',extra:'+ 3 / 2 / 2 provisional',detail:'Membrane-proximal ILK-family candidates; shown in the conserved ILK–PINCH/parvin module.'},
+  {id:'parvin',x:915,y:360,w:165,h:68,title:'Parvin',count:'not assigned',color:'#64748b',status:'excluded',extra:'Reference module only',detail:'No conservative parvin-family assignment was made. The node is retained only to show the unresolved reference IPP architecture.'},
+
+  {id:'vinculin',x:75,y:555,w:135,h:62,title:'Vinculin',count:'2 / 2 / 2',color:'#0f766e',status:'core',extra:'No provisional layer',detail:'Actin-coupling component positioned downstream of talin.'},
+  {id:'actinin',x:260,y:555,w:140,h:62,title:'α-actinin',count:'5 / 4 / 5',color:'#0f766e',status:'core',extra:'+ 0 / 0 / 1 provisional',detail:'Actin-binding component positioned with the α-actinin–zyxin axis.'},
+  {id:'zyxin',x:445,y:555,w:145,h:62,title:'Zyxin-like',count:'1 / 1 / 1',color:'#7e22ce',status:'core',extra:'No provisional layer',detail:'Scaffold component repositioned next to α-actinin rather than left isolated.'},
+  {id:'filamin',x:630,y:555,w:140,h:62,title:'Filamin',count:'2 / 2 / 2',color:'#0f766e',status:'core',extra:'No provisional layer',detail:'Actin-binding integrin-tail interactor. Shown as an alternative β-tail association rather than downstream of talin.'},
+  {id:'paxillin',x:820,y:545,w:165,h:74,title:'Paxillin-like',count:'4 / 4 / 4',color:'#7e22ce',status:'core',extra:'+ 1 / 0 / 1 provisional',detail:'Twelve core paxillin-like candidates after the PINCH correction.'},
+
+  {id:'fak',x:710,y:705,w:145,h:62,title:'FAK-family',count:'1 / 0 / 1',color:'#dc2626',status:'core',extra:'No provisional layer',detail:'FAK-family candidates placed in the signalling layer with the paxillin–FAK axis.'},
+  {id:'src',x:900,y:705,w:145,h:62,title:'Src-family',count:'7 / 7 / 8',color:'#dc2626',status:'core',extra:'+ 1 / 1 / 1 provisional',detail:'Src-family signalling candidates downstream/adjacent to FAK signalling.'},
+  {id:'cofilin',x:480,y:705,w:145,h:62,title:'Cofilin',count:'5 / 4 / 6',color:'#d97706',status:'core',extra:'No provisional layer',detail:'Actin-filament turnover/remodelling regulator.'},
+
+  {id:'actin',x:250,y:835,w:680,h:48,title:'Actin-family candidates',count:'12 / 10 / 12',color:'#ef4444',status:'core',extra:'+ 4 / 3 / 4 provisional',detail:'Cytoskeletal base layer. Family identity does not establish recruitment to an endogenous adhesion complex.'}
 ];
+
+/*
+Each edge stores:
+- relation: biological relationship being represented
+- evidence_class: established/direct, reference-inferred, exploratory, unresolved reference, or signalling
+- reference: provenance / literature basis
+- transfer_basis: why the relationship is drawn for this candidate architecture
+- species_support: what the current schistosome dataset establishes
+- interpretation: conservative meaning of the edge
+- directional: arrow only when a regulatory/signalling direction is intended
+*/
 const edges=[
-{a:'collagen',b:'integrin_ab',kind:'inferred',class:'ligand',color:'#16803c'},{a:'fn3',b:'integrin_ab',kind:'inferred',class:'ligand',color:'#2563eb'},{a:'laminin',b:'integrin_ab',kind:'inferred',class:'ligand',color:'#7e22ce'},
-{a:'integrin_ab',b:'inta',kind:'structural'},{a:'integrin_ab',b:'intb',kind:'structural'},
-{a:'intb',b:'talin',kind:'inferred'},{a:'intb',b:'kindlin',kind:'inferred'},
-{a:'kindlin',b:'pinch',kind:'exploratory'},{a:'pinch',b:'ilk',kind:'correctedEdge',color:'#be185d'},
-{a:'kindlin',b:'paxillin',kind:'inferred'},{a:'talin',b:'vinculin',kind:'inferred'},{a:'talin',b:'actinin',kind:'inferred'},{a:'talin',b:'filamin',kind:'inferred'},
-{a:'vinculin',b:'actin',kind:'structural'},{a:'actinin',b:'actin',kind:'structural'},{a:'filamin',b:'actin',kind:'structural'},
-{a:'paxillin',b:'fak',kind:'inferred'},{a:'fak',b:'src',kind:'structural'},{a:'cofilin',b:'actin',kind:'exploratory'}
+  {a:'collagen',b:'integrin_ab',kind:'inferred',class:'ligand',relation:'putative ligand–αβ heterodimer recognition',evidence_class:'reference-inferred',reference:'Conserved integrin ligand architecture; current motif-prioritized collagen-like subset',transfer_basis:'Ligand-class hypothesis transferred to the putative αβ receptor layer',species_support:'Candidate ligand class present; exact receptor pair unvalidated',interpretation:'Drawn as a hypothesis of extracellular recognition, not as a validated schistosome binding interaction',directional:false},
+  {a:'fn3',b:'integrin_ab',kind:'exploratory',class:'ligand',relation:'putative ligand–αβ heterodimer recognition',evidence_class:'exploratory',reference:'FN3 review collection',transfer_basis:'Exploratory family positioning only',species_support:'Family candidate present in all three species',interpretation:'Does not establish integrin binding',directional:false},
+  {a:'laminin',b:'integrin_ab',kind:'inferred',class:'ligand',relation:'putative ligand–αβ heterodimer recognition',evidence_class:'reference-inferred',reference:'Conserved laminin–integrin architecture; current LRE-bearing subset',transfer_basis:'Ligand-class hypothesis transferred to the αβ receptor layer',species_support:'Candidate ligand class present; exact receptor pair unvalidated',interpretation:'Conservative ligand hypothesis only',directional:false},
+
+  {a:'integrin_ab',b:'inta',kind:'direct',relation:'putative αβ complex α constituent',evidence_class:'established/complex',reference:'Canonical integrin αβ heterodimer architecture',transfer_basis:'α-integrin candidate family retained',species_support:'Candidate α and β families occur in the schistosome collection',interpretation:'Complex model only; exact α/β pairing remains unresolved',directional:false},
+  {a:'integrin_ab',b:'intb',kind:'direct',relation:'putative αβ complex β constituent',evidence_class:'established/complex',reference:'Canonical integrin αβ heterodimer architecture',transfer_basis:'β-integrin candidate family retained',species_support:'Candidate α and β families occur in the schistosome collection',interpretation:'Complex model only; exact α/β pairing remains unresolved',directional:false},
+
+  {a:'intb',b:'talin',kind:'direct',relation:'β-integrin-tail / talin association',evidence_class:'established/complex',reference:'Canonical integrin adhesion architecture',transfer_basis:'Conserved β-tail adaptor relationship',species_support:'Candidate family presence; direct schistosome binding not experimentally tested',interpretation:'Reference-supported structural association',directional:false},
+  {a:'intb',b:'kindlin',kind:'direct',relation:'β-integrin-tail / kindlin association',evidence_class:'established/complex',reference:'Canonical integrin adhesion architecture',transfer_basis:'Conserved β-tail adaptor relationship',species_support:'Candidate family presence; direct schistosome binding not experimentally tested',interpretation:'Reference-supported structural association',directional:false},
+  {a:'intb',b:'filamin',kind:'inferred',relation:'β-integrin-tail / filamin association',evidence_class:'reference-inferred',reference:'Reference integrin-tail architecture; filamin can compete with talin for β-tail binding',transfer_basis:'Conserved family relationship',species_support:'Candidate families present; interaction not directly demonstrated in Schistosoma',interpretation:'Shown as an alternative β-tail association, not as a talin→filamin chain',directional:false},
+
+  {a:'talin',b:'vinculin',kind:'direct',relation:'talin–vinculin complex association',evidence_class:'established/complex',reference:'Consensus adhesome talin–vinculin axis',transfer_basis:'Conserved adhesome module',species_support:'Candidate families present',interpretation:'Reference-supported module relationship',directional:false},
+  {a:'talin',b:'actin',kind:'direct',relation:'talin–actin coupling',evidence_class:'established/complex',reference:'Canonical talin actin-binding architecture',transfer_basis:'Direct cytoskeletal coupling in the reference adhesome',species_support:'Candidate talin and actin families present',interpretation:'Reference-supported cytoskeletal link',directional:false},
+  {a:'vinculin',b:'actin',kind:'direct',relation:'vinculin–actin coupling',evidence_class:'established/complex',reference:'Consensus adhesome actin-coupling architecture',transfer_basis:'Conserved actin-binding relationship',species_support:'Candidate families present',interpretation:'Reference-supported cytoskeletal link',directional:false},
+
+  {a:'actinin',b:'zyxin',kind:'inferred',relation:'α-actinin–zyxin adhesome axis',evidence_class:'reference-inferred',reference:'Consensus adhesome α-actinin–zyxin module',transfer_basis:'Conserved module-level association',species_support:'Candidate families present; direct schistosome interaction untested',interpretation:'Restores the canonical α-actinin–zyxin module',directional:false},
+  {a:'actinin',b:'actin',kind:'direct',relation:'α-actinin–actin coupling',evidence_class:'established/complex',reference:'Canonical α-actinin actin-binding function',transfer_basis:'Conserved actin-binding relationship',species_support:'Candidate families present',interpretation:'Reference-supported cytoskeletal link',directional:false},
+  {a:'filamin',b:'actin',kind:'direct',relation:'filamin–actin coupling',evidence_class:'established/complex',reference:'Canonical filamin actin-binding function',transfer_basis:'Conserved actin-binding relationship',species_support:'Candidate families present',interpretation:'Reference-supported cytoskeletal link',directional:false},
+
+  {a:'kindlin',b:'ilk',kind:'inferred',relation:'kindlin–ILK adhesome module association',evidence_class:'reference-inferred',reference:'Consensus adhesome kindlin–ILK axis',transfer_basis:'Conserved membrane-proximal module organization',species_support:'Candidate families present; edge is not claimed as direct biochemical proof',interpretation:'Module-level relationship; direct interface should be tested experimentally',directional:false},
+  {a:'pinch',b:'ilk',kind:'direct',relation:'PINCH–ILK complex association',evidence_class:'established/complex',reference:'Conserved ILK–PINCH–parvin (IPP) complex architecture',transfer_basis:'PINCH family assignment was audit-corrected; ILK family retained',species_support:'Candidate family presence in all three species',interpretation:'Reference-supported complex relationship. The audit correction belongs to the PINCH node, not this edge.',directional:false},
+  {a:'ilk',b:'parvin',kind:'referenceUnresolved',relation:'ILK–parvin reference complex association',evidence_class:'reference unresolved',reference:'Conserved IPP complex architecture',transfer_basis:'Expected reference relationship',species_support:'Parvin family not conservatively assigned in the current schistosome set',interpretation:'Shown only to expose the unresolved reference module; it is not a candidate interaction claim',directional:false},
+
+  {a:'paxillin',b:'fak',kind:'direct',relation:'paxillin–FAK module association',evidence_class:'established/complex',reference:'Consensus adhesome FAK–paxillin axis',transfer_basis:'Conserved focal-adhesion scaffold/signalling module',species_support:'Candidate families present',interpretation:'Reference-supported module relationship',directional:false},
+  {a:'fak',b:'src',kind:'signal',relation:'FAK/Src signalling coupling',evidence_class:'directional signalling',reference:'Conserved integrin-proximal FAK–Src signalling architecture',transfer_basis:'Reference signalling module',species_support:'Candidate families present; direction is a pathway convention rather than direct schistosome experimental proof',interpretation:'Directional display used only for signalling flow',directional:true},
+  {a:'cofilin',b:'actin',kind:'inferred',relation:'cofilin-dependent actin remodelling',evidence_class:'reference-inferred',reference:'Conserved actin-regulatory function',transfer_basis:'Family-level functional transfer',species_support:'Candidate cofilin and actin families present',interpretation:'Reference-inferred actin-regulatory relationship',directional:false}
 ];
-const svg=document.getElementById('net'),ng=document.getElementById('nodes'),eg=document.getElementById('edges'),info=document.getElementById('info');const initial=JSON.parse(JSON.stringify(nodes));let showProv=true;
+
+const svg=document.getElementById('net'),
+      ng=document.getElementById('nodes'),
+      eg=document.getElementById('edges'),
+      info=document.getElementById('info');
+const initial=JSON.parse(JSON.stringify(nodes));
+let showProv=true;
+
 function center(n){return{x:n.x+n.w/2,y:n.y+n.h/2}}
-function intersect(a,b){const A=center(a),B=center(b),dx=B.x-A.x,dy=B.y-A.y,tx=(a.w/2)/Math.max(Math.abs(dx),.01),ty=(a.h/2)/Math.max(Math.abs(dy),.01),t=Math.min(tx,ty);return{x:A.x+dx*t,y:A.y+dy*t}}
-function marker(e){if(e.kind==='correctedEdge')return'url(#arrowPink)';if(e.color==='#16803c')return'url(#arrowGreen)';if(e.color==='#2563eb')return'url(#arrowBlue)';if(e.color==='#7e22ce')return'url(#arrowPurple)';return'url(#arrow)'}
-function drawEdges(){eg.innerHTML='';edges.forEach((e,i)=>{const a=nodes.find(n=>n.id===e.a),b=nodes.find(n=>n.id===e.b),p1=intersect(a,b),p2=intersect(b,a),line=document.createElementNS('http://www.w3.org/2000/svg','line');line.id='edge-'+i;line.setAttribute('x1',p1.x);line.setAttribute('y1',p1.y);line.setAttribute('x2',p2.x);line.setAttribute('y2',p2.y);line.setAttribute('class','edge '+e.kind+' '+(e.class||''));line.setAttribute('stroke',e.color||'#64748b');if(e.kind==='structural'){line.setAttribute('marker-start','url(#arrow)');line.setAttribute('marker-end','url(#arrow)')}else line.setAttribute('marker-end',marker(e));eg.appendChild(line)})}
-function drawNodes(){ng.innerHTML='';nodes.forEach(n=>{const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','node '+(n.status==='corrected'?'corrected':n.status==='prov'?'provisional':''));g.dataset.id=n.id;g.setAttribute('transform',`translate(${n.x},${n.y})`);const r=document.createElementNS('http://www.w3.org/2000/svg','rect');r.setAttribute('width',n.w);r.setAttribute('height',n.h);r.setAttribute('rx',12);r.setAttribute('stroke',n.color);g.appendChild(r);const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',n.w/2);t.setAttribute('y',22);t.setAttribute('text-anchor','middle');t.setAttribute('class','label');t.textContent=n.title;g.appendChild(t);const c=document.createElementNS('http://www.w3.org/2000/svg','text');c.setAttribute('x',n.w/2);c.setAttribute('y',43);c.setAttribute('text-anchor','middle');c.setAttribute('class','count');c.setAttribute('fill',n.color);c.textContent=n.count;g.appendChild(c);const sc=document.createElementNS('http://www.w3.org/2000/svg','text');sc.setAttribute('x',n.w/2);sc.setAttribute('y',n.h-8);sc.setAttribute('text-anchor','middle');sc.setAttribute('class','subcount provisionalText'+(showProv?'':' hidden'));sc.textContent=n.extra;g.appendChild(sc);g.addEventListener('click',()=>show(n));drag(g,n);ng.appendChild(g)})}
-function show(n){info.innerHTML=`<h2>${n.title}</h2><span class="chip ${n.status}">${n.status}</span><h3>Displayed count</h3><p><strong>${n.count}</strong>${['integrin_ab','parvin'].includes(n.id)?'':' (Shae / Sjap / Sman)'}</p><h3>Additional evidence layer</h3><p>${n.extra}</p><h3>Interpretation</h3><p>${n.detail}</p>${n.id==='pinch'?'<div class="banner"><strong>PINCH audit basis</strong><br/>Five tandem LIM domains were treated as the primary gate. Broad orthology raised one candidate per species to family-supported status; a second candidate per species remained provisional.</div>':''}`}
-function drag(g,n){let active=false,off={x:0,y:0};g.addEventListener('pointerdown',e=>{active=true;g.setPointerCapture(e.pointerId);const p=pt(e);off={x:p.x-n.x,y:p.y-n.y}});g.addEventListener('pointermove',e=>{if(!active)return;const p=pt(e);n.x=p.x-off.x;n.y=p.y-off.y;g.setAttribute('transform',`translate(${n.x},${n.y})`);drawEdges()});g.addEventListener('pointerup',()=>active=false)}
-function pt(e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
-document.querySelectorAll('[data-kind]').forEach(b=>b.onclick=()=>{b.classList.toggle('on');document.querySelectorAll('.'+b.dataset.kind).forEach(x=>x.classList.toggle('hidden',!b.classList.contains('on')))});
-document.getElementById('toggleProv').onclick=e=>{showProv=!showProv;e.currentTarget.classList.toggle('on',showProv);document.querySelectorAll('.provisionalText').forEach(x=>x.classList.toggle('hidden',!showProv))};
-document.getElementById('reset').onclick=()=>{nodes.forEach((n,i)=>Object.assign(n,initial[i]));drawNodes();drawEdges()};
-document.getElementById('export').onclick=()=>{const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');const style=document.createElementNS('http://www.w3.org/2000/svg','style');style.textContent='.node rect{fill:white;stroke-width:2}.label{font:700 12px Arial}.count{font:800 12px Arial}.subcount{font:9px Arial;fill:#64748b}.edge{fill:none;stroke-width:2}.inferred{stroke-dasharray:7 5}.exploratory{stroke-dasharray:2 5}.structural{stroke-dasharray:7 4}.correctedEdge{stroke:#be185d;stroke-width:2.6;stroke-dasharray:9 4}.zone{fill:#f8fafc;stroke:#dbe3ee}.section{font:800 14px Arial;fill:#1d4ed8}.zoneLabel{font:700 10px Arial;fill:#475569}';clone.insertBefore(style,clone.firstChild);const blob=new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='schistosome_adhesome_with_PINCH.svg';a.click();URL.revokeObjectURL(a.href)};
+function intersect(a,b){
+  const A=center(a),B=center(b),dx=B.x-A.x,dy=B.y-A.y;
+  const tx=(a.w/2)/Math.max(Math.abs(dx),.01),ty=(a.h/2)/Math.max(Math.abs(dy),.01),t=Math.min(tx,ty);
+  return{x:A.x+dx*t,y:A.y+dy*t}
+}
+function drawEdges(){
+  eg.innerHTML='';
+  edges.forEach((e,i)=>{
+    const a=nodes.find(n=>n.id===e.a), b=nodes.find(n=>n.id===e.b);
+    const p1=intersect(a,b), p2=intersect(b,a);
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.id='edge-'+i;
+    line.setAttribute('x1',p1.x); line.setAttribute('y1',p1.y);
+    line.setAttribute('x2',p2.x); line.setAttribute('y2',p2.y);
+    line.setAttribute('class','edge '+e.kind+' '+(e.class||''));
+    line.setAttribute('stroke', e.kind==='signal' ? '#b91c1c' : '');
+    if(e.directional) line.setAttribute('marker-end','url(#arrowRed)');
+    line.addEventListener('click',evt=>{evt.stopPropagation();showEdge(e,a,b)});
+    eg.appendChild(line);
+  })
+}
+function drawNodes(){
+  ng.innerHTML='';
+  nodes.forEach(n=>{
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','node '+n.status);
+    g.dataset.id=n.id;
+    g.setAttribute('transform',`translate(${n.x},${n.y})`);
+    const r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    r.setAttribute('width',n.w); r.setAttribute('height',n.h); r.setAttribute('rx',12); r.setAttribute('stroke',n.color); g.appendChild(r);
+
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',n.w/2); t.setAttribute('y',22); t.setAttribute('text-anchor','middle'); t.setAttribute('class','label'); t.textContent=n.title; g.appendChild(t);
+
+    const c=document.createElementNS('http://www.w3.org/2000/svg','text');
+    c.setAttribute('x',n.w/2); c.setAttribute('y',43); c.setAttribute('text-anchor','middle'); c.setAttribute('class','count'); c.setAttribute('fill',n.color); c.textContent=n.count; g.appendChild(c);
+
+    const sc=document.createElementNS('http://www.w3.org/2000/svg','text');
+    sc.setAttribute('x',n.w/2); sc.setAttribute('y',n.h-8); sc.setAttribute('text-anchor','middle');
+    sc.setAttribute('class','subcount provisionalText'+(showProv?'':' hidden')); sc.textContent=n.extra; g.appendChild(sc);
+
+    g.addEventListener('click',()=>showNode(n));
+    drag(g,n);
+    ng.appendChild(g);
+  })
+}
+function statusLabel(status){
+  return status==='core'?'family-supported candidate':
+         status==='complex'?'virtual receptor complex':
+         status==='corrected'?'audit-corrected family assignment':
+         status==='explore'?'exploratory candidate family':
+         status==='excluded'?'unresolved / not assigned':status;
+}
+function showNode(n){
+  info.innerHTML=`<h2>${n.title}</h2>
+    <span class="chip ${n.status}">${statusLabel(n.status)}</span>
+    <h3>Displayed count</h3>
+    <p><strong>${n.count}</strong>${['parvin','integrin_ab'].includes(n.id)?'':' (Shae / Sjap / Sman)'}</p>
+    <h3>Additional evidence layer</h3><p>${n.extra}</p>
+    <h3>Interpretation</h3><p>${n.detail}</p>
+    ${n.id==='pinch'?'<div class="banner"><strong>PINCH audit basis</strong><br/>The family correction is encoded at the node level. The PINCH–ILK edge is separately classified by its interaction evidence.</div>':''}`;
+}
+function showEdge(e,a,b){
+  info.innerHTML=`<h2>${a.title} ↔ ${b.title}</h2>
+    <span class="chip core">${e.evidence_class}</span>
+    <div class="edgeMeta">
+      <h3>Relation</h3><p>${e.relation}</p>
+      <h3>Reference / provenance</h3><p>${e.reference}</p>
+      <h3>Transfer basis</h3><p>${e.transfer_basis}</p>
+      <h3>Schistosome support</h3><p>${e.species_support}</p>
+      <h3>Interpretation</h3><p>${e.interpretation}</p>
+      <h3>Directionality</h3><p>${e.directional?'Directional signalling/regulatory display':'Undirected association / complex relationship'}</p>
+    </div>`;
+}
+function drag(g,n){
+  let active=false,off={x:0,y:0};
+  g.addEventListener('pointerdown',e=>{active=true;g.setPointerCapture(e.pointerId);const p=pt(e);off={x:p.x-n.x,y:p.y-n.y}});
+  g.addEventListener('pointermove',e=>{
+    if(!active)return;
+    const p=pt(e); n.x=p.x-off.x; n.y=p.y-off.y;
+    g.setAttribute('transform',`translate(${n.x},${n.y})`); drawEdges();
+  });
+  g.addEventListener('pointerup',()=>active=false);
+}
+function pt(e){
+  const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;
+  return p.matrixTransform(svg.getScreenCTM().inverse())
+}
+document.querySelectorAll('[data-kind]').forEach(b=>{
+  b.onclick=()=>{
+    b.classList.toggle('on');
+    document.querySelectorAll('.'+b.dataset.kind).forEach(x=>x.classList.toggle('hidden',!b.classList.contains('on')))
+  }
+});
+document.getElementById('toggleProv').onclick=e=>{
+  showProv=!showProv;e.currentTarget.classList.toggle('on',showProv);
+  document.querySelectorAll('.provisionalText').forEach(x=>x.classList.toggle('hidden',!showProv))
+};
+document.getElementById('reset').onclick=()=>{
+  nodes.forEach((n,i)=>Object.assign(n,initial[i]));drawNodes();drawEdges()
+};
+document.getElementById('export').onclick=()=>{
+  const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  const style=document.createElementNS('http://www.w3.org/2000/svg','style');
+  style.textContent=`
+    .node rect{fill:white;stroke-width:2}.node.corrected rect{fill:#fdf2f8;stroke-width:2.5}
+    .node.complex rect{fill:#fff7ed;stroke-width:2.5}
+    .node.explore rect{stroke-dasharray:5 4;fill:#faf5ff}.node.excluded rect{stroke-dasharray:6 5;fill:#f8fafc}
+    .label{font:700 12px Arial}.count{font:800 12px Arial}.subcount{font:9px Arial;fill:#64748b}
+    .edge{fill:none;stroke-width:2.2}.direct{stroke:#0f172a}.inferred{stroke:#64748b;stroke-dasharray:8 5}
+    .exploratory{stroke:#d97706;stroke-dasharray:2 5}.referenceUnresolved{stroke:#94a3b8;stroke-dasharray:5 5}
+    .signal{stroke:#b91c1c;stroke-dasharray:8 4}.zone{fill:#f8fafc;stroke:#dbe3ee}.zone.alt{fill:#fbfdff}
+    .section{font:800 14px Arial;fill:#1d4ed8}.groupBox{fill:#fff7ed;stroke:#fb923c;stroke-width:1.4;stroke-dasharray:6 4}
+    .groupTitle{font:800 10px Arial;fill:#9a3412}`;
+  clone.insertBefore(style,clone.firstChild);
+  const blob=new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='schistosome_adhesome.svg';a.click();URL.revokeObjectURL(a.href)
+};
+
 drawNodes();drawEdges();
-</script></body></html>
+</script>
+</body>
+</html>
