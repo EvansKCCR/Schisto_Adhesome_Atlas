@@ -1,6 +1,5 @@
 from pathlib import Path
 from urllib.parse import urlencode, quote
-import hashlib
 import json
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -71,9 +70,9 @@ except Exception as exc:
 def ensure_audit_columns(frame):
     if {'audit_classification','reviewed_family','family_assignment_basis'} <= set(frame.columns):
         out = frame.copy()
-        if 'assigned_family' in out and 'family_decision' in out:
+        if 'audit_family' in out and 'family_decision' in out:
             accepted = out.audit_classification.isin(['Supported','Provisional'])
-            out['reviewed_family'] = out.assigned_family.combine_first(out.family).where(accepted)
+            out['reviewed_family'] = out.audit_family.where(accepted)
         return out
     out = frame.copy()
     if 'family_decision' in out:
@@ -85,7 +84,7 @@ def ensure_audit_columns(frame):
             'Provisional' if decision in provisional else
             'Ambiguous' if decision.startswith('Ambiguous') else 'Unassigned'
         )
-        assigned = out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
+        assigned = out.audit_family if 'audit_family' in out else out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
         out['reviewed_family'] = assigned.where(out.audit_classification.isin(['Supported','Provisional']))
         out['family_assignment_basis'] = decisions
     elif {'recommended_family','grade'} <= set(out.columns):
@@ -167,7 +166,8 @@ if page == 'Introduction':
     st.caption('Collection totals below describe all records in each source collection. The filtered selection is shown above.')
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
-    st.markdown('Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The hypothetical network comprises 189 core family-retained hypotheses and 43 provisional hypotheses, but their assembly and functional interactions in endogenous adhesion complexes remain unconfirmed. ECM counts represent motif-prioritized putative ligands. Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*.')
+    assignment_counts = cohorts['Adhesome candidates'].audit_classification.value_counts()
+    st.markdown(f"Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The current audit retains **{assignment_counts.get('Supported', 0)} supported** and **{assignment_counts.get('Provisional', 0)} provisional** family assignments. Most drawn family relationships are hypotheses; the *S. mansoni* ILK–PINCH–Nck2 complex has experimental support from [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147). Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Extracellular ligand edges target the integrin αβ heterodimer, with ligand binding and subunit specificity still to be tested.")
     st.subheader('Explore the prototype map')
     map_rows = candidate_rows(cohorts['Adhesome candidates'], cohorts['FN3 / fibronectin-like review'])
     map_families = sorted(map_rows.prototype_family.unique())
@@ -204,7 +204,7 @@ if page == 'Introduction':
         selected_families = map_families
         if scope=='Focused family and linked partners':
             st.caption('Select a family above to focus the hypothesis; showing all mapped families for now.')
-    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Provisional','Exploratory FN3 screen'],
+    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Provisional'],
                                      default=['Core family-retained','Provisional'])
     edge_kinds = list(dict.fromkeys(kind for _,_,kind,_ in map_edges))
     selected_edges = st.multiselect('Relationship classes', edge_kinds,
@@ -233,6 +233,11 @@ elif page == 'Phylogeny':
     phylogeny_panel(network_candidates)
 
 elif page == 'Interactions':
+    st.subheader('Experimentally supported S. mansoni integrin-signalling complex')
+    st.markdown('Co-expression, co-immunoprecipitation and deletion analysis support an **Smβ-Int1–SmILK–SmPINCH–SmNck2–SmVKR1** assembly in the system studied by [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147). The displayed PINCH–ILK and PINCH–Nck2 family links record that complex-level evidence; they do not label every homologue or every binary contact as experimentally verified.')
+    validated = cohorts['Adhesome candidates'][cohorts['Adhesome candidates'].sequence_id.isin(
+        ['Sman__Smp_079760', 'Sman__Smp_020540', 'Sman__Smp_014850'])]
+    table(validated[[c for c in ['sequence_id', 'reviewed_family', 'audit_classification', 'grade', 'family_decision'] if c in validated]])
     mode = st.radio('Network workspace', ['Unified reconstruction', 'Species STRING explorer'], horizontal=True)
     if mode == 'Unified reconstruction':
         reconstruction_panel(network_candidates, load_network, 'reconstruction_')
@@ -316,27 +321,16 @@ elif page == 'Family assignment audit':
         table(reviewed[cols])
         download(reviewed,'audited_family_assignments.csv')
         if cohort=='Adhesome candidates':
-            pinch_audit = books['files/adhesome_candidates_list.xlsx'].get('PINCH_Parvin_Audit')
-            if pinch_audit is not None:
-                with st.expander('PINCH / parvin re-audit and provenance'):
-                    st.caption('Six PINCH-like assignments were separated from the paxillin-like screening pool. No parvin assignment passed the architecture-first audit. The workbook preserves screening labels alongside reviewed assignments.')
-                    table(pinch_audit)
-                    manifest_path = ROOT/'conservative_adhesome_family_assignment_audit'/'adhesome_candidates_list_PINCH_parvin_corrected.manifest.json'
-                    if manifest_path.is_file():
-                        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-                        current_hash = hashlib.sha256((ROOT/'files'/'adhesome_candidates_list.xlsx').read_bytes()).hexdigest()
-                        st.caption(f"Audit script version {manifest.get('algorithm_version','unknown')} · manifest: {manifest.get('PINCH_like_assignments','?')} PINCH-like, {manifest.get('parvin_like_assignments','?')} parvin-like assignments.")
-                        if current_hash != manifest.get('output_sha256'):
-                            st.info('The manifest records a prior corrected workbook checksum. The deployed workbook differs; the Atlas reads and displays assignments from the deployed workbook.')
-                        st.download_button('↓ Download PINCH audit manifest', manifest_path.read_bytes(), manifest_path.name, 'application/json')
-            conflicts=books['files/adhesome_candidates_list.xlsx'].get('Multi_family_conflicts')
-            if conflicts is not None:
-                with st.expander(f'Competing family labels · {len(conflicts)} proteins'):
-                    table(conflicts)
-            with st.expander('Audit rules and per-family summary'):
-                for sheet in ['Family_assignment_rule','Family_Audit']:
-                    st.markdown(f'**{sheet.replace("_"," ")}**')
-                    table(books['files/adhesome_candidates_list.xlsx'][sheet])
+            current_book = books['files/adhesome_candidates_list.xlsx']
+            with st.expander('Current family audit and provenance'):
+                st.caption('Pipeline v4 collapses competing protein–family hypotheses to one audited record per protein. PINCH-like assignments are separated from paxillin-like assignments; no parvin family assignment was retained.')
+                for sheet in ['Pipeline_summary', 'Screening_hypothesis', 'Motif_annotations']:
+                    if sheet in current_book:
+                        st.markdown(f'**{sheet.replace("_", " ")}**')
+                        table(current_book[sheet])
+                script = ROOT/'conservative_adhesome_family_assignment_audit'/'integrated_adhesome_pipeline.py'
+                if script.is_file():
+                    st.download_button('↓ Download integrated audit pipeline', script.read_bytes(), script.name, 'text/x-python')
         elif cohort=='FN3 / fibronectin-like review':
             st.info('No reviewed protein meets the strict canonical fibronectin architecture. The workbook assigns specific FN3-containing receptor, secreted, intracellular and other protein classes.')
             with st.expander('FN3 family assignment rules'):
@@ -361,7 +355,10 @@ elif page == 'Protein dossier':
         if 'CDD' in name:
             for _, r in evidence[evidence.sequence_id.eq(key) & evidence['Hit type'].eq('specific')].iterrows():
                 tracks.append(dict(track='CDD · specific', label=r['Short name'], start=r['From'], end=r['To']))
-    tracks.extend(dict(track='Motif · predicted',label=r.motif_label,start=r.start,end=r.end) for r in local_hits.itertuples())
+    tracks.extend(dict(track='Motif · predicted',label=r.motif_label,start=int(r.start),end=int(r.end))
+                  for r in local_hits.itertuples()
+                  if pd.notna(pd.to_numeric(r.start, errors='coerce')) and
+                  pd.notna(pd.to_numeric(r.end, errors='coerce')))
     tracks.extend(dict(track='Topology',label=n,start=s,end=e) for n,s,e in state_intervals(topologies.get(key,'')))
     st.markdown('### Sequence architecture')
     if tracks:
@@ -498,7 +495,7 @@ elif page == 'Source Library':
     st.write(f'Sequence conflicts across FASTA sources: {len(conflicts)}')
     if conflicts:
         table(pd.DataFrame(conflicts))
-    st.markdown('**Interpretation:** Screening rows represent protein–family hypotheses. FN3 review assignments are retained separately from the original fibronectin-like screening label. Missing evidence means unavailable in this collection. Family FASTAs supply membership and sequence provenance; they are not added as extra candidate records. Network edges come only from the supplied STRING interaction exports; no additional interactions are inferred.')
+    st.markdown('**Interpretation:** The adhesome collection uses one audited family assignment per protein from the current pipeline; screening hypotheses remain available in its source workbook. FN3 review assignments remain separate. Family FASTAs supply sequence provenance. STRING network edges come from supplied exports; the prototype family map additionally distinguishes reference-inferred edges from the experimentally supported *S. mansoni* ILK–PINCH–Nck2 complex.')
 
 st.divider()
 with st.expander('Resource citations and acknowledgements'):

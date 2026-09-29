@@ -1,55 +1,177 @@
 #queryIndex	queryItem	stringId	identity	bitscore	preferredName	annotation
-1	MS3_00000278	6185.A0A095C865	96.3	5665.1	MS3_06750	Talin-1.
-2	MS3_00000359	6185.A0A095AWE8	68.5	267.7	MS3_07374	Actin-2.
-3	MS3_00000487	6185.A0A095A147	98.1	3168.6	MS3_08997	Laminin subunit beta-2.
-4	MS3_00000825	6185.A0A095AWE8	67.5	261.9	MS3_07374	Actin-2.
-5	MS3_00000941	6185.A0A095AHJ7	75.4	360.9	MS3_01602	Collagen alpha-1(IV) chain.
-6	MS3_00001381	6185.A0A094ZXH0	100.0	1080.1	MS3_08067	Paxillin.
-7	MS3_00001484	6185.A0A095A5F3	100.0	845.5	MS3_09318	Tyrosine-protein kinase BTK.
-8	MS3_00001716	6185.A0A095A335	98.6	761.9	MS3_08434	Collagen alpha-2(I) chain.
-9	MS3_00001825	6185.A0A095A3P2	100.0	540.0	MS3_08655	LIM domain-containing protein unc-97.
-10	MS3_00001861	6185.A0A094ZV34	100.0	471.1	MS3_05320	Collagen alpha-1(IV) chain.
-11	MS3_00002568	6185.A0A094ZQP5	99.6	575.5	MS3_05397	Prickle-like protein 3.
-12	MS3_00002771	6185.A0A094ZT02	100.0	1181.0	MS3_05644	Tyrosine-protein kinase.
-13	MS3_00002824	6185.A0A094ZWG6	90.2	1679.5	MS3_07063	Focal adhesion kinase 1; Belongs to the protein kinase superfamily. Tyr protein kinase family.
-14	MS3_00003235	6185.A0A095C4C1	100.0	1710.7	MS3_04979	Fermitin family 1.
-15	MS3_00003616	6185.A0A094ZVX7	91.3	542.7	MS3_05600	Four and a half LIM domains protein 2.
-16	MS3_00004068	6185.A0A094ZIB8	100.0	1215.3	MS3_02455	Tyrosine-protein kinase.
-17	MS3_00004525	6185.A0A095AWE8	100.0	767.3	MS3_07374	Actin-2.
-18	MS3_00004774	6185.A0A095C2B3	100.0	763.8	MS3_04014	Alpha-centractin; Belongs to the actin family.
-19	MS3_00005166	6185.A0A095AQX5	38.5	112.8	MS3_05026	Cofilin; Belongs to the actin-binding proteins ADF family.
-20	MS3_00005610	6185.A0A095APB9	97.8	365.9	MS3_04420	Collagen alpha-1(XXIV) chain.
-20	MS3_00005610	6185.A0A095APB9	100.0	125.2	MS3_04420	Collagen alpha-1(XXIV) chain.
-21	MS3_00005611	6185.A0A094ZPR3	92.5	458.8	MS3_04409	Collagen alpha-2(V) chain.
-22	MS3_00005632	6185.A0A095B398	100.0	754.6	MS3_10188	Integrin-linked protein kinase.
-23	MS3_00005799	6185.A0A094ZGB5	100.0	5014.1	MS3_01744	Filamin-A.
-24	MS3_00006333	6185.A0A095BVY6	100.0	844.0	MS3_01298	PDZ and LIM domain protein 7.
-25	MS3_00006657	6185.A0A094ZD96	85.7	1283.1	MS3_00361	Alpha-actinin-1.
-26	MS3_00006934	6185.A0A094ZPS9	100.0	1555.4	MS3_04427	Alpha-actinin, sarcomeric.
-27	MS3_00007047	6185.A0A095A3M6	99.7	1174.5	MS3_08642	Vinculin.
-27	MS3_00007047	6185.A0A095A3M6	53.1	64.7	MS3_08642	Vinculin.
-28	MS3_00007363	6185.A0A094ZIB4	100.0	417.2	MS3_00783	Collagen alpha-2(I) chain.
-29	MS3_00007430	6185.A0A095AW46	26.2	111.7	MS3_07221	Actin; Belongs to the actin family.
-30	MS3_00007700	6185.A0A094ZCZ2	94.0	795.0	MS3_00256	Actin-related protein 6; Belongs to the actin family.
-31	MS3_00007701	6185.A0A094ZGZ0	90.5	488.0	MS3_00254	Collagen alpha-2(I) chain.
-32	MS3_00007742	6185.A0A094ZHK3	97.9	2546.2	MS3_02183	Integrin alpha ina-1; Belongs to the integrin alpha chain family.
-33	MS3_00007970	6185.A0A094ZFZ8	74.5	4402.0	MS3_00852	Filamin-A.
-34	MS3_00008174	6185.A0A095AGB3	89.5	601.3	MS3_01079	Actin-like protein 6A; Belongs to the actin family.
-35	MS3_00008246	6185.A0A095A048	67.9	489.6	MS3_07220	Actin; Belongs to the actin family.
-36	MS3_00008247	6185.A0A095AW46	100.0	762.7	MS3_07221	Actin; Belongs to the actin family.
-37	MS3_00008284	6185.A0A095APX4	89.5	582.8	MS3_04616	LIM domain-containing protein jub.
-38	MS3_00008660	6185.A0A095AWE8	95.8	715.7	MS3_07374	Actin-2.
-39	MS3_00008661	6185.A0A095AWE8	96.3	746.9	MS3_07374	Actin-2.
-40	MS3_00008738	6185.A0A094ZWE3	97.0	1023.8	MS3_05835	Tyrosine-protein kinase yes.
-41	MS3_00008744	6185.A0A095AWE8	91.5	722.6	MS3_07374	Actin-2.
-42	MS3_00008746	6185.A0A095AWE8	90.6	712.6	MS3_07374	Actin-2.
-43	MS3_00008957	6185.A0A095B548	99.7	744.2	MS3_11012	Uncharacterized protein.
-44	MS3_00009264	6185.A0A095BRI5	83.3	445.3	MS3_10940	Non-specific protein-tyrosine kinase.
-45	MS3_00009375	6185.A0A094ZVS1	100.0	1337.8	MS3_07408	Unc-112-related protein.
-46	MS3_00009865	6185.A0A094ZSZ5	97.0	1704.1	MS3_05634	Integrin beta.
-47	MS3_00009872	6185.A0A095A2S1	97.0	2435.2	MS3_08281	Integrin alpha-5; Belongs to the integrin alpha chain family.
-48	MS3_00010057	6185.A0A095AG66	99.1	650.2	MS3_01006	Collagen alpha-1(V) chain.
-49	MS3_00010191	6185.A0A094ZQH5	100.0	520.0	MS3_05316	Collagen alpha-1(IV) chain.
-50	MS3_00010441	6185.A0A094ZXG3	99.7	797.3	MS3_06212	LIM and senescent cell antigen-like-containing domain protein 1.
-51	MS3_00010803	6185.A0A095BTU9	99.4	672.9	MS3_00351	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
-52	MS3_00011163	6185.A0A094ZPG8	100.0	559.7	MS3_04907	Actin-related protein 3; Belongs to the actin family.
+1	Shae__MS3_00000278	6185.A0A095C865	96.3	5665.1	MS3_06750	Talin-1.
+2	Shae__MS3_00000359	6185.A0A095AWE8	68.5	267.7	MS3_07374	Actin-2.
+3	Shae__MS3_00000487	6185.A0A095A147	98.1	3168.6	MS3_08997	Laminin subunit beta-2.
+4	Shae__MS3_00000825	6185.A0A095AWE8	67.5	261.9	MS3_07374	Actin-2.
+5	Shae__MS3_00000941	6185.A0A095AHJ7	75.4	360.9	MS3_01602	Collagen alpha-1(IV) chain.
+6	Shae__MS3_00001381	6185.A0A094ZXH0	100.0	1080.1	MS3_08067	Paxillin.
+7	Shae__MS3_00001402	6185.A0A094ZSE9	98.4	906.0	MS3_06038	Dual specificity mitogen-activated protein kinase kinase 2.
+8	Shae__MS3_00001471	6185.A0A095C806	100.0	1194.5	MS3_06674	Serine/threonine-protein kinase PLK1.
+9	Shae__MS3_00001484	6185.A0A095A5F3	100.0	845.5	MS3_09318	Tyrosine-protein kinase BTK.
+10	Shae__MS3_00001622	6185.A0A095AUU3	91.0	1415.2	MS3_06663	Serine/threonine-protein kinase Nek10.
+11	Shae__MS3_00001662	6185.A0A095A5B4	100.0	770.0	MS3_09258	Glycogen synthase kinase-3 alpha.
+12	Shae__MS3_00001716	6185.A0A095A335	98.6	761.9	MS3_08434	Collagen alpha-2(I) chain.
+13	Shae__MS3_00001770	6185.A0A095A1W2	92.8	3161.7	MS3_09262	Talin-2.
+14	Shae__MS3_00001771	6185.A0A095CBQ1	96.4	481.9	MS3_08391	Talin-1.
+15	Shae__MS3_00001786	6185.A0A095BWZ2	100.0	904.0	MS3_01719	Phosphorylase b kinase gamma catalytic chain, skeletal muscle/heart isoform; Belongs to the protein kinase superfamily.
+16	Shae__MS3_00001808	6185.A0A094ZX80	81.9	307.8	MS3_07376	Tyrosine-protein kinase Src42A.
+17	Shae__MS3_00001825	6185.A0A095A3P2	100.0	540.0	MS3_08655	LIM domain-containing protein unc-97.
+18	Shae__MS3_00001856	6185.A0A094ZKV0	100.0	2323.1	MS3_03478	Integrin_alpha2 domain-containing protein.
+19	Shae__MS3_00001861	6185.A0A094ZV34	100.0	471.1	MS3_05320	Collagen alpha-1(IV) chain.
+20	Shae__MS3_00001897	6185.A0A094ZP40	100.0	1363.6	MS3_02971	Serine/threonine-protein kinase pim-1.
+21	Shae__MS3_00001903	6185.A0A095C883	100.0	752.3	MS3_06782	Cyclin-dependent kinase 20; Belongs to the protein kinase superfamily.
+22	Shae__MS3_00001957	6185.A0A094ZM98	100.0	906.7	MS3_03423	LIM homeobox transcription factor 1-beta.1.
+23	Shae__MS3_00002046	6185.A0A095CAH8	100.0	815.8	MS3_07835	SHC-transforming protein 3.
+24	Shae__MS3_00002201	6185.A0A095A280	87.7	1215.7	MS3_08054	Serine/threonine-protein kinase SIK2.
+25	Shae__MS3_00002403	6185.A0A095A1X7	84.7	734.6	MS3_07942	Cyclin-dependent kinase-like 1.
+26	Shae__MS3_00002424	6185.A0A095C0A4	100.0	986.5	MS3_03201	Serine/threonine-protein kinase OSR1.
+27	Shae__MS3_00002534	6185.A0A094ZUH1	100.0	644.4	MS3_05059	Cyclin-dependent kinase 9.
+28	Shae__MS3_00002568	6185.A0A094ZQP5	99.6	575.5	MS3_05397	Prickle-like protein 3.
+29	Shae__MS3_00002636	6185.A0A095AH96	74.8	540.4	MS3_01461	cAMP-dependent protein kinase catalytic subunit alpha; Belongs to the protein kinase superfamily.
+30	Shae__MS3_00002669	6185.A0A095AZQ4	100.0	840.1	MS3_08715	Cyclin-dependent kinase 8.
+31	Shae__MS3_00002675	6185.A0A094ZTV6	100.0	494.2	MS3_05983	Growth factor receptor-bound protein 2.
+32	Shae__MS3_00002715	6185.A0A095CAQ4	82.1	821.2	MS3_07936	5'-AMP-activated protein kinase catalytic subunit alpha-2; Belongs to the protein kinase superfamily.
+33	Shae__MS3_00002771	6185.A0A094ZT02	100.0	1181.0	MS3_05644	Tyrosine-protein kinase.
+34	Shae__MS3_00002812	6185.A0A094ZLR1	100.0	896.0	MS3_03209	Serine/threonine-protein kinase Sgk1; Belongs to the protein kinase superfamily.
+35	Shae__MS3_00002824	6185.A0A094ZWG6	90.2	1679.5	MS3_07063	Focal adhesion kinase 1; Belongs to the protein kinase superfamily. Tyr protein kinase family.
+36	Shae__MS3_00002992	6185.A0A094ZXV8	95.4	858.2	MS3_06388	Putative serine/threonine-protein kinase C05D10.2.
+37	Shae__MS3_00003104	6185.A0A094ZC47	100.0	629.4	MS3_10386	Mitogen-activated protein kinase kinase kinase 7-like.
+38	Shae__MS3_00003129	6185.A0A095B3L9	100.0	839.3	MS3_10296	Lipoma-preferred partner-like protein.
+39	Shae__MS3_00003161	6185.A0A094ZW90	100.0	654.1	MS3_06979	GRB2-related adapter protein.
+40	Shae__MS3_00003183	6185.A0A095AD91	99.4	199.5	MS3_11311	Uncharacterized protein.
+41	Shae__MS3_00003185	6185.A0A094ZL39	100.0	678.7	MS3_03614	Dual specificity mitogen-activated protein kinase kinase 6.
+42	Shae__MS3_00003218	6185.A0A095A1V7	100.0	666.0	MS3_07915	Dual specificity mitogen-activated protein kinase kinase 6.
+43	Shae__MS3_00003235	6185.A0A095C4C1	100.0	1710.7	MS3_04979	Fermitin family 1.
+44	Shae__MS3_00003290	6185.A0A095BUY7	67.7	417.2	MS3_00850	Casein kinase I isoform alpha; Belongs to the protein kinase superfamily.
+45	Shae__MS3_00003343	6185.A0A094ZQJ1	91.0	1096.6	MS3_05340	Tyrosine-protein kinase STK.
+46	Shae__MS3_00003383	6185.A0A094ZGU7	95.6	1000.3	MS3_01904	Calcium/calmodulin-dependent protein kinase type II subunit delta.
+47	Shae__MS3_00003400	6185.A0A095A0N3	82.0	771.9	MS3_09252	Non-specific serine/threonine protein kinase; Belongs to the protein kinase superfamily.
+48	Shae__MS3_00003535	6185.A0A095A6W5	100.0	703.4	MS3_09921	Uncharacterized protein.
+49	Shae__MS3_00003544	6185.A0A094ZNV5	98.5	530.0	MS3_04036	Cyclin-dependent kinase 9.
+50	Shae__MS3_00003616	6185.A0A094ZVX7	91.3	542.7	MS3_05600	Four and a half LIM domains protein 2.
+51	Shae__MS3_00003633	6185.A0A095AH96	62.6	466.5	MS3_01461	cAMP-dependent protein kinase catalytic subunit alpha; Belongs to the protein kinase superfamily.
+52	Shae__MS3_00003724	6185.A0A094ZEE4	100.0	860.5	MS3_09899	Serine/threonine-protein kinase Nek7; Belongs to the protein kinase superfamily.
+53	Shae__MS3_00003923	6185.A0A094ZWP5	41.9	503.1	MS3_07697	Protein kinase C; Belongs to the protein kinase superfamily. AGC Ser/Thr protein kinase family. PKC subfamily.
+54	Shae__MS3_00003948	6185.A0A095A1S5	100.0	1071.2	MS3_07869	Serine/threonine-protein kinase Doa.
+55	Shae__MS3_00003962	6185.A0A094ZXI3	100.0	1365.5	MS3_08085	Netrin-A.
+56	Shae__MS3_00004019	6185.A0A094ZNG1	99.2	283.5	MS3_02759	Aurora/IPL1-related protein kinase 2; Belongs to the protein kinase superfamily.
+57	Shae__MS3_00004068	6185.A0A094ZIB8	100.0	1215.3	MS3_02455	Tyrosine-protein kinase.
+58	Shae__MS3_00004070	6185.A0A095BYP6	100.0	898.3	MS3_02457	Netrin unc-6.
+59	Shae__MS3_00004076	6185.A0A095AZI1	100.0	573.5	MS3_08663	Serine/threonine-protein kinase NIM1.
+60	Shae__MS3_00004152	6185.A0A095AU81	99.4	1002.3	MS3_06414	Serine/threonine-protein kinase 25.
+61	Shae__MS3_00004156	6185.A0A094ZWF2	100.0	376.3	MS3_05856	cAMP-dependent protein kinase catalytic subunit PRKX.
+62	Shae__MS3_00004315	6185.A0A095AK52	99.9	1392.1	MS3_02676	Protein kinase C; Belongs to the protein kinase superfamily. AGC Ser/Thr protein kinase family. PKC subfamily.
+64	Shae__MS3_00004405	6185.A0A094ZXP3	100.0	1259.2	MS3_08146	cGMP-dependent protein kinase 1.
+65	Shae__MS3_00004459	6185.A0A094ZP88	100.0	1730.3	MS3_03032	Laminin subunit gamma-1.
+66	Shae__MS3_00004470	6185.A0A094ZDC4	100.0	1144.8	MS3_00407	Serine/threonine-protein kinase Chk1.
+67	Shae__MS3_00004525	6185.A0A095AWE8	100.0	767.3	MS3_07374	Actin-2.
+68	Shae__MS3_00004635	6185.A0A094ZYZ7	100.0	899.0	MS3_06797	Serine/threonine-protein kinase 3.
+69	Shae__MS3_00004657	6185.A0A094ZYV9	100.0	780.8	MS3_08613	Protein kinase domain-containing protein; Belongs to the protein kinase superfamily.
+70	Shae__MS3_00004774	6185.A0A095C2B3	100.0	763.8	MS3_04014	Alpha-centractin; Belongs to the actin family.
+71	Shae__MS3_00005021	6185.A0A095AF03	100.0	960.3	MS3_00555	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+71	Shae__MS3_00005021	6185.A0A095AF03	100.0	104.8	MS3_00555	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+72	Shae__MS3_00005028	6185.A0A095AEZ8	96.0	1589.3	MS3_00553	Receptor protein-tyrosine kinase.
+73	Shae__MS3_00005037	6185.A0A094ZLK2	100.0	1191.4	MS3_03128	RAC serine/threonine-protein kinase.
+74	Shae__MS3_00005166	6185.A0A095AQX5	38.5	112.8	MS3_05026	Cofilin; Belongs to the actin-binding proteins ADF family.
+75	Shae__MS3_00005180	6185.A0A094ZYU0	95.9	291.6	MS3_08596	Aurora kinase A.
+76	Shae__MS3_00005251	6185.A0A094ZTY2	87.0	571.6	MS3_04892	Twinfilin-2-B.
+77	Shae__MS3_00005260	6185.A0A095ASU1	100.0	1192.9	MS3_05824	Death-associated protein kinase 1.
+78	Shae__MS3_00005288	6185.A0A095AQF7	100.0	1104.7	MS3_04867	Huntingtin-interacting protein 1.
+79	Shae__MS3_00005371	6185.A0A094ZAJ9	100.0	401.7	MS3_10836	Uncharacterized protein.
+80	Shae__MS3_00005382	6185.A0A095A7U2	99.9	1373.2	MS3_10314	Cyclin-dependent kinase 12.
+81	Shae__MS3_00005586	6185.A0A094ZVG0	100.0	1463.7	MS3_05458	Dual specificity tyrosine-phosphorylation-regulated kinase 2.
+82	Shae__MS3_00005588	6185.A0A095CFE5	100.0	1214.1	MS3_10159	G protein-coupled receptor kinase; Belongs to the protein kinase superfamily. AGC Ser/Thr protein kinase family. GPRK subfamily.
+83	Shae__MS3_00005610	6185.A0A095APB9	97.8	365.9	MS3_04420	Collagen alpha-1(XXIV) chain.
+83	Shae__MS3_00005610	6185.A0A095APB9	100.0	125.2	MS3_04420	Collagen alpha-1(XXIV) chain.
+84	Shae__MS3_00005611	6185.A0A094ZPR3	92.5	458.8	MS3_04409	Collagen alpha-2(V) chain.
+85	Shae__MS3_00005632	6185.A0A095B398	100.0	754.6	MS3_10188	Integrin-linked protein kinase.
+86	Shae__MS3_00005744	6185.A0A095C324	95.9	481.5	MS3_04393	Adapter molecule Crk.
+87	Shae__MS3_00005799	6185.A0A094ZGB5	100.0	5014.1	MS3_01744	Filamin-A.
+88	Shae__MS3_00005863	6185.A0A094ZFX2	66.5	1428.7	MS3_01526	Serine/threonine-protein kinase-transforming protein Rmil.
+89	Shae__MS3_00006013	6185.A0A094ZZL2	100.0	2161.3	MS3_08888	Uncharacterized protein.
+90	Shae__MS3_00006076	6185.A0A095B1B2	99.5	810.1	MS3_09393	LIM domain kinase 1.
+91	Shae__MS3_00006229	6185.A0A094ZSL4	100.0	4551.5	MS3_05505	Spectrin beta chain; Belongs to the spectrin family.
+92	Shae__MS3_00006308	6185.A0A095ARP0	100.0	694.1	MS3_05380	Calcium/calmodulin-dependent protein kinase type 1D.
+93	Shae__MS3_00006313	6185.A0A095AGU4	100.0	1669.8	MS3_01308	Serine/threonine-protein kinase unc-51.
+94	Shae__MS3_00006333	6185.A0A095BVY6	100.0	844.0	MS3_01298	PDZ and LIM domain protein 7.
+95	Shae__MS3_00006334	6185.A0A094ZJR4	95.1	1464.9	MS3_01300	Fibroblast growth factor receptor 2.
+96	Shae__MS3_00006341	6185.A0A094ZH72	94.8	1146.7	MS3_01389	Cyclin-dependent kinase-like 1.
+97	Shae__MS3_00006521	6185.A0A095A7V3	100.0	1031.2	MS3_10330	E3 ubiquitin-protein ligase TRIM71.
+98	Shae__MS3_00006556	6185.A0A094ZNY5	86.7	993.8	MS3_04071	Tyrosine-protein kinase RYK.
+99	Shae__MS3_00006560	6185.A0A095CBV3	93.2	701.4	MS3_08464	Mitogen-activated protein kinase.
+101	Shae__MS3_00006657	6185.A0A094ZD96	85.7	1283.1	MS3_00361	Alpha-actinin-1.
+102	Shae__MS3_00006664	6185.A0A095BTU4	100.0	1317.8	MS3_00363	Cytoplasmic protein NCK1.
+103	Shae__MS3_00006730	6185.A0A095ACX6	99.0	497.3	MS3_11427	FABD domain-containing protein.
+104	Shae__MS3_00006767	6185.A0A095A0E1	100.0	1055.4	MS3_09171	Non-specific serine/threonine protein kinase.
+105	Shae__MS3_00006934	6185.A0A094ZPS9	100.0	1555.4	MS3_04427	Alpha-actinin, sarcomeric.
+106	Shae__MS3_00007047	6185.A0A095A3M6	99.7	1174.5	MS3_08642	Vinculin.
+106	Shae__MS3_00007047	6185.A0A095A3M6	53.1	64.7	MS3_08642	Vinculin.
+107	Shae__MS3_00007109	6185.A0A095AXF5	71.2	848.6	MS3_07747	Ribosomal protein S6 kinase beta-2.
+108	Shae__MS3_00007112	6185.A0A094ZW21	100.0	1584.7	MS3_06902	Fibroblast growth factor receptor 2.
+109	Shae__MS3_00007174	6185.A0A094ZMA8	99.3	875.5	MS3_02323	Serine/threonine-protein kinase Chk2; Belongs to the protein kinase superfamily.
+110	Shae__MS3_00007266	6185.A0A094ZYZ4	98.0	1758.4	MS3_08090	Tyrosine-protein kinase.
+111	Shae__MS3_00007339	6185.A0A095BVA8	79.9	1276.5	MS3_01030	Receptor protein serine/threonine kinase; Belongs to the protein kinase superfamily. TKL Ser/Thr protein kinase family. TGFB receptor subfamily.
+112	Shae__MS3_00007343	6185.A0A095AG86	92.6	1603.6	MS3_01046	Catenin alpha-1.
+113	Shae__MS3_00007363	6185.A0A094ZIB4	100.0	417.2	MS3_00783	Collagen alpha-2(I) chain.
+114	Shae__MS3_00007411	6185.A0A095C6Z5	100.0	1235.7	MS3_06194	Actin-related protein 8; Plays an important role in the functional organization of mitotic chromosomes. Exhibits low basal ATPase activity, and unable to polymerize; Belongs to the actin family. ARP8 subfamily.
+115	Shae__MS3_00007430	6185.A0A095AW46	26.2	111.7	MS3_07221	Actin; Belongs to the actin family.
+116	Shae__MS3_00007449	6185.A0A094ZJ29	77.2	1137.5	MS3_02791	Non-specific serine/threonine protein kinase.
+117	Shae__MS3_00007496	6185.A0A095AQ58	80.4	590.9	MS3_04755	Hematopoietic lineage cell-specific protein.
+118	Shae__MS3_00007604	6185.A0A095C712	100.0	727.2	MS3_06219	MAP kinase-activated protein kinase 2; Belongs to the protein kinase superfamily.
+119	Shae__MS3_00007688	6185.A0A095AQ28	98.2	1184.9	MS3_04702	Serine/threonine-protein kinase ULK3.
+120	Shae__MS3_00007700	6185.A0A094ZCZ2	94.0	795.0	MS3_00256	Actin-related protein 6; Belongs to the actin family.
+121	Shae__MS3_00007701	6185.A0A094ZGZ0	90.5	488.0	MS3_00254	Collagen alpha-2(I) chain.
+122	Shae__MS3_00007742	6185.A0A094ZHK3	97.9	2546.2	MS3_02183	Integrin alpha ina-1; Belongs to the integrin alpha chain family.
+123	Shae__MS3_00007880	6185.A0A094ZGN5	100.0	1029.2	MS3_00127	Tripartite motif-containing protein 3.
+124	Shae__MS3_00007970	6185.A0A094ZFZ8	74.5	4402.0	MS3_00852	Filamin-A.
+125	Shae__MS3_00007981	6185.A0A095BUY7	100.0	698.7	MS3_00850	Casein kinase I isoform alpha; Belongs to the protein kinase superfamily.
+126	Shae__MS3_00008020	6185.A0A094ZF70	81.7	1023.1	MS3_01247	Receptor protein serine/threonine kinase; Belongs to the protein kinase superfamily. TKL Ser/Thr protein kinase family. TGFB receptor subfamily.
+127	Shae__MS3_00008061	6185.A0A094ZB80	99.4	273.9	MS3_11174	Ankyrin repeat and MYND domain-containing protein 2.
+128	Shae__MS3_00008174	6185.A0A095AGB3	89.5	601.3	MS3_01079	Actin-like protein 6A; Belongs to the actin family.
+129	Shae__MS3_00008190	6185.A0A094ZZU5	63.0	458.8	MS3_07105	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+130	Shae__MS3_00008194	6185.A0A095CGG5	87.3	1410.6	MS3_10641	Spectrin beta chain.
+131	Shae__MS3_00008246	6185.A0A095A048	67.9	489.6	MS3_07220	Actin; Belongs to the actin family.
+132	Shae__MS3_00008247	6185.A0A095AW46	100.0	762.7	MS3_07221	Actin; Belongs to the actin family.
+133	Shae__MS3_00008251	6185.A0A095AW50	97.2	116.7	MS3_07216	Ankyrin repeat, PH and SEC7 domain containing protein secG.
+134	Shae__MS3_00008284	6185.A0A095APX4	89.5	582.8	MS3_04616	LIM domain-containing protein jub.
+135	Shae__MS3_00008566	6185.A0A095AFK6	53.0	309.7	MS3_00793	Cyclin-dependent kinase 16.
+136	Shae__MS3_00008601	6185.A0A095BWV3	100.0	1186.8	MS3_01683	AP2-associated protein kinase 1.
+137	Shae__MS3_00008614	6185.A0A094ZHV8	100.0	1047.0	MS3_01681	Casein kinase I isoform delta.
+138	Shae__MS3_00008660	6185.A0A095AWE8	95.8	715.7	MS3_07374	Actin-2.
+139	Shae__MS3_00008661	6185.A0A095AWE8	96.3	746.9	MS3_07374	Actin-2.
+140	Shae__MS3_00008672	6185.A0A094ZLF0	92.3	938.3	MS3_01929	Guanylate cyclase.
+141	Shae__MS3_00008673	6185.A0A095BXJ8	100.0	664.8	MS3_01928	cAMP-dependent protein kinase catalytic subunit alpha; Belongs to the protein kinase superfamily.
+142	Shae__MS3_00008679	6185.A0A095BXJ3	100.0	825.1	MS3_01917	Cyclin-dependent kinase 1; Belongs to the protein kinase superfamily.
+143	Shae__MS3_00008682	6185.A0A095AH96	88.9	694.9	MS3_01461	cAMP-dependent protein kinase catalytic subunit alpha; Belongs to the protein kinase superfamily.
+144	Shae__MS3_00008685	6185.A0A094ZHE2	100.0	1439.9	MS3_01463	cGMP-dependent protein kinase.
+145	Shae__MS3_00008738	6185.A0A094ZWE3	97.0	1023.8	MS3_05835	Tyrosine-protein kinase yes.
+146	Shae__MS3_00008744	6185.A0A095AWE8	91.5	722.6	MS3_07374	Actin-2.
+147	Shae__MS3_00008746	6185.A0A095AWE8	90.6	712.6	MS3_07374	Actin-2.
+148	Shae__MS3_00008957	6185.A0A095B548	99.7	744.2	MS3_11012	Uncharacterized protein.
+149	Shae__MS3_00008971	6185.A0A095A328	92.5	555.1	MS3_10235	Dual specificity mitogen-activated protein kinase kinase 2.
+150	Shae__MS3_00008988	6185.A0A095ALA9	94.3	425.6	MS3_03123	Ankyrin-3.
+151	Shae__MS3_00009095	6185.A0A095C2P9	100.0	368.2	MS3_04223	Receptor-type tyrosine-protein phosphatase V.
+152	Shae__MS3_00009134	6185.A0A095C3Y9	100.0	250.4	MS3_04801	Ankyrin repeat domain-containing protein 49.
+153	Shae__MS3_00009264	6185.A0A095BRI5	83.3	445.3	MS3_10940	Non-specific protein-tyrosine kinase.
+154	Shae__MS3_00009266	6185.A0A094ZXZ7	100.0	467.2	MS3_06425	Tyrosine-protein kinase STK.
+155	Shae__MS3_00009375	6185.A0A094ZVS1	100.0	1337.8	MS3_07408	Unc-112-related protein.
+156	Shae__MS3_00009432	6185.A0A094ZUT3	99.1	312.4	MS3_07012	Uncharacterized protein.
+157	Shae__MS3_00009653	6185.A0A095BVT8	98.2	1380.5	MS3_01258	Tyrosine-protein kinase.
+158	Shae__MS3_00009666	6185.A0A095C9H8	100.0	1349.0	MS3_07368	Glycogen synthase kinase-3 beta.
+159	Shae__MS3_00009762	6185.A0A094ZJF5	79.3	1856.6	MS3_02924	Tyrosine-protein kinase.
+160	Shae__MS3_00009865	6185.A0A094ZSZ5	97.0	1704.1	MS3_05634	Integrin beta.
+161	Shae__MS3_00009872	6185.A0A095A2S1	97.0	2435.2	MS3_08281	Integrin alpha-5; Belongs to the integrin alpha chain family.
+162	Shae__MS3_00010057	6185.A0A095AG66	99.1	650.2	MS3_01006	Collagen alpha-1(V) chain.
+163	Shae__MS3_00010191	6185.A0A094ZQH5	100.0	520.0	MS3_05316	Collagen alpha-1(IV) chain.
+164	Shae__MS3_00010367	6185.A0A094ZWT9	100.0	1522.3	MS3_07759	Protein sevenless.
+165	Shae__MS3_00010396	6185.A0A095AXC5	83.4	815.1	MS3_07699	Ribosomal protein S6 kinase 2 alpha.
+166	Shae__MS3_00010441	6185.A0A094ZXG3	99.7	797.3	MS3_06212	LIM and senescent cell antigen-like-containing domain protein 1.
+167	Shae__MS3_00010478	6185.A0A095AZ89	90.8	5417.4	MS3_08551	Plectin.
+168	Shae__MS3_00010577	6185.A0A094ZI21	96.9	956.4	MS3_00667	Myosin light chain kinase, smooth muscle.
+169	Shae__MS3_00010678	6185.A0A094ZHK4	83.7	876.3	MS3_01528	Serine/threonine-protein kinase Nek4.
+170	Shae__MS3_00010729	6185.A0A094ZZU5	100.0	651.7	MS3_07105	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+171	Shae__MS3_00010803	6185.A0A095BTU9	99.4	672.9	MS3_00351	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
+172	Shae__MS3_00010929	6185.A0A095C3A4	90.9	583.6	MS3_04487	RuvB-like helicase; Belongs to the RuvB family.
+173	Shae__MS3_00011141	6185.A0A095A0Z8	100.0	599.7	MS3_09427	Receptor-type tyrosine-protein phosphatase gamma.
+174	Shae__MS3_00011142	6185.A0A094ZRP8	99.8	820.5	MS3_03989	Calcium/calmodulin-dependent protein kinase type IV.
+175	Shae__MS3_00011163	6185.A0A094ZPG8	100.0	559.7	MS3_04907	Actin-related protein 3; Belongs to the actin family.

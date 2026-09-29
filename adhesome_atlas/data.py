@@ -16,7 +16,7 @@ def fingerprint():
 def source_files():
     folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network',phylogeny_root(ROOT).name,'orthology','conservative_adhesome_family_assignment_audit']
     library = [p for folder in folders for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() in {'.xlsx','.fasta','.faa','.csv','.tsv','.txt','.3line','.xml','.all','.treefile','.iqtree','.json','.md','.py'}]
-    presentation = [ROOT/name for name in ['Integrin_adhesome_presentation.emf','Schistosome_adhesome_interactive.html'] if (ROOT/name).is_file()]
+    presentation = [ROOT/name for name in ['Integrin_adhesome_presentation.emf','Schistosome_adhesome_interactive.html','refresh_interactive_map.py'] if (ROOT/name).is_file()]
     return library + presentation
 
 def fasta(path):
@@ -35,7 +35,7 @@ def load():
              for p in source_files() if p.suffix == '.xlsx'}
     cohorts = {}
     for label, name, sheet in [
-        ('Adhesome candidates', 'adhesome_candidates_list.xlsx', 'Sheet1'),
+        ('Adhesome candidates', 'adhesome_candidates_list.xlsx', 'Audited_family_assignment'),
         ('FN3 / fibronectin-like review', 'fibronectin_like_candidate.xlsx', 'library'),
         ('All screening hypotheses', 'all_candidate_protein_list.xlsx', 'candidates')]:
         name = 'files/' + name
@@ -46,10 +46,13 @@ def load():
             sheet=choices[0]
         df = books[name][sheet].copy()
         if 'standardized_id' in df:
-            df['sequence_id'] = df.standardized_id + '__' + df.protein_id
+            df['sequence_id'] = df.protein_id.astype(str).where(
+                df.protein_id.astype(str).str.contains('__', regex=False),
+                df.standardized_id.astype(str) + '__' + df.protein_id.astype(str))
         else:
             df['sequence_id'] = df.protein_id
-        df['species'] = df.sequence_id.str.split('__').str[0].map(SPECIES).fillna('Unknown')
+        df['species'] = df.sequence_id.str.split('__').str[0].map(SPECIES).fillna(
+            df.get('Specie', pd.Series(index=df.index, dtype=object))).fillna('Unknown')
         df['source'] = name + ' / ' + sheet
         if 'Pfam_architecture' in df:
             df['architecture'] = df.Pfam_architecture
@@ -68,9 +71,22 @@ def load():
                 'context_conflict':'outside_expected_region',
                 'sequence_only_candidate':'sequence_only',
                 'review_only':'review_only'}).fillna(annotations.candidate_tier)
-        else:
+        elif 'elm_class' in annotations:
             annotations['motif_label']=annotations.elm_class
             annotations['candidate_tier']=annotations.context_state
+        else:
+            # Pipeline v4 supplies one contextual motif summary per protein-family.
+            annotations['motif_label'] = annotations.priority_sites.fillna('').where(
+                annotations.priority_sites.notna(), annotations.library_ids.fillna(''))
+            annotations['candidate_tier'] = annotations.candidate_tiers.fillna('')
+            annotations['context_state'] = annotations.candidate_tier.map(
+                lambda value: 'region_supported' if 'context_supported_candidate' in value else
+                'review_only' if 'review_only' in value else 'sequence_only')
+            annotations['role'] = 'summary'
+            annotations['start'] = ''
+            annotations['end'] = ''
+            annotations['peptide'] = ''
+            annotations['functional_hypothesis'] = annotations.functional_hypotheses.fillna('')
         motif_frames.append(annotations)
     motifs=pd.concat(motif_frames,ignore_index=True)
     from prioritization_evidence import enrich

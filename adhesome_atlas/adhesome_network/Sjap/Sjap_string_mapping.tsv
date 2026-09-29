@@ -1,53 +1,179 @@
 #queryIndex	queryItem	stringId	identity	bitscore	preferredName	annotation
-1	EWB00_000274	6182.A0A4Z2DJH5	100.0	812.4	EWB00_000274	Collagen alpha-1(V) chain isoform 2.
-2	EWB00_001102	6182.A0A4Z2DGT3	100.0	525.0	EWB00_001102	Collagen alpha-1(IV) chain isoform 1.
-3	EWB00_001311	6182.A0A4Z2DG67	100.0	638.6	EWB00_001311	Collagen alpha-2(I) chain.
-4	EWB00_001328	6182.A0A4Z2DG14	100.0	6762.9	EWB00_001328	Laminin subunit alpha-1.
-5	EWB00_001408	6182.A0A4Z2DX44	100.0	857.8	EWB00_001408	Actin-related protein; Belongs to the actin family.
-6	EWB00_001471	6182.A0A4Z2DFS2	100.0	1624.0	EWB00_001471	Tyrosine-protein kinase.
-7	EWB00_001618	6182.A0A4Z2DF74	100.0	874.0	EWB00_001618	Actin-like protein isoform 3; Belongs to the actin family.
-8	EWB00_002103	6182.A0A4Z2DDE8	100.0	1642.1	EWB00_002103	Fermitin family 1.
-9	EWB00_002502	6182.Q71TT8	100.0	767.3	EWB00_002502	Actin-2 isoform 2.
-10	EWB00_002741	6182.A0A4Z2DB14	100.0	3236.8	EWB00_002741	Laminin subunit beta-2.
-11	EWB00_002775	6182.A0A4Z2DBA8	100.0	5729.8	EWB00_002775	Filamin-A.
-12	EWB00_002869	6182.A0A4Z2DAG8	100.0	1587.0	EWB00_002869	Integrin beta.
-13	EWB00_002919	6182.A0A4Z2DWJ9	100.0	2471.8	EWB00_002919	Integrin alpha-5; Belongs to the integrin alpha chain family.
-14	EWB00_003104	6182.A0A2S1REI0	100.0	1324.3	TK3	Tyrosine-protein kinase.
-15	EWB00_003146	6182.A0A4Z2D9E0	100.0	5102.7	EWB00_003146	Talin-1.
-16	EWB00_003359	6182.C1LMR7	100.0	266.9	EWB00_003359	Cofilin/actin-depolymerizing factor; Belongs to the actin-binding proteins ADF family.
-17	EWB00_003429	6182.A0A4Z2DWH7	100.0	942.6	EWB00_003429	Paxillin isoform 1.
-18	EWB00_003565	6182.A0A4Z2D923	100.0	2014.6	EWB00_003565	Vinculin.
-19	EWB00_003590	6182.A0A4Z2D831	100.0	1206.0	EWB00_003590	Four and a half LIM domains protein.
-20	EWB00_004122	6182.A0A4Z2D6I6	100.0	792.0	EWB00_004122	LIM domain-containing protein isoform 1.
-21	EWB00_004406	6182.A0A4Z2D5D6	100.0	1135.2	EWB00_004406	Tyrosine-protein kinase.
-22	EWB00_004876	6182.A0A4Z2DUG9	100.0	764.2	EWB00_004876	Actin-1.
-23	EWB00_004878	6182.A0A4Z2DUX1	100.0	760.4	EWB00_004878	Actin-1.
-24	EWB00_004965	6182.A0A4Z2D4A5	100.0	1069.3	EWB00_004965	LIM domain-containing protein isoform 1.
-25	EWB00_006002	6182.A0A4Z2DTC9	100.0	675.6	EWB00_006002	Actin-related protein; Belongs to the actin family.
-26	EWB00_006050	6182.A0A4Z2DTJ0	100.0	1814.7	EWB00_006050	Alpha-actinin-2.
-27	EWB00_006199	6182.A0A4Z2D0J4	100.0	520.0	EWB00_006199	Collagen alpha-1(IV) chain.
-28	EWB00_006200	6182.A0A4Z2CZM0	100.0	494.2	EWB00_006200	Collagen alpha-2(IV) chain isoform 2.
-29	EWB00_006201	6182.A0A4Z2CZR4	100.0	363.6	EWB00_006201	Collagen-like protein.
-30	EWB00_006234	6182.A0A4Z2CZ44	100.0	5073.8	EWB00_006234	Filamin-A isoform 2.
-31	EWB00_006505	6182.A0A4Z2CYG9	100.0	6207.5	EWB00_006505	Talin-2 isoform 1.
-32	EWB00_006747	6182.A0A4Z2CWY6	100.0	2170.6	EWB00_006747	B41 domain-containing protein.
-33	EWB00_007322	6182.A0A4Z2CUR2	100.0	1743.4	EWB00_007322	Focal adhesion kinase 1; Belongs to the protein kinase superfamily. Tyr protein kinase family.
-34	EWB00_007395	6182.A0A4Z2CUS5	100.0	448.7	EWB00_007395	Collagen alpha-2(V) chain isoform 1.
-35	EWB00_007426	6182.C1LJL2	100.0	766.1	EWB00_007426	Actin-related protein isoform 1; Belongs to the actin family.
-36	EWB00_007517	6182.Q5DF69	100.0	773.1	Act5C	SJCHGC06318 protein.
-37	EWB00_007520	6182.A0A4Z2CUE7	100.0	1607.8	EWB00_007520	Tyrosine-protein kinase.
-38	EWB00_007873	6182.C1LGZ6	100.0	1187.9	fyn-prov	Tyrosine-protein kinase.
-39	EWB00_008239	6182.A0A4Z2CQY2	100.0	506.1	EWB00_008239	Collagen alpha-2(I) chain isoform 1.
-40	EWB00_008747	6182.C1LG63	100.0	879.0	EWB00_008747	Putative LIM domain binding 3.
-41	EWB00_008807	6182.Q86ES4	100.0	277.3	tsr	Actin depolymerizing factor-like protein; Belongs to the actin-binding proteins ADF family.
-42	EWB00_008857	6182.A0A4Z2DY79	100.0	722.2	EWB00_008857	Alpha-centractin; Belongs to the actin family.
-43	EWB00_009161	6182.C1L3T0	100.0	763.5	EWB00_009161	Actin; Belongs to the actin family.
-44	EWB00_009162	6182.A0A4Z2CMV9	100.0	783.5	EWB00_009162	Actin-1; Belongs to the actin family.
-45	EWB00_009388	6182.C1LEH1	100.0	557.4	FHL-2	Four and a half LIM domains protein 2.
-46	EWB00_009541	6182.A0A4Z2DR60	100.0	795.4	EWB00_009541	LIM domain-containing protein.
-47	EWB00_010398	6182.A0A4Z2DXN3	100.0	925.2	EWB00_010398	Integrin-linked protein kinase pat-4.
-48	EWB00_010449	6182.A0A4Z2DXL3	100.0	240.7	EWB00_010449	Collagen alpha-1(XXI) chain.
-49	EWB00_010450	6182.A0A4Z2DXW2	100.0	475.7	EWB00_010450	Collagen-like protein isoform 2.
-50	EWB00_010647	6182.Q5DHL6	100.0	804.3	EWB00_010647	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
-51	EWB00_010649	6182.A0A4Z2DN32	100.0	1582.0	EWB00_010649	Alpha-actinin.
-52	EWB00_011039	6182.A0A4Z2DN82	100.0	2456.8	EWB00_011039	Integrin alpha-7; Belongs to the integrin alpha chain family.
+1	Sjap__EWB00_000085	6182.A0A4Z2DKG0	100.0	745.0	EWB00_000085	cAMP-dependent protein kinase catalytic subunit PRKX; Belongs to the protein kinase superfamily.
+2	Sjap__EWB00_000274	6182.A0A4Z2DJH5	100.0	812.4	EWB00_000274	Collagen alpha-1(V) chain isoform 2.
+3	Sjap__EWB00_000320	6182.A0A4Z2DXA7	100.0	1378.2	EWB00_000320	cGMP-dependent protein kinase.
+4	Sjap__EWB00_000422	6182.A0A4Z2DIX7	100.0	728.0	EWB00_000422	Casein kinase I isoform alpha isoform 2; Belongs to the protein kinase superfamily.
+5	Sjap__EWB00_000516	6182.A0A4Z2DIX5	100.0	1007.7	EWB00_000516	3-phosphoinositide-dependent protein kinase 1 isoform 1; Belongs to the protein kinase superfamily.
+6	Sjap__EWB00_000751	6182.A0A4Z2DI18	100.0	1071.2	EWB00_000751	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+7	Sjap__EWB00_000811	6182.C1L4B0	100.0	885.6	CKI-alpha	Casein kinase I isoform alpha isoform 1; Belongs to the protein kinase superfamily.
+8	Sjap__EWB00_001036	6182.A0A4Z2DH76	100.0	2434.4	EWB00_001036	Serine/threonine-protein kinase D1.
+9	Sjap__EWB00_001091	6182.A0A4Z2DGZ7	100.0	717.2	EWB00_001091	Phosphorylase b kinase gamma catalytic chain, skeletal muscle/heart isoform isoform 3; Belongs to the protein kinase superfamily.
+10	Sjap__EWB00_001102	6182.A0A4Z2DGT3	100.0	525.0	EWB00_001102	Collagen alpha-1(IV) chain isoform 1.
+11	Sjap__EWB00_001225	6182.A0A4Z2DG63	100.0	1725.3	EWB00_001225	Catenin alpha-2 isoform 2.
+12	Sjap__EWB00_001228	6182.A0A4Z2DGB2	100.0	1169.8	EWB00_001228	Serine/threonine-protein kinase receptor; Belongs to the protein kinase superfamily. TKL Ser/Thr protein kinase family. TGFB receptor subfamily.
+13	Sjap__EWB00_001311	6182.A0A4Z2DG67	100.0	638.6	EWB00_001311	Collagen alpha-2(I) chain.
+14	Sjap__EWB00_001328	6182.A0A4Z2DG14	100.0	6762.9	EWB00_001328	Laminin subunit alpha-1.
+15	Sjap__EWB00_001343	6182.A0A4Z2DFX9	100.0	744.2	EWB00_001343	Dual specificity mitogen-activated protein kinase kinase 2 isoform 1; Belongs to the protein kinase superfamily.
+16	Sjap__EWB00_001391	6182.A0A4Z2DWQ9	100.0	1353.6	EWB00_001391	Serine/threonine-protein kinase ULK3.
+17	Sjap__EWB00_001408	6182.A0A4Z2DX44	100.0	857.8	EWB00_001408	Actin-related protein; Belongs to the actin family.
+18	Sjap__EWB00_001471	6182.A0A4Z2DFS2	100.0	1624.0	EWB00_001471	Tyrosine-protein kinase.
+19	Sjap__EWB00_001594	6182.A0A4Z2DF50	100.0	1525.8	EWB00_001594	Receptor protein serine/threonine kinase; Belongs to the protein kinase superfamily. TKL Ser/Thr protein kinase family. TGFB receptor subfamily.
+20	Sjap__EWB00_001618	6182.A0A4Z2DF74	100.0	874.0	EWB00_001618	Actin-like protein isoform 3; Belongs to the actin family.
+21	Sjap__EWB00_001961	6182.A0A4Z2DEA2	100.0	1252.7	EWB00_001961	AP2-associated protein kinase 1.
+22	Sjap__EWB00_002103	6182.A0A4Z2DDE8	100.0	1642.1	EWB00_002103	Fermitin family 1.
+23	Sjap__EWB00_002182	6182.A0A4Z2DD10	100.0	745.0	EWB00_002182	Receptor-type tyrosine-protein phosphatase V.
+24	Sjap__EWB00_002194	6182.A0A4Z2DDD6	100.0	1659.0	EWB00_002194	Ribosomal protein S6 kinase.
+25	Sjap__EWB00_002313	6182.A0A4Z2DC78	100.0	1721.8	EWB00_002313	Netrin-B isoform 1.
+26	Sjap__EWB00_002386	6182.A0A4Z2DCG1	100.0	1071.2	EWB00_002386	Dual specificity mitogen-activated protein kinase kinase 1.
+27	Sjap__EWB00_002413	6182.A0A4Z2DCK0	100.0	1172.1	EWB00_002413	Serine/threonine-protein kinase 3.
+28	Sjap__EWB00_002502	6182.Q71TT8	100.0	767.3	EWB00_002502	Actin-2 isoform 2.
+29	Sjap__EWB00_002531	6182.A0A4Z2DBU6	100.0	851.3	EWB00_002531	LIM domain kinase 1.
+30	Sjap__EWB00_002741	6182.A0A4Z2DB14	100.0	3236.8	EWB00_002741	Laminin subunit beta-2.
+31	Sjap__EWB00_002775	6182.A0A4Z2DBA8	100.0	5729.8	EWB00_002775	Filamin-A.
+32	Sjap__EWB00_002781	6182.A0A4Z2DBA4	100.0	770.4	EWB00_002781	Casein kinase I isoform alpha isoform 1; Belongs to the protein kinase superfamily.
+33	Sjap__EWB00_002797	6182.A0A4Z2DBK5	100.0	1347.0	EWB00_002797	Serine/threonine-protein kinase SIK2.
+34	Sjap__EWB00_002858	6182.A0A4Z2DAI3	100.0	924.9	EWB00_002858	Dual specificity mitogen-activated protein kinase kinase 1 isoform 3.
+35	Sjap__EWB00_002869	6182.A0A4Z2DAG8	100.0	1587.0	EWB00_002869	Integrin beta.
+36	Sjap__EWB00_002899	6182.A0A4Z2DX55	100.0	1798.5	EWB00_002899	Fibroblast growth factor receptor 2 isoform 2.
+37	Sjap__EWB00_002919	6182.A0A4Z2DWJ9	100.0	2471.8	EWB00_002919	Integrin alpha-5; Belongs to the integrin alpha chain family.
+38	Sjap__EWB00_003002	6182.A0A4Z2DAI8	100.0	1250.3	EWB00_003002	Cyclin-dependent kinase-like 1.
+39	Sjap__EWB00_003063	6182.A0A4Z2D9R8	100.0	2103.9	EWB00_003063	Protein sevenless.
+40	Sjap__EWB00_003065	6182.A0A4Z2D9U3	100.0	1019.6	EWB00_003065	Calcium/calmodulin-dependent protein kinase type II delta chain isoform 3.
+41	Sjap__EWB00_003104	6182.A0A2S1REI0	100.0	1324.3	TK3	Tyrosine-protein kinase.
+42	Sjap__EWB00_003107	6182.A0A4Z2D9H4	100.0	1687.9	EWB00_003107	Netrin-A.
+43	Sjap__EWB00_003114	6182.A0A4Z2D9R6	100.0	1132.5	EWB00_003114	Serine/threonine-protein kinase NIM1.
+44	Sjap__EWB00_003146	6182.A0A4Z2D9E0	100.0	5102.7	EWB00_003146	Talin-1.
+45	Sjap__EWB00_003234	6182.A0A4Z2D940	100.0	633.6	EWB00_003234	Cyclin-dependent kinase 10 isoform 2.
+46	Sjap__EWB00_003272	6182.Q5DB60	100.0	825.1	EWB00_003272	Cyclin-dependent kinase 1 isoform 2; Belongs to the protein kinase superfamily.
+47	Sjap__EWB00_003359	6182.C1LMR7	100.0	266.9	EWB00_003359	Cofilin/actin-depolymerizing factor; Belongs to the actin-binding proteins ADF family.
+48	Sjap__EWB00_003429	6182.A0A4Z2DWH7	100.0	942.6	EWB00_003429	Paxillin isoform 1.
+49	Sjap__EWB00_003470	6182.A0A4Z2D886	100.0	1098.2	EWB00_003470	Serine/threonine-protein kinase Chk2 isoform 2.
+50	Sjap__EWB00_003565	6182.A0A4Z2D923	100.0	2014.6	EWB00_003565	Vinculin.
+51	Sjap__EWB00_003590	6182.A0A4Z2D831	100.0	1206.0	EWB00_003590	Four and a half LIM domains protein.
+52	Sjap__EWB00_003639	6182.A0A4Z2D7T8	100.0	2758.4	EWB00_003639	Integrin.
+53	Sjap__EWB00_003710	6182.A0A4Z2D7R1	100.0	1466.4	EWB00_003710	Cyclin-G-associated kinase.
+54	Sjap__EWB00_003747	6182.A0A4Z2DVH8	100.0	2514.2	EWB00_003747	Tyrosine-protein kinase.
+55	Sjap__EWB00_003848	6182.Q86F73	100.0	494.2	Grb2	Growth factor receptor-bound protein isoform 1.
+56	Sjap__EWB00_003876	6182.A0A4Z2D736	100.0	1181.8	EWB00_003876	Myosin light chain kinase, smooth muscle isoform 1.
+57	Sjap__EWB00_003952	6182.A0A4Z2DWE0	100.0	1057.7	EWB00_003952	LIM homeobox transcription factor 1-beta.
+58	Sjap__EWB00_004032	6182.A0A4Z2D6K4	100.0	1936.4	EWB00_004032	Protein kinase C; Belongs to the protein kinase superfamily. AGC Ser/Thr protein kinase family. PKC subfamily.
+59	Sjap__EWB00_004095	6182.Q6PMM5	100.0	720.3	EWB00_004095	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+60	Sjap__EWB00_004122	6182.A0A4Z2D6I6	100.0	792.0	EWB00_004122	LIM domain-containing protein isoform 1.
+61	Sjap__EWB00_004137	6182.A0A4Z2D773	100.0	4603.9	EWB00_004137	Spectrin beta chain, non-erythrocytic 1.
+62	Sjap__EWB00_004179	6182.C1LFA8	100.0	981.1	EWB00_004179	Dual specificity protein kinase CLK2.
+63	Sjap__EWB00_004196	6182.A0A4Z2DUY0	100.0	642.1	EWB00_004196	cAMP-dependent protein kinase catalytic subunit alpha isoform 5; Belongs to the protein kinase superfamily.
+64	Sjap__EWB00_004212	6182.C1L3S7	100.0	937.9	CDKL1	Cyclin-dependent kinase-like 1.
+65	Sjap__EWB00_004243	6182.A0A4Z2D5G0	100.0	1313.9	EWB00_004243	SH3 domain-containing kinase-binding protein isoform 1.
+66	Sjap__EWB00_004325	6182.A0A4Z2D5X8	100.0	2001.9	EWB00_004325	Serine/threonine-protein kinase Nek10 isoform 3.
+67	Sjap__EWB00_004368	6182.A0A4Z2D605	100.0	722.2	EWB00_004368	Glycogen synthase kinase-3 alpha; Belongs to the protein kinase superfamily.
+68	Sjap__EWB00_004405	6182.A0A4Z2D5F1	100.0	647.5	EWB00_004405	Calcium/calmodulin-dependent protein kinase type IV.
+69	Sjap__EWB00_004406	6182.A0A4Z2D5D6	100.0	1135.2	EWB00_004406	Tyrosine-protein kinase.
+70	Sjap__EWB00_004506	6182.A0A4Z2D514	100.0	1709.5	EWB00_004506	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+71	Sjap__EWB00_004629	6182.C1L6Q8	100.0	614.4	cdk5	Cyclin-dependent-like kinase 5 isoform 2; Belongs to the protein kinase superfamily.
+72	Sjap__EWB00_004650	6182.A0A4Z2D5A9	100.0	1614.0	EWB00_004650	Non-specific serine/threonine protein kinase.
+73	Sjap__EWB00_004811	6182.A0A4Z2DUN6	100.0	590.1	EWB00_004811	Aurora kinase B-B; Belongs to the protein kinase superfamily.
+74	Sjap__EWB00_004872	6182.A0A4Z2DUW3	100.0	494.2	EWB00_004872	Fibronectin type 3 and ankyrin repeat-containing 1 protein.
+75	Sjap__EWB00_004876	6182.A0A4Z2DUG9	100.0	764.2	EWB00_004876	Actin-1.
+76	Sjap__EWB00_004878	6182.A0A4Z2DUX1	100.0	760.4	EWB00_004878	Actin-1.
+77	Sjap__EWB00_004965	6182.A0A4Z2D4A5	100.0	1069.3	EWB00_004965	LIM domain-containing protein isoform 1.
+78	Sjap__EWB00_005112	6182.C1LH53	100.0	667.9	EWB00_005112	Dual specificity mitogen-activated protein kinase kinase 6.
+79	Sjap__EWB00_005116	6182.A0A4Z2D2T5	100.0	1367.1	EWB00_005116	Serine/threonine-protein kinase PLK4.
+80	Sjap__EWB00_005166	6182.A0A4Z2D2Y7	100.0	1266.9	EWB00_005166	Non-specific serine/threonine protein kinase.
+81	Sjap__EWB00_005385	6182.A0A4Z2D1Q0	100.0	1050.4	EWB00_005385	Non-specific serine/threonine protein kinase.
+82	Sjap__EWB00_005467	6182.A0A4Z2DU85	100.0	1399.4	EWB00_005467	Protein kinase C; Belongs to the protein kinase superfamily. AGC Ser/Thr protein kinase family. PKC subfamily.
+83	Sjap__EWB00_005528	6182.A0A4Z2D2F1	100.0	606.7	EWB00_005528	Collagen alpha-1(XXIV) chain.
+84	Sjap__EWB00_005624	6182.A0A4Z2DU38	100.0	955.7	EWB00_005624	Cyclin-dependent kinase 8 isoform 2.
+85	Sjap__EWB00_005803	6182.A0A4Z2D0N4	100.0	347.4	EWB00_005803	Nephrocystin-1.
+86	Sjap__EWB00_005849	6182.A0A4Z2D0D0	100.0	1051.2	EWB00_005849	Tyrosine-protein kinase.
+87	Sjap__EWB00_005902	6182.A0A4Z2D084	100.0	2152.5	EWB00_005902	Huntington interacting protein related 1 isoform 1.
+88	Sjap__EWB00_005910	6182.A0A4Z2D044	100.0	456.8	EWB00_005910	Growth factor receptor-bound protein.
+89	Sjap__EWB00_006002	6182.A0A4Z2DTC9	100.0	675.6	EWB00_006002	Actin-related protein; Belongs to the actin family.
+90	Sjap__EWB00_006050	6182.A0A4Z2DTJ0	100.0	1814.7	EWB00_006050	Alpha-actinin-2.
+91	Sjap__EWB00_006126	6182.A0A4Z2CZR2	100.0	2726.4	EWB00_006126	Laminin subunit gamma-1.
+92	Sjap__EWB00_006165	6182.A0A4Z2CZH4	100.0	734.6	EWB00_006165	Cyclin-dependent kinase 20; Belongs to the protein kinase superfamily.
+93	Sjap__EWB00_006175	6182.A0A4Z2CZK0	100.0	1222.6	EWB00_006175	Serine/threonine-protein kinase pim-1.
+94	Sjap__EWB00_006199	6182.A0A4Z2D0J4	100.0	520.0	EWB00_006199	Collagen alpha-1(IV) chain.
+95	Sjap__EWB00_006200	6182.A0A4Z2CZM0	100.0	494.2	EWB00_006200	Collagen alpha-2(IV) chain isoform 2.
+96	Sjap__EWB00_006201	6182.A0A4Z2CZR4	100.0	363.6	EWB00_006201	Collagen-like protein.
+97	Sjap__EWB00_006209	6182.A0A4Z2CZP0	100.0	2839.7	EWB00_006209	Integrin isoform 1; Belongs to the integrin alpha chain family.
+98	Sjap__EWB00_006234	6182.A0A4Z2CZ44	100.0	5073.8	EWB00_006234	Filamin-A isoform 2.
+99	Sjap__EWB00_006315	6182.A0A4Z2CYT8	100.0	1141.7	EWB00_006315	Serine/threonine-protein kinase PRP4.
+100	Sjap__EWB00_006350	6182.A0A4Z2CZ14	100.0	1296.2	EWB00_006350	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+101	Sjap__EWB00_006505	6182.A0A4Z2CYG9	100.0	6207.5	EWB00_006505	Talin-2 isoform 1.
+102	Sjap__EWB00_006602	6182.A0A4Z2CXP2	100.0	818.1	EWB00_006602	Cyclin-dependent kinase 7; Belongs to the protein kinase superfamily.
+103	Sjap__EWB00_006607	6182.A0A4Z2CXQ1	100.0	757.3	EWB00_006607	Tripartite motif-containing 3.
+104	Sjap__EWB00_006747	6182.A0A4Z2CWY6	100.0	2170.6	EWB00_006747	B41 domain-containing protein.
+105	Sjap__EWB00_006779	6182.A0A4Z2CX29	100.0	1491.5	EWB00_006779	Tripartite motif-containing protein.
+106	Sjap__EWB00_007031	6182.A0A4Z2CW39	100.0	693.3	EWB00_007031	Germinal center kinase 3.
+107	Sjap__EWB00_007161	6182.A0A4Z2CVK4	100.0	733.8	EWB00_007161	MAP kinase-activated protein kinase 2 isoform 1; Belongs to the protein kinase superfamily.
+108	Sjap__EWB00_007221	6182.A0A4Z2CVB7	100.0	1259.6	EWB00_007221	Tyrosine-protein kinase RYK.
+109	Sjap__EWB00_007274	6182.C1LH03	100.0	892.1	EWB00_007274	Drebrin-like protein.
+110	Sjap__EWB00_007322	6182.A0A4Z2CUR2	100.0	1743.4	EWB00_007322	Focal adhesion kinase 1; Belongs to the protein kinase superfamily. Tyr protein kinase family.
+111	Sjap__EWB00_007395	6182.A0A4Z2CUS5	100.0	448.7	EWB00_007395	Collagen alpha-2(V) chain isoform 1.
+112	Sjap__EWB00_007426	6182.C1LJL2	100.0	766.1	EWB00_007426	Actin-related protein isoform 1; Belongs to the actin family.
+113	Sjap__EWB00_007512	6182.A0A4Z2DSU2	77.3	479.2	EWB00_007721	cAMP-dependent protein kinase catalytic subunit isoform 4; Belongs to the protein kinase superfamily.
+114	Sjap__EWB00_007517	6182.Q5DF69	100.0	773.1	Act5C	SJCHGC06318 protein.
+115	Sjap__EWB00_007519	6182.Q5D9F6	100.0	786.6	EWB00_007519	Mitogen-activated protein kinase.
+116	Sjap__EWB00_007520	6182.A0A4Z2CUE7	100.0	1607.8	EWB00_007520	Tyrosine-protein kinase.
+117	Sjap__EWB00_007640	6182.A0A4Z2CTJ3	100.0	1422.5	EWB00_007640	Mitogen-activated protein kinase kinase kinase 9.
+118	Sjap__EWB00_007650	6182.A0A4Z2CTZ5	100.0	1234.6	EWB00_007650	Serine/threonine-protein kinase 25 isoform 1.
+119	Sjap__EWB00_007721	6182.A0A4Z2DSU2	100.0	748.8	EWB00_007721	cAMP-dependent protein kinase catalytic subunit isoform 4; Belongs to the protein kinase superfamily.
+120	Sjap__EWB00_007739	6182.A0A4Z2CT39	100.0	775.8	EWB00_007739	Twinfilin-1 isoform 1.
+121	Sjap__EWB00_007873	6182.C1LGZ6	100.0	1187.9	fyn-prov	Tyrosine-protein kinase.
+122	Sjap__EWB00_007959	6182.A0A4Z2CS38	100.0	1069.7	EWB00_007959	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+123	Sjap__EWB00_007965	6182.A0A4Z2CSU9	100.0	1724.1	EWB00_007965	Insulin receptor-related protein.
+124	Sjap__EWB00_007978	6182.A0A4Z2CSH8	100.0	909.1	EWB00_007978	SHC-transforming protein isoform 1.
+125	Sjap__EWB00_008035	6182.A0A4Z2CRV6	100.0	864.0	EWB00_008035	Serine/threonine-protein kinase Nek7; Belongs to the protein kinase superfamily.
+126	Sjap__EWB00_008162	6182.A0A4Z2CR55	100.0	1087.8	EWB00_008162	Ephrin type-B receptor 3; Belongs to the protein kinase superfamily. Tyr protein kinase family.
+127	Sjap__EWB00_008189	6182.A0A4Z2CR88	100.0	1779.2	EWB00_008189	Tyrosine-protein kinase.
+128	Sjap__EWB00_008231	6182.A0A4Z2CRJ2	100.0	810.8	EWB00_008231	Serine/threonine-protein kinase PAK 2 isoform 1; Belongs to the protein kinase superfamily.
+129	Sjap__EWB00_008239	6182.A0A4Z2CQY2	100.0	506.1	EWB00_008239	Collagen alpha-2(I) chain isoform 1.
+130	Sjap__EWB00_008286	6182.A0A4Z2CQZ5	100.0	1240.3	EWB00_008286	Serine/threonine-protein kinase OSR1 isoform 2.
+131	Sjap__EWB00_008372	6182.A0A4Z2CQJ6	100.0	1013.8	EWB00_008372	Serine/threonine-protein kinase PLK1 isoform 2.
+132	Sjap__EWB00_008411	6182.A0A4Z2CQ40	100.0	1527.3	EWB00_008411	Serine/threonine-protein kinase PAK mbt isoform 1.
+133	Sjap__EWB00_008528	6182.A0A4Z2CPM6	100.0	1236.1	EWB00_008528	Tyrosine-protein phosphatase non-receptor type 1.
+134	Sjap__EWB00_008648	6182.A0A4Z2CP90	100.0	1221.8	EWB00_008648	Serine/threonine-protein kinase Nek1.
+135	Sjap__EWB00_008683	6182.A0A4Z2CNZ1	100.0	779.2	EWB00_008683	Mitogen-activated protein kinase; Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. MAP kinase subfamily.
+136	Sjap__EWB00_008724	6182.A0A4Z2DSJ8	100.0	748.4	EWB00_008724	Calcium/calmodulin-dependent protein kinase type 1 isoform 2; Belongs to the protein kinase superfamily.
+137	Sjap__EWB00_008747	6182.C1LG63	100.0	879.0	EWB00_008747	Putative LIM domain binding 3.
+138	Sjap__EWB00_008748	6182.A0A4Z2DTN7	100.0	1405.6	EWB00_008748	Fibroblast growth factor receptor 2 isoform 2; Belongs to the protein kinase superfamily. Tyr protein kinase family.
+139	Sjap__EWB00_008807	6182.Q86ES4	100.0	277.3	tsr	Actin depolymerizing factor-like protein; Belongs to the actin-binding proteins ADF family.
+140	Sjap__EWB00_008857	6182.A0A4Z2DY79	100.0	722.2	EWB00_008857	Alpha-centractin; Belongs to the actin family.
+141	Sjap__EWB00_008932	6182.A0A4Z2DSG0	100.0	1333.9	EWB00_008932	Serine/threonine-protein kinase Nek4.
+142	Sjap__EWB00_008934	6182.A0A4Z2DSI5	100.0	1695.6	EWB00_008934	Serine/threonine-protein kinase B-raf.
+143	Sjap__EWB00_008993	6182.A0A4Z2CNG2	100.0	717.6	EWB00_008993	cAMP-dependent protein kinase catalytic subunit; Belongs to the protein kinase superfamily.
+144	Sjap__EWB00_009095	6182.A0A4Z2CND2	100.0	1625.1	EWB00_009095	Tyrosine-protein kinase.
+145	Sjap__EWB00_009117	6182.A0A4Z2CN06	100.0	280.4	EWB00_009117	Ankyrin repeat family A protein.
+146	Sjap__EWB00_009122	6182.A0A4Z2CN26	100.0	757.7	EWB00_009122	Mitogen-activated protein kinase.
+147	Sjap__EWB00_009161	6182.C1L3T0	100.0	763.5	EWB00_009161	Actin; Belongs to the actin family.
+148	Sjap__EWB00_009162	6182.A0A4Z2CMV9	100.0	783.5	EWB00_009162	Actin-1; Belongs to the actin family.
+149	Sjap__EWB00_009224	6182.A0A4Z2CMJ2	100.0	1104.7	EWB00_009224	Receptor-type tyrosine-protein phosphatase N2.
+150	Sjap__EWB00_009267	6182.A0A4Z2CML4	100.0	529.3	EWB00_009267	Actin, plasmodial isoform; Belongs to the actin family.
+151	Sjap__EWB00_009287	6182.A0A4Z2CN04	100.0	1064.3	EWB00_009287	Casein kinase I isoform delta isoform 4.
+152	Sjap__EWB00_009305	6182.A0A4Z2DS24	100.0	1463.0	EWB00_009305	Actin-related protein; Belongs to the actin family.
+153	Sjap__EWB00_009358	6182.A0A4Z2DRM5	100.0	1112.8	EWB00_009358	Calcium-dependent protein kinase C isoform 2.
+154	Sjap__EWB00_009388	6182.C1LEH1	100.0	557.4	FHL-2	Four and a half LIM domains protein 2.
+155	Sjap__EWB00_009435	6182.A0A4Z2CM43	100.0	601.3	EWB00_009435	Endophilin-A3.
+156	Sjap__EWB00_009456	6182.A0A4Z2CM06	100.0	688.3	EWB00_009456	Dual specificity mitogen-activated protein kinase kinase 6 isoform 2.
+157	Sjap__EWB00_009457	6182.A0A4Z2CLX5	100.0	329.3	EWB00_009457	Tyrosine-protein phosphatase corkscrew.
+158	Sjap__EWB00_009479	6182.A0A4Z2DRN3	100.0	1552.7	EWB00_009479	Serine/threonine-protein kinase MAK.
+159	Sjap__EWB00_009480	6182.C1L449	100.0	857.8	EWB00_009480	Cell division protein kinase 9-B; Belongs to the protein kinase superfamily.
+160	Sjap__EWB00_009541	6182.A0A4Z2DR60	100.0	795.4	EWB00_009541	LIM domain-containing protein.
+161	Sjap__EWB00_009560	6182.A0A4Z2CLW6	100.0	793.5	EWB00_009560	Lipoma-preferred partner.
+162	Sjap__EWB00_009605	6182.A0A4Z2DR61	100.0	456.1	EWB00_009605	Ankyrin-2 isoform 3.
+163	Sjap__EWB00_009781	6182.C7TXQ4	100.0	642.1	PR2	Putative mitogen-activated protein kinase kinase kinase 7-like isoform 1.
+164	Sjap__EWB00_010024	6182.A0A4Z2CL49	100.0	828.2	EWB00_010024	Tyrosine-protein phosphatase non-receptor type 11 isoform 3.
+165	Sjap__EWB00_010219	6182.A0A4Z2DPU8	100.0	860.1	EWB00_010219	Cyclin-dependent kinase 9; Belongs to the protein kinase superfamily.
+166	Sjap__EWB00_010398	6182.A0A4Z2DXN3	100.0	925.2	EWB00_010398	Integrin-linked protein kinase pat-4.
+167	Sjap__EWB00_010448	6182.A0A4Z2DXQ5	100.0	458.8	EWB00_010448	Collagen alpha-2(I) chain.
+168	Sjap__EWB00_010449	6182.A0A4Z2DXL3	100.0	240.7	EWB00_010449	Collagen alpha-1(XXI) chain.
+169	Sjap__EWB00_010450	6182.A0A4Z2DXW2	100.0	475.7	EWB00_010450	Collagen-like protein isoform 2.
+170	Sjap__EWB00_010643	6182.A0A4Z2DN24	100.0	1351.7	EWB00_010643	Cytoplasmic protein isoform 1.
+171	Sjap__EWB00_010647	6182.Q5DHL6	100.0	804.3	EWB00_010647	Actin-related protein 2; ATP-binding component of the Arp2/3 complex, a multiprotein complex that mediates actin polymerization upon stimulation by nucleation-promoting factor (NPF). The Arp2/3 complex mediates the formation of branched actin networks in the cytoplasm, providing the force for cell motility. Seems to contact the pointed end of the daughter actin filament.
+172	Sjap__EWB00_010649	6182.A0A4Z2DN32	100.0	1582.0	EWB00_010649	Alpha-actinin.
+173	Sjap__EWB00_010687	6182.A0A4Z2DNJ5	100.0	2347.4	EWB00_010687	Tyrosine-protein kinase.
+174	Sjap__EWB00_010727	6182.A0A4Z2DNH6	100.0	3717.9	EWB00_010727	Spectrin beta chain isoform 2.
+175	Sjap__EWB00_011039	6182.A0A4Z2DN82	100.0	2456.8	EWB00_011039	Integrin alpha-7; Belongs to the integrin alpha chain family.
+176	Sjap__EWB00_011156	6182.A0A4Z2DLU7	100.0	525.8	EWB00_011156	Aurora kinase A.
+177	Sjap__EWB00_011263	6182.A0A4Z2DKT9	100.0	1119.0	EWB00_011263	RAC serine/threonine-protein kinase.
+178	Sjap__EWB00_011320	6182.Q5DBY2	100.0	668.7	EWB00_011320	Serine/threonine-protein kinase 17A isoform 1; Belongs to the protein kinase superfamily.

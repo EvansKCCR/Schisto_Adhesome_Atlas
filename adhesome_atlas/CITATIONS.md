@@ -1,5 +1,11 @@
 # Resource citations
 
+## Experimental schistosome integrin-adhesome evidence
+
+Gelmedin V et al. (2017). **Evidence for Integrin – Venus Kinase Receptor 1 Alliance in the Ovary of Schistosoma mansoni Females Controlling Cell Survival.** *PLOS Pathogens*, 13(1), e1006147. [doi:10.1371/journal.ppat.1006147](https://doi.org/10.1371/journal.ppat.1006147).
+
+The atlas annotates the *S. mansoni* ILK–PINCH–Nck2 assembly as experimentally supported by heterologous co-expression, co-immunoprecipitation and deletion analysis. This evidence supports complex association, rather than every pairwise direct contact or every predicted homologue across the three species.
+
 These references acknowledge the databases and methods relevant to the atlas. Publication years do not specify the release used in an individual analysis. Preserve release numbers, accession IDs, query settings and run dates from the original outputs when reporting results.
 
 ## STRING

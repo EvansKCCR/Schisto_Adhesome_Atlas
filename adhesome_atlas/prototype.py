@@ -12,7 +12,8 @@ FAMILY_NODES = {
     'talin': 'talin', 'kindlin': 'kindlin', 'PINCH_like': 'pinch', 'ILK': 'ilk', 'vinculin': 'vinculin',
     'alpha_actinin': 'actinin', 'filamin': 'filamin', 'paxillin_like': 'paxillin',
     'zyxin_like': 'zyxin', 'FAK': 'fak', 'Src': 'src', 'actin': 'actin',
-    'cofilin': 'cofilin', 'PTP_PEST': 'ptp_pest', 'profilin': 'profilin',
+    'cofilin': 'cofilin', 'PTP_PEST': 'ptppest', 'profilin': 'profilin',
+    'Shc': 'shc', 'Grb2': 'grb2', 'Nck': 'nck',
 }
 COMPLEX_NODE = 'integrin_ab'
 COMPLEX_LABEL = 'Putative integrin αβ heterodimer'
@@ -22,7 +23,14 @@ def read_map_edges(path: Path):
     """Read edge evidence from the diagram so exports track its architecture."""
     if not path.is_file():
         return []
-    block = path.read_text(encoding='utf-8').split('const edges=[', 1)[1].split('];', 1)[0]
+    match = re.search(r'const edges=(\[.*?\]);', path.read_text(encoding='utf-8'), re.S)
+    if not match:
+        return []
+    block = match.group(1)
+    try:
+        return json.loads(block)
+    except json.JSONDecodeError:
+        pass
     records = []
     for match in re.finditer(r"\{a:'[^']+',b:'[^']+',kind:'[^']+'[^{}]*\}", block):
         record = {}
@@ -37,16 +45,12 @@ MAP_EDGES = [(edge['a'], edge['b'], edge['kind'], edge['relation']) for edge in 
 
 
 def candidate_rows(adhesome, fn3):
-    """Keep audit-retained rows; separate the FN3 ligand screen from the 189/43 counts."""
+    """Keep audited families and the separately reviewed FN3 ligand screen."""
     retained = adhesome[adhesome.audit_classification.isin(['Supported','Provisional'])].copy()
     retained['prototype_family'] = retained.reviewed_family
     retained['evidence_tier'] = retained.audit_classification.map({'Supported':'Core family-retained','Provisional':'Provisional'})
     retained['source_collection'] = 'Adhesome candidates'
-    exploratory = fn3[fn3.reviewed_family.eq('C_type_lectin_Ig_FN3_like')].copy()
-    exploratory['prototype_family'] = 'C_type_lectin_Ig_FN3_like'
-    exploratory['evidence_tier'] = 'Exploratory FN3 screen'
-    exploratory['source_collection'] = 'FN3 / fibronectin-like review'
-    combined = pd.concat([retained, exploratory], ignore_index=True)
+    combined = retained
     combined['map_node'] = combined.prototype_family.map(FAMILY_NODES)
     return combined[combined.map_node.notna()].copy()
 
@@ -78,12 +82,6 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
 <script>
 const atlasPayload = __ATLAS_PAYLOAD__;
 const atlasOriginalShowNode = showNode;
-const atlasExtras = [
-  {id:'ptp_pest',x:90,y:705,w:145,h:62,title:'PTP-PEST-like',count:'4 / 3 / 3',color:'#7e22ce',status:'explore',extra:'Family retained; placement exploratory',detail:'Ten family-retained hypotheses. No explicit partner edge is drawn in this architecture.'},
-  {id:'profilin',x:280,y:705,w:145,h:62,title:'Profilin',count:'0 / 0 / 0',color:'#d97706',status:'provisional',extra:'One S. mansoni provisional hypothesis',detail:'One provisional family hypothesis. No explicit partner edge is drawn in this architecture.'}
-];
-atlasExtras.forEach(n=>{nodes.push(n);initial.push(JSON.parse(JSON.stringify(n)))});
-drawNodes();drawEdges();
 function atlasFocus(n){
   const neighbors=new Set(edges.filter(e=>e.a===n.id||e.b===n.id).map(e=>e.a===n.id?e.b:e.a));
   if(n.id==='inta'||n.id==='intb')edges.filter(e=>e.b==='integrin_ab'&&e.class==='ligand').forEach(e=>neighbors.add(e.a));
@@ -180,7 +178,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                'motif_context_evidence','host_orthology_flag','source_collection']
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',
-            'interpretation':'Family-level computational hypotheses copied from the interactive architecture. Ligand relationships target a putative integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only and do not claim a schistosome candidate; no specific α–β protein pairing is inferred.',
+    'interpretation':'Family-level hypotheses from the interactive architecture. The S. mansoni ILK–PINCH–Nck2 complex has experimental support from Gelmedin et al. (2017), DOI 10.1371/journal.ppat.1006147. Ligand relationships target an integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only; no specific α–β protein pairing is inferred.',
             'selection':{'families':list(families),'evidence_tiers':list(tiers),'relationship_classes':list(edge_kinds)},
             'candidate_count':len(candidates),'relationship_count':len(relations),
             'candidates':candidates,'family_relationships':relations}
