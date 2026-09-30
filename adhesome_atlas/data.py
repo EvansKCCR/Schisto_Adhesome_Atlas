@@ -36,7 +36,7 @@ def load():
     cohorts = {}
     for label, name, sheet in [
         ('Adhesome candidates', 'adhesome_candidates_list.xlsx', 'Audited_family_assignment'),
-        ('FN3 / fibronectin-like review', 'fibronectin_like_candidate.xlsx', 'library'),
+        ('FN3 / fibronectin-like review', 'fibronectin_like_candidate.xlsx', 'Candidates'),
         ('All screening hypotheses', 'all_candidate_protein_list.xlsx', 'candidates')]:
         name = 'files/' + name
         if sheet not in books[name]:

@@ -1,4 +1,5 @@
 """Evidence-aware layered reconstruction and exploratory prioritization."""
+import hashlib
 import math
 import pandas as pd
 import networkx as nx
@@ -236,7 +237,7 @@ def reconstruction_panel(candidates,loader,key):
     if view in SPECIES:
         nodes=nodes[nodes.species.eq(view)]; edges=edges[edges.species.eq(view)]
     if view=='Orthogroup consensus':
-        orthogroup_view(all_nodes,all_edges,key);return
+        orthogroup_view(all_nodes,all_edges,candidates,key);return
     selected=st.multiselect('Relationship types',sorted(edges.relation.unique()),default=sorted(edges.relation.unique()),key=key+'relation')
     edges=edges[edges.relation.isin(selected)]
     support=st.multiselect('Evidence support',sorted(edges.support.unique()),default=sorted(edges.support.unique()),key=key+'support')
@@ -412,26 +413,209 @@ def reconstruction_panel(candidates,loader,key):
             p=EVIDENCE_DIR/name
             if p.exists():st.download_button('Download '+name,p.read_bytes(),name,key=key+name)
 
-def orthogroup_view(nodes,edges,key):
-    mapped=nodes[nodes.orthogroup.ne('')]
-    if mapped.empty:
-        st.info('Orthology-merged reconstruction is not yet available: add cited node-to-orthogroup assignments in node_mapping.tsv. Workbook orthogroups also require a resolved network-to-candidate identifier. Shared family names alone are not treated as orthology.');return
-    lookup=mapped.set_index('identifier').orthogroup.to_dict();rows=[]
-    for r in edges.itertuples():
-        if r.node1_string_id in lookup and r.node2_string_id in lookup:
-            a,b=sorted([lookup[r.node1_string_id],lookup[r.node2_string_id]])
-            rows.append(dict(source=a,target=b,species=r.species,relation=r.relation,evidence=r.evidence,reference=r.reference))
-    if not rows:st.info('Mapped orthogroups have no retained associations.');return
-    summary=pd.DataFrame(rows).groupby(['source','target','relation']).agg(species=('species',lambda x:' | '.join(sorted(set(x)))),species_count=('species','nunique'),evidence=('evidence',lambda x:' | '.join(sorted(set(x)))),references=('reference',lambda x:' | '.join(sorted(set(x))))).reset_index()
-    summary['conservation']=summary.species_count.map(lambda n:'Observed in all three species' if n==3 else 'Observed in two species' if n==2 else 'Observed in one species; specificity unproven')
-    st.caption(f'{len(mapped)} of {len(nodes)} proteins have source-supported orthogroup assignments. Absence of an exported edge does not establish species specificity. Conservation labels describe retained, mapped associations only. Within-orthogroup associations remain in the table.')
-    graph=nx.from_pandas_edgelist(summary,'source','target');pos=nx.spring_layout(graph,seed=42)
+@st.cache_data(show_spinner=False)
+def orthogroup_consensus(nodes,edges,candidates):
+    """Combine workbook membership with associations supported by mapped STRING nodes."""
+    members=candidates[candidates.orthogroup.fillna('').astype(str).str.fullmatch(r'OG\d+')].copy()
+    members['family_label']=members.reviewed_family.fillna('Unassigned')
+    members['collection']=members.source.map(
+        lambda source:'FN3 review' if 'fibronectin_like_candidate.xlsx' in source else 'Adhesome candidates')
+    def joined(values):
+        return ' | '.join(sorted(set(values.dropna().astype(str))-{''}))
+    workbook=members.groupby('orthogroup').agg(
+        member_count=('sequence_id','nunique'),
+        species_count=('species','nunique'),
+        species=('species',joined),
+        families=('family_label',joined),
+        source_collections=('collection',joined),
+        member_ids=('sequence_id',joined),
+        supported=('audit_classification',lambda values:int(values.eq('Supported').sum())),
+        provisional=('audit_classification',lambda values:int(values.eq('Provisional').sum())),
+    ).reset_index()
+    mapped=nodes[nodes.sequence_id.isin(members.sequence_id) &
+                 nodes.orthogroup.fillna('').astype(str).str.fullmatch(r'OG\d+')].copy()
+    network=mapped.groupby('orthogroup').agg(
+        mapped_proteins=('identifier','nunique'),
+        mapped_ids=('identifier',joined),
+    ).reset_index()
+    groups=workbook.merge(network,on='orthogroup',how='outer').fillna({
+        'member_count':0,'species_count':0,'species':'','families':'Unassigned',
+        'source_collections':'Curated network mapping','member_ids':'',
+        'supported':0,'provisional':0,'mapped_proteins':0,'mapped_ids':''})
+    for field in ['member_count','species_count','supported','provisional','mapped_proteins']:
+        groups[field]=groups[field].astype(int)
+    groups['primary_family']=groups.families.map(
+        lambda value:value if ' | ' not in value else 'Mixed families')
+    groups['network_status']=groups.mapped_proteins.map(
+        lambda value:'STRING-mapped' if value else 'Workbook only')
+    lookup=mapped.set_index('identifier').orthogroup.to_dict()
+    linked=edges.copy()
+    linked['left_group']=linked.node1_string_id.map(lookup)
+    linked['right_group']=linked.node2_string_id.map(lookup)
+    linked=linked[linked.left_group.notna() & linked.right_group.notna()].copy()
+    linked['source']=[min(a,b) for a,b in zip(linked.left_group,linked.right_group)]
+    linked['target']=[max(a,b) for a,b in zip(linked.left_group,linked.right_group)]
+    internal=linked[linked.source.eq(linked.target)].copy()
+    between=linked[linked.source.ne(linked.target)].copy()
+    if between.empty:
+        summary=pd.DataFrame(columns=['source','target','relation','species','species_count',
+                                      'protein_pairs','evidence','support','references','max_score'])
+    else:
+        summary=between.groupby(['source','target','relation']).agg(
+            species=('species',joined),
+            species_count=('species','nunique'),
+            protein_pairs=('node1_string_id','size'),
+            evidence=('evidence',joined),
+            support=('support',joined),
+            references=('reference',joined),
+            max_score=('combined_score','max'),
+        ).reset_index()
+    summary['conservation']=summary.species_count.map(
+        lambda count:'Three species' if count==3 else 'Two species' if count==2 else 'One species')
+    return groups,summary,members,internal
+
+
+def orthogroup_view(nodes,edges,candidates,key):
+    st.subheader('Interactive orthogroup consensus network')
+    include_unassigned=st.checkbox('Include unassigned audit proteins for context',value=False,
+                                   key=key+'ortho_unassigned')
+    if not include_unassigned:
+        candidates=candidates[candidates.audit_classification.isin(['Supported','Provisional'])].copy()
+    a,b=st.columns(2)
+    relations=sorted(edges.relation.dropna().unique())
+    selected_relations=a.multiselect('Association classes',relations,default=relations,key=key+'ortho_relations')
+    supports=sorted(edges.support.dropna().unique())
+    selected_support=b.multiselect('Edge evidence support',supports,default=supports,key=key+'ortho_support')
+    edges=edges[edges.relation.isin(selected_relations)&edges.support.isin(selected_support)].copy()
+    groups,associations,members,internal=orthogroup_consensus(nodes,edges,candidates)
+    source_names=sorted(members.source.dropna().unique())
+    st.caption('Workbook membership: '+(' · '.join(source_names) if source_names else 'No orthogroup assignments in the candidate workbooks'))
+    with st.expander('Active workbook versions'):
+        source_rows=[]
+        for source in source_names:
+            relative=source.split(' / ',1)[0]
+            path=ROOT/relative
+            source_rows.append({'worksheet':source,'retained_members':int(members.source.eq(source).sum()),
+                                'bytes':path.stat().st_size,'sha256_12':hashlib.sha256(path.read_bytes()).hexdigest()[:12]})
+        st.dataframe(pd.DataFrame(source_rows),width='stretch',hide_index=True)
+    st.caption('Nodes use '+('all audited proteins' if include_unassigned else 'supported and provisional family assignments')+' from the updated adhesome and FN3 workbooks. Edges require a retained association between uniquely mapped STRING proteins in this selection; workbook-only orthogroups are shown as isolates. Within-orthogroup STRING associations are listed separately, not drawn as self-links.')
+    if groups.empty:
+        st.info('No workbook or curated orthogroup assignments are available.');return
+    a,b,c,d=st.columns(4)
+    a.metric('Workbook orthogroups',int(groups.member_count.gt(0).sum()))
+    b.metric('FN3 review orthogroups',int(groups.source_collections.str.contains('FN3 review',regex=False).sum()))
+    c.metric('STRING-mapped orthogroups',int(groups.mapped_proteins.gt(0).sum()))
+    d.metric('Inter-orthogroup associations',len(associations))
+    with st.expander('Filter orthogroups and associations',expanded=True):
+        a,b,c=st.columns(3)
+        collection=a.multiselect('Source collection',['Adhesome candidates','FN3 review'],key=key+'ortho_source',
+                                  help='No selection includes both updated candidate workbooks.')
+        family_options=sorted(set(members.family_label.dropna())-{'Unassigned'})
+        families=b.multiselect('Protein families',family_options,key=key+'ortho_family',
+                               help='No selection includes every family.')
+        species=c.multiselect('Member species',sorted(members.species.dropna().unique()),key=key+'ortho_species',
+                              help='No selection includes all species.')
+        include_isolates=st.checkbox('Show orthogroups without mapped STRING associations',value=True,key=key+'ortho_isolates')
+        minimum=st.slider('Minimum species supporting an association',1,3,1,key=key+'ortho_species_min')
+        query=st.text_input('Find an orthogroup or protein',key=key+'ortho_query',
+                            placeholder='OG0000401, Smp_126140…')
+        visible=groups.copy()
+        if collection:
+            visible=visible[visible.source_collections.map(
+                lambda value:any(name in value.split(' | ') for name in collection))]
+        if families:
+            visible=visible[visible.families.map(
+                lambda value:any(name in value.split(' | ') for name in families))]
+        if species:
+            visible=visible[visible.species.map(
+                lambda value:any(name in value.split(' | ') for name in species))]
+        if query:
+            visible=visible[visible[['orthogroup','families','member_ids','mapped_ids']].fillna('').astype(str).apply(
+                lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
+        links=associations[associations.species_count.ge(minimum)].copy()
+        allowed=set(visible.orthogroup)
+        links=links[links.source.isin(allowed)&links.target.isin(allowed)].copy()
+        if not include_isolates:
+            connected=set(links.source)|set(links.target)
+            visible=visible[visible.orthogroup.isin(connected)].copy()
+        if visible.empty:
+            st.info('No orthogroups remain. Broaden the source, family, species or association filters.');return
+        graph=nx.Graph()
+        graph.add_nodes_from(visible.orthogroup)
+        graph.add_edges_from(zip(links.source,links.target))
+        focus=st.selectbox('Focus on an orthogroup',['All orthogroups']+sorted(graph),key=key+'ortho_focus')
+        if focus!='All orthogroups':
+            radius=st.radio('Neighborhood radius',[1,2],horizontal=True,key=key+'ortho_radius')
+            keep=nx.single_source_shortest_path_length(graph,focus,cutoff=radius)
+            visible=visible[visible.orthogroup.isin(keep)].copy()
+            links=links[links.source.isin(keep)&links.target.isin(keep)].copy()
+            graph=graph.subgraph(keep).copy()
+    degree=dict(graph.degree())
+    betweenness=nx.betweenness_centrality(graph,normalized=True)
+    closeness=nx.closeness_centrality(graph,wf_improved=True)
+    communities=(nx.community.greedy_modularity_communities(graph) if graph.number_of_edges()
+                 else [{node} for node in graph])
+    community_id={node:i+1 for i,community in enumerate(
+        sorted(communities,key=lambda group:(-len(group),sorted(group)[0]))) for node in community}
+    visible['degree']=visible.orthogroup.map(degree)
+    visible['betweenness']=visible.orthogroup.map(betweenness)
+    visible['closeness']=visible.orthogroup.map(closeness)
+    visible['community']=visible.orthogroup.map(community_id)
+    colors=st.radio('Color orthogroups by',['Protein family','Species coverage','Source collection','Community'],
+                    horizontal=True,key=key+'ortho_colors')
+    size_by=st.selectbox('Size orthogroups by',['Member proteins','Network degree','Betweenness'],
+                         key=key+'ortho_size')
+    labels=st.checkbox('Label orthogroups',value=False,key=key+'ortho_labels')
+    layout=st.radio('Orthogroup layout',['Force-directed','Circular'],horizontal=True,key=key+'ortho_layout')
+    positions=(nx.spring_layout(graph,seed=42,iterations=40) if layout=='Force-directed' and graph.number_of_edges()
+               else nx.circular_layout(graph))
     fig=go.Figure()
-    for category,group in summary.groupby('conservation'):
-        x=[];y=[]
-        for r in group.itertuples():x += [pos[r.source][0],pos[r.target][0],None];y += [pos[r.source][1],pos[r.target][1],None]
-        fig.add_trace(go.Scatter(x=x,y=y,mode='lines',name=category))
-    fig.add_trace(go.Scatter(x=[pos[n][0] for n in graph],y=[pos[n][1] for n in graph],text=list(graph),mode='markers+text',textposition='top center',name='Orthogroups'))
-    fig.update_layout(height=550,xaxis_visible=False,yaxis_visible=False)
-    st.plotly_chart(fig,width='stretch',key=key+'orthograph');st.dataframe(summary,width='stretch',hide_index=True)
-    st.download_button('Download orthogroup associations',summary.to_csv(index=False),'orthogroup_associations.csv',key=key+'ortho_csv')
+    edge_colors={'One species':'#9aaab3','Two species':'#d29a22','Three species':'#08743f'}
+    for support,part in links.groupby('conservation'):
+        xs=[];ys=[]
+        for edge in part.itertuples():
+            xs += [positions[edge.source][0],positions[edge.target][0],None]
+            ys += [positions[edge.source][1],positions[edge.target][1],None]
+        fig.add_trace(go.Scatter(x=xs,y=ys,mode='lines',name=support,
+                                 line=dict(color=edge_colors.get(support,'#9aaab3'),width=1.3),
+                                 hoverinfo='skip'))
+    color_field={'Protein family':'primary_family','Species coverage':'species_count',
+                 'Source collection':'source_collections','Community':'community'}[colors]
+    size_field={'Member proteins':'member_count','Network degree':'degree','Betweenness':'betweenness'}[size_by]
+    maximum=visible[size_field].max() or 1
+    for i,(category,part) in enumerate(visible.groupby(color_field)):
+        marker_sizes=11+23*(part[size_field]/maximum).pow(.5)
+        fig.add_trace(go.Scatter(x=[positions[n][0] for n in part.orthogroup],
+            y=[positions[n][1] for n in part.orthogroup],mode='markers+text' if labels else 'markers',
+            text=part.orthogroup,textposition='top center',name=str(category),
+            marker=dict(size=marker_sizes,color=px.colors.qualitative.Alphabet[i%26],
+                        line=dict(color='#ffffff',width=1)),
+            customdata=part[['orthogroup','families','member_count','species','source_collections',
+                             'network_status','degree','betweenness','community']].values,
+            hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Members %{customdata[2]} · %{customdata[3]}<br>%{customdata[4]} · %{customdata[5]}<br>Degree %{customdata[6]} · Betweenness %{customdata[7]:.3f} · Community %{customdata[8]}<extra></extra>'))
+    fig.update_layout(height=710,xaxis=dict(visible=False),yaxis=dict(visible=False,scaleanchor='x'),
+                      plot_bgcolor='#f7faf7',dragmode='pan',legend=dict(orientation='h',y=-.12),
+                      margin=dict(l=10,r=10,t=10,b=10))
+    event=st.plotly_chart(fig,width='stretch',key=key+'orthograph',on_select='rerun',
+                          selection_mode='points',config={'displaylogo':False,'scrollZoom':True})
+    selected=[point.get('customdata',[None])[0] for point in event.selection.points] if event else []
+    inspect=st.selectbox('Inspect an orthogroup',['None']+sorted(visible.orthogroup),key=key+'ortho_inspect')
+    chosen=inspect if inspect!='None' else next((group for group in selected if group in set(visible.orthogroup)),None)
+    if chosen:
+        st.markdown('#### '+chosen+' · source members and linked groups')
+        st.dataframe(members[members.orthogroup.eq(chosen)][
+            [column for column in ['sequence_id','species','reviewed_family','audit_classification','grade','source'] if column in members]],
+            width='stretch',hide_index=True)
+        st.dataframe(links[links.source.eq(chosen)|links.target.eq(chosen)],width='stretch',hide_index=True)
+    st.caption(f'{len(visible)} displayed orthogroups · {len(links)} retained group associations · {len(internal)} within-group STRING associations. Edge colors summarize species with retained associations, not species specificity. Workbook-only nodes have no inferred STRING links.')
+    with st.expander('Orthogroup evidence tables and downloads'):
+        st.markdown('**Orthogroup membership and topology**')
+        st.dataframe(visible,width='stretch',hide_index=True)
+        st.download_button('Download orthogroup nodes · CSV',visible.to_csv(index=False).encode('utf-8-sig'),
+                           'orthogroup_nodes.csv',key=key+'ortho_nodes_csv')
+        st.markdown('**Retained associations**')
+        st.dataframe(links,width='stretch',hide_index=True)
+        st.download_button('Download orthogroup associations · CSV',links.to_csv(index=False).encode('utf-8-sig'),
+                           'orthogroup_associations.csv',key=key+'ortho_csv')
+        st.markdown('**Within-orthogroup STRING associations**')
+        st.dataframe(internal,width='stretch',hide_index=True)

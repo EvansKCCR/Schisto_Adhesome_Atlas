@@ -16,6 +16,7 @@ from orthology_explorer import orthology_panel
 from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
 from prototype import candidate_rows, interactive_html, hypothesis, read_map_edges, FAMILY_NODES, COMPLEX_NODE
+from motif_explorer import build_motif_tables, motif_panel
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -100,6 +101,7 @@ def ensure_audit_columns(frame):
 cohorts = {name: ensure_audit_columns(frame) for name, frame in cohorts.items()}
 cohorts = {name: frame.assign(catalogue_family=frame.reviewed_family.combine_first(frame.family))
            for name, frame in cohorts.items()}
+motif_summary, motif_sites, motif_elm = build_motif_tables(books, cohorts)
 missing_audit_sources = [name for name, required in [('Adhesome candidates','family_decision'),('FN3 / fibronectin-like review','recommended_family')]
                          if required not in cohorts[name]]
 
@@ -346,8 +348,10 @@ elif page == 'Protein dossier':
     a,b,c = st.columns(3)
     a.metric('Sequence length', f'{len(seq):,} aa' if seq else 'Unavailable')
     b.metric('Family assignments in selection', len(records))
-    local_hits = motifs[motifs.sequence_id.eq(key)]
-    c.metric('Reported motif hits', len(local_hits))
+    local_hits = motif_sites[motif_sites.sequence_id.eq(key)]
+    local_summary = motif_summary[motif_summary.sequence_id.eq(key)]
+    local_elm = motif_elm[motif_elm.sequence_id.eq(key)]
+    c.metric('Annotated motif sites', len(local_hits))
     tracks = []
     for architecture in records.architecture.dropna().unique():
         tracks.extend([dict(track='Pfam', label=n, start=s, end=e) for n,s,e in intervals(architecture)])
@@ -375,8 +379,18 @@ elif page == 'Protein dossier':
     with tabs[0]:
         table(records.T.reset_index().rename(columns={'index':'field'}).astype(str))
     with tabs[1]:
-        st.caption('Motif annotations include candidate tiers, supported and conflicting criteria, functional assignments, partners and primary references. Library confidence and candidate context are shown separately.')
-        table(local_hits)
+        st.caption('Positional site candidates are separate from protein–family screening totals and ELM regex background.')
+        st.markdown('**Positional motif candidates**')
+        if local_hits.empty:
+            st.info('No positional motif candidates are recorded for this protein.')
+        else:
+            table(local_hits)
+        if not local_summary.empty:
+            st.markdown('**Adhesome motif screening summaries**')
+            table(local_summary)
+        if not local_elm.empty:
+            st.markdown('**FN3 ELM sequence-pattern background**')
+            table(local_elm)
     with tabs[2]:
         for name, evidence in raw.items():
             matched = evidence[evidence.sequence_id.eq(key)]
@@ -409,22 +423,7 @@ elif page == 'Comparative lab':
     chart(px.bar(coverage,x='evidence',y='coverage (%)',color='species',barmode='group',color_discrete_sequence=palette,title='Annotation availability · not evidence strength'))
 
 elif page == 'Motif explorer':
-    st.subheader('Motif explorer')
-    st.info('Motif hits are shown with sequence position, domain/topology context and source annotations to support integrated interpretation.')
-    if hits.empty:
-        st.info('No reported motif hits for the selected proteins.')
-    else:
-        classes = st.multiselect('Motif IDs and names', sorted(hits.motif_label.unique()))
-        context = st.multiselect('Candidate assignment tiers', sorted(hits.candidate_tier.dropna().unique()))
-        if classes:
-            hits = hits[hits.motif_label.isin(classes)]
-        if context:
-            hits = hits[hits.candidate_tier.isin(context)]
-        if not hits.empty:
-            summary = hits.groupby(['motif_label','candidate_tier']).size().reset_index(name='hits')
-            chart(px.bar(summary,x='hits',y='motif_label',color='candidate_tier',color_discrete_sequence=palette,title='Motif annotations by candidate assignment tier'))
-        table(hits)
-        download(hits, 'motif_candidates.csv')
+    motif_panel(motif_summary, motif_sites, motif_elm, chart, table, download)
 
 elif page == 'Comments & feedback':
     st.subheader('Comments & feedback')
