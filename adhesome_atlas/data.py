@@ -108,7 +108,7 @@ def load():
             table = pd.read_csv(p)
             table['sequence_id'] = table.iloc[:, 0]
             raw[name] = table
-        elif 'CDD' in name:
+        elif 'CDD' in name and p.suffix.lower() in {'.txt', '.tsv'}:
             table = pd.read_csv(p, sep='\t', comment='#')
             table['sequence_id'] = table.Query.str.extract(r'>(\S+)')
             raw[name] = table

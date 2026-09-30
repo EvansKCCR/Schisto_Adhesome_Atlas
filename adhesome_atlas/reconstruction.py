@@ -23,6 +23,23 @@ def read_optional(name,columns):
         raise ValueError(f'{name}: missing columns {sorted(missing)}')
     return frame
 
+
+def network_source_signature():
+    """Invalidate cached graph assembly whenever a supplied network file changes."""
+    root=ROOT/'adhesome_network'
+    return tuple((p.relative_to(root).as_posix(),p.stat().st_mtime_ns,p.stat().st_size)
+                 for p in sorted(root.rglob('*')) if p.is_file())
+
+
+@st.cache_data(show_spinner=False)
+def cached_assemble(candidates,threshold,signature,_loader):
+    return assemble(candidates,_loader,threshold)
+
+
+@st.cache_data(show_spinner=False)
+def cached_topology(nodes,edges):
+    return topology(nodes,edges)
+
 def assemble(candidates,loader,threshold):
     frames=[]; links=[]
     mapping=read_optional('node_mapping.tsv',['string_id','sequence_id','orthogroup','reference'])
@@ -127,11 +144,48 @@ def topology(nodes,edges):
     groups=nx.community.greedy_modularity_communities(graph,weight=None) if graph.number_of_edges() else [{n} for n in graph]
     communities={node:i+1 for i,group in enumerate(sorted(groups,key=lambda g:sorted(g)[0])) for node in group}
     result=nodes.copy()
+    components=sorted(nx.connected_components(graph),key=lambda group:(-len(group),sorted(group)[0]))
+    component_id={node:i+1 for i,group in enumerate(components) for node in group}
+    component_size={node:len(group) for group in components for node in group}
+    cores=nx.core_number(graph) if graph.number_of_nodes() else {}
+    clustering=nx.clustering(graph)
+    farness={}; reachable={}
+    for node,lengths in nx.all_pairs_shortest_path_length(graph):
+        farness[node]=sum(lengths.values())
+        reachable[node]=len(lengths)-1
     result['degree']=result.identifier.map(degree);result['betweenness']=result.identifier.map(bet);result['closeness']=result.identifier.map(close);result['community']=result.identifier.map(communities)
+    result['clustering_coefficient']=result.identifier.map(clustering)
+    result['k_core']=result.identifier.map(cores)
+    result['component']=result.identifier.map(component_id)
+    result['component_size']=result.identifier.map(component_size)
+    result['farness']=result.identifier.map(farness)
+    result['reachable_nodes']=result.identifier.map(reachable)
     layer=nodes.set_index('identifier').layer.to_dict()
     interfaces={frozenset(['Extracellular','Membrane']),frozenset(['Membrane','Membrane-proximal']),frozenset(['Membrane-proximal','Actin-coupling'])}
     result['interface_connections']=result.identifier.map(lambda n:sum(layer[n]!='Unresolved' and layer[v]!='Unresolved' and layer[n]!=layer[v] and (frozenset([layer[n],layer[v]]) in interfaces or 'Signalling' in [layer[n],layer[v]]) for v in graph[n]))
     return result,graph
+
+
+def network_matrices(graph, identifiers):
+    """Distances use the whole displayed graph; adjacency describes direct selected pairs."""
+    selected=list(dict.fromkeys(identifiers))
+    if not set(selected) <= set(graph):
+        raise ValueError('Matrix selection contains a node outside the displayed network')
+    distances=pd.DataFrame(float('nan'),index=selected,columns=selected)
+    adjacency=pd.DataFrame(0,index=selected,columns=selected,dtype=int)
+    for node in selected:
+        lengths=nx.single_source_shortest_path_length(graph,node)
+        for other in selected:
+            if other in lengths: distances.loc[node,other]=lengths[other]
+            if graph.has_edge(node,other): adjacency.loc[node,other]=1
+    return distances,adjacency
+
+
+def retained_subgraph(nodes,edges,identifiers):
+    """Return the induced subgraph after interactive node filtering."""
+    retained=set(identifiers)
+    return (nodes[nodes.identifier.isin(retained)].copy(),
+            edges[edges.node1_string_id.isin(retained) & edges.node2_string_id.isin(retained)].copy())
 
 def prioritize(nodes,graph,all_nodes):
     result=nodes[['identifier','node','species','Family','layer','interface_connections','degree','betweenness','closeness']].copy()
@@ -175,7 +229,7 @@ def reconstruction_panel(candidates,loader,key):
     view=a.selectbox('Reconstruction view',['Pan-schistosome · separate proteins','Orthogroup consensus']+list(SPECIES),format_func=lambda x:SPECIES.get(x,x),key=key+'view')
     threshold=b.slider('STRING score threshold',0.,1.,.4,.01,key=key+'threshold')
     try:
-        all_nodes,all_edges,excluded=assemble(candidates,loader,threshold)
+        all_nodes,all_edges,excluded=cached_assemble(candidates,threshold,network_source_signature(),loader)
     except (ValueError,KeyError) as exc:
         st.error(f'Curation data could not be applied: {exc}');return
     nodes=all_nodes.copy();edges=all_edges.copy()
@@ -187,38 +241,163 @@ def reconstruction_panel(candidates,loader,key):
     edges=edges[edges.relation.isin(selected)]
     support=st.multiselect('Evidence support',sorted(edges.support.unique()),default=sorted(edges.support.unique()),key=key+'support')
     edges=edges[edges.support.isin(support)]
-    metrics,graph=topology(nodes,edges)
+    with st.expander('Filter proteins and subnetworks',expanded=True):
+        a,b=st.columns(2)
+        selected_families=a.multiselect('Protein families',sorted(nodes.Family.fillna('Unmapped').unique()),key=key+'families',
+                                        help='No selection keeps every family, including unmapped nodes.')
+        selected_layers=b.multiselect('Adhesion layers',LAYERS,key=key+'layers',
+                                      help='No selection keeps every layer.')
+        query=st.text_input('Find a protein or identifier',key=key+'query',placeholder='Protein ID, STRING ID or family')
+        if selected_families: nodes=nodes[nodes.Family.isin(selected_families)].copy()
+        if selected_layers: nodes=nodes[nodes.layer.isin(selected_layers)].copy()
+        if query:
+            matches=nodes[['identifier','node','sequence_id','Family']].fillna('').astype(str).apply(
+                lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)
+            nodes=nodes[matches].copy()
+        nodes,edges=retained_subgraph(nodes,edges,nodes.identifier)
+        if nodes.empty:
+            st.info('No proteins match these filters. Broaden the family, layer or identifier selection.')
+            return
+        degree=pd.concat([edges.node1_string_id,edges.node2_string_id]).value_counts()
+        minimum=st.slider('Minimum displayed degree',0,20,0,key=key+'min_degree')
+        if minimum:
+            nodes,edges=retained_subgraph(nodes,edges,nodes.loc[nodes.identifier.map(degree).fillna(0).ge(minimum),'identifier'])
+        if nodes.empty:
+            st.info('No proteins remain at this degree threshold.')
+            return
+        labels_by_id=nodes.set_index('identifier').apply(
+            lambda row:f"{row['node']} · {SPECIES.get(row['species'],row['species'])} · {row['Family']}",axis=1).to_dict()
+        focus=st.selectbox('Focus on a protein neighborhood',['All proteins']+sorted(nodes.identifier),
+                           format_func=lambda identifier:labels_by_id.get(identifier,identifier),key=key+'focus')
+        if focus!='All proteins':
+            hops=st.radio('Neighborhood radius',[1,2],horizontal=True,key=key+'hops')
+            focus_graph=nx.Graph()
+            focus_graph.add_nodes_from(nodes.identifier)
+            focus_graph.add_edges_from(zip(edges.node1_string_id,edges.node2_string_id))
+            neighbors=nx.single_source_shortest_path_length(focus_graph,focus,cutoff=hops)
+            nodes,edges=retained_subgraph(nodes,edges,neighbors)
+        preliminary,graph=cached_topology(nodes,edges)
+        selected_communities=st.multiselect('Topological communities',sorted(preliminary.community.dropna().unique()),
+                                             key=key+'communities',help='Choose communities from the current family/layer/neighborhood network. Centralities and displayed community IDs are then recalculated on the selected subgraph.')
+        if selected_communities:
+            nodes,edges=retained_subgraph(nodes,edges,preliminary.loc[preliminary.community.isin(selected_communities),'identifier'])
+            if nodes.empty:
+                st.info('No proteins remain in the selected communities.')
+                return
+            metrics,graph=cached_topology(nodes,edges)
+        else:
+            metrics=preliminary
     for col,label,value in zip(st.columns(4),['Proteins','Unique protein pairs','Mapped orthogroups','Excluded reference transfers'],[len(nodes),graph.number_of_edges(),nodes.loc[nodes.orthogroup.ne(''),'orthogroup'].nunique(),len(excluded)]):col.metric(label,value)
     st.caption('The separate-protein pan view retains species nodes. The orthogroup view uses source workbook results after unique STRING query mapping, exact identifier/alias mapping, or cited curated mappings. Layers organize functional roles; unresolved nodes remain visible.')
-    colors=st.radio('Color nodes by',['Adhesion layer','Species','Community'],horizontal=True,key=key+'colors')
+    colors=st.radio('Color nodes by',['Adhesion layer','Species','Community','Protein family'],horizontal=True,key=key+'colors')
+    layout=st.radio('Network layout',['Layered architecture','Force-directed'],horizontal=True,key=key+'layout')
+    if layout=='Force-directed' and graph.number_of_nodes()>400:
+        st.info('Force-directed layout is available for up to 400 displayed proteins. Filter to a family, community or neighborhood; showing the layered architecture meanwhile.')
+        layout='Layered architecture'
+    size_by=st.selectbox('Size nodes by',['Degree','Betweenness','Closeness','Uniform'],key=key+'size')
     labels=st.checkbox('Label proteins',key=key+'labels')
     pos={}
-    for li,layer in enumerate(LAYERS):
-        for si,species in enumerate(SPECIES):
-            sub=metrics[(metrics.layer==layer)&(metrics.species==species)].sort_values('identifier')
-            for j,identifier in enumerate(sub.identifier):pos[identifier]=(si*3+(j+1)/(len(sub)+1)*2,li)
+    if layout=='Layered architecture':
+        for li,layer in enumerate(LAYERS):
+            for si,species in enumerate(SPECIES):
+                sub=metrics[(metrics.layer==layer)&(metrics.species==species)].sort_values('identifier')
+                for j,identifier in enumerate(sub.identifier):pos[identifier]=(si*3+(j+1)/(len(sub)+1)*2,li)
+    else:
+        pos=nx.spring_layout(graph,seed=23,iterations=35)
     fig=go.Figure()
     for i,(relation,group) in enumerate(edges.groupby('relation')):
         x=[];y=[]
         for r in group.itertuples():
             p,q=pos[r.node1_string_id],pos[r.node2_string_id];x += [p[0],q[0],None];y += [p[1],q[1],None]
         fig.add_trace(go.Scatter(x=x,y=y,mode='lines',name=relation,line=dict(color='#bbc8d1' if relation.startswith('Functional association') else '#d67b31',width=1 if relation.startswith('Functional association') else 2,dash='solid' if relation.startswith('Functional association') else 'dash'),hoverinfo='skip'))
-    column={'Adhesion layer':'layer','Species':'species','Community':'community'}[colors]
+    column={'Adhesion layer':'layer','Species':'species','Community':'community','Protein family':'Family'}[colors]
+    size_field={'Degree':'degree','Betweenness':'betweenness','Closeness':'closeness'}.get(size_by)
+    largest_size=metrics[size_field].max() if size_field else 1
     for i,(category,group) in enumerate(metrics.groupby(column)):
-        fig.add_trace(go.Scatter(x=[pos[n][0] for n in group.identifier],y=[pos[n][1] for n in group.identifier],mode='markers+text' if labels else 'markers',text=group.node,textposition='top center',name=str(category),marker=dict(color=COLORS.get(category,px.colors.qualitative.Alphabet[i%26]),size=8+group.degree.pow(.5)*2,line=dict(color='white',width=1)),customdata=group[['identifier','Family','layer_basis','degree','betweenness','closeness','community']].values,hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>%{customdata[2]}<br>Degree %{customdata[3]} · Betweenness %{customdata[4]:.3f}<br>Closeness %{customdata[5]:.3f} · Community %{customdata[6]}<extra></extra>'))
-    fig.update_layout(height=640,xaxis=dict(tickvals=[1,4,7],ticktext=list(SPECIES.values()),range=[-.3,8.5]),yaxis=dict(tickvals=list(range(7)),ticktext=LAYERS,autorange='reversed'),legend=dict(orientation='h',y=-.15),margin=dict(l=10,r=10,t=10,b=10),plot_bgcolor='#f3f7fa')
-    st.plotly_chart(fig,width='stretch',key=key+'layered')
+        sizes=12 if size_field is None else 10+24*(group[size_field]/(largest_size or 1)).pow(.5)
+        fig.add_trace(go.Scatter(x=[pos[n][0] for n in group.identifier],y=[pos[n][1] for n in group.identifier],mode='markers+text' if labels else 'markers',text=group.node,textposition='top center',name=str(category),marker=dict(color=COLORS.get(category,px.colors.qualitative.Alphabet[i%26]),size=sizes,line=dict(color='white',width=1)),customdata=group[['identifier','Family','layer_basis','degree','betweenness','closeness','community','clustering_coefficient','k_core']].values,hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>%{customdata[2]}<br>Degree %{customdata[3]} · Betweenness %{customdata[4]:.3f}<br>Closeness %{customdata[5]:.3f} · Community %{customdata[6]}<br>Local clustering %{customdata[7]:.3f} · k-core %{customdata[8]}<extra></extra>'))
+    axes=(dict(tickvals=[1,4,7],ticktext=list(SPECIES.values()),range=[-.3,8.5]),
+          dict(tickvals=list(range(7)),ticktext=LAYERS,autorange='reversed')) if layout=='Layered architecture' else (dict(visible=False),dict(visible=False,scaleanchor='x'))
+    fig.update_layout(height=680,xaxis=axes[0],yaxis=axes[1],legend=dict(orientation='h',y=-.15),margin=dict(l=10,r=10,t=10,b=10),plot_bgcolor='#f3f7fa',dragmode='pan')
+    event=st.plotly_chart(fig,width='stretch',key=key+'layered',on_select='rerun',selection_mode='points',config={'displaylogo':False,'scrollZoom':True})
+    selected_points=event.selection.points if event else []
+    if selected_points:
+        selected_id=selected_points[0].get('customdata',[None])[0]
+        selected=metrics[metrics.identifier.eq(selected_id)]
+        if not selected.empty:
+            row=selected.iloc[0]
+            st.info(f"Selected {row['node']} · {SPECIES.get(row['species'],row['species'])} · {row['Family']} · degree {row['degree']} · betweenness {row['betweenness']:.3f} · closeness {row['closeness']:.3f} · community {row['community']}")
     tabs=st.tabs(['Edge evidence','Topology & communities','Candidate prioritization','Reconstruction inputs'])
     with tabs[0]:
         st.dataframe(edges,width='stretch',hide_index=True)
         st.download_button('Download edge evidence',edges.to_csv(index=False),'reconstruction_edges.csv',key=key+'edge_csv')
         if len(excluded):st.warning(f'{len(excluded)} reference transfers failed the evidence gate.');st.dataframe(excluded)
     with tabs[1]:
-        st.caption('Metrics use an undirected, unweighted simple graph after score and relation filtering, retaining isolates. Betweenness is normalized; closeness uses the Wasserman–Faust disconnected-graph correction. Communities use greedy modularity. Cross-species composite centralities depend on the chosen graph size; compare species using the species views. Centrality is not evidence of essentiality.')
-        first=[c for c in ['node','sequence_id','Family','species','identifier','orthogroup','source_HOG_species_count','layer','degree','betweenness','closeness','community'] if c in metrics]
-        st.dataframe(metrics[first+[c for c in ['motif_context_evidence','motif_functional_assignment','adhesome_interpretation','host_orthology_flag','priority_group','assignment_evidence_summary'] if c in metrics]],width='stretch',hide_index=True)
-        st.caption('STRING query mappings retain sequence identity, bit score and source paths. Many-query or conflicting mappings remain unresolved. Orthology and HOG coverage come from the linked candidate workbook.')
-        st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='species',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','mapping_basis'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
+        st.caption('Every metric is recalculated on the displayed, undirected, unweighted simple graph after filtering. Isolates remain when selected. Cross-species centralities depend on graph size; compare species in their separate views. Centrality does not establish biological essentiality.')
+        a,b,c,d=st.columns(4)
+        a.metric('Connected components',metrics.component.nunique())
+        b.metric('Communities',metrics.community.nunique())
+        c.metric('Mean local clustering',f'{metrics.clustering_coefficient.mean():.3f}')
+        d.metric('Maximum k-core',int(metrics.k_core.max()))
+        centrality_tab,matrix_tab,cluster_tab=st.tabs(['Centrality analysis','Distance & adjacency matrices','Topological clustering'])
+        with centrality_tab:
+            st.markdown('**Betweenness** measures the fraction of shortest paths passing through a protein. **Closeness** is inverse farness, adjusted for the number of reachable proteins when the graph is disconnected.')
+            st.latex(r'C_C(i)=\frac{r_i-1}{N-1}\,\frac{r_i-1}{\sum_{j\in R_i,\,j\ne i}d(i,j)}')
+            st.caption('N = displayed proteins; rᵢ = proteins reachable from i, including i; farness is the sum of finite shortest-path distances. Betweenness uses NetworkX normalized undirected shortest-path centrality.')
+            first=[c for c in ['node','sequence_id','Family','species','identifier','orthogroup','layer','degree','betweenness','closeness','farness','reachable_nodes','clustering_coefficient','k_core','component','component_size','community'] if c in metrics]
+            st.dataframe(metrics[first],width='stretch',hide_index=True)
+            centrality_metric=st.selectbox('Rank proteins by',['betweenness','closeness','degree','clustering_coefficient','k_core'],key=key+'rank_metric')
+            top=metrics.nlargest(20,centrality_metric)
+            st.plotly_chart(px.bar(top,x='node',y=centrality_metric,color='species',hover_data=['identifier','Family','community'],title=f'Top 20 by {centrality_metric.replace("_"," ")}'),width='stretch',key=key+'centrality_rank')
+            st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='community',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','closeness','clustering_coefficient'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
+        with matrix_tab:
+            st.caption('Shortest-path distances are calculated through the full displayed graph, even when intermediate proteins are outside the selected matrix rows. Blank cells mean no connecting path. Adjacency shows direct retained associations only.')
+            default_ids=metrics.sort_values(['betweenness','degree'],ascending=False).identifier.head(20).tolist()
+            labels_by_id={row.identifier:f'{row.node} · {row.species} · {row.identifier}' for row in metrics.itertuples()}
+            matrix_ids=st.multiselect('Proteins in matrices',sorted(graph),default=default_ids,max_selections=40,
+                                      format_func=lambda identifier:labels_by_id.get(identifier,identifier),key=key+'matrix_nodes')
+            if matrix_ids:
+                distances,adjacency=network_matrices(graph,matrix_ids)
+                by_id=metrics.set_index('identifier')
+                short_labels=[f"{by_id.loc[n,'node']} · {by_id.loc[n,'species']}" for n in matrix_ids]
+                path_fig=go.Figure(go.Heatmap(z=distances.values,x=short_labels,y=short_labels,colorscale='YlGnBu',
+                                              colorbar=dict(title='Hops'),hovertemplate='%{y} → %{x}<br>Distance: %{z}<extra></extra>'))
+                path_fig.update_layout(title='Shortest-path distance matrix',height=max(480,22*len(matrix_ids)+140),xaxis_tickangle=-55)
+                st.plotly_chart(path_fig,width='stretch',key=key+'distance_matrix')
+                adjacency_fig=go.Figure(go.Heatmap(z=adjacency.values,x=short_labels,y=short_labels,zmin=0,zmax=1,
+                                                   colorscale=[[0,'#ffffff'],[1,'#08743f']],showscale=False,
+                                                   hovertemplate='%{y} ↔ %{x}<br>Direct edge: %{z}<extra></extra>'))
+                adjacency_fig.update_layout(title='Direct-association adjacency matrix',height=max(480,22*len(matrix_ids)+140),xaxis_tickangle=-55)
+                st.plotly_chart(adjacency_fig,width='stretch',key=key+'adjacency_matrix')
+                a,b=st.columns(2)
+                a.download_button('Download distance matrix · CSV',distances.to_csv().encode('utf-8-sig'),'network_shortest_paths.csv',key=key+'distance_csv')
+                b.download_button('Download adjacency matrix · CSV',adjacency.to_csv().encode('utf-8-sig'),'network_adjacency.csv',key=key+'adjacency_csv')
+            else:
+                st.info('Select at least one protein to display the matrices.')
+        with cluster_tab:
+            st.caption('Communities use greedy modularity on the displayed graph. Local clustering measures triangles among a protein’s neighbors; k-core records the largest minimum-degree core containing it. These are complementary topological partitions, not protein-family assignments.')
+            summary=metrics.groupby('community').agg(proteins=('identifier','size'),species=('species','nunique'),
+                mean_degree=('degree','mean'),mean_betweenness=('betweenness','mean'),
+                mean_clustering=('clustering_coefficient','mean'),max_k_core=('k_core','max')).reset_index()
+            st.dataframe(summary,width='stretch',hide_index=True)
+            composition=pd.crosstab(metrics.community,metrics.layer).reindex(columns=LAYERS,fill_value=0)
+            st.plotly_chart(px.imshow(composition,labels=dict(x='Adhesion layer',y='Community',color='Proteins'),
+                                      text_auto=True,color_continuous_scale='YlGn',title='Community × adhesion-layer matrix'),
+                            width='stretch',key=key+'community_matrix')
+            st.plotly_chart(px.scatter(metrics,x='k_core',y='clustering_coefficient',color='community',size='degree',
+                                       hover_name='node',hover_data=['Family','layer','betweenness'],title='Dense cores and local clustering'),
+                            width='stretch',key=key+'cluster_scatter')
+            if st.checkbox('Compare a Girvan–Newman edge-betweenness split',key=key+'girvan'):
+                if graph.number_of_nodes()>60:
+                    st.info('Girvan–Newman is available for at most 60 displayed proteins. Use the neighborhood or family filters to define a smaller subnetwork.')
+                elif graph.number_of_edges():
+                    partition=next(nx.community.girvan_newman(graph))
+                    membership={node:i+1 for i,group in enumerate(partition) for node in group}
+                    comparison=metrics[['node','identifier','Family','community','k_core']].copy()
+                    comparison['girvan_newman_group']=comparison.identifier.map(membership)
+                    st.dataframe(comparison,width='stretch',hide_index=True)
+                else:
+                    st.info('The displayed network has no edges to split.')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
     with tabs[2]:
         try: ranking=prioritize(metrics,graph,all_nodes)
