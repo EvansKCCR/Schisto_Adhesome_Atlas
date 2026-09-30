@@ -379,18 +379,44 @@ elif page == 'Protein dossier':
     with tabs[0]:
         table(records.T.reset_index().rename(columns={'index':'field'}).astype(str))
     with tabs[1]:
-        st.caption('Positional site candidates are separate from protein–family screening totals and ELM regex background.')
-        st.markdown('**Positional motif candidates**')
-        if local_hits.empty:
-            st.info('No positional motif candidates are recorded for this protein.')
-        else:
-            table(local_hits)
+        st.caption('Coordinates and context are shown separately from broad sequence-pattern screening counts.')
+        m1, m2, m3 = st.columns(3)
+        m1.metric('Positional candidate sites', len(local_hits))
+        m2.metric('Motif classes at sites', local_hits.motif_id.nunique())
         if not local_summary.empty:
-            st.markdown('**Adhesome motif screening summaries**')
-            table(local_summary)
-        if not local_elm.empty:
-            st.markdown('**FN3 ELM sequence-pattern background**')
-            table(local_elm)
+            m3.metric('Adhesome raw pattern matches', f'{local_summary.raw_match_count.sum():,}')
+        elif not local_elm.empty:
+            m3.metric('FN3 raw ELM matches', f'{pd.to_numeric(local_elm.ELM_unverified_match_count, errors="coerce").sum():,.0f}')
+        else:
+            m3.metric('Raw pattern matches', 'Unavailable')
+        site_tab, screen_tab, elm_tab = st.tabs(['Site annotations', 'Adhesome screen', 'FN3 ELM screen'])
+        with site_tab:
+            if local_hits.empty:
+                st.info('No positional motif candidates are recorded for this protein.')
+            else:
+                site_cols = [col for col in ['collection', 'motif_id', 'motif_name', 'start', 'end',
+                                             'peptide', 'candidate_tier', 'role', 'display_family',
+                                             'functional_hypothesis', 'partner', 'overlapping_domains',
+                                             'localization', 'context_requirements', 'source'] if col in local_hits]
+                table(local_hits[site_cols].sort_values('start'))
+                with st.expander('Full motif site evidence and references'):
+                    table(local_hits)
+        with screen_tab:
+            if local_summary.empty:
+                st.info('No adhesome motif screening summary is recorded for this protein.')
+            else:
+                screen_cols = [col for col in ['family', 'display_family', 'audit_classification',
+                                               'raw_match_count', 'distinct_site_count',
+                                               'priority_site_count', 'library_ids', 'candidate_tiers',
+                                               'priority_sites', 'context_requirements', 'source'] if col in local_summary]
+                table(local_summary[screen_cols])
+                with st.expander('Full screening context'):
+                    table(local_summary)
+        with elm_tab:
+            if local_elm.empty:
+                st.info('No FN3 ELM background summary is recorded for this protein.')
+            else:
+                table(local_elm)
     with tabs[2]:
         for name, evidence in raw.items():
             matched = evidence[evidence.sequence_id.eq(key)]
