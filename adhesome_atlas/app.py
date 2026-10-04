@@ -186,10 +186,14 @@ if page == 'Introduction':
         st.iframe(interactive_html(interactive_source, map_rows,
                                    None if focus_family=='All families' else focus_family,
                                    None if focus_candidate=='No protein selected' else focus_candidate),
-                  height=1050)
+                  height=1240)
     else:
         st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
-    st.caption('Select a family or protein above, or click a map node to inspect candidate records and linked families. Every motif-prioritized extracellular ligand class points to the putative integrin αβ heterodimer; specific subunit pairing and protein-level binding remain unresolved.')
+    st.caption('Select a family or protein above, or click a map node to inspect candidate records and linked families. Extracellular ligand classes point to the putative integrin αβ heterodimer. The host-vascular input and SmVKR1 receptor are evidence-context nodes without audited family counts; specific ligand binding and subunit pairing remain unresolved.')
+    map_guide = ROOT / 'README_schistosome_adhesome_interactive.md'
+    if map_guide.is_file():
+        with st.expander('Map guide · evidence classes and interpretation'):
+            st.markdown(map_guide.read_text(encoding='utf-8'))
     st.markdown('### Build an evidence-stratified schistosome adhesome hypothesis')
     scope = st.radio('Hypothesis scope', ['All mapped families', 'Focused family and linked partners', 'Custom families'], horizontal=True)
     if scope=='Custom families':
@@ -221,7 +225,7 @@ if page == 'Introduction':
     a,b = st.columns(2)
     a.metric('Selected candidate hypotheses', model['candidate_count'])
     b.metric('Drawn family relationships', model['relationship_count'])
-    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Relationship downloads include edge class, reference, transfer basis, species support and directionality. Ligand–receptor edges require both integrin subunit families; the virtual αβ complex has no assigned protein pair or candidate count. Reference-unresolved edges are optional and marked reference-only.')
+    st.caption('Candidate rows retain their source grade, decision, orthogroup, domain, topology and motif summaries. Relationship downloads include edge class, reference, transfer basis, species support and directionality. Ligand–receptor edges require both integrin subunit families; the virtual αβ complex has no assigned protein pair or candidate count. Parvin is reference-only; host-vascular context and SmVKR1 are context-only nodes without catalogue candidate counts.')
     st.download_button('↓ Download hypothesis · JSON', json.dumps(model, ensure_ascii=False, indent=2).encode('utf-8'),
                        'schistosome_adhesome_hypothesis.json', 'application/json')
     st.download_button('↓ Download selected candidates · CSV', pd.DataFrame(model['candidates']).to_csv(index=False).encode('utf-8-sig'),
@@ -256,6 +260,10 @@ elif page == 'Signalling simulator':
         st.iframe(simulator_html(simulator_source, cohorts['Adhesome candidates']), height=1240)
         st.download_button('↓ Download standalone simulator · HTML', simulator_source.read_bytes(),
                            SIMULATOR_FILE, 'text/html')
+        simulator_guide = ROOT / 'README_adhesome_hypothesis_simulator.md'
+        if simulator_guide.is_file():
+            with st.expander('Simulator guide · assumptions, controls and interpretation'):
+                st.markdown(simulator_guide.read_text(encoding='utf-8'))
     else:
         st.warning(f'Simulator unavailable. Include {SIMULATOR_FILE} alongside app.py.')
 

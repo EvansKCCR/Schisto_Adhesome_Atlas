@@ -16,7 +16,7 @@ def fingerprint():
 def source_files():
     folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network',phylogeny_root(ROOT).name,'orthology','conservative_adhesome_family_assignment_audit']
     library = [p for folder in folders for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() in {'.xlsx','.fasta','.faa','.csv','.tsv','.txt','.3line','.xml','.all','.treefile','.iqtree','.json','.md','.py'}]
-    presentation = [ROOT/name for name in ['Integrin_adhesome_presentation.emf','Schistosome_adhesome_interactive.html','schistosome_integrin_adhesome_hypothesis_simulator.html','refresh_interactive_map.py'] if (ROOT/name).is_file()]
+    presentation = [ROOT/name for name in ['Integrin_adhesome_presentation.emf','Schistosome_adhesome_interactive.html','README_schistosome_adhesome_interactive.md','schistosome_integrin_adhesome_hypothesis_simulator.html','README_adhesome_hypothesis_simulator.md','refresh_interactive_map.py'] if (ROOT/name).is_file()]
     return library + presentation
 
 def fasta(path):

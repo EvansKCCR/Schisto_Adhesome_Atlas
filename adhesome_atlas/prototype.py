@@ -18,6 +18,10 @@ FAMILY_NODES = {
 COMPLEX_NODE = 'integrin_ab'
 COMPLEX_LABEL = 'Putative integrin αβ heterodimer'
 REFERENCE_ONLY_NODES = {'parvin': 'Parvin (unassigned reference family)'}
+CONTEXT_ONLY_NODES = {
+    'vascular_context': 'Host-vascular context (hypothesis)',
+    'vkr1': 'SmVKR1 membrane receptor (S. mansoni evidence context)',
+}
 
 def read_map_edges(path: Path):
     """Read edge evidence from the diagram so exports track its architecture."""
@@ -154,9 +158,19 @@ def hypothesis(rows, families, tiers, edge_kinds):
     active_nodes = nodes | ({COMPLEX_NODE} if {'inta', 'intb'} <= nodes else set())
     if 'ilk' in nodes and 'referenceUnresolved' in edge_kinds:
         active_nodes.add('parvin')
+    # The revised map includes evidence-context nodes without audited family rows.
+    # Retain them when a selected relationship links to an active family/complex.
+    for edge in edge_records:
+        if edge['kind'] not in edge_kinds:
+            continue
+        if edge['a'] in CONTEXT_ONLY_NODES and edge['b'] in active_nodes:
+            active_nodes.add(edge['a'])
+        if edge['b'] in CONTEXT_ONLY_NODES and edge['a'] in active_nodes:
+            active_nodes.add(edge['b'])
     node_names = {node: family for family, node in FAMILY_NODES.items()}
     node_names[COMPLEX_NODE] = COMPLEX_LABEL
     node_names.update(REFERENCE_ONLY_NODES)
+    node_names.update(CONTEXT_ONLY_NODES)
     relations = [dict(source_family=node_names[edge['a']],
                       target_family=node_names[edge['b']],
                       source_candidate_count=counts.get(edge['a']),
@@ -170,6 +184,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                       interpretation=edge.get('interpretation',''),
                       directional=edge.get('directional',False),
                       reference_only=edge['kind']=='referenceUnresolved',
+                      context_only=edge['a'] in CONTEXT_ONLY_NODES or edge['b'] in CONTEXT_ONLY_NODES,
                       source='Schistosome_adhesome_interactive.html')
                  for edge in edge_records if edge['a'] in active_nodes and edge['b'] in active_nodes
                  and edge['kind'] in edge_kinds]
@@ -178,7 +193,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                'motif_context_evidence','host_orthology_flag','source_collection']
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',
-    'interpretation':'Family-level hypotheses from the interactive architecture. The S. mansoni ILK–PINCH–Nck2 complex has experimental support from Gelmedin et al. (2017), DOI 10.1371/journal.ppat.1006147. Ligand relationships target an integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only; no specific α–β protein pairing is inferred.',
+    'interpretation':'Family-level hypotheses from the interactive architecture. The S. mansoni ILK–PINCH–Nck2 complex has experimental support from Gelmedin et al. (2017), DOI 10.1371/journal.ppat.1006147. Ligand relationships target an integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only; host-vascular and SmVKR1 nodes are marked context_only and have no audited candidate count. No specific α–β protein pairing is inferred.',
             'selection':{'families':list(families),'evidence_tiers':list(tiers),'relationship_classes':list(edge_kinds)},
             'candidate_count':len(candidates),'relationship_count':len(relations),
             'candidates':candidates,'family_relationships':relations}
