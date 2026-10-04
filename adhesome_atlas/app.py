@@ -17,6 +17,7 @@ from phylogeny_view import phylogeny_panel
 from branding import identity_banner, creator_credit
 from prototype import candidate_rows, interactive_html, hypothesis, read_map_edges, FAMILY_NODES, COMPLEX_NODE
 from motif_explorer import build_motif_tables, motif_panel
+from simulator import SIMULATOR_FILE, simulator_html
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -108,7 +109,7 @@ missing_audit_sources = [name for name, required in [('Adhesome candidates','fam
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('INTEGRIN · ADHESOME · EVIDENCE')
-    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Comments & feedback', 'Source Library', 'Citations'])
+    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Signalling simulator', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Comments & feedback', 'Source Library', 'Citations'])
     page = section
     if section == 'Components':
         page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Family assignment audit', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
@@ -158,7 +159,7 @@ if missing_audit_sources:
     st.warning('Audited workbook columns are unavailable for '+', '.join(missing_audit_sources)+'. Deploy the updated files/ workbooks together with app.py, data.py and family_audit.py, then use Reload source files.')
 st.caption(f'{cohort}  /  {len(df):,} filtered assignment records  /  {df.sequence_id.nunique():,} distinct proteins')
 
-if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny', 'Orthology'] and df.empty:
+if page not in ['Source Library', 'Interactions', 'Signalling simulator', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny', 'Orthology'] and df.empty:
     st.info('No candidates match these filters. Select a species or broaden your search.')
     st.stop()
 
@@ -245,6 +246,18 @@ elif page == 'Interactions':
         reconstruction_panel(network_candidates, load_network, 'reconstruction_')
     else:
         network_panel(network_candidates, 'interactions_', detailed=True)
+
+elif page == 'Signalling simulator':
+    st.subheader('Schistosome–reference signalling simulator')
+    st.write('Apply the same putative extracellular input, integrin state, adaptor recruitment, tension and perturbation to a **schistosome hypothesis** and a **canonical metazoan reference scenario**. The two time courses are drawn side by side on the same normalized scale.')
+    st.caption('The five reference proteomes provide evolutionary context. Reference selection changes its label, not the model coefficients; neither curve is fitted to experimental kinetics. The supported schistosome family counts shown inside the simulator come from the current audited workbook.')
+    simulator_source = ROOT / SIMULATOR_FILE
+    if simulator_source.is_file():
+        st.iframe(simulator_html(simulator_source, cohorts['Adhesome candidates']), height=1240)
+        st.download_button('↓ Download standalone simulator · HTML', simulator_source.read_bytes(),
+                           SIMULATOR_FILE, 'text/html')
+    else:
+        st.warning(f'Simulator unavailable. Include {SIMULATOR_FILE} alongside app.py.')
 
 elif page == 'Orthology & evidence':
     evidence_view(df)

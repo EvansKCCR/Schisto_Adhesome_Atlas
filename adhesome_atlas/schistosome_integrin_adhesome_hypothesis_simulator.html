@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schistosome Integrin-Adhesome Hypothesis Simulator</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#152238;--muted:#607089;--line:#dce4ef;--blue:#2563eb;--green:#059669;--amber:#d97706;--red:#dc2626;--purple:#7c3aed}
+*{box-sizing:border-box} body{margin:0;padding:20px;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}.app{max-width:1250px;margin:auto}.header,.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 5px 18px rgba(25,50,85,.07)}.header{padding:22px 26px;margin-bottom:18px}.header h1{margin:0 0 7px;font-size:clamp(22px,3vw,30px)}.header p{margin:0;color:var(--muted);line-height:1.5}.grid{display:grid;grid-template-columns:390px 1fr;gap:18px}.panel{padding:20px}.control-section{padding:15px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;margin-bottom:14px}.control-section h2{font-size:15px;margin:0 0 13px}.slider{margin:12px 0}.slider-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:600;margin-bottom:6px}.value{color:var(--blue);white-space:nowrap}input[type=range]{width:100%;accent-color:var(--blue)}.radios{display:grid;gap:8px}.radios label{font-size:13px;line-height:1.3}.buttons{display:flex;gap:9px;flex-wrap:wrap}button{border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--blue);color:#fff}button.secondary{background:#e7edf6;color:#27364b}button:focus-visible,input:focus-visible{outline:3px solid rgba(37,99,235,.25);outline-offset:2px}.stage{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:14px}.node{min-height:74px;padding:10px 8px;border:1px solid var(--line);border-radius:10px;text-align:center;background:#f8fafc;transition:.2s}.node strong{display:block;font-size:12px;margin-bottom:5px}.node span{font-size:18px;font-weight:800}.node small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.chart-wrap{height:390px;position:relative}.chart-wrap canvas{width:100%;height:100%;display:block}.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;margin:7px 0 12px}.legend i{display:inline-block;width:12px;height:3px;vertical-align:middle;margin-right:5px}.insight{border-left:5px solid var(--blue);background:#f8fafc;border-radius:0 10px 10px 0;padding:13px 15px;line-height:1.45;font-size:14px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.metric{padding:10px;border:1px solid var(--line);border-radius:9px;background:#fff}.metric b{display:block;font-size:11px;color:var(--muted)}.metric span{font-size:20px;font-weight:800}.note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.45}@media(max-width:900px){.grid{grid-template-columns:1fr}.stage{grid-template-columns:repeat(2,1fr)}.chart-wrap{height:330px}}@media(max-width:520px){body{padding:10px}.panel{padding:13px}.metrics{grid-template-columns:1fr}.stage{grid-template-columns:1fr}}
+</style>
+<style>
+.app{max-width:1700px}.grid{grid-template-columns:minmax(280px,330px) minmax(0,1fr)}
+.comparison-panel{min-width:0}.comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.system-panel{min-width:0;padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.system-panel.schisto{border-top:5px solid #067647}.system-panel.reference{border-top:5px solid #a51d2d}
+.system-panel h2{font-size:18px;margin:0 0 5px;color:var(--text)}
+.system-panel .subhead{min-height:44px;color:#45556a;font-size:12px;line-height:1.45;margin-bottom:12px}
+.system-panel .stage{grid-template-columns:repeat(5,minmax(0,1fr))}.system-panel .node{padding:7px 3px;min-height:76px}
+.system-panel .node strong{font-size:10px}.system-panel .node small{font-size:9px}.system-panel .chart-wrap{height:320px}
+.system-panel .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.system-panel .metric span{font-size:17px}
+.comparison-foot{margin-top:14px;padding:14px 16px;border-left:5px solid #d7ae00;background:#fff9df;border-radius:8px;font-size:13px;line-height:1.5}
+.legend{min-height:36px}.legend span{white-space:nowrap}
+@media(max-width:1150px){.grid{grid-template-columns:1fr}.comparison{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.comparison{grid-template-columns:1fr}.system-panel .chart-wrap{height:300px}}
+</style>
+</head>
+<body>
+<main class="app">
+<section class="header">
+<h1>Schistosome Integrin-Adhesome Hypothesis Simulator</h1>
+<p>Compare a schistosome adhesion-signalling hypothesis with a canonical metazoan reference scenario under the same ligand, receptor, coupling, tension and perturbation settings. Both curves are qualitative model outputs.</p>
+</section>
+<div class="grid">
+<aside class="panel" aria-label="Simulation controls">
+<div class="control-section"><h2>1. Species and putative extracellular input</h2><div class="slider"><div class="slider-row"><label for="species">Species context</label></div><select id="species" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:7px"><option value="pan">Pan-schistosome</option><option value="sh">S. haematobium</option><option value="sj">S. japonicum</option><option value="sm">S. mansoni</option></select></div><div class="slider"><div class="slider-row"><label for="ligandClass">Candidate ligand class</label></div><select id="ligandClass" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:7px"><option value="mixed">Mixed candidate ECM input</option><option value="collagen">Collagen-like, motif-prioritized</option><option value="laminin">Laminin-like, motif-prioritized</option><option value="vascular">Host-vascular interface, hypothetical</option></select></div>
+<div class="slider"><div class="slider-row"><label for="referenceSpecies">Reference proteome</label></div><select id="referenceSpecies" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:7px"><option value="H. sapiens">H. sapiens (GRCh38.p14)</option><option value="M. musculus">M. musculus (GRCm39)</option><option value="X. laevis">X. laevis (v10.1)</option><option value="D. melanogaster">D. melanogaster (GCF_000001215.4)</option><option value="C. elegans">C. elegans (PRJNA13758)</option></select></div>
+<div class="slider"><div class="slider-row"><label for="adaptation">Schistosome model assumption</label></div><select id="adaptation" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:7px"><option value="parasite">Parasite-adapted hypothesis</option><option value="host">Canonical-like comparison</option><option value="balanced">Neutral baseline</option></select></div>
+<div class="slider"><div class="slider-row"><label for="ligand">Ligand availability</label><span class="value" id="ligandValue">50%</span></div><input id="ligand" type="range" min="0" max="100" value="50"></div>
+<div class="slider"><div class="slider-row"><label for="affinity">Initial integrin state</label><span class="value" id="affinityValue">Bent, low affinity</span></div><input id="affinity" type="range" min="0" max="2" step="1" value="0"></div>
+</div>
+<div class="control-section"><h2>2. Intracellular coupling</h2>
+<div class="slider"><div class="slider-row"><label for="talin">Talin–kindlin recruitment</label><span class="value" id="talinValue">60%</span></div><input id="talin" type="range" min="0" max="100" value="60"></div>
+<div class="slider"><div class="slider-row"><label for="tension">Actomyosin tension</label><span class="value" id="tensionValue">40%</span></div><input id="tension" type="range" min="0" max="100" value="40"></div>
+</div>
+<div class="control-section"><h2>3. In-silico perturbation</h2><div class="radios">
+<label><input type="radio" name="perturbation" value="none" checked> Control</label>
+<label><input type="radio" name="perturbation" value="fak-inhibitor"> FAK/Src branch inhibition</label>
+<label><input type="radio" name="perturbation" value="ilk-disruption"> ILK–PINCH–Nck2 coupling disruption</label>
+<label><input type="radio" name="perturbation" value="vkr1-inhibitor"> VKR1 reproductive branch inhibition</label>
+</div></div>
+<div class="buttons"><button id="play">▶ Run simulation</button><button class="secondary" id="reset">Reset</button></div>
+<p class="note">Both panels receive identical inputs. Species selections change the inventory and orthology labels, not the curve coefficients. The right panel uses the same canonical parameters for all five reference proteomes; neither panel is a species-specific kinetic fit. Family assignment and transferred edges do not demonstrate endogenous complex assembly.</p>
+</aside>
+<section class="panel comparison-panel" aria-label="Side-by-side signalling comparison">
+<div class="comparison">
+<div class="system-panel schisto">
+<h2>Schistosome hypothesis</h2>
+<div style="font-size:12px;color:var(--muted);margin-bottom:9px" id="evidenceBanner"></div><div class="stage" aria-label="Adhesome cascade status">
+<div class="node" id="n0"><strong>Ligand binding</strong><span>0%</span><small>ECM–integrin</small></div>
+<div class="node" id="n1"><strong>Integrin activation</strong><span>0%</span><small>conformational state</small></div>
+<div class="node" id="n2"><strong>Adaptor coupling</strong><span>0%</span><small>talin / kindlin</small></div>
+<div class="node" id="n3"><strong>Force maturation</strong><span>0%</span><small>vinculin / actin</small></div>
+<div class="node" id="n4"><strong>Kinase outputs</strong><span>0%</span><small>FAK/Src + VKR1/Syk</small></div>
+</div>
+<div class="chart-wrap"><canvas id="chart" role="img" aria-label="Time-course plot of integrin activation, adaptor recruitment, force maturation and FAK Src output"></canvas></div>
+<div class="legend"><span><i style="background:#2563eb"></i>Integrin activation</span><span><i style="background:#059669"></i>Adaptor coupling</span><span><i style="background:#7c3aed"></i>Force maturation</span><span><i style="background:#d97706"></i>FAK/Src output</span></div>
+<div class="insight"><strong>System interpretation</strong><div id="insight"></div><div class="metrics"><div class="metric"><b>Final integrin activation</b><span id="m1">0%</span></div><div class="metric"><b>Final adhesion maturation</b><span id="m2">0%</span></div><div class="metric"><b>Final signalling output</b><span id="m3">0%</span></div></div></div>
+</div>
+<div class="system-panel reference">
+<h2>Canonical reference scenario</h2>
+<div class="subhead" id="referenceBanner">Selected metazoan reference proteome</div>
+<div class="stage" aria-label="Reference adhesion cascade status">
+<div class="node" id="r0"><strong>Ligand binding</strong><span>0%</span><small>ECM–integrin</small></div>
+<div class="node" id="r1"><strong>Integrin activation</strong><span>0%</span><small>conformational state</small></div>
+<div class="node" id="r2"><strong>Adaptor coupling</strong><span>0%</span><small>talin / kindlin</small></div>
+<div class="node" id="r3"><strong>Force maturation</strong><span>0%</span><small>vinculin / actin</small></div>
+<div class="node" id="r4"><strong>Kinase output</strong><span>0%</span><small>canonical FAK/Src</small></div>
+</div>
+<div class="chart-wrap"><canvas id="referenceChart" role="img" aria-label="Canonical reference time-course with integrin, adaptor, force and kinase outputs"></canvas></div>
+<div class="legend"><span><i style="background:#2563eb"></i>Integrin activation</span><span><i style="background:#059669"></i>Adaptor coupling</span><span><i style="background:#7c3aed"></i>Force maturation</span><span><i style="background:#d97706"></i>Kinase output</span></div>
+<div class="insight"><strong>Reference interpretation</strong><div id="referenceInsight">Canonical metazoan comparison using the same input settings.</div><div class="metrics"><div class="metric"><b>Final integrin activation</b><span id="rM1">0%</span></div><div class="metric"><b>Final adhesion maturation</b><span id="rM2">0%</span></div><div class="metric"><b>Final signalling output</b><span id="rM3">0%</span></div></div></div>
+</div>
+</div>
+<div class="comparison-foot"><strong>Compare the two panels:</strong> <span id="comparisonInsight"></span> The displayed percentages are normalized qualitative scores, not measured activation, fitted kinetics, or evidence of pathway essentiality.</div>
+</section>
+</div>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), canvas=$('chart'), ctx=canvas.getContext('2d');
+const ids=['ligand','affinity','talin','tension','species','ligandClass','adaptation']; let progress=1, animation=null;
+const clamp=x=>Math.max(0,Math.min(100,x));
+function params(){return{ligand:+$('ligand').value,affinity:+$('affinity').value,talin:+$('talin').value,tension:+$('tension').value,species:$('species').value,ligandClass:$('ligandClass').value,adaptation:$('adaptation').value,perturbation:document.querySelector('input[name="perturbation"]:checked').value};}
+function sigmoid(t,mid,k){return 1/(1+Math.exp(-k*(t-mid)));}
+function model(){const p=params(), bonus=[0,22,45][p.affinity], ligandWeight={mixed:1,collagen:.92,laminin:.86,vascular:.72}[p.ligandClass]; const context={parasite:{engage:.88,mechanical:.82,fak:.42,reproductive:.58},host:{engage:1,mechanical:1,fak:1,reproductive:0},balanced:{engage:.94,mechanical:.91,fak:.60,reproductive:.40}}[p.adaptation]; const maxI=clamp((12+p.ligand*.58+bonus)*ligandWeight*context.engage); const talinFactor=p.talin/100; const maxA=clamp(maxI*talinFactor*(.82+p.tension*.002)); const ilkFactor=p.perturbation==='ilk-disruption'?.12:1; const maxM=clamp(maxA*(.35+p.tension*.0065)*ilkFactor*context.mechanical); const fakFactor=p.perturbation==='fak-inhibitor'?.08:1; const reproductiveFactor=p.perturbation==='vkr1-inhibitor'?.35:1; const maxS=clamp(maxM*(.55+p.tension*.0035)*(context.fak*fakFactor+context.reproductive*reproductiveFactor)); const T=Array.from({length:81},(_,i)=>i/8); return{p,T,I:T.map(t=>maxI*sigmoid(t,1.1,1.7)),A:T.map(t=>maxA*sigmoid(t,2.6,1.35)),M:T.map(t=>maxM*sigmoid(t,4.0,1.15)),S:T.map(t=>maxS*sigmoid(t,5.1,1.05))};}
+function resize(){const r=canvas.getBoundingClientRect(),d=devicePixelRatio||1;canvas.width=Math.round(r.width*d);canvas.height=Math.round(r.height*d);ctx.setTransform(d,0,0,d,0,0);draw();}
+function draw(){const d=model(),w=canvas.clientWidth,h=canvas.clientHeight,L=52,R=14,T=16,B=38,pw=w-L-R,ph=h-T-B;ctx.clearRect(0,0,w,h);ctx.font='11px Segoe UI';ctx.textAlign='right';ctx.textBaseline='middle';for(let y=0;y<=100;y+=25){const py=T+ph-y/100*ph;ctx.strokeStyle='#e5eaf1';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,py);ctx.lineTo(w-R,py);ctx.stroke();ctx.fillStyle='#607089';ctx.fillText(y+'%',L-7,py)}ctx.textAlign='center';ctx.textBaseline='top';for(let x=0;x<=10;x+=2){const px=L+x/10*pw;ctx.fillStyle='#607089';ctx.fillText(x,px,T+ph+8)}ctx.fillText('Simulation time (normalized)',L+pw/2,h-14);const series=[[d.I,'#2563eb'],[d.A,'#059669'],[d.M,'#7c3aed'],[d.S,'#d97706']];const maxIndex=Math.floor((d.T.length-1)*progress);series.forEach(([a,c])=>{ctx.strokeStyle=c;ctx.lineWidth=3;ctx.beginPath();for(let i=0;i<=maxIndex;i++){const x=L+d.T[i]/10*pw,y=T+ph-a[i]/100*ph;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()});updateStatus(d,maxIndex);}
+function updateStatus(d,i){const vals=[d.I[i],d.I[i],d.A[i],d.M[i],d.S[i]],colors=['#2563eb','#2563eb','#059669','#7c3aed','#d97706'];vals.forEach((v,j)=>{const n=$('n'+j);n.querySelector('span').textContent=Math.round(v)+'%';n.style.borderColor=colors[j];n.style.background=`color-mix(in srgb, ${colors[j]} ${Math.round(v*.16)}%, white)`});$('m1').textContent=Math.round(d.I.at(-1))+'%';$('m2').textContent=Math.round(d.M.at(-1))+'%';$('m3').textContent=Math.round(d.S.at(-1))+'%';let text;if(d.p.perturbation==='fak-inhibitor')text='The model preserves receptor engagement and structural coupling while suppressing the inferred FAK/Src signalling branch.';else if(d.p.perturbation==='ilk-disruption')text='Disrupting the hypothesized ILK–PINCH–Nck2 bridge reduces adhesion maturation and weakens coupling to the reproductive signalling branch.';else if(d.p.perturbation==='vkr1-inhibitor')text='The VKR1 perturbation selectively reduces the reproductive kinase contribution while retaining the structural adhesome and FAK/Src branch.';else if(d.p.tension<20)text='Low actomyosin tension limits force-dependent adhesion maturation, even when ligand binding and adaptor recruitment are present.';else if(d.p.talin>70&&d.p.tension>70)text='Strong adaptor recruitment and tension cooperate to increase adhesion maturation and downstream signalling in this conceptual model.';else if(d.p.adaptation==='parasite')text='Hypothetical parasite-adapted context: the model assigns relatively greater output to the ILK–PINCH–Nck2–VKR1 reproductive branch and more conservative force maturation than a canonical host focal-adhesion system.';else if(d.p.adaptation==='host')text='Hypothetical host-like context: the model emphasizes canonical force-dependent adhesion maturation and FAK/Src output. This is a comparator, not a claim that the schistosome network behaves identically to host focal adhesions.';else text='Neutral comparative baseline: mechanical and reproductive signalling contributions are balanced without assuming either a host-like or parasite-adapted configuration.';$('insight').textContent=text;}
+function labels(){const species={pan:'Pan-schistosome',sh:'S. haematobium',sj:'S. japonicum',sm:'S. mansoni'}[$('species').value];$('evidenceBanner').textContent=species+' · candidate family context; ligand identity and receptor pairing remain hypotheses.';$('ligandValue').textContent=$('ligand').value+'%';$('talinValue').textContent=$('talin').value+'%';$('tensionValue').textContent=$('tension').value+'%';$('affinityValue').textContent=['Bent, low affinity','Extended-closed','Extended-open, high affinity'][+$('affinity').value];}
+function update(){labels();progress=1;cancelAnimationFrame(animation);animation=null;$('play').textContent='▶ Run simulation';draw();}
+function play(){cancelAnimationFrame(animation);const start=performance.now();progress=0;$('play').textContent='Running…';function frame(now){progress=Math.min(1,(now-start)/2400);draw();if(progress<1)animation=requestAnimationFrame(frame);else{$('play').textContent='↻ Replay simulation';animation=null}}animation=requestAnimationFrame(frame)}
+ids.forEach(id=>$(id).addEventListener('input',update));document.querySelectorAll('input[name="perturbation"]').forEach(x=>x.addEventListener('change',update));$('play').addEventListener('click',play);$('reset').addEventListener('click',()=>{$('ligand').value=50;$('affinity').value=0;$('talin').value=60;$('tension').value=40;$('species').value='pan';$('ligandClass').value='mixed';$('adaptation').value='parasite';document.querySelector('input[name="perturbation"][value="none"]').checked=true;update()});window.addEventListener('resize',resize);labels();resize();
+</script>
+<script>
+'use strict';
+// Filled from the audited workbook by Streamlit. The standalone HTML remains usable.
+const atlasInventory = {};
+const referenceCanvas = $('referenceChart');
+const referenceContext = referenceCanvas.getContext('2d');
+const originalDraw = draw;
+const originalLabels = labels;
+
+function canonicalModel() {
+  const assumption = $('adaptation').value;
+  $('adaptation').value = 'host';
+  try { return model(); }
+  finally { $('adaptation').value = assumption; }
+}
+
+function drawReference() {
+  const d = canonicalModel(), w = referenceCanvas.clientWidth, h = referenceCanvas.clientHeight;
+  if (!w || !h) return;
+  const L = 52, R = 14, T = 16, B = 38, pw = w-L-R, ph = h-T-B;
+  referenceContext.clearRect(0,0,w,h);
+  referenceContext.font = '11px Segoe UI';
+  referenceContext.textAlign = 'right';
+  referenceContext.textBaseline = 'middle';
+  for (let y=0; y<=100; y+=25) {
+    const py = T+ph-y/100*ph;
+    referenceContext.strokeStyle='#e5eaf1'; referenceContext.lineWidth=1;
+    referenceContext.beginPath(); referenceContext.moveTo(L,py); referenceContext.lineTo(w-R,py); referenceContext.stroke();
+    referenceContext.fillStyle='#607089'; referenceContext.fillText(y+'%',L-7,py);
+  }
+  referenceContext.textAlign='center'; referenceContext.textBaseline='top';
+  for (let x=0; x<=10; x+=2) referenceContext.fillText(x,L+x/10*pw,T+ph+8);
+  referenceContext.fillText('Simulation time (normalized)',L+pw/2,h-14);
+  const last=Math.floor((d.T.length-1)*progress);
+  for (const [series,color] of [[d.I,'#2563eb'],[d.A,'#059669'],[d.M,'#7c3aed'],[d.S,'#d97706']]) {
+    referenceContext.strokeStyle=color; referenceContext.lineWidth=3; referenceContext.beginPath();
+    for (let i=0; i<=last; i++) {
+      const x=L+d.T[i]/10*pw, y=T+ph-series[i]/100*ph;
+      if (i) referenceContext.lineTo(x,y); else referenceContext.moveTo(x,y);
+    }
+    referenceContext.stroke();
+  }
+  [d.I[last],d.I[last],d.A[last],d.M[last],d.S[last]].forEach((value,index) => {
+    const node=$('r'+index), colors=['#2563eb','#2563eb','#059669','#7c3aed','#d97706'];
+    node.querySelector('span').textContent=Math.round(value)+'%';
+    node.style.borderColor=colors[index];
+    node.style.background=`color-mix(in srgb, ${colors[index]} ${Math.round(value*.16)}%, white)`;
+  });
+  $('rM1').textContent=Math.round(d.I.at(-1))+'%';
+  $('rM2').textContent=Math.round(d.M.at(-1))+'%';
+  $('rM3').textContent=Math.round(d.S.at(-1))+'%';
+  const perturbation=d.p.perturbation;
+  $('referenceInsight').textContent = perturbation==='vkr1-inhibitor'
+    ? 'VKR1 is absent from this canonical reference branch, so the VKR1 perturbation has no modelled effect here.'
+    : perturbation==='ilk-disruption'
+    ? 'The shared ILK coupling perturbation lowers modelled adhesion maturation in this reference scenario.'
+    : perturbation==='fak-inhibitor'
+    ? 'The canonical FAK/Src output is reduced while integrin engagement and adaptor coupling remain.'
+    : 'Canonical focal-adhesion comparator with the same shared inputs. Reference species selection does not alter model coefficients.';
+  const parasite=model();
+  const gap=Math.round(parasite.S.at(-1)-d.S.at(-1));
+  $('comparisonInsight').textContent=`Final schistosome signalling is ${Math.abs(gap)} points ${gap<0?'below':gap>0?'above':'equal to'} the canonical scenario under these assumptions.`;
+}
+
+draw = function() {
+  originalDraw();
+  if ($('adaptation').value==='host' && document.querySelector('input[name="perturbation"]:checked').value==='vkr1-inhibitor')
+    $('insight').textContent='The canonical-like assumption has no modelled VKR1 contribution, so this perturbation leaves its signalling curve unchanged.';
+  drawReference();
+};
+labels = function() {
+  originalLabels();
+  const key=$('species').value, counts=atlasInventory[key];
+  if (counts) {
+    const label={pan:'Pan-schistosome',sh:'S. haematobium',sj:'S. japonicum',sm:'S. mansoni'}[key];
+    $('evidenceBanner').textContent=`${label} · supported candidate families: integrin α ${counts.integrin_alpha}, integrin β ${counts.integrin_beta}, FAK ${counts.FAK}, Src ${counts.Src}. Ligand identity and receptor pairing remain hypotheses.`;
+  }
+  $('referenceBanner').textContent=$('referenceSpecies').value+' orthology reference · shared canonical model coefficients (no species-specific kinetic fit).';
+};
+function resizeReference() {
+  const r=referenceCanvas.getBoundingClientRect(), ratio=devicePixelRatio||1;
+  referenceCanvas.width=Math.round(r.width*ratio);
+  referenceCanvas.height=Math.round(r.height*ratio);
+  referenceContext.setTransform(ratio,0,0,ratio,0,0);
+  drawReference();
+}
+$('referenceSpecies').addEventListener('change',update);
+window.addEventListener('resize',resizeReference);
+// Keep the original reset behavior and restore the reference selection as well.
+$('reset').addEventListener('click',()=>{$('referenceSpecies').value='H. sapiens';update()});
+resizeReference(); labels(); draw();
+</script>
+</body>
+</html>
