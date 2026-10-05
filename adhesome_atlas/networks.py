@@ -1,9 +1,9 @@
 """STRING export integration. No inferred identifier aliases or interaction edges."""
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 from data import ROOT, SPECIES
+from vector_network import vector_network_html
 
 def mapping_export(code):
     frames=[]
@@ -105,27 +105,27 @@ def network_panel(candidates, key, detailed=False):
     nodes['filtered_degree'] = nodes.identifier.map(degree).fillna(0).astype(int)
     if not show_isolates:
         nodes = nodes[nodes.filtered_degree.gt(0)]
-    labels = st.checkbox('Show node labels',value=False,key=key+'labels')
     for col,label,value in zip(st.columns(4),['Displayed proteins','Unique associations','Isolated proteins','Exact family matches'],[len(nodes),len(edges),int(nodes.filtered_degree.eq(0).sum()),int(nodes.Family.ne('Unmapped').sum())]):
         col.metric(label,value)
     if nodes.empty:
         st.info('No network nodes remain at these settings. Lower the score or show isolated nodes.')
     else:
-        positions = nodes.set_index('identifier')[['x_position','y_position']].to_dict('index')
-        xs,ys=[],[]
-        for r in edges.itertuples():
-            if r.node1_string_id in positions and r.node2_string_id in positions:
-                p,q=positions[r.node1_string_id],positions[r.node2_string_id]
-                xs.extend([p['x_position'],q['x_position'],None]); ys.extend([p['y_position'],q['y_position'],None])
-        fig=go.Figure(go.Scatter(x=xs,y=ys,mode='lines',line=dict(color='#bdcbd4',width=1),hoverinfo='skip',showlegend=False))
         grouping = nodes.assign(group='Source colors') if color_by=='Original STRING colors' else nodes.assign(group=nodes[color_field])
+        compartments=nodes.set_index('identifier')['STRING localization'].fillna('').to_dict()
         all_categories = sorted(grouping.group.unique())
         colors = {name:px.colors.qualitative.Alphabet[i%26] for i,name in enumerate(all_categories)}
-        for category,group in grouping.groupby('group'):
-            fig.add_trace(go.Scatter(x=group.x_position,y=group.y_position,mode='markers+text' if labels else 'markers',text=group.node,textposition='top center',name=category,marker=dict(size=9+group.filtered_degree.pow(.5)*2,color=group.color.tolist() if color_by=='Original STRING colors' else ('#9aa5ae' if category in ['Unmapped','Unannotated'] else colors[category]),line=dict(color='white',width=1)),customdata=group[['node','identifier','Family','STRING localization','filtered_degree','annotation']].fillna('').values,hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Family: %{customdata[2]}<br>Compartment: %{customdata[3]}<br>Degree: %{customdata[4]}<br>%{customdata[5]}<extra></extra>'))
-        fig.update_layout(height=650,paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)',xaxis=dict(visible=False),yaxis=dict(visible=False,autorange='reversed',scaleanchor='x'),margin=dict(l=0,r=0,t=10,b=0),legend=dict(orientation='h',y=-.05),hoverlabel=dict(namelength=-1))
-        st.plotly_chart(fig,width='stretch',key=key+'graph',config={'displaylogo':False})
-    st.caption('Positions retain the supplied STRING layout; node size reflects degree after filtering. Family and DeepLoc labels require a unique STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in hover details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
+        vector_nodes=[]
+        for row in grouping.itertuples():
+            category=row.group
+            color=row.color if color_by=='Original STRING colors' else ('#9aa5ae' if category in ['Unmapped','Unannotated'] else colors[category])
+            vector_nodes.append({'id':row.identifier,'label':row.node,'x':row.x_position,'y':row.y_position,
+                'radius':9+row.filtered_degree**.5*2,'color':color,'category':str(category),
+                'detail':{'Family':str(row.Family),'STRING compartment':compartments.get(row.identifier,''),
+                          'Degree':int(row.filtered_degree),'Annotation':str(row.annotation) if pd.notna(row.annotation) else ''}})
+        vector_edges=[{'source':row.node1_string_id,'target':row.node2_string_id}
+                      for row in edges.itertuples()]
+        st.iframe(vector_network_html(vector_nodes,vector_edges,f'{SPECIES[code]} · STRING associations'),height=810)
+    st.caption('Initial positions retain the STRING layout; drag nodes to edit the vector display, center their names, or download SVG. Node size reflects degree after filtering. Family and DeepLoc labels require a unique STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in node details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
     if detailed:
         tabs=st.tabs(['Interaction table','Protein table','Functional annotations','Network statistics'])
         with tabs[0]:

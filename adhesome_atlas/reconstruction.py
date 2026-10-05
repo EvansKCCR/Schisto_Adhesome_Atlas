@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import streamlit as st
 from data import ROOT, SPECIES
+from vector_network import vector_network_html
 
 LAYERS = ['Extracellular','Membrane','Membrane-proximal','Actin-coupling','Scaffolding','Signalling','Unresolved']
 COLORS = dict(zip(LAYERS,['#cb8e46','#377eb8','#26a69a','#7b62a3','#da6d98','#c85b4b','#9ba8b2']))
@@ -296,7 +297,6 @@ def reconstruction_panel(candidates,loader,key):
         st.info('Force-directed layout is available for up to 400 displayed proteins. Filter to a family, community or neighborhood; showing the layered architecture meanwhile.')
         layout='Layered architecture'
     size_by=st.selectbox('Size nodes by',['Degree','Betweenness','Closeness','Uniform'],key=key+'size')
-    labels=st.checkbox('Label proteins',key=key+'labels')
     pos={}
     if layout=='Layered architecture':
         for li,layer in enumerate(LAYERS):
@@ -305,29 +305,27 @@ def reconstruction_panel(candidates,loader,key):
                 for j,identifier in enumerate(sub.identifier):pos[identifier]=(si*3+(j+1)/(len(sub)+1)*2,li)
     else:
         pos=nx.spring_layout(graph,seed=23,iterations=35)
-    fig=go.Figure()
-    for i,(relation,group) in enumerate(edges.groupby('relation')):
-        x=[];y=[]
-        for r in group.itertuples():
-            p,q=pos[r.node1_string_id],pos[r.node2_string_id];x += [p[0],q[0],None];y += [p[1],q[1],None]
-        fig.add_trace(go.Scatter(x=x,y=y,mode='lines',name=relation,line=dict(color='#bbc8d1' if relation.startswith('Functional association') else '#d67b31',width=1 if relation.startswith('Functional association') else 2,dash='solid' if relation.startswith('Functional association') else 'dash'),hoverinfo='skip'))
     column={'Adhesion layer':'layer','Species':'species','Community':'community','Protein family':'Family'}[colors]
     size_field={'Degree':'degree','Betweenness':'betweenness','Closeness':'closeness'}.get(size_by)
     largest_size=metrics[size_field].max() if size_field else 1
-    for i,(category,group) in enumerate(metrics.groupby(column)):
-        sizes=12 if size_field is None else 10+24*(group[size_field]/(largest_size or 1)).pow(.5)
-        fig.add_trace(go.Scatter(x=[pos[n][0] for n in group.identifier],y=[pos[n][1] for n in group.identifier],mode='markers+text' if labels else 'markers',text=group.node,textposition='top center',name=str(category),marker=dict(color=COLORS.get(category,px.colors.qualitative.Alphabet[i%26]),size=sizes,line=dict(color='white',width=1)),customdata=group[['identifier','Family','layer_basis','degree','betweenness','closeness','community','clustering_coefficient','k_core']].values,hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>%{customdata[2]}<br>Degree %{customdata[3]} · Betweenness %{customdata[4]:.3f}<br>Closeness %{customdata[5]:.3f} · Community %{customdata[6]}<br>Local clustering %{customdata[7]:.3f} · k-core %{customdata[8]}<extra></extra>'))
-    axes=(dict(tickvals=[1,4,7],ticktext=list(SPECIES.values()),range=[-.3,8.5]),
-          dict(tickvals=list(range(7)),ticktext=LAYERS,autorange='reversed')) if layout=='Layered architecture' else (dict(visible=False),dict(visible=False,scaleanchor='x'))
-    fig.update_layout(height=680,xaxis=axes[0],yaxis=axes[1],legend=dict(orientation='h',y=-.15),margin=dict(l=10,r=10,t=10,b=10),plot_bgcolor='#f3f7fa',dragmode='pan')
-    event=st.plotly_chart(fig,width='stretch',key=key+'layered',on_select='rerun',selection_mode='points',config={'displaylogo':False,'scrollZoom':True})
-    selected_points=event.selection.points if event else []
-    if selected_points:
-        selected_id=selected_points[0].get('customdata',[None])[0]
-        selected=metrics[metrics.identifier.eq(selected_id)]
-        if not selected.empty:
-            row=selected.iloc[0]
-            st.info(f"Selected {row['node']} · {SPECIES.get(row['species'],row['species'])} · {row['Family']} · degree {row['degree']} · betweenness {row['betweenness']:.3f} · closeness {row['closeness']:.3f} · community {row['community']}")
+    category_colors={str(category):COLORS.get(category,px.colors.qualitative.Alphabet[i%26])
+                     for i,category in enumerate(sorted(metrics[column].dropna().unique(),key=str))}
+    vector_nodes=[]
+    for row in metrics.itertuples():
+        size_value=float(getattr(row,size_field)) if size_field else 1
+        vector_nodes.append({'id':row.identifier,'label':row.node,'x':float(pos[row.identifier][0]),
+            'y':float(pos[row.identifier][1]),'radius':8+11*(size_value/(largest_size or 1))**.5,
+            'color':category_colors.get(str(getattr(row,column)),'#08743f'),
+            'category':str(getattr(row,column)),
+            'detail':{'Species':SPECIES.get(row.species,row.species),'Family':row.Family,
+                      'Layer':row.layer,'Degree':int(row.degree),'Betweenness':round(float(row.betweenness),3),
+                      'Closeness':round(float(row.closeness),3),'Community':int(row.community)}})
+    vector_edges=[{'source':row.node1_string_id,'target':row.node2_string_id,
+                   'color':'#bdc9c1' if row.relation.startswith('Functional association') else '#d67b31',
+                   'category':row.relation,
+                   'width':1 if row.relation.startswith('Functional association') else 2}
+                  for row in edges.itertuples()]
+    st.iframe(vector_network_html(vector_nodes,vector_edges,f'{view} · adhesion network'),height=810)
     tabs=st.tabs(['Edge evidence','Topology & communities','Candidate prioritization','Reconstruction inputs'])
     with tabs[0]:
         st.dataframe(edges,width='stretch',hide_index=True)
@@ -565,42 +563,33 @@ def orthogroup_view(nodes,edges,candidates,key):
                     horizontal=True,key=key+'ortho_colors')
     size_by=st.selectbox('Size orthogroups by',['Member proteins','Network degree','Betweenness'],
                          key=key+'ortho_size')
-    labels=st.checkbox('Label orthogroups',value=False,key=key+'ortho_labels')
     layout=st.radio('Orthogroup layout',['Force-directed','Circular'],horizontal=True,key=key+'ortho_layout')
     positions=(nx.spring_layout(graph,seed=42,iterations=40) if layout=='Force-directed' and graph.number_of_edges()
                else nx.circular_layout(graph))
-    fig=go.Figure()
     edge_colors={'One species':'#9aaab3','Two species':'#d29a22','Three species':'#08743f'}
-    for support,part in links.groupby('conservation'):
-        xs=[];ys=[]
-        for edge in part.itertuples():
-            xs += [positions[edge.source][0],positions[edge.target][0],None]
-            ys += [positions[edge.source][1],positions[edge.target][1],None]
-        fig.add_trace(go.Scatter(x=xs,y=ys,mode='lines',name=support,
-                                 line=dict(color=edge_colors.get(support,'#9aaab3'),width=1.3),
-                                 hoverinfo='skip'))
     color_field={'Protein family':'primary_family','Species coverage':'species_count',
                  'Source collection':'source_collections','Community':'community'}[colors]
     size_field={'Member proteins':'member_count','Network degree':'degree','Betweenness':'betweenness'}[size_by]
     maximum=visible[size_field].max() or 1
-    for i,(category,part) in enumerate(visible.groupby(color_field)):
-        marker_sizes=11+23*(part[size_field]/maximum).pow(.5)
-        fig.add_trace(go.Scatter(x=[positions[n][0] for n in part.orthogroup],
-            y=[positions[n][1] for n in part.orthogroup],mode='markers+text' if labels else 'markers',
-            text=part.orthogroup,textposition='top center',name=str(category),
-            marker=dict(size=marker_sizes,color=px.colors.qualitative.Alphabet[i%26],
-                        line=dict(color='#ffffff',width=1)),
-            customdata=part[['orthogroup','families','member_count','species','source_collections',
-                             'network_status','degree','betweenness','community']].values,
-            hovertemplate='<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Members %{customdata[2]} · %{customdata[3]}<br>%{customdata[4]} · %{customdata[5]}<br>Degree %{customdata[6]} · Betweenness %{customdata[7]:.3f} · Community %{customdata[8]}<extra></extra>'))
-    fig.update_layout(height=710,xaxis=dict(visible=False),yaxis=dict(visible=False,scaleanchor='x'),
-                      plot_bgcolor='#f7faf7',dragmode='pan',legend=dict(orientation='h',y=-.12),
-                      margin=dict(l=10,r=10,t=10,b=10))
-    event=st.plotly_chart(fig,width='stretch',key=key+'orthograph',on_select='rerun',
-                          selection_mode='points',config={'displaylogo':False,'scrollZoom':True})
-    selected=[point.get('customdata',[None])[0] for point in event.selection.points] if event else []
+    category_colors={str(category):px.colors.qualitative.Alphabet[i%26]
+                     for i,category in enumerate(sorted(visible[color_field].dropna().unique(),key=str))}
+    vector_nodes=[]
+    for row in visible.itertuples():
+        value=float(getattr(row,size_field))
+        vector_nodes.append({'id':row.orthogroup,'label':row.orthogroup,
+            'x':float(positions[row.orthogroup][0]),'y':float(positions[row.orthogroup][1]),
+            'radius':8+11*(value/maximum)**.5,
+            'color':category_colors.get(str(getattr(row,color_field)),'#08743f'),
+            'category':str(getattr(row,color_field)),
+            'detail':{'Families':row.families,'Members':int(row.member_count),
+                      'Species':row.species,'Degree':int(row.degree),
+                      'Betweenness':round(float(row.betweenness),3),'Community':int(row.community)}})
+    vector_edges=[{'source':row.source,'target':row.target,
+                   'color':edge_colors.get(row.conservation,'#9aaab3'),'category':row.conservation}
+                  for row in links.itertuples()]
+    st.iframe(vector_network_html(vector_nodes,vector_edges,'Orthogroup consensus network'),height=810)
     inspect=st.selectbox('Inspect an orthogroup',['None']+sorted(visible.orthogroup),key=key+'ortho_inspect')
-    chosen=inspect if inspect!='None' else next((group for group in selected if group in set(visible.orthogroup)),None)
+    chosen=inspect if inspect!='None' else None
     if chosen:
         st.markdown('#### '+chosen+' · source members and linked groups')
         st.dataframe(members[members.orthogroup.eq(chosen)][

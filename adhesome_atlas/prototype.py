@@ -53,6 +53,7 @@ def candidate_rows(adhesome, fn3):
     retained = adhesome[adhesome.audit_classification.isin(['Supported','Provisional'])].copy()
     retained['prototype_family'] = retained.reviewed_family
     retained['evidence_tier'] = retained.audit_classification.map({'Supported':'Core family-retained','Provisional':'Provisional'})
+    retained.loc[retained.family_decision.eq('Retain provisionally'),'evidence_tier'] = 'Parasite-specific supported cluster'
     retained['source_collection'] = 'Adhesome candidates'
     combined = retained
     combined['map_node'] = combined.prototype_family.map(FAMILY_NODES)
@@ -61,7 +62,7 @@ def candidate_rows(adhesome, fn3):
 
 def map_payload(rows, focus_family=None, focus_candidate=None):
     fields = ['sequence_id','species','family','assigned_family','prototype_family','map_node','evidence_tier','grade',
-              'family_decision','orthogroup','domain_evidence','topology_evidence',
+              'family_decision','assignment_interpretation','orthogroup','domain_evidence','topology_evidence',
               'motif_context_evidence','source_collection']
     displayed = rows.reindex(columns=fields).fillna('').astype(str)
     return {
@@ -86,6 +87,10 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
 <script>
 const atlasPayload = __ATLAS_PAYLOAD__;
 const atlasOriginalShowNode = showNode;
+const atlasOriginalDrawEdges = drawEdges, atlasOriginalDrawNodes = drawNodes;
+let atlasFocusNode = null;
+drawEdges=function(){atlasOriginalDrawEdges();if(atlasFocusNode)atlasFocus(atlasFocusNode)};
+drawNodes=function(){atlasOriginalDrawNodes();if(atlasFocusNode)atlasFocus(atlasFocusNode)};
 function atlasFocus(n){
   const neighbors=new Set(edges.filter(e=>e.a===n.id||e.b===n.id).map(e=>e.a===n.id?e.b:e.a));
   if(n.id==='inta'||n.id==='intb')edges.filter(e=>e.b==='integrin_ab'&&e.class==='ligand').forEach(e=>neighbors.add(e.a));
@@ -106,7 +111,7 @@ function atlasText(parent,tag,text){const el=document.createElement(tag);el.text
 function atlasCandidateDetail(parent,record){
   const box=document.createElement('div');box.className='atlas-candidate';parent.appendChild(box);
   atlasText(box,'strong',record.sequence_id+' · '+record.species);
-  atlasText(box,'p',record.evidence_tier+' · '+(record.family_decision||record.grade||'FN3 architecture screen'));
+  atlasText(box,'p',record.evidence_tier+' · '+(record.assignment_interpretation||record.family_decision||record.grade||'FN3 architecture screen'));
   if(record.family&&record.family!==record.prototype_family)atlasText(box,'p','Screening family: '+record.family+' → reviewed family: '+record.prototype_family);
   if(record.orthogroup)atlasText(box,'p','Orthogroup: '+record.orthogroup);
   if(record.domain_evidence)atlasText(box,'p','Domains: '+record.domain_evidence);
@@ -114,7 +119,7 @@ function atlasCandidateDetail(parent,record){
   if(record.motif_context_evidence)atlasText(box,'p','Motifs: '+record.motif_context_evidence);
 }
 showNode=function(n){
-  atlasOriginalShowNode(n);atlasFocus(n);
+  atlasFocusNode=n;atlasOriginalShowNode(n);atlasFocus(n);
   const connected=edges.filter(e=>e.a===n.id||e.b===n.id);
   atlasText(info,'h3','Potential linked families');
   if(connected.length){const list=document.createElement('ul');info.appendChild(list);connected.forEach(e=>{
@@ -189,7 +194,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                  for edge in edge_records if edge['a'] in active_nodes and edge['b'] in active_nodes
                  and edge['kind'] in edge_kinds]
     columns = ['sequence_id','species','family','assigned_family','prototype_family','map_node','module','evidence_tier',
-               'grade','family_decision','orthogroup','domain_evidence','topology_evidence',
+               'grade','family_decision','assignment_interpretation','orthogroup','domain_evidence','topology_evidence',
                'motif_context_evidence','host_orthology_flag','source_collection']
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',

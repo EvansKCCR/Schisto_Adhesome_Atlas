@@ -19,6 +19,7 @@ from prototype import candidate_rows, interactive_html, hypothesis, read_map_edg
 from motif_explorer import build_motif_tables, motif_panel
 from simulator import SIMULATOR_FILE, simulator_html
 from linked_explorer import linked_explorer_html
+from family_audit import apply_family_audit
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -71,26 +72,14 @@ except Exception as exc:
 # Cloud deployments can retain cached cohorts from an older data loader while
 # serving a newer app.py. Normalize that schema before any page uses it.
 def ensure_audit_columns(frame):
+    if 'family_decision' in frame:
+        # Always derive current decisions, including after a stale Streamlit cache.
+        return apply_family_audit(frame)
     if {'audit_classification','reviewed_family','family_assignment_basis'} <= set(frame.columns):
         out = frame.copy()
-        if 'audit_family' in out and 'family_decision' in out:
-            accepted = out.audit_classification.isin(['Supported','Provisional'])
-            out['reviewed_family'] = out.audit_family.where(accepted)
         return out
     out = frame.copy()
-    if 'family_decision' in out:
-        supported = {'Retain family assignment','Retain; resolves competing family'}
-        provisional = {'Retain provisionally','Family-level provisional only'}
-        decisions = out.family_decision.fillna('')
-        out['audit_classification'] = decisions.map(
-            lambda decision: 'Supported' if decision in supported else
-            'Provisional' if decision in provisional else
-            'Ambiguous' if decision.startswith('Ambiguous') else 'Unassigned'
-        )
-        assigned = out.audit_family if 'audit_family' in out else out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
-        out['reviewed_family'] = assigned.where(out.audit_classification.isin(['Supported','Provisional']))
-        out['family_assignment_basis'] = decisions
-    elif {'recommended_family','grade'} <= set(out.columns):
+    if {'recommended_family','grade'} <= set(out.columns):
         out['audit_classification'] = out.grade.map({'A':'Supported','B':'Supported','C':'Provisional','D':'Unassigned'}).fillna('Unassigned')
         out['reviewed_family'] = out.recommended_family.where(out.audit_classification.ne('Unassigned'))
         out['family_assignment_basis'] = out.rationale if 'rationale' in out else 'Workbook recommended family and grade'
@@ -110,7 +99,7 @@ missing_audit_sources = [name for name, required in [('Adhesome candidates','fam
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('INTEGRIN · ADHESOME · EVIDENCE')
-    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Signalling simulator', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Comments & feedback', 'Source Library', 'Citations'])
+    section = st.radio('Explore', ['Introduction', 'Components', 'Interactions', 'Orthology', 'Phylogeny', 'Protein dossier', 'Motif explorer', 'Comments & feedback', 'Source Library', 'Citations'])
     page = section
     if section == 'Components':
         page = st.radio('Component view', ['Summary statistics', 'Summary graphs', 'Candidate catalogue', 'Family assignment audit', 'Comparative lab', 'Orthology & evidence', 'FN3 / RPTP priorities'])
@@ -160,7 +149,7 @@ if missing_audit_sources:
     st.warning('Audited workbook columns are unavailable for '+', '.join(missing_audit_sources)+'. Deploy the updated files/ workbooks together with app.py, data.py and family_audit.py, then use Reload source files.')
 st.caption(f'{cohort}  /  {len(df):,} filtered assignment records  /  {df.sequence_id.nunique():,} distinct proteins')
 
-if page not in ['Source Library', 'Interactions', 'Signalling simulator', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny', 'Orthology'] and df.empty:
+if page not in ['Source Library', 'Interactions', 'Introduction', 'Citations', 'FN3 / RPTP priorities', 'Phylogeny', 'Orthology'] and df.empty:
     st.info('No candidates match these filters. Select a species or broaden your search.')
     st.stop()
 
@@ -171,7 +160,8 @@ if page == 'Introduction':
     for col, label, frame in zip(st.columns(3), cohorts.keys(), cohorts.values()):
         col.metric(label, f'{frame.sequence_id.nunique():,} proteins', f'{len(frame):,} assignment records', delta_color='off')
     assignment_counts = cohorts['Adhesome candidates'].audit_classification.value_counts()
-    st.markdown(f"Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The current audit retains **{assignment_counts.get('Supported', 0)} supported** and **{assignment_counts.get('Provisional', 0)} provisional** family assignments. Most drawn family relationships are hypotheses; the *S. mansoni* ILK–PINCH–Nck2 complex has experimental support from [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147). Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Extracellular ligand edges target the integrin αβ heterodimer, with ligand binding and subunit specificity still to be tested.")
+    cluster_count = cohorts['Adhesome candidates'].family_decision.eq('Retain provisionally').sum()
+    st.markdown(f"Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The current audit retains **{assignment_counts.get('Supported', 0)} supported** family assignments, including **{cluster_count} parasite-specific supported-cluster** records, and **{assignment_counts.get('Provisional', 0)} provisional** candidates. Most drawn family relationships are hypotheses; the *S. mansoni* ILK–PINCH–Nck2 complex has experimental support from [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147). Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Extracellular ligand edges target the integrin αβ heterodimer, with ligand binding and subunit specificity still to be tested.")
     st.subheader('Explore the prototype map')
     map_rows = candidate_rows(cohorts['Adhesome candidates'], cohorts['FN3 / fibronectin-like review'])
     map_families = sorted(map_rows.prototype_family.unique())
@@ -199,6 +189,10 @@ if page == 'Introduction':
     if map_guide.is_file():
         with st.expander('Map guide · evidence classes and interpretation'):
             st.markdown(map_guide.read_text(encoding='utf-8'))
+    simulator_guide = ROOT / 'README_adhesome_hypothesis_simulator.md'
+    if simulator_guide.is_file():
+        with st.expander('Linked simulation guide · assumptions and controls'):
+            st.markdown(simulator_guide.read_text(encoding='utf-8'))
     st.markdown('### Build an evidence-stratified schistosome adhesome hypothesis')
     scope = st.radio('Hypothesis scope', ['All mapped families', 'Focused family and linked partners', 'Custom families'], horizontal=True)
     if scope=='Custom families':
@@ -216,8 +210,8 @@ if page == 'Introduction':
         selected_families = map_families
         if scope=='Focused family and linked partners':
             st.caption('Select a family above to focus the hypothesis; showing all mapped families for now.')
-    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Provisional'],
-                                     default=['Core family-retained','Provisional'])
+    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Parasite-specific supported cluster','Provisional'],
+                                     default=['Core family-retained','Parasite-specific supported cluster','Provisional'])
     edge_kinds = list(dict.fromkeys(kind for _,_,kind,_ in map_edges))
     selected_edges = st.multiselect('Relationship classes', edge_kinds,
                                      default=[kind for kind in edge_kinds if kind!='referenceUnresolved'],
@@ -249,29 +243,12 @@ elif page == 'Interactions':
     st.markdown('Co-expression, co-immunoprecipitation and deletion analysis support an **Smβ-Int1–SmILK–SmPINCH–SmNck2–SmVKR1** assembly in the system studied by [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147). The displayed PINCH–ILK and PINCH–Nck2 family links record that complex-level evidence; they do not label every homologue or every binary contact as experimentally verified.')
     validated = cohorts['Adhesome candidates'][cohorts['Adhesome candidates'].sequence_id.isin(
         ['Sman__Smp_079760', 'Sman__Smp_020540', 'Sman__Smp_014850'])]
-    table(validated[[c for c in ['sequence_id', 'reviewed_family', 'audit_classification', 'grade', 'family_decision'] if c in validated]])
+    table(validated[[c for c in ['sequence_id', 'reviewed_family', 'audit_classification', 'assignment_interpretation', 'grade', 'family_decision'] if c in validated]])
     mode = st.radio('Network workspace', ['Unified reconstruction', 'Species STRING explorer'], horizontal=True)
     if mode == 'Unified reconstruction':
         reconstruction_panel(network_candidates, load_network, 'reconstruction_')
     else:
         network_panel(network_candidates, 'interactions_', detailed=True)
-
-elif page == 'Signalling simulator':
-    st.subheader('Schistosome–reference signalling simulator')
-    st.write('Apply the same putative extracellular input, integrin state, adaptor recruitment, tension and perturbation to a **schistosome hypothesis** and a **canonical metazoan reference scenario**. The two time courses are drawn side by side on the same normalized scale.')
-    st.info('To start from a protein family or context node, open **Introduction**, select a map node, and choose **Explore downstream simulation** in its evidence panel.')
-    st.caption('The five reference proteomes provide evolutionary context. Reference selection changes its label, not the model coefficients; neither curve is fitted to experimental kinetics. The supported schistosome family counts shown inside the simulator come from the current audited workbook.')
-    simulator_source = ROOT / SIMULATOR_FILE
-    if simulator_source.is_file():
-        st.iframe(simulator_html(simulator_source, cohorts['Adhesome candidates']), height=1240)
-        st.download_button('↓ Download standalone simulator · HTML', simulator_source.read_bytes(),
-                           SIMULATOR_FILE, 'text/html')
-        simulator_guide = ROOT / 'README_adhesome_hypothesis_simulator.md'
-        if simulator_guide.is_file():
-            with st.expander('Simulator guide · assumptions, controls and interpretation'):
-                st.markdown(simulator_guide.read_text(encoding='utf-8'))
-    else:
-        st.warning(f'Simulator unavailable. Include {SIMULATOR_FILE} alongside app.py.')
 
 elif page == 'Orthology & evidence':
     evidence_view(df)
@@ -321,7 +298,7 @@ elif page == 'Summary graphs':
 
 elif page == 'Candidate catalogue':
     st.subheader('Candidate catalogue')
-    defaults = [c for c in ['sequence_id','species','catalogue_family','family','assigned_family','reviewed_family','audit_classification','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
+    defaults = [c for c in ['sequence_id','species','catalogue_family','family','assigned_family','reviewed_family','audit_classification','assignment_interpretation','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
     columns = st.multiselect('Visible annotation fields', list(df.columns), default=defaults)
     table(df[columns])
     a,b = st.columns(2)
@@ -346,7 +323,7 @@ elif page == 'Family assignment audit':
         count = reviewed.groupby(['family','audit_classification']).size().reset_index(name='records')
         if not count.empty:
             chart(px.bar(count,x='family',y='records',color='audit_classification',barmode='stack',title='Audited decisions by screening family'))
-        cols=[c for c in ['sequence_id','species','family','assigned_family','recommended_family','reviewed_family','audit_classification','grade','family_decision','FN1_count','FN2_count','FN3_count','domain_match','domain_type_fraction','domain_copy_fraction','domain_score_0_4','orthology_score_0_3','motif_score_0_2','motif_score_0_1','localization_score_0_1','total_score_0_10','rationale','competing_supported_families'] if c in reviewed]
+        cols=[c for c in ['sequence_id','species','family','assigned_family','recommended_family','reviewed_family','audit_classification','assignment_interpretation','grade','family_decision','FN1_count','FN2_count','FN3_count','domain_match','domain_type_fraction','domain_copy_fraction','domain_score_0_4','orthology_score_0_3','motif_score_0_2','motif_score_0_1','localization_score_0_1','total_score_0_10','rationale','competing_supported_families'] if c in reviewed]
         table(reviewed[cols])
         download(reviewed,'audited_family_assignments.csv')
         if cohort=='Adhesome candidates':

@@ -192,13 +192,19 @@ These observations could be used to replace assumed pathway weights with estimat
 
 ## Running the Simulator
 
-Choose **Signalling simulator** in the Atlas, or open the standalone file in a modern web browser:
+On the Atlas **Introduction** page, select a node in the interactive adhesome map and choose **Explore downstream simulation**. The standalone file can also be opened in a modern web browser:
 
 ```text
 schistosome_integrin_adhesome_hypothesis_simulator.html
 ```
 
 The simulator is self-contained and does not require an external charting library.
+
+### Linked mode in the Atlas
+
+On the Introduction page, select a family or context node in the interactive adhesome map and choose **Explore downstream simulation**. The linked view loads a qualitative node-to-control scenario into this simulator and displays the baseline and selected final maturation/signalling scores. The same settings drive both schistosome and canonical-reference panels. Return to the map with the **Adhesome map** tab; manually adjusted simulator controls are retained until another node scenario is selected.
+
+The link uses only controls already present in this model. Extracellular candidates map to a reduced availability proxy, integrin nodes to a low-affinity receptor state, talin/kindlin to reduced adaptor recruitment, selected cytoskeletal nodes to reduced tension, and ILK/PINCH/Nck, FAK/Src, or VKR1 nodes to their corresponding branch switches. Nodes without a direct model parameter leave the baseline unchanged. These are module-level thought experiments, not fitted protein-specific perturbations.
 
 ## Reference
 
