@@ -18,6 +18,7 @@ from branding import identity_banner, creator_credit
 from prototype import candidate_rows, interactive_html, hypothesis, read_map_edges, FAMILY_NODES, COMPLEX_NODE
 from motif_explorer import build_motif_tables, motif_panel
 from simulator import SIMULATOR_FILE, simulator_html
+from linked_explorer import linked_explorer_html
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -183,13 +184,17 @@ if page == 'Introduction':
     interactive_source = ROOT / 'Schistosome_adhesome_interactive.html'
     map_edges = [(edge['a'],edge['b'],edge['kind'],edge['relation']) for edge in read_map_edges(interactive_source)]
     if interactive_source.is_file():
-        st.iframe(interactive_html(interactive_source, map_rows,
-                                   None if focus_family=='All families' else focus_family,
-                                   None if focus_candidate=='No protein selected' else focus_candidate),
-                  height=1240)
+        map_html = interactive_html(interactive_source, map_rows,
+                                    None if focus_family=='All families' else focus_family,
+                                    None if focus_candidate=='No protein selected' else focus_candidate)
+        simulator_source = ROOT / SIMULATOR_FILE
+        if simulator_source.is_file():
+            map_html = linked_explorer_html(
+                map_html, simulator_html(simulator_source, cohorts['Adhesome candidates']))
+        st.iframe(map_html, height=1240)
     else:
         st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
-    st.caption('Select a family or protein above, or click a map node to inspect candidate records and linked families. Extracellular ligand classes point to the putative integrin αβ heterodimer. The host-vascular input and SmVKR1 receptor are evidence-context nodes without audited family counts; specific ligand binding and subunit pairing remain unresolved.')
+    st.caption('Click a map node to inspect its evidence, then choose “Explore downstream simulation” to open a linked qualitative scenario; the map tab remains available for comparison. Nodes without a model parameter show the baseline explicitly. Extracellular ligand classes point to the putative integrin αβ heterodimer, while host-vascular input and SmVKR1 are context nodes without audited family counts.')
     map_guide = ROOT / 'README_schistosome_adhesome_interactive.md'
     if map_guide.is_file():
         with st.expander('Map guide · evidence classes and interpretation'):
@@ -254,6 +259,7 @@ elif page == 'Interactions':
 elif page == 'Signalling simulator':
     st.subheader('Schistosome–reference signalling simulator')
     st.write('Apply the same putative extracellular input, integrin state, adaptor recruitment, tension and perturbation to a **schistosome hypothesis** and a **canonical metazoan reference scenario**. The two time courses are drawn side by side on the same normalized scale.')
+    st.info('To start from a protein family or context node, open **Introduction**, select a map node, and choose **Explore downstream simulation** in its evidence panel.')
     st.caption('The five reference proteomes provide evolutionary context. Reference selection changes its label, not the model coefficients; neither curve is fitted to experimental kinetics. The supported schistosome family counts shown inside the simulator come from the current audited workbook.')
     simulator_source = ROOT / SIMULATOR_FILE
     if simulator_source.is_file():
