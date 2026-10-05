@@ -14,6 +14,8 @@ The visualization is a **hypothesis map**, not a validated pathway diagram, kine
 
 The diagram is editable SVG: drag any family node to rearrange its edges, use **Center node names** to put names in the middle of nodes, reset the layout, or export the current arrangement as a vector SVG.
 
+Use **Hide unconnected nodes** to show only nodes linked by the currently enabled edge classes. The control updates when relationship filters change and is preserved when centering names or resetting positions. SVG exports retain the visible-node selection.
+
 ## Current biological hypothesis
 
 The working hypothesis is that schistosomes possess a conserved but parasite-adapted integrin-associated network that may couple extracellular and host-vascular inputs to:

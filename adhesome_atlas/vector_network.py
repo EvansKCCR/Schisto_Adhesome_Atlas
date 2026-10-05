@@ -52,6 +52,7 @@ svg{display:block;width:100%;height:690px;min-width:700px;touch-action:none}
 </style></head><body>
 <div class="bar"><strong id="heading"></strong><label for="names">Node names</label>
 <select id="names"><option value="hidden">Hidden</option><option value="outside">Outside nodes</option><option value="center">Centered in nodes</option></select>
+<label><input id="hideUnconnected" type="checkbox"/> Hide unconnected nodes</label>
 <button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="fit">Fit view</button>
 <button id="reset">Reset positions</button><button id="export">Download SVG</button></div>
 <div class="hint">Drag nodes to rearrange them; drag the background to pan and scroll to zoom. Click a node to inspect its annotation. Export SVG to keep the current arrangement.</div>
@@ -67,6 +68,8 @@ const incident=new Map(data.nodes.map(n=>[n.id,[]]));
 const nodeGroups=new Map();
 document.getElementById('heading').textContent=data.title;
 const names=document.getElementById('names');names.value=data.labelMode;
+const hideUnconnected=document.getElementById('hideUnconnected');
+function updateNodeVisibility(){for(const node of data.nodes)nodeGroups.get(node.id).style.display=hideUnconnected.checked&&!incident.get(node.id).length?'none':''}
 function element(tag,attrs){const item=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))item.setAttribute(key,String(value));return item}
 function point(event,matrix=svg.getScreenCTM().inverse()){const p=svg.createSVGPoint();p.x=event.clientX;p.y=event.clientY;return p.matrixTransform(matrix)}
 let view={x:0,y:0,w:1200,h:720};
@@ -98,6 +101,7 @@ for(const n of data.nodes){const group=element('g',{class:'node',transform:`tran
     const fields=n.detail||{};for(const [key,value] of Object.entries(fields)){const item=document.createElement('span');item.textContent=key+': '+value;detail.appendChild(item)}});
   nodeLayer.appendChild(group);nodeGroups.set(n.id,group)}
 names.addEventListener('change',updateLabels);updateLabels();
+hideUnconnected.addEventListener('change',updateNodeVisibility);updateNodeVisibility();
 const legend=document.getElementById('legend'),categories=new Map();
 for(const node of data.nodes)if(node.category)categories.set(node.category,node.color);
 for(const edge of data.edges)if(edge.category)categories.set('Edge: '+edge.category,edge.color);
