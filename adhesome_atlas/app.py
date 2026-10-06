@@ -184,7 +184,7 @@ if page == 'Introduction':
         st.iframe(map_html, height=1240)
     else:
         st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
-    st.caption('Click a map node to inspect its evidence, then choose “Explore downstream simulation” to open a linked qualitative scenario; the map tab remains available for comparison. Nodes without a model parameter show the baseline explicitly. Extracellular ligand classes point to the putative integrin αβ heterodimer, while host-vascular input and SmVKR1 are context nodes without audited family counts.')
+    st.caption('Click a map node, then choose “Explore downstream simulation” to inspect seeded local I–T–V matrices, force-dependent vinculin recruitment and actin feedback beside a reference lattice. Each scenario identifies its model parameter or downstream coupling proxy. Extracellular ligand classes target the putative integrin αβ heterodimer.')
     map_guide = ROOT / 'README_schistosome_adhesome_interactive.md'
     if map_guide.is_file():
         with st.expander('Map guide · evidence classes and interpretation'):

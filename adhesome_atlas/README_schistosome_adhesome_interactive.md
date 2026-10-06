@@ -149,7 +149,7 @@ The visualization should not be used to infer:
 
 In the Atlas Introduction, select a map node and choose **Explore downstream simulation** in its evidence panel. The linked simulator opens in the same workspace, with a **Map** tab to return to the selected network. It compares the schistosome hypothesis and canonical reference under the same inputs.
 
-The node-to-simulator link selects an illustrative perturbation of the represented input or module: reduced candidate extracellular input, low-affinity integrin state, reduced talin–kindlin recruitment, reduced tension, or the existing ILK, FAK/Src, or VKR1 branch switches. The simulator shows the mapping rationale and the schistosome baseline-to-scenario change. Other nodes retain the baseline with a statement that no family-specific model parameter exists. This link does not add experimental support to an edge or infer a protein-specific effect.
+The link opens a seeded spatial model with a local 3 × 3 integrin–talin–vinculin matrix at each ECM site. Topology weights govern recruitment; force exposes talin sites, amplifies vinculin recruitment and activates an actin-force feedback loop after assembly. Core family selections change receptor, talin or vinculin availability; cytoskeletal selections change feedback proxies. ILK/PINCH/Nck, FAK/Src and VKR1 select named downstream projection gates. The simulator displays static W, realized local A, weight provenance and same-seed baseline-to-scenario comparisons. Other families retain the unperturbed lattice.
 
 ## Appropriate uses
 
