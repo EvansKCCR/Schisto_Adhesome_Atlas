@@ -2,13 +2,14 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from evidence import PRIORITIES
+from figure_exports import plotly_chart
 
 def evidence_view(df):
     st.subheader('Integrated evidence and assignment confidence')
     st.caption('Orthology references: H. sapiens (GRCh38.p14), M. musculus (GRCm39), X. laevis (Xenopus_laevis_v10.1), D. melanogaster (GCF_000001215.4), and C. elegans (PRJNA13758).')
     st.info('The audited family decision uses domain architecture as its primary gate. Orthology, motif context and topology/localization support the interpretation. Original screening labels and source statuses remain visible.')
     counts=df.groupby(['species','evidence_review_stage']).sequence_id.nunique().reset_index(name='proteins')
-    st.plotly_chart(px.bar(counts,x='species',y='proteins',color='evidence_review_stage',title='Evidence convergence · distinct proteins by stage'),width='stretch')
+    plotly_chart(px.bar(counts,x='species',y='proteins',color='evidence_review_stage',title='Evidence convergence · distinct proteins by stage'),width='stretch')
     st.caption('Stages show convergence across all four evidence types or the first incomplete/conflicting component. A protein with multiple family assignments can occur in multiple stages.')
     cols=[c for c in ['sequence_id','species','family','reviewed_family','audit_classification','grade','family_decision','status','orthogroup','orthology_scope','schistosome_species_in_HOG','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag','adhesome_interpretation'] if c in df]
     st.dataframe(df[cols],width='stretch',hide_index=True)
@@ -29,7 +30,7 @@ def priority_view(frame):
     st.write(interpretations.get(selected,'Other FN3 evolutionary histories and classes remain available for review; they are not silently forced into one of the three priority groups.'))
     if not subset.empty:
         summary=subset.groupby(['species','topology_evidence']).sequence_id.nunique().reset_index(name='proteins')
-        st.plotly_chart(px.bar(summary,x='species',y='proteins',color='topology_evidence',title='Priority group · localization agreement and review needs'),width='stretch')
+        plotly_chart(px.bar(summary,x='species',y='proteins',color='topology_evidence',title='Priority group · localization agreement and review needs'),width='stretch')
     cols=['sequence_id','species','reviewed_family','audit_classification','grade','orthogroup','orthology_scope','schistosome_species_in_HOG','architecture','DeepTMHMM','DeepLoc_2.1','domain_evidence','topology_evidence','motif_context_evidence','evidence_review_stage','host_orthology_flag']
     st.dataframe(subset[[c for c in cols if c in subset]],width='stretch',hide_index=True)
     st.download_button('Download this priority group',subset.to_csv(index=False),'fn3_priority_group.csv')

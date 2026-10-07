@@ -12,6 +12,7 @@ import streamlit as st
 from data import ROOT
 from family_merges import atlas_group
 from identifier_labels import annotate_tips, identifier_annotations, canonical_sequence_id
+from figure_exports import plotly_chart, selected_export_config
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
         'inference/gene_tree.iqtree', 'inference/branch_evidence.tsv', 'inference/run.json')
@@ -347,10 +348,12 @@ def render_tree_run(folder,collection):
         st.caption('Support labels: SH-aLRT (%) / ultrafast bootstrap (%), as documented in gene_tree.iqtree. Neither value is a probability of adhesome membership.')
     else:
         st.caption('Support labels are reproduced verbatim; consult the IQ-TREE report for their definition.')
-    st.plotly_chart(fig,width='stretch',config={'scrollZoom':True,'displaylogo':False},key=export_name+'_plot')
+    plotly_chart(fig,width='stretch',config={'scrollZoom':True},filename=export_name+'_tree',key=export_name+'_plot')
     if len(matched) != len(branches):
         st.warning(f'{len(branches)-len(matched)} branch-evidence rows could not be joined to the displayed tree; see the original table below.')
-    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True),f'{export_name}_tree.html','text/html',key=export_name+'_html')
+    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True,
+                       config=selected_export_config(fig,filename=export_name+'_tree',config={'scrollZoom':True})),
+                       f'{export_name}_tree.html','text/html',key=export_name+'_html')
     tabs = st.tabs(['Tip annotations','Branch evidence','Reproducibility'])
     with tabs[0]:
         st.dataframe(tips[['display_label','protein_annotation_id']+[c for c in tips if c not in ['display_label','protein_annotation_id']]],width='stretch',hide_index=True)

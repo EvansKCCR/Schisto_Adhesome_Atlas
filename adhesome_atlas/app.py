@@ -20,6 +20,7 @@ from motif_explorer import build_motif_tables, motif_panel
 from simulator import SIMULATOR_FILE, simulator_html
 from linked_explorer import linked_explorer_html
 from family_audit import apply_family_audit
+from figure_exports import plotly_chart, figure_download_settings
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -111,6 +112,7 @@ with st.sidebar:
     statuses = st.multiselect('Source status', sorted(base.status.dropna().unique()))
     query = st.text_input('Search annotations', placeholder='Protein ID, PF00373, talin…')
     st.caption('Empty family/status selections include all. Clear species to show no records.')
+    figure_download_settings()
     if st.button('Reload source files'):
         st.cache_data.clear()
         st.rerun()
@@ -129,7 +131,7 @@ palette = ['#127f83', '#cb7836', '#7563ac', '#39876c', '#b34f78', '#527b9b']
 
 def chart(fig):
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#171717',size=15), margin=dict(l=12,r=12,t=45,b=20), colorway=palette)
-    st.plotly_chart(fig, width='stretch', config={'displaylogo': False})
+    plotly_chart(fig, width='stretch')
 
 def table(frame):
     # Mixed Excel cells remain legible without Arrow mixed-type inference failures.

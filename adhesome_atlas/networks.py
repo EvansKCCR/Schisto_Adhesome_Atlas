@@ -4,6 +4,7 @@ import plotly.express as px
 import streamlit as st
 from data import ROOT, SPECIES
 from vector_network import vector_network_html
+from figure_exports import plotly_chart
 
 def mapping_export(code):
     frames=[]
@@ -141,7 +142,7 @@ def network_panel(candidates, key, detailed=False):
             n=len(nodes); m=len(edges)
             st.write(f'Undirected density: {2*m/(n*(n-1)) if n>1 else 0:.3f} · Mean degree: {nodes.filtered_degree.mean() if n else 0:.2f}')
             if n:
-                st.plotly_chart(px.bar(nodes.nlargest(15,'filtered_degree'),x='node',y='filtered_degree',title='Most connected displayed proteins'),width='stretch',key=key+'degree')
+                plotly_chart(px.bar(nodes.nlargest(15,'filtered_degree'),x='node',y='filtered_degree',title='Most connected displayed proteins'),width='stretch',key=key+'degree')
 
 def extra_resources(code,nodes,key):
     folder=ROOT/'adhesome_network'/code

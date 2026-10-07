@@ -8,6 +8,7 @@ import plotly.express as px
 import streamlit as st
 from data import ROOT, SPECIES
 from vector_network import vector_network_html
+from figure_exports import plotly_chart
 
 LAYERS = ['Extracellular','Membrane','Membrane-proximal','Actin-coupling','Scaffolding','Signalling','Unresolved']
 COLORS = dict(zip(LAYERS,['#cb8e46','#377eb8','#26a69a','#7b62a3','#da6d98','#c85b4b','#9ba8b2']))
@@ -347,8 +348,8 @@ def reconstruction_panel(candidates,loader,key):
             st.dataframe(metrics[first],width='stretch',hide_index=True)
             centrality_metric=st.selectbox('Rank proteins by',['betweenness','closeness','degree','clustering_coefficient','k_core'],key=key+'rank_metric')
             top=metrics.nlargest(20,centrality_metric)
-            st.plotly_chart(px.bar(top,x='node',y=centrality_metric,color='species',hover_data=['identifier','Family','community'],title=f'Top 20 by {centrality_metric.replace("_"," ")}'),width='stretch',key=key+'centrality_rank')
-            st.plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='community',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','closeness','clustering_coefficient'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
+            plotly_chart(px.bar(top,x='node',y=centrality_metric,color='species',hover_data=['identifier','Family','community'],title=f'Top 20 by {centrality_metric.replace("_"," ")}'),width='stretch',key=key+'centrality_rank')
+            plotly_chart(px.scatter(metrics,x='degree',y='betweenness',color='community',hover_name='node',hover_data=['sequence_id','Family','orthogroup','layer','closeness','clustering_coefficient'],size='closeness',title='Hubs and potential bottlenecks'),width='stretch',key=key+'centrality')
         with matrix_tab:
             st.caption('Shortest-path distances are calculated through the full displayed graph, even when intermediate proteins are outside the selected matrix rows. Blank cells mean no connecting path. Adjacency shows direct retained associations only.')
             default_ids=metrics.sort_values(['betweenness','degree'],ascending=False).identifier.head(20).tolist()
@@ -362,12 +363,12 @@ def reconstruction_panel(candidates,loader,key):
                 path_fig=go.Figure(go.Heatmap(z=distances.values,x=short_labels,y=short_labels,colorscale='YlGnBu',
                                               colorbar=dict(title='Hops'),hovertemplate='%{y} → %{x}<br>Distance: %{z}<extra></extra>'))
                 path_fig.update_layout(title='Shortest-path distance matrix',height=max(480,22*len(matrix_ids)+140),xaxis_tickangle=-55)
-                st.plotly_chart(path_fig,width='stretch',key=key+'distance_matrix')
+                plotly_chart(path_fig,width='stretch',key=key+'distance_matrix')
                 adjacency_fig=go.Figure(go.Heatmap(z=adjacency.values,x=short_labels,y=short_labels,zmin=0,zmax=1,
                                                    colorscale=[[0,'#ffffff'],[1,'#08743f']],showscale=False,
                                                    hovertemplate='%{y} ↔ %{x}<br>Direct edge: %{z}<extra></extra>'))
                 adjacency_fig.update_layout(title='Direct-association adjacency matrix',height=max(480,22*len(matrix_ids)+140),xaxis_tickangle=-55)
-                st.plotly_chart(adjacency_fig,width='stretch',key=key+'adjacency_matrix')
+                plotly_chart(adjacency_fig,width='stretch',key=key+'adjacency_matrix')
                 a,b=st.columns(2)
                 a.download_button('Download distance matrix · CSV',distances.to_csv().encode('utf-8-sig'),'network_shortest_paths.csv',key=key+'distance_csv')
                 b.download_button('Download adjacency matrix · CSV',adjacency.to_csv().encode('utf-8-sig'),'network_adjacency.csv',key=key+'adjacency_csv')
@@ -380,10 +381,10 @@ def reconstruction_panel(candidates,loader,key):
                 mean_clustering=('clustering_coefficient','mean'),max_k_core=('k_core','max')).reset_index()
             st.dataframe(summary,width='stretch',hide_index=True)
             composition=pd.crosstab(metrics.community,metrics.layer).reindex(columns=LAYERS,fill_value=0)
-            st.plotly_chart(px.imshow(composition,labels=dict(x='Adhesion layer',y='Community',color='Proteins'),
+            plotly_chart(px.imshow(composition,labels=dict(x='Adhesion layer',y='Community',color='Proteins'),
                                       text_auto=True,color_continuous_scale='YlGn',title='Community × adhesion-layer matrix'),
                             width='stretch',key=key+'community_matrix')
-            st.plotly_chart(px.scatter(metrics,x='k_core',y='clustering_coefficient',color='community',size='degree',
+            plotly_chart(px.scatter(metrics,x='k_core',y='clustering_coefficient',color='community',size='degree',
                                        hover_name='node',hover_data=['Family','layer','betweenness'],title='Dense cores and local clustering'),
                             width='stretch',key=key+'cluster_scatter')
             if st.checkbox('Compare a Girvan–Newman edge-betweenness split',key=key+'girvan'):

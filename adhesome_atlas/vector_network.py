@@ -54,8 +54,8 @@ svg{display:block;width:100%;height:690px;min-width:700px;touch-action:none}
 <select id="names"><option value="hidden">Hidden</option><option value="outside">Outside nodes</option><option value="center">Centered in nodes</option></select>
 <label><input id="hideUnconnected" type="checkbox"/> Hide unconnected nodes</label>
 <button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="fit">Fit view</button>
-<button id="reset">Reset positions</button><button id="export">Download SVG</button></div>
-<div class="hint">Drag nodes to rearrange them; drag the background to pan and scroll to zoom. Click a node to inspect its annotation. Export SVG to keep the current arrangement.</div>
+<button id="reset">Reset positions</button><button id="export">Download vector SVG</button></div>
+<div class="hint">Drag nodes to rearrange them; drag the background to pan and scroll to zoom. Click a node to inspect its annotation. Download a scalable vector SVG to keep the current arrangement and sharp labels at any print size.</div>
 <div class="stage"><svg id="network" viewBox="0 0 1200 720" role="img" aria-label="Editable vector network"><rect x="0" y="0" width="1200" height="720" fill="#ffffff"/><g id="edgeLayer"></g><g id="nodeLayer"></g></svg></div>
 <div class="detail" id="detail" aria-live="polite">Select a node to inspect its annotation.</div>
 <details class="legend"><summary>Color legend</summary><div id="legend"></div></details>
@@ -107,5 +107,5 @@ for(const node of data.nodes)if(node.category)categories.set(node.category,node.
 for(const edge of data.edges)if(edge.category)categories.set('Edge: '+edge.category,edge.color);
 for(const [category,color] of categories){const chip=document.createElement('span'),swatch=document.createElement('i');swatch.style.backgroundColor=color||'#08743f';chip.appendChild(swatch);chip.appendChild(document.createTextNode(category));legend.appendChild(chip)}
 document.getElementById('reset').onclick=()=>{for(const n of data.nodes){Object.assign(n,original.get(n.id));nodeGroups.get(n.id).setAttribute('transform',`translate(${n.x},${n.y})`)}for(const records of incident.values())for(const record of records)updateEdge(record)};
-document.getElementById('export').onclick=()=>{const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');const blob=new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'});const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='schistosome_network.svg';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)};
+document.getElementById('export').onclick=()=>{const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');clone.setAttribute('width','2400');clone.setAttribute('height','1440');clone.setAttribute('font-family','Arial, sans-serif');const blob=new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'});const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='schistosome_network.svg';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)};
 </script></body></html>'''.replace('__PAYLOAD__', payload)

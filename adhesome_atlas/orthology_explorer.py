@@ -8,6 +8,7 @@ from family_merges import atlas_group, merge_memberships
 from identifier_labels import identifier_annotations
 import re
 from phylogeny_view import NAMES
+from figure_exports import plotly_chart
 
 
 def read_collection(folder):
@@ -76,16 +77,16 @@ def orthology_panel(candidates=None):
         if selected.empty: st.info('No candidates match these filters.')
         else:
             summary=selected.assign(species=selected.candidate_id.str.split('__').str[0].map(NAMES)).groupby(['species','HOG_status']).candidate_id.nunique().reset_index(name='Candidates')
-            st.plotly_chart(px.bar(summary,x='species',y='Candidates',color='HOG_status',title='Evolutionary scope by candidate species'),width='stretch')
+            plotly_chart(px.bar(summary,x='species',y='Candidates',color='HOG_status',title='Evolutionary scope by candidate species'),width='stretch')
         if not selected_direct.empty:
             relationships=selected_direct.groupby(['reference_species','relationship']).candidate_id.nunique().reset_index(name='Candidates')
             relationships.reference_species=relationships.reference_species.map(NAMES)
-            st.plotly_chart(px.bar(relationships,x='reference_species',y='Candidates',color='relationship',title='Direct orthology relationship types'),width='stretch')
+            plotly_chart(px.bar(relationships,x='reference_species',y='Candidates',color='relationship',title='Direct orthology relationship types'),width='stretch')
         if not selected_hogs.empty:
             display=selected_hogs.sort_values('Orthogroup').head(60)
             codes=[c for c in ['Shae','Sjap','Sman','Hsap','Mmus','Xlae','Dmel','Cele'] if c in display]
             matrix=display.set_index('Orthogroup')[codes].map(lambda x:len({v.strip() for v in x.split(',') if v.strip()}))
-            st.plotly_chart(px.imshow(matrix.rename(columns=NAMES),aspect='auto',color_continuous_scale='YlGn',labels={'color':'Proteins'},title='Orthogroup copy counts',height=max(350,len(matrix)*20)),width='stretch')
+            plotly_chart(px.imshow(matrix.rename(columns=NAMES),aspect='auto',color_continuous_scale='YlGn',labels={'color':'Proteins'},title='Orthogroup copy counts',height=max(350,len(matrix)*20)),width='stretch')
             st.caption(f'Showing {len(display)} of {len(selected_hogs)} selected orthogroups in alphabetical order. Search to focus the heatmap; the membership table includes every selected group.')
     with tabs[1]:
         st.dataframe(display_ids(selected),width='stretch',hide_index=True)
