@@ -19,10 +19,23 @@ NODE_SCENARIOS = {
     'ilk': {'controls': {'bridgeGate':.15}, 'stage':'ILK–PINCH–Nck2 projection', 'note':'The bridge gate reduces downstream coupling from assembled sites. The I–T–V structural matrices remain governed by their own parameters.'},
     'pinch': {'controls': {'bridgeGate':.15}, 'stage':'ILK–PINCH–Nck2 projection', 'note':'The bridge gate tests reduced coupling through the ILK–PINCH–Nck2 module.'},
     'nck': {'controls': {'bridgeGate':.15}, 'stage':'ILK–PINCH–Nck2 projection', 'note':'The bridge gate tests reduced coupling through the ILK–PINCH–Nck2 module to VKR1.'},
-    'fak': {'controls': {'fakGate':.15}, 'stage':'FAK/Src projection', 'note':'Reduced FAK/Src coupling is projected from assembled-site occupancy without changing core I–T–V recruitment.'},
-    'src': {'controls': {'fakGate':.15}, 'stage':'FAK/Src projection', 'note':'Reduced FAK/Src coupling is projected from assembled-site occupancy without changing core I–T–V recruitment.'},
+    'fak': {'controls': {'fakGate':.15}, 'stage':'FAK/Src mechanosensing', 'note':'Reduced FAK/Src coupling lowers the force-dependent receptor-signalling projection and its growth/migration outputs.'},
+    'src': {'controls': {'fakGate':.15}, 'stage':'FAK/Src mechanosensing', 'note':'Reduced FAK/Src coupling lowers the force-dependent receptor-signalling projection and its growth/migration outputs.'},
+    'paxillin': {'controls': {'migrationGate':.15}, 'stage':'Migration and traction', 'note':'Reduced paxillin-associated migration coupling lowers the protrusion and traction projections.'},
+    'ptppest': {'controls': {'migrationGate':.15}, 'stage':'Adhesion turnover projection', 'note':'The migration gate probes PTP-PEST-associated turnover coupling as a functional projection.'},
+    'grb2': {'controls': {'growthGate':.15}, 'stage':'Growth and survival', 'note':'Reduced adaptor coupling lowers ERK/Akt/survival projections; these are module readouts rather than fitted growth rates.'},
+    'shc': {'controls': {'growthGate':.15}, 'stage':'Growth and survival', 'note':'Reduced Shc-associated adaptor coupling lowers growth and survival projections.'},
+    'cofilin': {'controls': {'cytoskeletonGate':.15}, 'stage':'Actin regulation', 'note':'The actin-regulation gate probes cofilin-associated remodelling output.'},
+    'profilin': {'controls': {'cytoskeletonGate':.15}, 'stage':'Actin regulation', 'note':'The actin-regulation gate probes profilin-associated polymerization coupling.'},
+    'zyxin': {'controls': {'cytoskeletonGate':.15}, 'stage':'Actin regulation', 'note':'The actin-regulation gate probes zyxin-associated cytoskeletal organization.'},
     'vkr1': {'controls': {'vkrGate':.15}, 'stage':'VKR1 projection', 'note':'The S. mansoni receptor-context gate reduces the VKR1 readout downstream of the ILK–PINCH–Nck2 bridge.'},
 }
+
+for node, scenario in NODE_SCENARIOS.items():
+    scenario['module'] = ('reproduction' if node in {'ilk','pinch','nck','vkr1'} else
+                          'migration' if node in {'fak','src','paxillin','ptppest'} else
+                          'growth' if node in {'shc','grb2'} else
+                          'cytoskeleton' if node in {'actin','actinin','filamin','cofilin','profilin','zyxin'} else 'mechanics')
 
 _MAP_BRIDGE = r'''
 <style>#info .atlas-simulate{margin-top:14px;padding:10px 14px;border:2px solid #075d32;border-radius:8px;background:#ffe34d;color:#111;font-weight:800;cursor:pointer}#info .atlas-simulate:focus-visible{outline:3px solid #b91c1c;outline-offset:2px}</style>
@@ -34,7 +47,7 @@ showNode=function(node){
     const selected=info.querySelector('select[aria-label="Select candidate protein"]');
     const id=selected?.value||atlasPayload.focus_candidate;
     const candidate=atlasPayload.candidates.find(r=>r.sequence_id===id&&(r.map_node===node.id||(node.id==='integrin_ab'&&['inta','intb'].includes(r.map_node))));
-    window.parent.postMessage({type:'schisto-adhesome-node',node:node.id,title:node.title,candidate:candidate?.sequence_id||'',species:candidate?.species||''},'*');
+    window.parent.postMessage({type:'schisto-adhesome-node',node:node.id,title:node.title,candidate:candidate?.sequence_id||'',species:candidate?.species||'',module:document.getElementById('moduleFocus')?.value||'all'},'*');
   });
   const heading=info.querySelector('h2');if(heading)heading.insertAdjacentElement('afterend',button);else info.prepend(button);
   const caption=document.createElement('p');caption.textContent='Opens local I–T–V assembly matrices, force-dependent recruitment and actin feedback. Peripheral families select explicit coupling proxies.';button.insertAdjacentElement('afterend',caption);

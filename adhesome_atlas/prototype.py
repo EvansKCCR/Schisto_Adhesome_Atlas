@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 
 import pandas as pd
+from nanoscale_architecture import architecture_json
 
 
 FAMILY_NODES = {
@@ -75,6 +76,8 @@ def map_payload(rows, focus_family=None, focus_candidate=None):
 def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
     """Enhance the supplied standalone HTML without changing its source layout."""
     html = path.read_text(encoding='utf-8')
+    html = re.sub(r'const nanoscaleArchitecture = .*?;(?=\n)',
+                  lambda _: 'const nanoscaleArchitecture = '+architecture_json()+';',html,count=1)
     payload = json.dumps(map_payload(rows, focus_family, focus_candidate), ensure_ascii=False).replace('<', '\\u003c')
     enhancement = r"""
 <style>

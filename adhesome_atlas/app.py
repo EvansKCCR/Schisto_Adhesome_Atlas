@@ -184,7 +184,7 @@ if page == 'Introduction':
         st.iframe(map_html, height=1240)
     else:
         st.info('Interactive diagram unavailable. Include Schistosome_adhesome_interactive.html alongside app.py.')
-    st.caption('Click a map node, then choose “Explore downstream simulation” to inspect seeded local I–T–V matrices, force-dependent vinculin recruitment and actin feedback beside a reference lattice. Each scenario identifies its model parameter or downstream coupling proxy. Extracellular ligand classes target the putative integrin αβ heterodimer.')
+    st.caption('Explore the reference-based L1 signalling, L2 force-transduction and L3 actin-regulation zones by functional hub. Select a family or candidate and choose “Explore downstream simulation” for local matrices, clutch reinforcement and mechanics, migration, growth/survival or reproductive-coupling projections. Extracellular ligands target the putative integrin αβ heterodimer.')
     map_guide = ROOT / 'README_schistosome_adhesome_interactive.md'
     if map_guide.is_file():
         with st.expander('Map guide · evidence classes and interpretation'):

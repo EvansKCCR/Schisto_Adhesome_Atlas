@@ -3,6 +3,8 @@
 import json
 from pathlib import Path
 import streamlit as st
+from nanoscale_architecture import architecture_json
+import re
 
 
 SIMULATOR_FILE = 'schistosome_integrin_adhesome_hypothesis_simulator.html'
@@ -74,6 +76,8 @@ def topology_weights(adhesome, signature):
 
 def simulator_html(path: Path, adhesome):
     html = path.read_text(encoding='utf-8')
+    html = re.sub(r'const nanoscaleArchitecture = .*?;(?=\n)',
+                  lambda _: 'const nanoscaleArchitecture = '+architecture_json()+';',html,count=1)
     if INVENTORY_MARKER not in html:
         raise ValueError(f'{path.name}: audited inventory insertion point is missing')
     payload = json.dumps(supported_inventory(adhesome), ensure_ascii=False).replace('<', '\\u003c')

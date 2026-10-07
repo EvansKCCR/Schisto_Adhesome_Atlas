@@ -84,3 +84,9 @@ Method reference for supplied transmembrane-topology predictions. The official t
 Howe KL, Bolt BJ, Shafie M, Kersey P, Berriman M (2017). **WormBase ParaSite—a comprehensive resource for helminth genomics.** *Molecular and Biochemical Parasitology*, 215, 2–10. [doi:10.1016/j.molbiopara.2016.11.005](https://doi.org/10.1016/j.molbiopara.2016.11.005). [Official citation guidance](https://parasite.wormbase.org/info/about/publications.html).
 
 Helminth genome and gene-model reference resource. Report the actual WBPS release and assembly accession used for each proteome separately.
+
+## Nanoscale adhesion architecture and mechanotransduction
+
+Kanchanawong P et al. (2010). **Nanoscale architecture of integrin-based cell adhesions.** *Nature*, 468, 580–584. [doi:10.1038/nature09621](https://doi.org/10.1038/nature09621). Reference basis for the integrin-signalling, force-transduction and actin-regulation schematic; it does not establish schistosome nanoscale coordinates.
+
+del Rio A et al. (2009). **Stretching single talin rod molecules activates vinculin binding.** *Science*, 323, 638–641. [doi:10.1126/science.1162912](https://doi.org/10.1126/science.1162912). Reference basis for force-exposed talin binding sites and vinculin recruitment.

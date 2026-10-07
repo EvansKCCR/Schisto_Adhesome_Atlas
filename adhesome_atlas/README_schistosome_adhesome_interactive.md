@@ -16,6 +16,20 @@ The diagram is editable SVG: drag any family node to rearrange its edges, use **
 
 Use **Hide unconnected nodes** to show only nodes linked by the currently enabled edge classes. The control updates when relationship filters change and is preserved when centering names or resetting positions. SVG exports retain the visible-node selection.
 
+## Nanoscale zones and functional views
+
+The diagram now groups the same family inventory and evidence-stratified relationships into three functional zones:
+
+- **L1 · Integrin signalling:** αβ receptor tails, FAK/Src, paxillin and signalling adaptors; SmVKR1 remains at the membrane.
+- **L2 · Force transduction:** talin, kindlin and vinculin form the receptor-activation and mechanical-clutch zone.
+- **L3 · Actin regulation:** ILK–PINCH scaffolding, α-actinin, filamin, zyxin, cofilin, profilin and actin; parvin remains unresolved reference context.
+
+The **Nanoscale zone** selector focuses a zone; the **Functional hub** selector focuses mechanics, cytoskeletal organization, migration/traction, growth/survival or reproduction/development. These selectors emphasize existing nodes and edges without creating interactions. Dragging, centered labels and vector export preserve the current focus.
+
+Selecting a node shows its zone, functional role and linked partners. **Explore downstream simulation** carries the node, selected candidate and functional focus into the matrix simulator, where selected-site zone schematics and functional readout cards compare the schistosome model with a canonical reference. Existing evidence filters and the hypothesis download remain available.
+
+The three-zone organization is a functional reference schematic derived from [Kanchanawong et al. (2010)](https://doi.org/10.1038/nature09621), not measured schistosome nanoscale positions. Talin exposure and vinculin reinforcement follow the reference mechanism of [del Rio et al. (2009)](https://doi.org/10.1126/science.1162912). VASP, Rac/Cdc42, Rho/ROCK and ERK/Akt–mTOR are reference pathway context, rather than new parasite-family assignments. Reproductive interpretation uses the schistosome ILK–PINCH–Nck2–SmVKR1 branch.
+
 ## Current biological hypothesis
 
 The working hypothesis is that schistosomes possess a conserved but parasite-adapted integrin-associated network that may couple extracellular and host-vascular inputs to:

@@ -2,6 +2,20 @@
 
 The simulator reconstructs stochastic nascent adhesion complexes at individual ECM lattice sites. It adapts the supplied `Framework.py` into a spatial, inspectable and reproducible model linked to the atlas family map. The standalone file is `schistosome_integrin_adhesome_hypothesis_simulator.html`; all simulation and SVG rendering code is contained in that HTML.
 
+## Nanoscale organization and functional hubs
+
+The map and simulator share `nanoscale_architecture.py`, with three schematic zones:
+
+| Zone | Principal families | Function |
+| --- | --- | --- |
+| L1 · Integrin signalling | Integrin αβ, FAK/Src, paxillin, adaptors; membrane SmVKR1 context | Receptor engagement and force-dependent signalling |
+| L2 · Force transduction | Talin, kindlin, vinculin | Receptor activation, talin exposure and clutch reinforcement |
+| L3 · Actin regulation | ILK–PINCH, α-actinin, filamin, zyxin, cofilin, profilin, F-actin | Scaffold coupling, cross-linking and remodelling |
+
+This functional organization follows [Kanchanawong et al. (2010)](https://doi.org/10.1038/nature09621) and the talin force-exposure mechanism of [del Rio et al. (2009)](https://doi.org/10.1126/science.1162912). It is a reference schematic, not measured schistosome nanometre coordinates. ILK–PINCH placement is functional context; unresolved parvin and VASP remain reference components. The parasite reproductive branch uses the Smβ-Int1–ILK–PINCH–Nck2–SmVKR1 relationship described by [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147).
+
+Five selectable functional hubs connect these zones: **mechanotransduction/tensile strength**, **cytoskeletal organization**, **migration/traction**, **growth/survival**, and **reproduction/development**. Each system displays a selected-site zone schematic and five module cards alongside its lattice. The local structural matrix retains I/T/V; other families contribute contextual or gated projections rather than invented molecular occupancy.
+
 ## Local matrices and components
 
 Every site stores a binary 3 × 3 matrix A, with components ordered as:
@@ -51,6 +65,14 @@ F(t+1) = F(t) + external_load + feedback × actin_attached(t)
 
 An assembled I–T–V site can attach actin with the specified probability. Actin then contributes additional force on the next timestep, completing the feedback loop. The engine checks overload and basal dissociation before recruitment. Either event clears the entire local matrix, force and actin state; later ligand attachment can initialize a new complex at that site. Higher load can therefore accelerate talin exposure and also promote rupture.
 
+Vinculin–actin reinforcement raises the overload threshold of an assembled, actin-attached clutch:
+
+```text
+effective_rupture_force = rupture_force × (1 + reinforcement)
+```
+
+Other sites retain the base rupture threshold. The default reinforcement is 0.5; this is an editable mechanical assumption.
+
 Force values are normalized assumed units. No conversion to pN, fitted binding energy or tissue mechanics is claimed.
 
 ## Default parameters
@@ -70,6 +92,8 @@ Force values are normalized assumed units. No conversion to pN, fitted binding e
 | Basal dissociation probability | 0.05 |
 | Actin attachment probability | 0.6 |
 | Additional actin force feedback | 0.15 |
+| Clutch reinforcement | 0.5 |
+| Downstream projection gates | 1 (reference VKR1 gate = 0) |
 
 The structural defaults and W assumptions follow the supplied Framework; the actin-attachment and feedback controls make its proposed feedback-amplification phase explicit.
 
@@ -91,7 +115,26 @@ Select a node in the Introduction map and choose **Explore downstream simulation
 - Host-vascular context reduces external force loading.
 - FAK/Src, ILK/PINCH/Nck and VKR1 alter their named downstream projection gates.
 
-FAK/Src, ILK–PINCH–Nck2 and VKR1 are projected coupling readouts based on assembled-site occupancy, not additional components of A. The bridge gate affects the ILK–PINCH–Nck2 and VKR1 outputs; the canonical reference has no VKR1 branch. These downstream gates do not alter core I–T–V matrices. Other map families show the unperturbed local lattice with an explicit mapping note.
+FAK/Src follows force-dependent signalling at ligand-anchored receptors. ILK–PINCH–Nck2 and VKR1 follow assembled-site coupling; the canonical reference has no VKR1 branch. Paxillin/PTP-PEST, Shc/Grb2 and cofilin/profilin/zyxin selections control migration, growth/survival and cytoskeletal projection gates respectively. These gates do not alter core I–T–V matrices. Unresolved parvin displays the baseline with reference context.
+
+## Functional projection formulas
+
+For each site, let `I` be receptor occupancy, `M` complete I–T–V assembly, `C` assembled plus actin-attached clutch, `B` actin attachment, and `q = F / (F + max(threshold, 10⁻⁹))` for an occupied receptor (otherwise zero). Gates are in [0,1].
+
+```text
+mechanics     = C × q
+cytoskeleton  = B × cytoskeleton_gate
+FAK/Src       = I × q × fak_gate
+bridge        = M × bridge_gate
+VKR1          = bridge × vkr_gate
+protrusion    = I × (1 − q) × fak_gate × migration_gate
+traction      = C × q × migration_gate
+ERK           = FAK/Src × growth_gate
+Akt           = bridge × B × growth_gate
+survival      = I × (FAK/Src + bridge) / 2 × growth_gate
+```
+
+Cards show averages as percentages of configured receptor sites. These are dimensionless functional projections: protrusion/traction distinguish low-load and high-load states; ERK/Akt/survival express coupling without calculating migration distance, proliferation, survival probability or reproductive output. Rac/Cdc42–Arp2/3, Rho–ROCK–myosin and Akt–mTOR remain reference pathways. The model does not assign phosphorylation sites or kinase substrates.
 
 The linked banner compares the selected scenario with a same-seed default-parameter baseline using the same schistosome W. Manual changes are retained when returning between map and simulator tabs. Selecting another map node resets the scenario to its defined controls.
 
@@ -99,6 +142,6 @@ Selecting a candidate supplies its species and identifier context. W remains the
 
 ## Reproducibility and exports
 
-The engine version is `adhesion-lattice-2.0`; the random generator is Mulberry32. **Download reproducible run · JSON** includes all parameters, W, topology provenance, reference label, selected map context, receptor positions and complete timestep histories of the 4D tensor, force, actin and derived readouts for both systems. **Download trajectories · CSV** exports the timestep summaries. The engine is deterministic for a given parameter set, W and seed.
+The engine version is `adhesion-lattice-3.0` and export schema is version 3; the random generator is Mulberry32. **Download reproducible run · JSON** includes all parameters, W, topology provenance, reference label, selected map context, shared zone/function definitions, receptor positions and complete timestep histories of the 4D tensor, force, actin and per-site `nanoscale_state` for both systems. **Download trajectories · CSV** includes the functional projections with timestep summaries. The engine is deterministic for a given parameter set, W and seed.
 
-Validation checks cover seeded replay, unique receptor ownership, binary symmetric matrices, recruitment dependencies, probability clipping, complete rupture resets, force-feedback timing and separation of structural matrices from downstream gates. Run `python test_matrix_simulator.py` to exercise the embedded engine directly with Node.js.
+Validation checks cover seeded replay, unique receptor ownership, binary symmetric matrices, recruitment dependencies, probability clipping, complete rupture resets, force-feedback timing, clutch reinforcement, bounded zone projections, load-dependent protrusion/traction and separation of structural matrices from downstream gates. Run `python test_matrix_simulator.py` to exercise the embedded engine directly with Node.js.
