@@ -6,13 +6,27 @@ import pandas as pd
 import re
 from data import ROOT
 
+SPECIES_ALIASES = {
+    'Schistosoma_haematobium':'Shae', 'Schistosoma_japonicum':'Sjap',
+    'Schistosoma_mansoni':'Sman', 'Homo_sapiens':'Hsap',
+    'Mus_musculus':'Mmus', 'Xenopus_laevis':'Xlae',
+    'Drosophila_melanogaster':'Dmel', 'Caenorhabditis_elegans':'Cele',
+}
+
+
+def canonical_sequence_id(identifier):
+    """Normalize species aliases for annotation joins; preserve source tree IDs."""
+    species, separator, protein = str(identifier).partition('__')
+    return SPECIES_ALIASES.get(species, species) + separator + protein
+
 @lru_cache(maxsize=2)
 def _read(path,mtime,size,tip_signature,supplement_signature):
     data=pd.read_csv(path,sep='\t',dtype=str).fillna('')
     tree_ids=set()
     for source_path,_,_ in tip_signature:
         text=Path(source_path).read_text(encoding='utf-8')
-        tree_ids.update(re.findall(r'[A-Za-z]+__[A-Za-z0-9_.-]+',text))
+        tree_ids.update(canonical_sequence_id(key) for key in
+                        re.findall(r'[A-Za-z][A-Za-z_]*__[A-Za-z0-9_.-]+',text))
     data=data[data.prepared_id.isin(tree_ids)].copy()
     data['identifier_mapping_source']=Path(path).name
     if supplement_signature:
@@ -46,9 +60,13 @@ def identifier_annotations():
 
 
 def annotate_tips(tips):
+    tips=tips.copy()
+    tips['source_species']=tips.species
+    tips['species']=tips.species.map(lambda species:SPECIES_ALIASES.get(species,species))
+    tips['identifier_lookup_id']=tips.sequence_id.map(canonical_sequence_id)
     annotations=identifier_annotations()
-    subset=annotations.reindex(tips.sequence_id).drop(columns='sequence_id').reset_index() if not annotations.empty else annotations
-    result=tips.merge(subset,on='sequence_id',how='left',validate='one_to_one').fillna('')
+    subset=annotations.reset_index(drop=True).rename(columns={'sequence_id':'identifier_lookup_id'})
+    result=tips.merge(subset,on='identifier_lookup_id',how='left',validate='many_to_one').fillna('')
     result['display_label']=[species+'__'+protein if protein else key for species,protein,key in zip(result.species,result.protein_annotation_id,result.sequence_id)]
     result.loc[result.identifier_mapping_status.eq(''),'identifier_mapping_status']='No mapping entry'
     return result
