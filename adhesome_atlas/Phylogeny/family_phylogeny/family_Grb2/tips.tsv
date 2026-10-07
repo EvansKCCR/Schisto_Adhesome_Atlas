@@ -1,0 +1,12 @@
+sequence_id	species	length	candidate	family	source_groups
+Caenorhabditis_elegans__WBGene00004774	Caenorhabditis_elegans	228	0	Grb2	OG0003745
+Drosophila_melanogaster__GeneID_36497	Drosophila_melanogaster	211	0	Grb2	OG0003745
+Homo_sapiens__GeneID_2885	Homo_sapiens	217	0	Grb2	OG0003745
+Mus_musculus__GeneID_14784	Mus_musculus	217	0	Grb2	OG0003745
+Shae__MS3_00002675	Shae	234	1	Grb2	OG0003745
+Shae__MS3_00003161	Shae	317	1	Grb2	OG0012648
+Sjap__EWB00_003848	Sjap	234	1	Grb2	OG0003745
+Sman__Smp_044530	Sman	317	1	Grb2	OG0012648
+Sman__Smp_062950	Sman	234	1	Grb2	OG0003745
+Xenopus_laevis__GeneID_399458	Xenopus_laevis	229	0	Grb2	OG0003745
+Xenopus_laevis__GeneID_444095	Xenopus_laevis	229	0	Grb2	OG0003745

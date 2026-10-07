@@ -1,0 +1,11 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	7/40	4	Drosophila_melanogaster,Shae,Sjap,Sman	Drosophila_melanogaster__GeneID_33262,Shae__MS3_00006664,Sjap__EWB00_010643,Sman__Smp_014850	3		unrooted split; no ancestry or duplication timing assigned
+B0003	100/100	3	Shae,Sjap,Sman	Shae__MS3_00006664,Sjap__EWB00_010643,Sman__Smp_014850	0		unrooted split; no ancestry or duplication timing assigned
+B0004	96.3/98	2	Shae,Sman	Shae__MS3_00006664,Sman__Smp_014850	0		unrooted split; no ancestry or duplication timing assigned
+B0005	99.5/100	8	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_4690,Homo_sapiens__GeneID_8440,Mus_musculus__GeneID_17973,Mus_musculus__GeneID_17974,Xenopus_laevis__GeneID_108709700,Xenopus_laevis__GeneID_398861,Xenopus_laevis__GeneID_399308,Xenopus_laevis__GeneID_779200	0		unrooted split; no ancestry or duplication timing assigned
+B0006	98.7/100	4	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_4690,Mus_musculus__GeneID_17973,Xenopus_laevis__GeneID_399308,Xenopus_laevis__GeneID_779200	0		unrooted split; no ancestry or duplication timing assigned
+B0007	99.4/100	2	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_4690,Mus_musculus__GeneID_17973	0		unrooted split; no ancestry or duplication timing assigned
+B0008	95.6/100	2	Xenopus_laevis	Xenopus_laevis__GeneID_399308,Xenopus_laevis__GeneID_779200	0		unrooted split; no ancestry or duplication timing assigned
+B0009	99.1/100	4	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_8440,Mus_musculus__GeneID_17974,Xenopus_laevis__GeneID_108709700,Xenopus_laevis__GeneID_398861	0		unrooted split; no ancestry or duplication timing assigned
+B0010	67.6/73	2	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_8440,Mus_musculus__GeneID_17974	0		unrooted split; no ancestry or duplication timing assigned
+B0011	99.7/100	2	Xenopus_laevis	Xenopus_laevis__GeneID_108709700,Xenopus_laevis__GeneID_398861	0		unrooted split; no ancestry or duplication timing assigned

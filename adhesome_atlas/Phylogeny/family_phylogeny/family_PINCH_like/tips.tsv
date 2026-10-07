@@ -1,0 +1,17 @@
+sequence_id	species	length	candidate	family	source_groups
+Caenorhabditis_elegans__WBGene00006826	Caenorhabditis_elegans	348	0	PINCH_like	OG0002150
+Drosophila_melanogaster__GeneID_40999	Drosophila_melanogaster	348	0	PINCH_like	OG0002150
+Homo_sapiens__GeneID_100288695	Homo_sapiens	398	0	PINCH_like	OG0002150
+Homo_sapiens__GeneID_3987	Homo_sapiens	398	0	PINCH_like	OG0002150
+Homo_sapiens__GeneID_55679	Homo_sapiens	365	0	PINCH_like	OG0002150
+Homo_sapiens__GeneID_96626	Homo_sapiens	398	0	PINCH_like	OG0002150
+Mus_musculus__GeneID_110829	Mus_musculus	398	0	PINCH_like	OG0002150
+Mus_musculus__GeneID_225341	Mus_musculus	341	0	PINCH_like	OG0002150
+Shae__MS3_00001825	Shae	354	1	PINCH_like	OG0002150
+Shae__MS3_00010441	Shae	363	1	PINCH_like	OG0013668
+Sjap__EWB00_004122	Sjap	354	1	PINCH_like	OG0013668
+Sjap__EWB00_009541	Sjap	354	1	PINCH_like	OG0002150
+Sman__Smp_020540	Sman	358	1	PINCH_like	OG0013668
+Sman__Smp_165070	Sman	354	1	PINCH_like	OG0002150
+Xenopus_laevis__GeneID_432196	Xenopus_laevis	397	0	PINCH_like	OG0002150
+Xenopus_laevis__GeneID_444502	Xenopus_laevis	336	0	PINCH_like	OG0002150

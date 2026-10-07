@@ -1,0 +1,14 @@
+sequence_id	species	length	candidate	family	source_groups
+Caenorhabditis_elegans__WBGene00002213	Caenorhabditis_elegans	867	0	FAK	OG0002086
+Drosophila_melanogaster__GeneID_37233	Drosophila_melanogaster	1500	0	FAK	OG0002086
+Homo_sapiens__GeneID_2185	Homo_sapiens	1009	0	FAK	OG0002086
+Homo_sapiens__GeneID_5747	Homo_sapiens	1147	0	FAK	OG0002086
+Mus_musculus__GeneID_14083	Mus_musculus	1140	0	FAK	OG0002086
+Mus_musculus__GeneID_19229	Mus_musculus	1020	0	FAK	OG0002086
+Shae__MS3_00002824	Shae	1101	1	FAK	OG0002086
+Sjap__EWB00_007322	Sjap	882	1	FAK	OG0002086
+Sman__Smp_137610	Sman	1070	1	FAK	OG0002086
+Xenopus_laevis__GeneID_108717254	Xenopus_laevis	1014	0	FAK	OG0002086
+Xenopus_laevis__GeneID_108718305	Xenopus_laevis	1013	0	FAK	OG0002086
+Xenopus_laevis__GeneID_399286	Xenopus_laevis	1134	0	FAK	OG0002086
+Xenopus_laevis__GeneID_432072	Xenopus_laevis	1105	0	FAK	OG0002086

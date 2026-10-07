@@ -1,0 +1,14 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	33/42	14	Homo_sapiens,Mus_musculus,Shae,Sjap,Sman,Xenopus_laevis	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_3987,Homo_sapiens__GeneID_55679,Homo_sapiens__GeneID_96626,Mus_musculus__GeneID_110829,Mus_musculus__GeneID_225341,Shae__MS3_00001825,Shae__MS3_00010441,Sjap__EWB00_004122,Sjap__EWB00_009541,Sman__Smp_020540,Sman__Smp_165070,Xenopus_laevis__GeneID_432196,Xenopus_laevis__GeneID_444502	24		unrooted split; no ancestry or duplication timing assigned
+B0003	99.9/100	8	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_3987,Homo_sapiens__GeneID_55679,Homo_sapiens__GeneID_96626,Mus_musculus__GeneID_110829,Mus_musculus__GeneID_225341,Xenopus_laevis__GeneID_432196,Xenopus_laevis__GeneID_444502	0		unrooted split; no ancestry or duplication timing assigned
+B0004	94.8/99	6	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_3987,Homo_sapiens__GeneID_96626,Mus_musculus__GeneID_110829,Xenopus_laevis__GeneID_432196,Xenopus_laevis__GeneID_444502	0		unrooted split; no ancestry or duplication timing assigned
+B0005	99.7/100	5	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_3987,Homo_sapiens__GeneID_96626,Mus_musculus__GeneID_110829,Xenopus_laevis__GeneID_432196	0		unrooted split; no ancestry or duplication timing assigned
+B0006	99.2/100	4	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_3987,Homo_sapiens__GeneID_96626,Mus_musculus__GeneID_110829	0		unrooted split; no ancestry or duplication timing assigned
+B0007	90/100	3	Homo_sapiens	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_3987,Homo_sapiens__GeneID_96626	0		unrooted split; no ancestry or duplication timing assigned
+B0008	94.9/98	2	Homo_sapiens	Homo_sapiens__GeneID_100288695,Homo_sapiens__GeneID_96626	0		unrooted split; no ancestry or duplication timing assigned
+B0009	97.2/96	2	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_55679,Mus_musculus__GeneID_225341	0		unrooted split; no ancestry or duplication timing assigned
+B0010	33.3/48	6	Shae,Sjap,Sman	Shae__MS3_00001825,Shae__MS3_00010441,Sjap__EWB00_004122,Sjap__EWB00_009541,Sman__Smp_020540,Sman__Smp_165070	0		unrooted split; no ancestry or duplication timing assigned
+B0011	100/100	3	Shae,Sjap,Sman	Shae__MS3_00001825,Sjap__EWB00_009541,Sman__Smp_165070	0		unrooted split; no ancestry or duplication timing assigned
+B0012	65.6/50	2	Shae,Sman	Shae__MS3_00001825,Sman__Smp_165070	0		unrooted split; no ancestry or duplication timing assigned
+B0013	100/100	3	Shae,Sjap,Sman	Shae__MS3_00010441,Sjap__EWB00_004122,Sman__Smp_020540	0		unrooted split; no ancestry or duplication timing assigned
+B0014	97.9/99	2	Shae,Sman	Shae__MS3_00010441,Sman__Smp_020540	0		unrooted split; no ancestry or duplication timing assigned
