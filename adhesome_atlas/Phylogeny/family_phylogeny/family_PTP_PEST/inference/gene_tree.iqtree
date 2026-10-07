@@ -1,0 +1,387 @@
+IQ-TREE 2.4.0 built Feb 12 2025
+
+Input file name: /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Test_pipeline_v1/runs/family_phylogeny_audited/family_PTP_PEST/inference/trimmed.faa
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 20260920
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 33 sequences with 202 amino-acid sites
+Number of constant sites: 14 (= 6.93069% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 14 (= 6.93069% of all sites)
+Number of parsimony informative sites: 174
+Number of distinct site patterns: 198
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: LG+G4
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+LG+G4             -6081.379   12290.758 +    0.573   12351.488 +    0.869   12502.487 +    0.914
+LG+I+G4           -6081.151   12292.302 +    0.265   12355.391 +    0.123   12507.340 +   0.0808
+Q.insect+G4       -6086.932   12301.863 -  0.00222   12362.593 -  0.00337   12513.593 -  0.00354
+LG+R3             -6080.288   12294.575 +    0.085   12362.575 -   0.0034   12516.229 - 0.000948
+Q.insect+I+G4     -6086.416   12302.832 -  0.00137   12365.920 - 0.000638   12517.870 - 0.000418
+LG+I+R3           -6079.755   12295.510 +   0.0532   12366.066 - 0.000593   12520.472 - 0.000114
+LG+R4             -6080.249   12298.497 -    0.012   12371.679 - 3.58e-05   12526.768 - 4.88e-06
+LG+I+R4           -6079.707   12299.413 -  0.00756   12375.291 - 5.89e-06   12530.992 - 5.91e-07
+LG+R2             -6093.137   12316.275 - 1.65e-06   12379.363 - 7.69e-07   12531.312 - 5.03e-07
+LG+I+R2           -6090.738   12313.475 - 6.69e-06   12378.986 - 9.28e-07   12531.821 -  3.9e-07
+Q.pfam+G4         -6097.779   12323.558 - 4.32e-08   12384.288 - 6.55e-08   12535.288 - 6.89e-08
+Q.pfam+I+G4       -6097.712   12325.424 -  1.7e-08   12388.513 - 7.92e-09   12540.462 - 5.19e-09
+Q.yeast+G4        -6103.362   12334.724 - 1.63e-10   12395.454 - 2.46e-10   12546.453 - 2.59e-10
+Q.yeast+I+G4      -6103.005   12336.011 - 8.54e-11   12399.099 - 3.98e-11   12551.048 - 2.61e-11
+cpREV+G4          -6109.897   12347.795 - 2.36e-13   12408.524 - 3.58e-13   12559.524 - 3.76e-13
+cpREV+I+G4        -6109.499   12348.997 - 1.29e-13   12412.086 - 6.03e-14   12564.035 - 3.95e-14
+WAG+G4            -6116.338   12360.675 - 3.77e-16   12421.405 - 5.71e-16   12572.404 - 6.01e-16
+WAG+I+G4          -6115.358   12360.715 - 3.69e-16   12423.803 - 1.72e-16   12575.753 - 1.13e-16
+LG+F+G4           -6069.151   12304.302 - 0.000656   12422.472 - 3.35e-16   12578.888 - 2.35e-17
+VT+G4             -6121.762   12371.525 - 1.66e-18   12432.255 - 2.51e-18   12583.254 - 2.65e-18
+LG+F+I+G4         -6068.966   12305.932 -  0.00029   12427.984 - 2.13e-17   12583.827 - 1.99e-18
+VT+I+G4           -6120.895   12371.791 - 1.45e-18   12434.879 - 6.77e-19   12586.828 - 4.43e-19
+Q.pfam+F+G4       -6074.765   12315.529 - 2.39e-06   12433.699 - 1.22e-18   12590.116 - 8.57e-20
+Q.pfam+F+I+G4     -6074.746   12317.491 - 8.98e-07   12439.543 - 6.58e-20   12595.386 - 6.14e-21
+Q.plant+G4        -6128.860   12385.720 - 1.37e-21   12446.450 - 2.08e-21   12597.449 - 2.19e-21
+Q.plant+I+G4      -6128.232   12386.464 - 9.46e-22   12449.552 - 4.41e-22   12601.501 - 2.89e-22
+Q.yeast+F+G4      -6082.749   12331.497 - 8.16e-10   12449.667 - 4.16e-22   12606.084 - 2.92e-23
+JTT+G4            -6133.520   12395.041 -  1.3e-23   12455.770 - 1.97e-23   12606.770 - 2.07e-23
+JTTDCMut+G4       -6133.809   12395.617 - 9.73e-24   12456.347 - 1.48e-23   12607.346 - 1.55e-23
+cpREV+F+G4        -6083.763   12333.525 - 2.96e-10   12451.695 - 1.51e-22   12608.111 - 1.06e-23
+JTT+I+G4          -6132.359   12394.717 - 1.53e-23   12457.806 - 7.12e-24   12609.755 - 4.66e-24
+WAG+F+G4          -6084.769   12335.538 - 1.08e-10   12453.707 - 5.52e-23   12610.124 - 3.87e-24
+JTTDCMut+I+G4     -6132.665   12395.330 - 1.12e-23   12458.419 - 5.24e-24   12610.368 - 3.43e-24
+Q.yeast+F+I+G4    -6082.582   12333.164 - 3.55e-10   12455.216 -  2.6e-23   12611.059 - 2.43e-24
+cpREV+F+I+G4      -6083.219   12334.438 - 1.88e-10   12456.489 - 1.37e-23   12612.332 - 1.28e-24
+WAG+F+I+G4        -6084.127   12336.254 - 7.56e-11   12458.306 - 5.54e-24   12614.149 - 5.18e-25
+Q.insect+F+G4     -6091.979   12349.958 -    8e-14   12468.127 - 4.08e-26   12624.544 - 2.86e-27
+Q.insect+F+I+G4   -6091.586   12351.172 - 4.36e-14   12473.223 - 3.19e-27   12629.066 - 2.98e-28
+Blosum62+G4       -6145.301   12418.602 - 9.94e-29   12479.332 - 1.51e-28   12630.331 - 1.59e-28
+rtREV+G4          -6146.183   12420.367 - 4.11e-29   12481.097 - 6.23e-29   12632.096 - 6.56e-29
+Blosum62+I+G4     -6145.055   12420.110 - 4.68e-29   12483.198 - 2.18e-29   12635.147 - 1.43e-29
+rtREV+I+G4        -6146.081   12422.162 - 1.68e-29   12485.251 - 7.81e-30   12637.200 - 5.11e-30
+VT+F+G4           -6100.463   12366.926 - 1.65e-17   12485.096 - 8.44e-30   12641.513 - 5.92e-31
+VT+F+I+G4         -6099.731   12367.462 - 1.27e-17   12489.513 - 9.27e-31   12645.356 - 8.66e-32
+JTT+F+G4          -6102.962   12371.923 - 1.36e-18   12490.093 - 6.94e-31   12646.510 - 4.86e-32
+JTTDCMut+F+G4     -6103.669   12373.339 -  6.7e-19   12491.508 - 3.42e-31   12647.925 -  2.4e-32
+JTT+F+I+G4        -6102.026   12372.052 - 1.27e-18   12494.104 - 9.34e-32   12649.947 - 8.72e-33
+JTTDCMut+F+I+G4   -6102.760   12373.521 - 6.12e-19   12495.572 - 4.48e-32   12651.415 - 4.18e-33
+PMB+G4            -6162.025   12452.050 - 5.42e-36   12512.780 - 8.22e-36   12663.779 - 8.65e-36
+Q.plant+F+G4      -6112.077   12390.153 -  1.5e-22   12508.323 - 7.63e-35   12664.739 - 5.35e-36
+PMB+I+G4          -6161.509   12453.018 - 3.34e-36   12516.106 - 1.56e-36   12668.056 - 1.02e-36
+Q.plant+F+I+G4    -6111.337   12390.674 - 1.15e-22   12512.725 - 8.44e-36   12668.568 - 7.89e-37
+rtREV+F+G4        -6123.560   12413.121 - 1.54e-27   12531.290 - 7.86e-40   12687.707 - 5.51e-41
+mtInv+F+G4        -6125.221   12416.441 - 2.93e-28   12534.611 - 1.49e-40   12691.028 - 1.05e-41
+rtREV+F+I+G4      -6123.639   12415.277 - 5.24e-28   12537.329 - 3.84e-41   12693.172 - 3.58e-42
+mtInv+F+I+G4      -6125.220   12418.441 - 1.08e-28   12540.492 - 7.89e-42   12696.335 - 7.37e-43
+Blosum62+F+G4     -6137.662   12441.325 - 1.16e-33   12559.494 -  5.9e-46   12715.911 - 4.14e-47
+mtZOA+F+G4        -6138.232   12442.464 - 6.54e-34   12560.634 - 3.34e-46   12717.050 - 2.34e-47
+Q.mammal+G4       -6188.682   12505.365 - 1.44e-47   12566.095 - 2.18e-47   12717.094 - 2.29e-47
+Q.mammal+I+G4     -6187.385   12504.770 - 1.93e-47   12567.859 - 9.01e-48   12719.808 - 5.89e-48
+Blosum62+F+I+G4   -6137.398   12442.796 - 5.54e-34   12564.847 - 4.06e-47   12720.690 - 3.79e-48
+mtZOA+F+I+G4      -6138.240   12444.480 - 2.39e-34   12566.531 - 1.75e-47   12722.374 - 1.63e-48
+mtREV+F+G4        -6145.932   12457.863 - 2.96e-37   12576.033 - 1.51e-49   12732.449 - 1.06e-50
+Dayhoff+F+G4      -6146.495   12458.989 - 1.69e-37   12577.159 - 8.61e-50   12733.576 - 6.04e-51
+DCMut+F+G4        -6146.833   12459.666 -  1.2e-37   12577.836 - 6.14e-50   12734.253 -  4.3e-51
+mtREV+F+I+G4      -6145.762   12459.524 - 1.29e-37   12581.576 - 9.46e-51   12737.419 - 8.84e-52
+Dayhoff+F+I+G4    -6145.859   12459.718 - 1.17e-37   12581.769 - 8.59e-51   12737.612 - 8.02e-52
+DCMut+F+I+G4      -6146.198   12460.396 - 8.35e-38   12582.448 - 6.12e-51   12738.291 - 5.71e-52
+Dayhoff+G4        -6199.916   12527.833 -  1.9e-52   12588.563 - 2.88e-52   12739.562 - 3.03e-52
+DCMut+G4          -6200.331   12528.662 - 1.25e-52   12589.392 -  1.9e-52   12740.391 -    2e-52
+Dayhoff+I+G4      -6198.694   12527.388 - 2.37e-52   12590.476 -  1.1e-52   12742.426 - 7.23e-53
+LG+I              -6201.563   12531.126 - 3.65e-53   12591.856 - 5.54e-53   12742.856 - 5.83e-53
+DCMut+I+G4        -6199.092   12528.184 - 1.59e-52   12591.272 - 7.42e-53   12743.221 - 4.86e-53
+PMB+F+G4          -6151.934   12469.869 - 7.32e-40   12588.038 - 3.74e-52   12744.455 - 2.62e-53
+mtMet+F+G4        -6154.038   12474.075 - 8.94e-41   12592.245 - 4.56e-53   12748.661 -  3.2e-54
+PMB+F+I+G4        -6151.506   12471.013 - 4.13e-40   12593.064 - 3.03e-53   12748.907 - 2.83e-54
+mtMet+F+I+G4      -6154.040   12476.079 - 3.28e-41   12598.131 -  2.4e-54   12753.974 - 2.25e-55
+Q.mammal+F+G4     -6165.375   12496.749 - 1.07e-45   12614.919 - 5.44e-58   12771.335 - 3.81e-59
+Q.mammal+F+I+G4   -6164.746   12497.493 - 7.35e-46   12619.544 - 5.38e-59   12775.387 - 5.03e-60
+Q.bird+G4         -6218.653   12565.307 - 1.38e-60   12626.037 -  2.1e-60   12777.036 - 2.21e-60
+Q.bird+I+G4       -6217.286   12564.571 -    2e-60   12627.660 - 9.31e-61   12779.609 - 6.09e-61
+LG                -6226.515   12579.029 - 1.45e-63   12637.464 - 6.92e-63   12787.450 - 1.21e-62
+HIVb+G4           -6238.868   12605.735 -  2.3e-69   12666.465 - 3.49e-69   12817.464 - 3.67e-69
+HIVb+I+G4         -6238.830   12607.661 - 8.78e-70   12670.749 - 4.09e-70   12822.698 - 2.68e-70
+FLU+G4            -6242.503   12613.006 - 6.07e-71   12673.736 -  9.2e-71   12824.735 - 9.68e-71
+FLU+I+G4          -6241.284   12612.568 - 7.55e-71   12675.656 - 3.52e-71   12827.605 -  2.3e-71
+Q.bird+F+G4       -6200.879   12567.759 - 4.06e-61   12685.928 - 2.07e-73   12842.345 - 1.45e-74
+Q.bird+F+I+G4     -6200.080   12568.161 - 3.32e-61   12690.212 - 2.43e-74   12846.055 - 2.27e-75
+FLU+F+G4          -6203.565   12573.130 - 2.77e-62   12691.300 - 1.41e-74   12847.717 - 9.89e-76
+FLU+F+I+G4        -6202.891   12573.783 -    2e-62   12695.834 - 1.46e-75   12851.677 - 1.37e-76
+HIVb+F+G4         -6214.215   12594.430 - 6.55e-67   12712.600 - 3.34e-79   12869.016 - 2.35e-80
+HIVb+F+I+G4       -6214.172   12596.344 - 2.52e-67   12718.395 - 1.84e-80   12874.238 - 1.72e-81
+mtART+F+G4        -6219.082   12604.163 - 5.05e-69   12722.333 - 2.58e-81   12878.749 - 1.81e-82
+mtART+F+I+G4      -6219.112   12606.223 -  1.8e-69   12728.275 - 1.32e-82   12884.118 - 1.23e-83
+mtVer+F+G4        -6239.556   12645.112 - 6.47e-78   12763.282 -  3.3e-90   12919.698 - 2.32e-91
+mtVer+F+I+G4      -6239.543   12647.085 - 2.41e-78   12769.136 - 1.77e-91   12924.980 - 1.65e-92
+mtZOA+G4          -6327.774   12783.549 - 5.62e-108   12844.279 - 8.52e-108   12995.278 - 8.97e-108
+mtZOA+I+G4        -6327.805   12785.610 - 2.01e-108   12848.698 - 9.35e-109   13000.647 - 6.12e-109
+mtMAM+F+G4        -6280.426   12726.853 - 1.15e-95   12845.022 - 5.88e-108   13001.439 - 4.12e-109
+mtMAM+F+I+G4      -6280.425   12728.849 - 4.24e-96   12850.901 - 3.11e-109   13006.744 - 2.9e-110
+FLAVI+F+G4        -6315.199   12796.399 - 9.11e-111   12914.568 - 4.65e-123   13070.985 - 3.26e-124
+FLAVI+F+I+G4      -6315.193   12798.386 - 3.37e-111   12920.437 - 2.47e-124   13076.281 - 2.31e-125
+mtMet+G4          -6373.303   12874.607 - 9.48e-128   12935.337 - 1.44e-127   13086.336 - 1.51e-127
+mtMet+I+G4        -6373.312   12876.624 - 3.46e-128   12939.712 - 1.61e-128   13091.661 - 1.06e-128
+FLAVI+G4          -6377.924   12883.847 - 9.34e-130   12944.577 - 1.42e-129   13095.576 - 1.49e-129
+FLAVI+I+G4        -6377.915   12885.829 - 3.47e-130   12948.917 - 1.62e-130   13100.866 - 1.06e-130
+mtREV+G4          -6387.422   12902.843 - 7.01e-134   12963.573 - 1.06e-133   13114.572 - 1.12e-133
+mtREV+I+G4        -6387.614   12905.228 - 2.13e-134   12968.316 - 9.91e-135   13120.266 - 6.49e-135
+mtInv+G4          -6402.131   12932.263 - 2.87e-140   12992.993 - 4.34e-140   13143.992 - 4.57e-140
+mtInv+I+G4        -6402.133   12934.265 - 1.05e-140   12997.353 - 4.91e-141   13149.303 - 3.21e-141
+HIVw+F+I+G4       -6379.142   12926.284 - 5.69e-139   13048.335 - 4.17e-152   13204.179 - 3.9e-153
+HIVw+F+G4         -6383.227   12932.454 - 2.6e-140   13050.623 - 1.33e-152   13207.040 - 9.32e-154
+mtVer+G4          -6450.988   13029.975 - 1.73e-161   13090.705 - 2.63e-161   13241.704 - 2.77e-161
+mtVer+I+G4        -6450.990   13031.980 - 6.37e-162   13095.068 - 2.97e-162   13247.017 - 1.94e-162
+mtART+G4          -6462.267   13052.534 - 2.19e-166   13113.264 - 3.32e-166   13264.263 - 3.5e-166
+mtART+I+G4        -6462.349   13054.698 - 7.42e-167   13117.786 - 3.46e-167   13269.735 - 2.27e-167
+HIVw+I+G4         -6487.896   13105.792 - 5.97e-178   13168.880 - 2.78e-178   13320.830 - 1.82e-178
+HIVw+G4           -6491.702   13111.403 - 3.61e-179   13172.133 - 5.47e-179   13323.132 - 5.76e-179
+mtMAM+G4          -6515.959   13159.917 - 1.05e-189   13220.647 - 1.6e-189   13371.646 - 1.68e-189
+mtMAM+I+G4        -6515.957   13161.913 - 3.88e-190   13225.001 - 1.81e-190   13376.951 - 1.18e-190
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: LG+G4
+
+State frequencies: (model)
+
+Model of rate heterogeneity: Gamma with 4 categories
+Gamma shape alpha: 1.4754
+
+ Category  Relative_rate  Proportion
+  1         0.2215         0.2500
+  2         0.5844         0.2500
+  3         1.0489         0.2500
+  4         2.1452         0.2500
+Relative rates are computed as MEAN of the portion of the Gamma distribution falling in the category.
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -6081.3787 (s.e. 211.9643)
+Unconstrained log-likelihood (without tree): -1065.6784
+Number of free parameters (#branches + #model parameters): 64
+Akaike information criterion (AIC) score: 12290.7574
+Corrected Akaike information criterion (AICc) score: 12351.4874
+Bayesian information criterion (BIC) score: 12502.4866
+
+Total tree length (sum of branch lengths): 12.3868
+Sum of internal branch lengths: 4.9458 (39.9281% of tree length)
+
+WARNING: 1 near-zero internal branches (<0.0050) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Caenorhabditis_elegans__WBGene00002048' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++---------Caenorhabditis_elegans__WBGene00002048
+|
+|                          +-----------------------------------------Caenorhabditis_elegans__WBGene00017630
+|                       +**| (0/33)
+|                       |  |     +--Homo_sapiens__GeneID_5771
+|                       |  |  +--| (99/99)
+|                       |  |  |  +--Mus_musculus__GeneID_19255
+|                       |  +--| (31.6/86)
+|                       |     |  +--Xenopus_laevis__GeneID_431888
+|                       |     +--| (95.2/97)
+|                       |        +--Xenopus_laevis__GeneID_446745
+|                    +--| (94.1/63)
+|                    |  |     +--Homo_sapiens__GeneID_5770
+|                    |  |  +--| (91.5/86)
+|                    |  |  |  +--Mus_musculus__GeneID_19246
+|                    |  +--| (97.7/94)
+|                    |     |  +--Xenopus_laevis__GeneID_108702596
+|                    |     +--| (92.6/97)
+|                    |        +--Xenopus_laevis__GeneID_444514
+|                 +--| (83.1/50)
+|                 |  +-----Drosophila_melanogaster__GeneID_38160
+|             +---| (99.6/67)
+|             |   |        +--Shae__MS3_00003183
+|             |   |     +--| (80.2/92)
+|             |   |     |  +--Sman__Smp_139930
+|             |   +-----| (100/100)
+|             |         +--Sjap__EWB00_008528
+|          +--| (49.6/36)
+|          |  |        +--Homo_sapiens__GeneID_26095
+|          |  |  +-----| (100/100)
+|          |  |  |     +--Mus_musculus__GeneID_19256
+|          |  +--| (81.5/77)
+|          |     |               +--Shae__MS3_00009095
+|          |     |            +--| (52.8/78)
+|          |     |            |  +--Sman__Smp_156870
+|          |     |  +---------| (100/100)
+|          |     |  |         +--Sjap__EWB00_002182
+|          |     +--| (94.4/96)
+|          |        +-----Shae__MS3_00011141
+|     +----| (99.9/80)
+|     |    +--------Xenopus_laevis__GeneID_108708143
+|  +--| (31.4/34)
+|  |  +--Drosophila_melanogaster__GeneID_33277
++--| (86.9/66)
+|  |        +--Homo_sapiens__GeneID_5798
+|  |     +--| (78.4/82)
+|  |     |  +--Mus_musculus__GeneID_19275
+|  |  +--| (99.5/99)
+|  |  |  |  +--Xenopus_laevis__GeneID_108702927
+|  |  |  +--| (91.7/99)
+|  |  |     +--Xenopus_laevis__GeneID_444138
+|  +--| (93.6/93)
+|     |     +--Homo_sapiens__GeneID_5799
+|     |  +--| (89.4/95)
+|     |  |  +--Mus_musculus__GeneID_19276
+|     +--| (89.5/96)
+|        |  +--Xenopus_laevis__GeneID_108718467
+|        +--| (95.1/99)
+|           +--Xenopus_laevis__GeneID_108719827
+|
+|      +--Shae__MS3_00005371
+|   +--| (74.7/58)
+|   |  +--Sjap__EWB00_009224
++---| (99.9/100)
+    +--Sman__Smp_150220
+
+Tree in newick format:
+
+(Caenorhabditis_elegans__WBGene00002048:0.7921151356,((((((((Caenorhabditis_elegans__WBGene00017630:3.3464319608,((Homo_sapiens__GeneID_5771:0.0725182179,Mus_musculus__GeneID_19255:0.0307609380)99/99:0.1008841230,(Xenopus_laevis__GeneID_431888:0.0287404258,Xenopus_laevis__GeneID_446745:0.0261876894)95.2/97:0.0627516211)31.6/86:0.0644848624)0/33:0.0000021730,((Homo_sapiens__GeneID_5770:0.0085724729,Mus_musculus__GeneID_19246:0.0226857974)91.5/86:0.0442619873,(Xenopus_laevis__GeneID_108702596:0.0250705981,Xenopus_laevis__GeneID_444514:0.0192688752)92.6/97:0.0495677649)97.7/94:0.1256643750)94.1/63:0.1783656913,Drosophila_melanogaster__GeneID_38160:0.5321467394)83.1/50:0.1367606385,((Shae__MS3_00003183:0.0118891364,Sman__Smp_139930:0.0406956240)80.2/92:0.0393057672,Sjap__EWB00_008528:0.0791713720)100/100:0.4952967918)99.6/67:0.3899633372,((Homo_sapiens__GeneID_26095:0.1460295969,Mus_musculus__GeneID_19256:0.1252256356)100/100:0.5275781127,(((Shae__MS3_00009095:0.0754344791,Sman__Smp_156870:0.0340114650)52.8/78:0.0543798434,Sjap__EWB00_002182:0.2205803971)100/100:0.8392961774,Shae__MS3_00011141:0.5396528887)94.4/96:0.2530735290)81.5/77:0.1222060576)49.6/36:0.1148570167,Xenopus_laevis__GeneID_108708143:0.7528081921)99.9/80:0.4106390523,Drosophila_melanogaster__GeneID_33277:0.2639465421)31.4/34:0.0139923855,(((Homo_sapiens__GeneID_5798:0.0105307767,Mus_musculus__GeneID_19275:0.0061945845)78.4/82:0.0263483994,(Xenopus_laevis__GeneID_108702927:0.0133607080,Xenopus_laevis__GeneID_444138:0.0134891972)91.7/99:0.0373165485)99.5/99:0.1182036406,((Homo_sapiens__GeneID_5799:0.0198215273,Mus_musculus__GeneID_19276:0.0226387180)89.4/95:0.0370570906,(Xenopus_laevis__GeneID_108718467:0.0050188568,Xenopus_laevis__GeneID_108719827:0.0101590896)95.1/99:0.0465201623)89.5/96:0.0409179620)93.6/93:0.0974999370)86.9/66:0.1221762531,((Shae__MS3_00005371:0.0468431767,Sjap__EWB00_009224:0.0910917354)74.7/58:0.0058378925,Sman__Smp_150220:0.0078953600)99.9/100:0.3906079400);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -6081.378810
+Robinson-Foulds distance between ML tree and consensus tree: 2
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++---------Caenorhabditis_elegans__WBGene00002048
+|
+|                       +-----------------------------------------Caenorhabditis_elegans__WBGene00017630
+|                    +--| (63)
+|                    |  |        +--Homo_sapiens__GeneID_5770
+|                    |  |     +--| (86)
+|                    |  |     |  +--Mus_musculus__GeneID_19246
+|                    |  |  +--| (94)
+|                    |  |  |  |  +--Xenopus_laevis__GeneID_108702596
+|                    |  |  |  +--| (97)
+|                    |  |  |     +--Xenopus_laevis__GeneID_444514
+|                    |  +--| (55)
+|                    |     |     +--Homo_sapiens__GeneID_5771
+|                    |     |  +--| (99)
+|                    |     |  |  +--Mus_musculus__GeneID_19255
+|                    |     +--| (86)
+|                    |        |  +--Xenopus_laevis__GeneID_431888
+|                    |        +--| (97)
+|                    |           +--Xenopus_laevis__GeneID_446745
+|                 +--| (50)
+|                 |  +-----Drosophila_melanogaster__GeneID_38160
+|             +---| (67)
+|             |   |        +--Shae__MS3_00003183
+|             |   |     +--| (92)
+|             |   |     |  +--Sman__Smp_139930
+|             |   +-----| (100)
+|             |         +--Sjap__EWB00_008528
+|          +--| (36)
+|          |  |        +--Homo_sapiens__GeneID_26095
+|          |  |  +-----| (100)
+|          |  |  |     +--Mus_musculus__GeneID_19256
+|          |  +--| (77)
+|          |     |               +--Shae__MS3_00009095
+|          |     |            +--| (78)
+|          |     |            |  +--Sman__Smp_156870
+|          |     |  +---------| (100)
+|          |     |  |         +--Sjap__EWB00_002182
+|          |     +--| (96)
+|          |        +-----Shae__MS3_00011141
+|     +----| (80)
+|     |    +--------Xenopus_laevis__GeneID_108708143
+|  +--| (34)
+|  |  +--Drosophila_melanogaster__GeneID_33277
++--| (66)
+|  |        +--Homo_sapiens__GeneID_5798
+|  |     +--| (82)
+|  |     |  +--Mus_musculus__GeneID_19275
+|  |  +--| (99)
+|  |  |  |  +--Xenopus_laevis__GeneID_108702927
+|  |  |  +--| (99)
+|  |  |     +--Xenopus_laevis__GeneID_444138
+|  +--| (93)
+|     |     +--Homo_sapiens__GeneID_5799
+|     |  +--| (95)
+|     |  |  +--Mus_musculus__GeneID_19276
+|     +--| (96)
+|        |  +--Xenopus_laevis__GeneID_108718467
+|        +--| (99)
+|           +--Xenopus_laevis__GeneID_108719827
+|
+|      +--Shae__MS3_00005371
+|   +--| (58)
+|   |  +--Sjap__EWB00_009224
++---| (100)
+    +--Sman__Smp_150220
+
+
+Consensus tree in newick format: 
+
+(Caenorhabditis_elegans__WBGene00002048:0.7924409883,(((((((Caenorhabditis_elegans__WBGene00017630:3.3495785213,(((Homo_sapiens__GeneID_5770:0.0085751413,Mus_musculus__GeneID_19246:0.0226987312)86:0.0443200193,(Xenopus_laevis__GeneID_108702596:0.0250904951,Xenopus_laevis__GeneID_444514:0.0192774670)97:0.0495433197)94:0.1257930543,((Homo_sapiens__GeneID_5771:0.0725527080,Mus_musculus__GeneID_19255:0.0307908197)99:0.1009549213,(Xenopus_laevis__GeneID_431888:0.0287544585,Xenopus_laevis__GeneID_446745:0.0262072452)97:0.0627584923)86:0.0644479571)55:0.0000023577)63:0.1783094299,Drosophila_melanogaster__GeneID_38160:0.5326150331)50:0.1366295905,((Shae__MS3_00003183:0.0118907634,Sman__Smp_139930:0.0407171160)92:0.0393608138,Sjap__EWB00_008528:0.0791200873)100:0.4957065353)67:0.3902147325,((Homo_sapiens__GeneID_26095:0.1459511045,Mus_musculus__GeneID_19256:0.1253398173)100:0.5278186882,(((Shae__MS3_00009095:0.0754497170,Sman__Smp_156870:0.0340255255)78:0.0545237746,Sjap__EWB00_002182:0.2203560952)100:0.8395975049,Shae__MS3_00011141:0.5398919614)96:0.2530316778)77:0.1223139835)36:0.1147177934,Xenopus_laevis__GeneID_108708143:0.7530805916)80:0.4107908742,Drosophila_melanogaster__GeneID_33277:0.2639944159)34:0.0139937310,(((Homo_sapiens__GeneID_5798:0.0105354721,Mus_musculus__GeneID_19275:0.0061934569)82:0.0263474302,(Xenopus_laevis__GeneID_108702927:0.0133628252,Xenopus_laevis__GeneID_444138:0.0134919063)99:0.0373279164)99:0.1182177302,((Homo_sapiens__GeneID_5799:0.0198242638,Mus_musculus__GeneID_19276:0.0226453546)95:0.0370660221,(Xenopus_laevis__GeneID_108718467:0.0050135276,Xenopus_laevis__GeneID_108719827:0.0101660054)99:0.0465301084)96:0.0409330965)93:0.0975842972)66:0.1218499644,((Shae__MS3_00005371:0.0468521880,Sjap__EWB00_009224:0.0911072286)58:0.0058379137,Sman__Smp_150220:0.0078975059)100:0.3908982827);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Test_pipeline_v1/runs/family_phylogeny_audited/family_PTP_PEST/inference/gene_tree.treefile -m "LG+G4{1.4754}" --length 202
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Test_pipeline_v1/runs/family_phylogeny_audited/family_PTP_PEST/inference/trimmed.faa --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Test_pipeline_v1/runs/family_phylogeny_audited/family_PTP_PEST/inference/trimmed.faa --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Tue Oct  6 16:45:19 2026
+Total CPU time used: 308.115167 seconds (0h:5m:8s)
+Total wall-clock time used: 155.9018231 seconds (0h:2m:35s)
+

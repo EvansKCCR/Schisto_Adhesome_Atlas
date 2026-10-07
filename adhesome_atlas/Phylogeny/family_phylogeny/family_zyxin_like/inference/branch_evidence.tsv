@@ -1,0 +1,11 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	94.5/91	9	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_126374,Homo_sapiens__GeneID_84962,Homo_sapiens__GeneID_8994,Mus_musculus__GeneID_101543,Mus_musculus__GeneID_16475,Mus_musculus__GeneID_29806,Xenopus_laevis__GeneID_100127345,Xenopus_laevis__GeneID_108704088,Xenopus_laevis__GeneID_779085	0		unrooted split; no ancestry or duplication timing assigned
+B0003	79.6/66	7	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_126374,Homo_sapiens__GeneID_8994,Mus_musculus__GeneID_101543,Mus_musculus__GeneID_29806,Xenopus_laevis__GeneID_100127345,Xenopus_laevis__GeneID_108704088,Xenopus_laevis__GeneID_779085	0		unrooted split; no ancestry or duplication timing assigned
+B0004	100/100	2	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_126374,Mus_musculus__GeneID_101543	0		unrooted split; no ancestry or duplication timing assigned
+B0005	17.1/30	5	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_8994,Mus_musculus__GeneID_29806,Xenopus_laevis__GeneID_100127345,Xenopus_laevis__GeneID_108704088,Xenopus_laevis__GeneID_779085	0		unrooted split; no ancestry or duplication timing assigned
+B0006	100/100	3	Homo_sapiens,Mus_musculus,Xenopus_laevis	Homo_sapiens__GeneID_8994,Mus_musculus__GeneID_29806,Xenopus_laevis__GeneID_779085	0		unrooted split; no ancestry or duplication timing assigned
+B0007	97/97	2	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_8994,Mus_musculus__GeneID_29806	0		unrooted split; no ancestry or duplication timing assigned
+B0008	98.2/94	2	Xenopus_laevis	Xenopus_laevis__GeneID_100127345,Xenopus_laevis__GeneID_108704088	0		unrooted split; no ancestry or duplication timing assigned
+B0009	100/100	2	Homo_sapiens,Mus_musculus	Homo_sapiens__GeneID_84962,Mus_musculus__GeneID_16475	0		unrooted split; no ancestry or duplication timing assigned
+B0010	100/100	3	Shae,Sjap,Sman	Shae__MS3_00008284,Sjap__EWB00_004965,Sman__Smp_248010	0		unrooted split; no ancestry or duplication timing assigned
+B0011	81.1/97	2	Shae,Sman	Shae__MS3_00008284,Sman__Smp_248010	0		unrooted split; no ancestry or duplication timing assigned

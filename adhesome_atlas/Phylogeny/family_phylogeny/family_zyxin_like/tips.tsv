@@ -1,0 +1,14 @@
+sequence_id	species	length	candidate	family	source_groups
+Drosophila_melanogaster__GeneID_32351	Drosophila_melanogaster	728	0	zyxin_like	OG0002012
+Homo_sapiens__GeneID_126374	Homo_sapiens	472	0	zyxin_like	OG0002012
+Homo_sapiens__GeneID_84962	Homo_sapiens	538	0	zyxin_like	OG0002012
+Homo_sapiens__GeneID_8994	Homo_sapiens	676	0	zyxin_like	OG0002012
+Mus_musculus__GeneID_101543	Mus_musculus	398	0	zyxin_like	OG0002012
+Mus_musculus__GeneID_16475	Mus_musculus	547	0	zyxin_like	OG0002012
+Mus_musculus__GeneID_29806	Mus_musculus	668	0	zyxin_like	OG0002012
+Shae__MS3_00008284	Shae	486	1	zyxin_like	OG0002012
+Sjap__EWB00_004965	Sjap	586	1	zyxin_like	OG0002012
+Sman__Smp_248010	Sman	424	1	zyxin_like	OG0002012
+Xenopus_laevis__GeneID_100127345	Xenopus_laevis	690	0	zyxin_like	OG0002012
+Xenopus_laevis__GeneID_108704088	Xenopus_laevis	699	0	zyxin_like	OG0002012
+Xenopus_laevis__GeneID_779085	Xenopus_laevis	613	0	zyxin_like	OG0002012
