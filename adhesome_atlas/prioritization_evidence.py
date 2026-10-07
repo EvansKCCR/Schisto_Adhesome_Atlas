@@ -3,6 +3,7 @@ from atlas_paths import phylogeny_root
 from pathlib import Path
 import re
 import pandas as pd
+from identifier_labels import canonical_sequence_id
 
 
 def alignment(path):
@@ -29,7 +30,7 @@ def enrich(frame, hits, root):
         for key in present:
             seq=seqs[key]
             for host,other in seqs.items():
-                if not host.startswith('Hsap__'): continue
+                if not canonical_sequence_id(host).startswith('Hsap__'): continue
                 paired=[(a,b) for a,b in zip(seq,other) if a in 'ACDEFGHIKLMNPQRSTVWY' and b in 'ACDEFGHIKLMNPQRSTVWY']
                 if paired:
                     score=sum(a!=b for a,b in paired)/len(paired)
