@@ -47,7 +47,7 @@ The accompanying datasets include:
 
 ## Citation
 
-Pending
+- Adu, E.A., Owoloye, A., Shakela, N. et al. Computational structural analysis of Schistosoma integrins supports Smα1/Smβ1 as an RGD-compatible receptor candidate. BMC Genomics (2026). https://doi.org/10.1186/s12864-026-13429-9
 
 ## License
 
