@@ -1,0 +1,933 @@
+{
+  "schema_version": 1,
+  "source": "resource_library/candidate_annotation_calibration/curator_narrative_2026-10-10.txt",
+  "rules": [
+    {
+      "family": "talin",
+      "annotation": "Talin-like integrin adaptor",
+      "orthogroups": [
+        "OG0001448"
+      ],
+      "proteins": [],
+      "architecture": "Configured talin architecture; the partial-architecture representative is annotated separately.",
+      "evolution": "Broad metazoan talin orthology; two conserved cross-species clades.",
+      "lineage": "OG0001448"
+    },
+    {
+      "family": "talin",
+      "annotation": "Talin-like integrin adaptor",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00000278",
+        "EWB00_006505",
+        "Smp_167010"
+      ],
+      "architecture": "Configured talin architecture.",
+      "evolution": "Conserved cross-species talin clade.",
+      "lineage": "Talin clade: MS3_00000278 / EWB00_006505 / Smp_167010"
+    },
+    {
+      "family": "talin",
+      "annotation": "Talin-like integrin adaptor",
+      "orthogroups": [],
+      "proteins": [
+        "EWB00_003146",
+        "Smp_343540"
+      ],
+      "architecture": "Configured talin architecture.",
+      "evolution": "Conserved talin clade together with partial-architecture MS3_00001770.",
+      "lineage": "Talin clade: MS3_00001770 / EWB00_003146 / Smp_343540"
+    },
+    {
+      "family": "talin",
+      "annotation": "Talin-like (partial architecture)",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00001770"
+      ],
+      "architecture": "Partial talin architecture.",
+      "evolution": "OG0001448; clusters with EWB00_003146 and Smp_343540.",
+      "lineage": "Talin clade: MS3_00001770 / EWB00_003146 / Smp_343540"
+    },
+    {
+      "family": "talin",
+      "annotation": "HIP1R-like protein",
+      "orthogroups": [
+        "OG0001835"
+      ],
+      "proteins": [
+        "MS3_00005288",
+        "EWB00_005902",
+        "Smp_246550"
+      ],
+      "architecture": "I/LWEQ-containing partial architecture; distinct from architecture-retaining talin.",
+      "evolution": "Clusters with HIP1R-like reference proteins.",
+      "lineage": "HIP1R-related lineage (OG0001835)"
+    },
+    {
+      "family": "kindlin",
+      "annotation": "Kindlin-like integrin adaptor",
+      "orthogroups": [
+        "OG0001282"
+      ],
+      "proteins": [
+        "MS3_00003235",
+        "EWB00_002103",
+        "Smp_053420"
+      ],
+      "architecture": "Configured kindlin-associated FERM architecture; shorter proteins around 850 aa.",
+      "evolution": "Broadly conserved metazoan orthogroup.",
+      "lineage": "Conserved shorter kindlin lineage"
+    },
+    {
+      "family": "kindlin",
+      "annotation": "Schistosoma-restricted kindlin-like protein",
+      "orthogroups": [
+        "OG0013508"
+      ],
+      "proteins": [
+        "MS3_00009375",
+        "EWB00_006747",
+        "Smp_070640"
+      ],
+      "architecture": "Kindlin-associated FERM features; longer proteins around 1140-1190 aa.",
+      "evolution": "Schistosoma-restricted sampled orthogroup; no direct pairwise reference orthologues.",
+      "lineage": "Longer parasite-specific kindlin lineage"
+    },
+    {
+      "family": "vinculin",
+      "annotation": "Canonical vinculin-like protein",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00007047",
+        "EWB00_003565",
+        "Smp_246050"
+      ],
+      "architecture": "Extended vinculin-family architecture.",
+      "evolution": "Groups with canonical metazoan vinculin orthologues.",
+      "lineage": "Canonical vinculin clade"
+    },
+    {
+      "family": "vinculin",
+      "annotation": "Catenin-related vinculin-family protein",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00007343",
+        "EWB00_001225",
+        "Smp_130900"
+      ],
+      "architecture": "Extended vinculin-family architecture.",
+      "evolution": "Second vinculin-family lineage associated with the broader catenin-related branch.",
+      "lineage": "Catenin-related vinculin-family clade"
+    },
+    {
+      "family": "alpha_actinin",
+      "annotation": "Canonical alpha-actinin-like protein",
+      "orthogroups": [
+        "OG0000625"
+      ],
+      "proteins": [],
+      "architecture": "Compact canonical alpha-actinin architecture.",
+      "evolution": "Broad metazoan alpha-actinin orthology; many-to-many reference relationships.",
+      "lineage": "OG0000625"
+    },
+    {
+      "family": "alpha_actinin",
+      "annotation": "Spectrin-related actin-linking protein",
+      "orthogroups": [
+        "OG0000486"
+      ],
+      "proteins": [],
+      "architecture": "Extended spectrin repeats with a C-terminal pleckstrin-homology domain.",
+      "evolution": "Conserved triplets within the broader spectrin-family radiation.",
+      "lineage": "OG0000486"
+    },
+    {
+      "family": "alpha_actinin",
+      "annotation": "Invertebrate spectrin-like protein",
+      "orthogroups": [
+        "OG0006689"
+      ],
+      "proteins": [
+        "MS3_00010478",
+        "Smp_315810"
+      ],
+      "architecture": "Divergent spectrin-like architecture.",
+      "evolution": "Groups with invertebrate spectrin-like sequences; no direct vertebrate orthologues.",
+      "lineage": "OG0006689"
+    },
+    {
+      "family": "alpha_actinin",
+      "annotation": "Schistosoma-restricted spectrin-like protein",
+      "orthogroups": [
+        "OG0000961"
+      ],
+      "proteins": [
+        "Smp_332820"
+      ],
+      "architecture": "Two tandem calponin-homology domains, five spectrin repeats and C-terminal PH domain.",
+      "evolution": "No direct orthologues in the five sampled reference proteomes.",
+      "lineage": "OG0000961"
+    },
+    {
+      "family": "cofilin",
+      "annotation": "Cofilin/ADF-like protein",
+      "orthogroups": [
+        "OG0000643"
+      ],
+      "proteins": [],
+      "architecture": "Cofilin/ADF-family architecture.",
+      "evolution": "Broad expanded metazoan cofilin/ADF lineage; two candidates per schistosome species.",
+      "lineage": "OG0000643"
+    },
+    {
+      "family": "cofilin",
+      "annotation": "Twinfilin-like protein",
+      "orthogroups": [
+        "OG0002257"
+      ],
+      "proteins": [
+        "MS3_00005251",
+        "EWB00_007739",
+        "Smp_308420"
+      ],
+      "architecture": "Tandem ADF-homology domains.",
+      "evolution": "Conserved cross-species twinfilin-like triplet.",
+      "lineage": "OG0002257"
+    },
+    {
+      "family": "cofilin",
+      "annotation": "Drebrin-like protein",
+      "orthogroups": [
+        "OG0002191"
+      ],
+      "proteins": [],
+      "architecture": "ADF-homology features with a C-terminal SH3 domain.",
+      "evolution": "Conserved cross-species drebrin-like triplet.",
+      "lineage": "OG0002191"
+    },
+    {
+      "family": "cofilin",
+      "annotation": "GMF-like protein",
+      "orthogroups": [
+        "OG0002291"
+      ],
+      "proteins": [
+        "MS3_00006566",
+        "Smp_328200"
+      ],
+      "architecture": "GMF-like architecture.",
+      "evolution": "Recovered in S. haematobium and S. mansoni; no curated S. japonicum candidate.",
+      "lineage": "OG0002291"
+    },
+    {
+      "family": "filamin",
+      "annotation": "Filamin-like protein",
+      "orthogroups": [
+        "OG0000767"
+      ],
+      "proteins": [],
+      "architecture": "N-terminal tandem CH actin-binding domains followed by repeated filamin immunoglobulin-like domains.",
+      "evolution": "Broad metazoan filamin orthology; two conserved paralogous clades.",
+      "lineage": "OG0000767"
+    },
+    {
+      "family": "filamin",
+      "annotation": "Filamin-like protein",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00005799",
+        "EWB00_006234",
+        "Smp_000100"
+      ],
+      "architecture": "Canonical tandem-CH and repeated filamin architecture.",
+      "evolution": "Conserved cross-species paralogous clade.",
+      "lineage": "Filamin clade: MS3_00005799 / EWB00_006234 / Smp_000100"
+    },
+    {
+      "family": "filamin",
+      "annotation": "Filamin-like protein",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00007970",
+        "EWB00_002775",
+        "Smp_317420"
+      ],
+      "architecture": "Canonical tandem-CH and repeated filamin architecture.",
+      "evolution": "Conserved cross-species paralogous clade.",
+      "lineage": "Filamin clade: MS3_00007970 / EWB00_002775 / Smp_317420"
+    },
+    {
+      "family": "paxillin_like",
+      "annotation": "Two-LIM mammalian-LIM-related scaffold",
+      "orthogroups": [
+        "OG0000983"
+      ],
+      "proteins": [
+        "MS3_00003129",
+        "EWB00_009560",
+        "Smp_146200"
+      ],
+      "architecture": "Two C-terminal LIM domains.",
+      "evolution": "Groups with mammalian LIM-related proteins.",
+      "lineage": "OG0000983"
+    },
+    {
+      "family": "paxillin_like",
+      "annotation": "Four-LIM paxillin-related scaffold",
+      "orthogroups": [
+        "OG0002006"
+      ],
+      "proteins": [
+        "MS3_00001381",
+        "EWB00_003429",
+        "Smp_315700"
+      ],
+      "architecture": "Four repeated C-terminal LIM domains; no N-terminal paxillin domain.",
+      "evolution": "Conserved cross-species orthogroup; schistosome architecture differs from mammalian sequences.",
+      "lineage": "OG0002006"
+    },
+    {
+      "family": "paxillin_like",
+      "annotation": "PDZ-LIM scaffold",
+      "orthogroups": [
+        "OG0000730"
+      ],
+      "proteins": [
+        "MS3_00006333",
+        "EWB00_008747",
+        "Smp_157310"
+      ],
+      "architecture": "N-terminal PDZ domain plus three C-terminal LIM repeats.",
+      "evolution": "Groups with metazoan PDZ/LIM-domain proteins.",
+      "lineage": "OG0000730"
+    },
+    {
+      "family": "paxillin_like",
+      "annotation": "PET-LIM / LIMPETin-like scaffold",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00002568",
+        "EWB00_003590",
+        "Smp_048560"
+      ],
+      "architecture": "N-terminal PET domain plus six repeated C-terminal LIM domains.",
+      "evolution": "OG0000150 clade; S. mansoni representative previously annotated as SmLIMPETin.",
+      "lineage": "PET-containing OG0000150 clade"
+    },
+    {
+      "family": "paxillin_like",
+      "annotation": "Five-LIM scaffold (PET absent)",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00003616",
+        "EWB00_009388",
+        "Smp_143130"
+      ],
+      "architecture": "Five repeated C-terminal LIM domains; no N-terminal PET domain.",
+      "evolution": "Second, shorter cross-species clade within OG0000150.",
+      "lineage": "PET-lacking OG0000150 clade"
+    },
+    {
+      "family": "PINCH_like",
+      "annotation": "PINCH-like scaffold",
+      "orthogroups": [
+        "OG0002150"
+      ],
+      "proteins": [
+        "MS3_00001825",
+        "EWB00_009541",
+        "Smp_165070"
+      ],
+      "architecture": "Five LIM domains with PINCH-specific signatures.",
+      "evolution": "Broadly conserved metazoan PINCH lineage.",
+      "lineage": "OG0002150"
+    },
+    {
+      "family": "PINCH_like",
+      "annotation": "Schistosoma-restricted PINCH-like scaffold",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00010441",
+        "EWB00_004122",
+        "Smp_020540"
+      ],
+      "architecture": "Five LIM domains with PINCH-specific signatures.",
+      "evolution": "Schistosoma-only sampled HOG.",
+      "lineage": "Parasite-specific PINCH lineage"
+    },
+    {
+      "family": "zyxin_like",
+      "annotation": "Ajuba-related LIM scaffold",
+      "orthogroups": [
+        "OG0002012"
+      ],
+      "proteins": [
+        "MS3_00008284",
+        "EWB00_004965",
+        "Smp_248010"
+      ],
+      "architecture": "LIM2 Ajuba-like signatures.",
+      "evolution": "Conserved 1:1:1 schistosome copy profile with direct orthologues in multiple references.",
+      "lineage": "OG0002012"
+    },
+    {
+      "family": "FAK",
+      "annotation": "FAK-like kinase (complete architecture)",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00002824"
+      ],
+      "architecture": "Complete configured FAK-like architecture.",
+      "evolution": "Broad metazoan FAK clade, OG0002086; 1:1:1 schistosome copy profile.",
+      "lineage": "FAK lineage (OG0002086)"
+    },
+    {
+      "family": "FAK",
+      "annotation": "FAK-like kinase (Focal-AT absent)",
+      "orthogroups": [],
+      "proteins": [
+        "EWB00_007322"
+      ],
+      "architecture": "C-terminal Focal-AT domain absent.",
+      "evolution": "Groups in the conserved metazoan FAK clade, OG0002086.",
+      "lineage": "FAK lineage (OG0002086)"
+    },
+    {
+      "family": "FAK",
+      "annotation": "FAK-like kinase (FERM absent)",
+      "orthogroups": [],
+      "proteins": [
+        "Smp_137610"
+      ],
+      "architecture": "N-terminal FERM domain absent.",
+      "evolution": "Groups in the conserved metazoan FAK clade, OG0002086.",
+      "lineage": "FAK lineage (OG0002086)"
+    },
+    {
+      "family": "ILK",
+      "annotation": "Canonical ILK-like protein",
+      "orthogroups": [
+        "OG0003976"
+      ],
+      "proteins": [
+        "MS3_00005632",
+        "EWB00_010398",
+        "Smp_079760"
+      ],
+      "architecture": "Configured ILK-like architecture.",
+      "evolution": "Conserved 1:1:1 schistosome copies and one-to-one metazoan ILK relationships.",
+      "lineage": "OG0003976"
+    },
+    {
+      "family": "ILK",
+      "annotation": "GS-domain membrane kinase-like protein",
+      "orthogroups": [
+        "OG0001365"
+      ],
+      "proteins": [
+        "MS3_00008020",
+        "EWB00_001594",
+        "Smp_049760"
+      ],
+      "architecture": "Membrane protein with GS domain and serine/threonine kinase catalytic domain.",
+      "evolution": "Shared 1:1:1 schistosome copy profile; distinct from canonical OG0003976 ILK.",
+      "lineage": "OG0001365"
+    },
+    {
+      "family": "ILK",
+      "annotation": "MAPK-activated protein kinase 2-like protein",
+      "orthogroups": [
+        "OG0002154"
+      ],
+      "proteins": [
+        "MS3_00007604",
+        "EWB00_007161",
+        "Smp_053560"
+      ],
+      "architecture": "MAPK-activated protein kinase 2-like architecture.",
+      "evolution": "Shared 1:1:1 schistosome copy profile; distinct kinase lineage.",
+      "lineage": "OG0002154"
+    },
+    {
+      "family": "ILK",
+      "annotation": "OSR1-like serine/threonine kinase",
+      "orthogroups": [
+        "OG0002218"
+      ],
+      "proteins": [
+        "MS3_00002424",
+        "EWB00_008286",
+        "Smp_131800"
+      ],
+      "architecture": "Oxidative-stress-responsive kinase 1-like architecture.",
+      "evolution": "Shared 1:1:1 schistosome copy profile; distinct kinase lineage.",
+      "lineage": "OG0002218"
+    },
+    {
+      "family": "ILK",
+      "annotation": "ILK-screened kinase-related protein",
+      "orthogroups": [
+        "OG0002878"
+      ],
+      "proteins": [
+        "MS3_00006556",
+        "EWB00_007221",
+        "Smp_344780"
+      ],
+      "architecture": "Partial ILK-family configuration in the broad kinase screen.",
+      "evolution": "Shared 1:1:1 schistosome copy profile; no narrower kinase identity stated in the narrative.",
+      "lineage": "OG0002878"
+    },
+    {
+      "family": "Src",
+      "annotation": "Src-like tyrosine kinase",
+      "orthogroups": [
+        "OG0000213"
+      ],
+      "proteins": [
+        "MS3_00002771",
+        "MS3_00008738",
+        "MS3_00009264",
+        "EWB00_004406",
+        "EWB00_007520",
+        "EWB00_007873",
+        "Smp_006920",
+        "Smp_136300",
+        "Smp_172200",
+        "Smp_348670"
+      ],
+      "architecture": "SH3-SH2-kinase architecture.",
+      "evolution": "Many-to-many relationships with broad metazoan Src kinases; copy profile 3:3:4.",
+      "lineage": "OG0000213"
+    },
+    {
+      "family": "Src",
+      "annotation": "PH/BTK-containing Src-related kinase",
+      "orthogroups": [
+        "OG0001055"
+      ],
+      "proteins": [
+        "MS3_00001484",
+        "EWB00_001471",
+        "Smp_124850"
+      ],
+      "architecture": "N-terminal PH/BTK domains plus SH3-SH2-kinase.",
+      "evolution": "Conserved 1:1:1 schistosome profile and direct metazoan orthologues.",
+      "lineage": "OG0001055"
+    },
+    {
+      "family": "Src",
+      "annotation": "ABL2-related tyrosine kinase",
+      "orthogroups": [
+        "OG0001364"
+      ],
+      "proteins": [],
+      "architecture": "SH3-SH2-kinase with a C-terminal F-actin-binding domain.",
+      "evolution": "Clusters with Abelson tyrosine-protein kinase 2 references.",
+      "lineage": "OG0001364"
+    },
+    {
+      "family": "Src",
+      "annotation": "SH3-SH2-kinase lineage (OG0003193)",
+      "orthogroups": [
+        "OG0003193"
+      ],
+      "proteins": [
+        "MS3_00004068",
+        "EWB00_003104",
+        "Smp_212730"
+      ],
+      "architecture": "Broad SH3-SH2-kinase architecture.",
+      "evolution": "Conserved metazoan-supported kinase lineage.",
+      "lineage": "OG0003193"
+    },
+    {
+      "family": "Src",
+      "annotation": "SH3-SH2-kinase lineage (OG0002474)",
+      "orthogroups": [
+        "OG0002474"
+      ],
+      "proteins": [
+        "MS3_00009653",
+        "EWB00_005849",
+        "Smp_125360"
+      ],
+      "architecture": "Broad SH3-SH2-kinase architecture.",
+      "evolution": "Conserved metazoan-supported kinase lineage.",
+      "lineage": "OG0002474"
+    },
+    {
+      "family": "Nck",
+      "annotation": "Nck-like signalling adaptor",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00006664",
+        "EWB00_010643",
+        "Smp_014850"
+      ],
+      "architecture": "Three SH3 domains plus SH2.",
+      "evolution": "Conserved 1:1:1 schistosome profile with direct metazoan orthologues.",
+      "lineage": "Nck-like signalling adaptor"
+    },
+    {
+      "family": "Shc",
+      "annotation": "Shc-like signalling adaptor",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00002046",
+        "EWB00_007978",
+        "Smp_196040"
+      ],
+      "architecture": "Diagnostic PTB-SH2 organization.",
+      "evolution": "Conserved 1:1:1 schistosome profile with direct metazoan orthologues.",
+      "lineage": "Shc-like signalling adaptor"
+    },
+    {
+      "family": "Grb2",
+      "annotation": "Grb2-like signalling adaptor",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00002675",
+        "EWB00_003848",
+        "Smp_062950"
+      ],
+      "architecture": "SH3-SH2-SH3 organization.",
+      "evolution": "Broadly conserved metazoan lineage.",
+      "lineage": "Conserved Grb2 lineage"
+    },
+    {
+      "family": "Grb2",
+      "annotation": "Schistosoma-restricted Grb2-like adaptor",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00003161",
+        "Smp_044530"
+      ],
+      "architecture": "SH3-SH2-SH3 organization.",
+      "evolution": "Schistosome-restricted lineage represented in S. haematobium and S. mansoni.",
+      "lineage": "Parasite-specific Grb2 lineage"
+    },
+    {
+      "family": "PTP_PEST",
+      "annotation": "PTPN1-related phosphatase",
+      "orthogroups": [
+        "OG0001988"
+      ],
+      "proteins": [
+        "MS3_00003183",
+        "EWB00_008528",
+        "Smp_139930"
+      ],
+      "architecture": "C-terminal protein tyrosine phosphatase catalytic domain.",
+      "evolution": "Clusters with metazoan non-receptor tyrosine-protein phosphatase 1.",
+      "lineage": "OG0001988"
+    },
+    {
+      "family": "PTP_PEST",
+      "annotation": "Receptor-PTP-related phosphatase",
+      "orthogroups": [
+        "OG0002082"
+      ],
+      "proteins": [
+        "MS3_00005371",
+        "EWB00_009224",
+        "Smp_150220"
+      ],
+      "architecture": "C-terminal PTP domain; N-terminal RESP18 and receptor IA-2 domains absent.",
+      "evolution": "Groups with metazoan receptor-type PTP-related references.",
+      "lineage": "OG0002082"
+    },
+    {
+      "family": "PTP_PEST",
+      "annotation": "Xenopus-linked PTP-related phosphatase",
+      "orthogroups": [
+        "OG0010632"
+      ],
+      "proteins": [
+        "MS3_00009095",
+        "EWB00_002182",
+        "Smp_156870"
+      ],
+      "architecture": "C-terminal protein tyrosine phosphatase catalytic domain.",
+      "evolution": "No direct mammalian orthologues; one-to-one relationship with X. laevis.",
+      "lineage": "OG0010632"
+    },
+    {
+      "family": "PTP_PEST",
+      "annotation": "PTP-related singleton",
+      "orthogroups": [
+        "OG0007341"
+      ],
+      "proteins": [
+        "MS3_00011141"
+      ],
+      "architecture": "C-terminal protein tyrosine phosphatase catalytic domain.",
+      "evolution": "Single S. haematobium representative in the curated candidate set.",
+      "lineage": "OG0007341"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Collagen IV-like protein",
+      "orthogroups": [
+        "OG0000309"
+      ],
+      "proteins": [],
+      "architecture": "Predicted extracellular protein with discontinuous collagen repeats and C-terminal C4 domain.",
+      "evolution": "Direct orthologues in all five reference proteomes; schistosome copy profile 3:4:4.",
+      "lineage": "OG0000309"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Collagen V-like protein",
+      "orthogroups": [
+        "OG0000784"
+      ],
+      "proteins": [],
+      "architecture": "N-terminal laminin-G-like/thrombospondin-N-like domains, collagen repeats and fibrillar collagen C-terminal domain.",
+      "evolution": "Direct vertebrate support; schistosome copy profile 2:2:2.",
+      "lineage": "OG0000784"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Collagen I alpha-2-like protein",
+      "orthogroups": [
+        "OG0000283"
+      ],
+      "proteins": [],
+      "architecture": "Collagen repeats and fibrillar collagen C-terminal domain.",
+      "evolution": "Human, mouse and Xenopus orthologue support; 3:3:3 schistosome copies.",
+      "lineage": "OG0000283"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Collagen I alpha-1-like protein",
+      "orthogroups": [],
+      "proteins": [
+        "Smp_164590"
+      ],
+      "architecture": "N-terminal von Willebrand factor C domain, collagen repeats and fibrillar collagen C-terminal domain.",
+      "evolution": "OG0000283 collagen I-related lineage.",
+      "lineage": "Collagen I alpha-1-like protein"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Truncated collagen I-related protein",
+      "orthogroups": [],
+      "proteins": [
+        "EWB00_010448"
+      ],
+      "architecture": "Single collagen domain and fibrillar collagen C-terminal domain.",
+      "evolution": "OG0000283 collagen I-related lineage.",
+      "lineage": "Truncated collagen I-related protein"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Schistosoma-restricted fibrillar collagen-like protein",
+      "orthogroups": [
+        "OG0012988"
+      ],
+      "proteins": [
+        "MS3_00005610",
+        "EWB00_010450",
+        "Smp_197370"
+      ],
+      "architecture": "Collagen repeats and fibrillar collagen C-terminal domain.",
+      "evolution": "Schistosoma-only sampled orthogroup; 1:1:1 copies.",
+      "lineage": "OG0012988"
+    },
+    {
+      "family": "collagen_like",
+      "annotation": "Short collagen-like fragment",
+      "orthogroups": [
+        "OG0013520"
+      ],
+      "proteins": [],
+      "architecture": "Short proteins around 325-425 aa with one collagen domain.",
+      "evolution": "Schistosoma-only sampled orthogroup; 1:1:1 copies.",
+      "lineage": "OG0013520"
+    },
+    {
+      "family": "laminin_like",
+      "annotation": "Laminin beta-like protein",
+      "orthogroups": [
+        "OG0001608"
+      ],
+      "proteins": [
+        "MS3_00000487",
+        "EWB00_002741",
+        "Smp_148790"
+      ],
+      "architecture": "Laminin N-terminal domain followed by 13 laminin EGF-like repeats.",
+      "evolution": "Broad metazoan support; 1:1:1 schistosome copies and vertebrate paralog expansion.",
+      "lineage": "OG0001608"
+    },
+    {
+      "family": "laminin_like",
+      "annotation": "Laminin gamma-like protein",
+      "orthogroups": [
+        "OG0001908"
+      ],
+      "proteins": [
+        "MS3_00004459",
+        "EWB00_006126",
+        "Smp_163810"
+      ],
+      "architecture": "Laminin N-terminal domain followed by 11 laminin EGF-like repeats.",
+      "evolution": "Broad metazoan support; 1:1:1 schistosome copies.",
+      "lineage": "OG0001908"
+    },
+    {
+      "family": "laminin_like",
+      "annotation": "Laminin alpha-like protein",
+      "orthogroups": [
+        "OG0002087"
+      ],
+      "proteins": [
+        "MS3_00008957",
+        "EWB00_001328",
+        "Smp_343650"
+      ],
+      "architecture": "Laminin N-terminal, EGF-like repeats, laminin B and terminal laminin G domains; divergent C-terminal G repeats.",
+      "evolution": "Conserved metazoan-supported lineage; 1:1:1 schistosome copies.",
+      "lineage": "OG0002087"
+    },
+    {
+      "family": "laminin_like",
+      "annotation": "Netrin-like protein",
+      "orthogroups": [
+        "OG0001017"
+      ],
+      "proteins": [
+        "MS3_00003962",
+        "MS3_00004070",
+        "EWB00_002313",
+        "EWB00_003107",
+        "Smp_146840",
+        "Smp_151310"
+      ],
+      "architecture": "Laminin N-terminal domain, three laminin-associated EGF repeats and C345C netrin C-terminal domain.",
+      "evolution": "Broad metazoan support; two candidates per schistosome species.",
+      "lineage": "OG0001017"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "ROBO-like receptor",
+      "orthogroups": [
+        "OG0007305"
+      ],
+      "proteins": [
+        "MS3_00007223",
+        "EWB00_003342",
+        "Smp_173100"
+      ],
+      "architecture": "Four to five tandem Ig repeats followed by two FN3 domains.",
+      "evolution": "Schistosoma-only sampled HOG; 1:1:1 copies.",
+      "lineage": "OG0007305"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "UNC-89/obscurin/SPEG-like giant kinase",
+      "orthogroups": [
+        "OG0007310"
+      ],
+      "proteins": [
+        "EWB00_007901",
+        "Smp_153170"
+      ],
+      "architecture": "Ig/FN3 repeats, two kinase domains and extended low-complexity/coiled-coil regions; consensus cytoplasmic localization.",
+      "evolution": "Schistosoma-only sampled HOG; 1:1:1 copies.",
+      "lineage": "OG0007310"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "UNC-89/obscurin/SPEG-like giant kinase",
+      "orthogroups": [],
+      "proteins": [
+        "MS3_00010298"
+      ],
+      "architecture": "Ig/FN3 repeats and two kinase domains; contradictory topology predictions.",
+      "evolution": "OG0007310; subcellular topology unresolved in the narrative.",
+      "lineage": "UNC-89/obscurin/SPEG-related lineage"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "Eph/EphA4-like receptor kinase",
+      "orthogroups": [
+        "OG0010555"
+      ],
+      "proteins": [
+        "MS3_00010050",
+        "Smp_124210"
+      ],
+      "architecture": "EPH ligand-binding, cysteine-rich, FN3, TM and intracellular kinase domains; predicted SP and TM.",
+      "evolution": "Schistosoma-only sampled HOG; 1:1:1 copies.",
+      "lineage": "OG0010555"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "Eph/EphA4-like receptor kinase",
+      "orthogroups": [],
+      "proteins": [
+        "EWB00_005238"
+      ],
+      "architecture": "EPH ligand-binding, cysteine-rich, FN3, TM and intracellular kinase domains; predicted TM without predicted SP.",
+      "evolution": "OG0010555; Schistosoma-only sampled HOG.",
+      "lineage": "Eph/EphA4-related lineage"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "DCC/neogenin-family receptor",
+      "orthogroups": [
+        "OG0012358",
+        "OG0013645",
+        "OG0013657"
+      ],
+      "proteins": [],
+      "architecture": "DCC/neogenin-family receptor architecture.",
+      "evolution": "Three distinct Schistosoma-only sampled HOGs, each with 1:1:1 copies.",
+      "lineage": "DCC/neogenin receptor lineages"
+    },
+    {
+      "family": "fibronectin_like",
+      "annotation": "Type IIa RPTP-like receptor",
+      "orthogroups": [
+        "OG0013755"
+      ],
+      "proteins": [
+        "MS3_00011127",
+        "EWB00_009592",
+        "Smp_343680"
+      ],
+      "architecture": "Three tandem Ig repeats, seven FN3 repeats, single-pass topology and tandem intracellular PTP domains.",
+      "evolution": "LAR/PTPRD/PTPRS-like; Schistosoma-only sampled HOG with 1:1:1 copies.",
+      "lineage": "OG0013755"
+    }
+  ],
+  "family_summaries": {
+    "talin": "Nine talin-screened candidates comprise five architecture-retaining talin proteins, one partial-architecture talin-like protein and three HIP1R-like proteins. Two conserved talin clades are separated from OG0001835 HIP1R relatives.",
+    "kindlin": "Six kindlin-related proteins form a broadly conserved shorter OG0001282 lineage and a longer Schistosoma-restricted OG0013508 lineage.",
+    "vinculin": "Six vinculin-family proteins form canonical-vinculin and catenin-related clades. Their extended vinculin-family architecture is retained in both.",
+    "alpha_actinin": "Fifteen actin-linking candidates include compact canonical alpha-actinin, extended spectrin-related and parasite-divergent spectrin lineages.",
+    "cofilin": "Fifteen ADF-family candidates resolve into cofilin/ADF, twinfilin, drebrin and GMF-like lineages.",
+    "filamin": "Six canonical-architecture filamin candidates form two conserved paralogous clades within OG0000767.",
+    "paxillin_like": "Fifteen broadly LIM-scaffold candidates include two-LIM, four-LIM without a paxillin domain, PDZ-LIM, PET-LIM/LIMPETin and PET-lacking five-LIM lineages. Repeated LIM domains alone do not make all candidates canonical paxillin.",
+    "PINCH_like": "Two five-LIM, PINCH-signature lineages distinguish broadly conserved and Schistosoma-restricted PINCH proteins.",
+    "zyxin_like": "The three OG0002012 scaffold candidates have Ajuba-related LIM2 signatures.",
+    "FAK": "Three FAK-clade candidates share OG0002086. MS3_00002824 has complete architecture; EWB00_007322 lacks Focal-AT and Smp_137610 lacks FERM.",
+    "ILK": "The canonical ILK-like triplet is OG0003976. The broader ILK screen also contains GS-domain membrane kinases, MK2-like, OSR1-like and other partial-configuration kinase lineages.",
+    "Src": "Twenty-two architecture-configured Src-screened proteins span Src-like, PH/BTK-containing, ABL2-related and two additional SH3-SH2-kinase lineages; these subfamilies remain explicit.",
+    "Nck": "Three Nck-like adaptors retain three SH3 domains plus SH2 and conserved metazoan orthology.",
+    "Shc": "Three Shc-like adaptors retain PTB-SH2 architecture and conserved metazoan orthology.",
+    "Grb2": "Five SH3-SH2-SH3 adaptors distinguish a conserved Grb2 triplet from a two-species Schistosoma-restricted lineage.",
+    "PTP_PEST": "Ten broadly PTP-PEST-related candidates distinguish PTPN1-related, receptor-PTP-related, Xenopus-linked and singleton phosphatase lineages.",
+    "collagen_like": "The broad collagen repertoire contains six orthogroups; the narrative individually describes collagen IV-like, V-like, I-like, Schistosoma-restricted fibrillar and short-fragment groups. Candidate ligand identity remains separate from receptor binding.",
+    "laminin_like": "Fifteen laminin-domain proteins distinguish laminin beta-, gamma- and alpha-like scaffolds from a six-protein netrin-like lineage.",
+    "fibronectin_like": "FN3-containing proteins include ROBO-like, UNC-89/obscurin/SPEG-like, Eph-like, DCC/neogenin-like and type IIa RPTP-like architectures; FN3 presence alone does not assign a ligand role."
+  },
+  "normalizations": [
+    "OG000229 in the final cofilin sentence is normalized to OG0002291, as explicitly named earlier in the same paragraph.",
+    "Vinculin clade orthogroup IDs are taken from the catalogue; the narrative does not assign the two listed IDs to individual clades.",
+    "Unenumerated collagen and kinase lineages retain their catalogue annotations."
+  ]
+}
