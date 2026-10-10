@@ -47,7 +47,7 @@ showNode=function(node){
     const selected=info.querySelector('select[aria-label="Select candidate protein"]');
     const id=selected?.value||atlasPayload.focus_candidate;
     const candidate=atlasPayload.candidates.find(r=>r.sequence_id===id&&(r.map_node===node.id||(node.id==='integrin_ab'&&['inta','intb'].includes(r.map_node))));
-    window.parent.postMessage({type:'schisto-adhesome-node',node:node.id,title:node.title,candidate:candidate?.sequence_id||'',species:candidate?.species||'',module:document.getElementById('moduleFocus')?.value||'all'},'*');
+    window.parent.postMessage({type:'schisto-adhesome-node',node:node.id,title:node.title,candidate:candidate?.sequence_id||'',candidate_annotation:candidate?.candidate_annotation||'',candidate_lineage:candidate?.candidate_lineage||'',species:candidate?.species||'',module:document.getElementById('moduleFocus')?.value||'all'},'*');
   });
   const heading=info.querySelector('h2');if(heading)heading.insertAdjacentElement('afterend',button);else info.prepend(button);
   const caption=document.createElement('p');caption.textContent='Opens local I–T–V assembly matrices, force-dependent recruitment and actin feedback. Peripheral families select explicit coupling proxies.';button.insertAdjacentElement('afterend',caption);
@@ -59,10 +59,17 @@ const atlasInitialLinkedNode=nodes.find(n=>n.id===atlasPayload.focus_node);if(at
 _SIMULATOR_BRIDGE = r'''
 <script>
 const atlasNodeScenarios=__SCENARIOS__;
+function candidateScenario(value){let scenario=atlasNodeScenarios[value.node];const annotation=value.candidate_annotation||'';
+  const distinct=(value.node==='talin'&&annotation.startsWith('HIP1R'))||
+    (value.node==='vinculin'&&annotation.startsWith('Catenin-related'))||
+    (value.node==='ilk'&&/^(GS-domain|MAPK-activated|OSR1-like|ILK-screened)/.test(annotation));
+  if(distinct)scenario={controls:{},module:scenario?.module||'cytoskeleton',stage:'Calibrated lineage context',note:annotation+' is distinct from the canonical family component represented by this scenario. The baseline I–T–V model is displayed.'};
+  return scenario;
+}
 window.addEventListener('message',event=>{
   if(event.source!==window.parent||!event.data)return;
   if(event.data.type==='schisto-adhesome-visible'){resize();return}
-  if(event.data.type==='schisto-adhesome-scenario')applyMapSelection(event.data,atlasNodeScenarios[event.data.node]);
+  if(event.data.type==='schisto-adhesome-scenario')applyMapSelection(event.data,candidateScenario(event.data));
 });
 </script>
 '''

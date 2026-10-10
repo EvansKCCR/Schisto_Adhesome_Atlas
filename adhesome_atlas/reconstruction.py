@@ -91,7 +91,7 @@ def assemble(candidates,loader,threshold):
             return 'Unresolved','No supported layer assignment'
         assignments=nodes.apply(layer,axis=1)
         nodes['layer']=[x[0] for x in assignments];nodes['layer_basis']=[x[1] for x in assignments]
-        for field in ['audit_classification','family_assignment_basis','evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group']:
+        for field in ['audit_classification','family_assignment_basis','evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group','candidate_annotation','candidate_lineage','candidate_architecture_context','candidate_evolutionary_context','candidate_annotation_basis','candidate_annotation_source']:
             if field in candidates:
                 summary=candidates.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
                 nodes[field]=nodes.sequence_id.map(summary).fillna('Unmapped')
@@ -219,7 +219,7 @@ def prioritize(nodes,graph,all_nodes):
     result['available_features']=result[FEATURES].notna().sum(axis=1)
     result['integrated_score']=result[FEATURES].mean(axis=1).where(result.available_features.eq(7))
     result['assessment']=result.available_features.map(lambda n:'Complete exploratory score' if n==7 else f'Incomplete: {7-n} features missing')
-    for field in ['evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group']:
+    for field in ['evidence_review_stage','domain_evidence','topology_evidence','motif_context_evidence','adhesome_interpretation','host_orthology_flag','priority_group','candidate_annotation','candidate_lineage','candidate_architecture_context','candidate_evolutionary_context','candidate_annotation_source']:
         if field in nodes: result[field]=nodes[field].values
     return result.sort_values(['integrated_score','interface_connections','betweenness','degree'],ascending=False,na_position='last')
 
@@ -250,11 +250,12 @@ def reconstruction_panel(candidates,loader,key):
                                         help='No selection keeps every family, including unmapped nodes.')
         selected_layers=b.multiselect('Adhesion layers',LAYERS,key=key+'layers',
                                       help='No selection keeps every layer.')
-        query=st.text_input('Find a protein or identifier',key=key+'query',placeholder='Protein ID, STRING ID or family')
+        query=st.text_input('Find a protein or identifier',key=key+'query',placeholder='Protein ID, annotation, lineage or family')
         if selected_families: nodes=nodes[nodes.Family.isin(selected_families)].copy()
         if selected_layers: nodes=nodes[nodes.layer.isin(selected_layers)].copy()
         if query:
-            matches=nodes[['identifier','node','sequence_id','Family']].fillna('').astype(str).apply(
+            search_fields=[f for f in ['identifier','node','sequence_id','Family','candidate_annotation','candidate_lineage','orthogroup'] if f in nodes]
+            matches=nodes[search_fields].fillna('').astype(str).apply(
                 lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)
             nodes=nodes[matches].copy()
         nodes,edges=retained_subgraph(nodes,edges,nodes.identifier)
@@ -314,11 +315,13 @@ def reconstruction_panel(candidates,loader,key):
     vector_nodes=[]
     for row in metrics.itertuples():
         size_value=float(getattr(row,size_field)) if size_field else 1
-        vector_nodes.append({'id':row.identifier,'label':row.node,'x':float(pos[row.identifier][0]),
+        vector_nodes.append({'id':row.identifier,'label':row.node,'annotation':getattr(row,'candidate_annotation',''),'x':float(pos[row.identifier][0]),
             'y':float(pos[row.identifier][1]),'radius':8+11*(size_value/(largest_size or 1))**.5,
             'color':category_colors.get(str(getattr(row,column)),'#08743f'),
             'category':str(getattr(row,column)),
             'detail':{'Species':SPECIES.get(row.species,row.species),'Family':row.Family,
+                      'Candidate annotation':getattr(row,'candidate_annotation',''),'Lineage':getattr(row,'candidate_lineage',''),
+                      'Architecture':getattr(row,'candidate_architecture_context',''),'Evolution':getattr(row,'candidate_evolutionary_context',''),
                       'Layer':row.layer,'Degree':int(row.degree),'Betweenness':round(float(row.betweenness),3),
                       'Closeness':round(float(row.closeness),3),'Community':int(row.community)}})
     vector_edges=[{'source':row.node1_string_id,'target':row.node2_string_id,
@@ -407,7 +410,7 @@ def reconstruction_panel(candidates,loader,key):
         st.download_button('Download prioritization and missing evidence',ranking.to_csv(index=False),'candidate_prioritization.csv',key=key+'rank_csv')
     with tabs[3]:
         st.write('Populate the TSV templates in adhesome_network/curation. No illustrative biological records are prefilled. Reload source files after editing. References must identify the evidence supporting each assessment.')
-        st.dataframe(metrics[[c for c in ['identifier','sequence_id','mapping_basis','mapping_candidates','mapping_source','mapping_identity_percent','mapping_bitscore','mapping_query_evidence','mapping_review','user_nominated_sequence_ids','user_mapping_interpretation','user_mapping_note','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
+        st.dataframe(metrics[[c for c in ['identifier','sequence_id','candidate_annotation','candidate_lineage','mapping_basis','mapping_candidates','mapping_source','mapping_identity_percent','mapping_bitscore','mapping_query_evidence','mapping_review','user_nominated_sequence_ids','user_mapping_interpretation','user_mapping_note','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
         for name in ['node_mapping.tsv','reference_interactions.tsv','candidate_evidence.tsv','node_interpretations.tsv']:
             p=EVIDENCE_DIR/name
             if p.exists():st.download_button('Download '+name,p.read_bytes(),name,key=key+name)
@@ -417,6 +420,8 @@ def orthogroup_consensus(nodes,edges,candidates):
     """Combine workbook membership with associations supported by mapped STRING nodes."""
     members=candidates[candidates.orthogroup.fillna('').astype(str).str.fullmatch(r'OG\d+')].copy()
     members['family_label']=members.reviewed_family.fillna('Unassigned')
+    if 'candidate_annotation' not in members: members['candidate_annotation']=members.family_label
+    if 'candidate_lineage' not in members: members['candidate_lineage']=''
     members['collection']=members.source.map(
         lambda source:'FN3 review' if 'fibronectin_like_candidate.xlsx' in source else 'Adhesome candidates')
     def joined(values):
@@ -426,6 +431,8 @@ def orthogroup_consensus(nodes,edges,candidates):
         species_count=('species','nunique'),
         species=('species',joined),
         families=('family_label',joined),
+        candidate_annotation=('candidate_annotation',joined),
+        candidate_lineage=('candidate_lineage',joined),
         source_collections=('collection',joined),
         member_ids=('sequence_id',joined),
         supported=('audit_classification',lambda values:int(values.eq('Supported').sum())),
@@ -440,7 +447,7 @@ def orthogroup_consensus(nodes,edges,candidates):
     groups=workbook.merge(network,on='orthogroup',how='outer').fillna({
         'member_count':0,'species_count':0,'species':'','families':'Unassigned',
         'source_collections':'Curated network mapping','member_ids':'',
-        'supported':0,'provisional':0,'mapped_proteins':0,'mapped_ids':''})
+        'supported':0,'provisional':0,'mapped_proteins':0,'mapped_ids':'','candidate_annotation':'','candidate_lineage':''})
     for field in ['member_count','species_count','supported','provisional','mapped_proteins']:
         groups[field]=groups[field].astype(int)
     groups['primary_family']=groups.families.map(
@@ -577,12 +584,13 @@ def orthogroup_view(nodes,edges,candidates,key):
     vector_nodes=[]
     for row in visible.itertuples():
         value=float(getattr(row,size_field))
-        vector_nodes.append({'id':row.orthogroup,'label':row.orthogroup,
+        vector_nodes.append({'id':row.orthogroup,'label':row.orthogroup,'annotation':row.candidate_annotation or row.families,
             'x':float(positions[row.orthogroup][0]),'y':float(positions[row.orthogroup][1]),
             'radius':8+11*(value/maximum)**.5,
             'color':category_colors.get(str(getattr(row,color_field)),'#08743f'),
             'category':str(getattr(row,color_field)),
             'detail':{'Families':row.families,'Members':int(row.member_count),
+                      'Candidate annotation':row.candidate_annotation,'Lineage':row.candidate_lineage,
                       'Species':row.species,'Degree':int(row.degree),
                       'Betweenness':round(float(row.betweenness),3),'Community':int(row.community)}})
     vector_edges=[{'source':row.source,'target':row.target,

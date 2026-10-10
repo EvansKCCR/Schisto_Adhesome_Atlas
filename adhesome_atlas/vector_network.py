@@ -52,11 +52,14 @@ svg{display:block;width:100%;height:690px;min-width:700px;touch-action:none}
 </style></head><body>
 <div class="bar"><strong id="heading"></strong><label for="names">Node names</label>
 <select id="names"><option value="hidden">Hidden</option><option value="outside">Outside nodes</option><option value="center">Centered in nodes</option></select>
+<label for="labelContent">Label content</label><select id="labelContent"><option value="name">Protein / group names</option><option value="annotation">Candidate annotation</option><option value="both">Names + annotation</option></select>
+<label for="labelSize">Font size <output id="labelSizeValue">12</output> px</label><input id="labelSize" type="range" min="8" max="32" value="12" aria-label="Node name font size"/>
+<label><input id="autoFit" type="checkbox" checked/> Auto-fit circles</label>
 <label><input id="hideUnconnected" type="checkbox"/> Hide unconnected nodes</label>
 <button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="fit">Fit view</button>
 <button id="reset">Reset positions</button><button id="export">Download vector SVG</button></div>
-<div class="hint">Drag nodes to rearrange them; drag the background to pan and scroll to zoom. Click a node to inspect its annotation. Download a scalable vector SVG to keep the current arrangement and sharp labels at any print size.</div>
-<div class="stage"><svg id="network" viewBox="0 0 1200 720" role="img" aria-label="Editable vector network"><rect x="0" y="0" width="1200" height="720" fill="#ffffff"/><g id="edgeLayer"></g><g id="nodeLayer"></g></svg></div>
+<div class="hint">Drag nodes to rearrange them; pan the background and scroll to zoom. Font size adjusts node names; auto-fit expands circles around centered, wrapped labels. Circle metrics remain in node details. Fit view includes expanded circles. SVG downloads preserve label sizes and the current layout.</div>
+<div class="stage"><svg id="network" viewBox="0 0 1200 720" role="img" aria-label="Editable vector network"><rect id="background" x="0" y="0" width="1200" height="720" fill="#ffffff"/><g id="edgeLayer"></g><g id="nodeLayer"></g></svg></div>
 <div class="detail" id="detail" aria-live="polite">Select a node to inspect its annotation.</div>
 <details class="legend"><summary>Color legend</summary><div id="legend"></div></details>
 <script>
@@ -68,24 +71,28 @@ const incident=new Map(data.nodes.map(n=>[n.id,[]]));
 const nodeGroups=new Map();
 document.getElementById('heading').textContent=data.title;
 const names=document.getElementById('names');names.value=data.labelMode;
+const labelSize=document.getElementById('labelSize'),autoFit=document.getElementById('autoFit'),labelContent=document.getElementById('labelContent');
 const hideUnconnected=document.getElementById('hideUnconnected');
 function updateNodeVisibility(){for(const node of data.nodes)nodeGroups.get(node.id).style.display=hideUnconnected.checked&&!incident.get(node.id).length?'none':''}
 function element(tag,attrs){const item=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))item.setAttribute(key,String(value));return item}
 function point(event,matrix=svg.getScreenCTM().inverse()){const p=svg.createSVGPoint();p.x=event.clientX;p.y=event.clientY;return p.matrixTransform(matrix)}
 let view={x:0,y:0,w:1200,h:720};
-function applyView(){svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`)}
+function applyView(){svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);const bg=document.getElementById('background');for(const [key,value] of Object.entries({x:view.x,y:view.y,width:view.w,height:view.h}))bg.setAttribute(key,value)}
 function zoom(factor,anchor={x:view.x+view.w/2,y:view.y+view.h/2}){const width=Math.max(120,Math.min(4800,view.w*factor)),ratio=width/view.w;view={x:anchor.x-(anchor.x-view.x)*ratio,y:anchor.y-(anchor.y-view.y)*ratio,w:width,h:view.h*ratio};applyView()}
 document.getElementById('zoomIn').onclick=()=>zoom(.8);document.getElementById('zoomOut').onclick=()=>zoom(1.25);
-document.getElementById('fit').onclick=()=>{view={x:0,y:0,w:1200,h:720};applyView()};
+function fitView(){let xmin=Infinity,ymin=Infinity,xmax=-Infinity,ymax=-Infinity;for(const n of data.nodes){const group=nodeGroups.get(n.id);if(group.style.display==='none')continue;const box=group.getBBox();xmin=Math.min(xmin,n.x+box.x);ymin=Math.min(ymin,n.y+box.y);xmax=Math.max(xmax,n.x+box.x+box.width);ymax=Math.max(ymax,n.y+box.y+box.height)}if(!Number.isFinite(xmin)){view={x:0,y:0,w:1200,h:720};applyView();return}const w=Math.max(120,xmax-xmin+64),h=Math.max(72,ymax-ymin+64),width=Math.max(w,h*1200/720),height=width*720/1200;view={x:(xmin+xmax-width)/2,y:(ymin+ymax-height)/2,w:width,h:height};applyView()}
+document.getElementById('fit').onclick=fitView;
 svg.addEventListener('wheel',event=>{event.preventDefault();zoom(event.deltaY>0?1.12:.89,point(event))},{passive:false});
 let pan=null;
 svg.addEventListener('pointerdown',event=>{if(event.target.closest('.node'))return;pan={point:point(event),view:{...view},matrix:svg.getScreenCTM().inverse()};svg.setPointerCapture(event.pointerId)});
 svg.addEventListener('pointermove',event=>{if(!pan)return;const p=point(event,pan.matrix);view.x=pan.view.x+pan.point.x-p.x;view.y=pan.view.y+pan.point.y-p.y;applyView()});
 svg.addEventListener('pointerup',()=>pan=null);svg.addEventListener('pointercancel',()=>pan=null);
 function updateEdge(record){const a=byId.get(record.data.source),b=byId.get(record.data.target);record.line.setAttribute('x1',a.x);record.line.setAttribute('y1',a.y);record.line.setAttribute('x2',b.x);record.line.setAttribute('y2',b.y)}
-function updateLabels(){for(const n of data.nodes){const group=nodeGroups.get(n.id),label=group.querySelector('text');const mode=names.value;label.style.display=mode==='hidden'?'none':'';
-  label.setAttribute('y',mode==='center'?0:n.radius+14);label.setAttribute('font-size',mode==='center'?12:11);
-  label.setAttribute('font-weight',mode==='center'?'700':'600');label.setAttribute('fill',mode==='center'?'#10251a':'#172b20');
+function wrapLabel(label,text,width){const lines=[];let line='';const measure=value=>{label.textContent=value;return label.getComputedTextLength()};for(const token of text.match(/[^\s/_-]+[\s/_-]*|[\s/_-]+/g)||['']){if(measure((line+token).trimEnd())<=width){line+=token;continue}if(line.trim()){lines.push(line.trim());line=''}for(const char of token){if(line&&measure((line+char).trimEnd())>width){lines.push(line.trim());line=''}line+=char}}if(line.trim())lines.push(line.trim());return lines.length?lines:['']}
+function updateLabels(){const size=Number(labelSize.value);document.getElementById('labelSizeValue').textContent=size;for(const n of data.nodes){const group=nodeGroups.get(n.id),label=group.querySelector('text'),circle=group.querySelector('circle'),mode=names.value;label.style.display=mode==='hidden'?'none':'';label.setAttribute('font-size',size);label.setAttribute('font-weight',mode==='center'?'700':'600');label.setAttribute('fill','#10251a');
+  const raw=labelContent.value==='annotation'?(n.annotation||n.label):labelContent.value==='both'&&n.annotation?n.label+'\n'+n.annotation:n.label;
+  const lines=raw.split('\n').flatMap(text=>wrapLabel(label,text,Math.max(100,size*10))),spacing=size*1.2,start=mode==='center'?-(lines.length-1)*spacing/2:n.radius+size+4;label.replaceChildren();lines.forEach((line,i)=>{const span=element('tspan',{x:0,y:start+i*spacing});span.textContent=line;label.appendChild(span)});
+  let radius=n.radius;if(mode==='center'&&autoFit.checked){const box=label.getBBox(),x=Math.max(Math.abs(box.x),Math.abs(box.x+box.width)),y=Math.max(Math.abs(box.y),Math.abs(box.y+box.height));radius=Math.max(radius,Math.hypot(x,y)+8)}circle.setAttribute('r',radius);
 }}
 for(const edge of data.edges){const line=element('line',{class:'edge',stroke:edge.color||'#b5c8bd','stroke-width':edge.width||1.2,'stroke-opacity':.75});edgeLayer.appendChild(line);
   const record={data:edge,line};incident.get(String(edge.source)).push(record);incident.get(String(edge.target)).push(record);updateEdge(record)}
@@ -100,7 +107,7 @@ for(const n of data.nodes){const group=element('g',{class:'node',transform:`tran
   group.addEventListener('click',()=>{if(moved){moved=false;return}const detail=document.getElementById('detail');detail.replaceChildren();const heading=document.createElement('strong');heading.textContent=n.label+' · '+n.id;detail.appendChild(heading);
     const fields=n.detail||{};for(const [key,value] of Object.entries(fields)){const item=document.createElement('span');item.textContent=key+': '+value;detail.appendChild(item)}});
   nodeLayer.appendChild(group);nodeGroups.set(n.id,group)}
-names.addEventListener('change',updateLabels);updateLabels();
+for(const control of [names,labelContent,autoFit])control.addEventListener('change',()=>{updateLabels();fitView()});labelSize.addEventListener('input',()=>{updateLabels();fitView()});updateLabels();
 hideUnconnected.addEventListener('change',updateNodeVisibility);updateNodeVisibility();
 const legend=document.getElementById('legend'),categories=new Map();
 for(const node of data.nodes)if(node.category)categories.set(node.category,node.color);

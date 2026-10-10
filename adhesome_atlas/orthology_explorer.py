@@ -34,6 +34,10 @@ def orthology_panel(candidates=None):
         report['Screening family']=report.family
         report['Reviewed family']=report.candidate_id.map(subset.groupby('sequence_id').reviewed_family.agg(lambda values:' | '.join(sorted(set(values.dropna()))))).fillna('')
         report['Audit classification']=report.candidate_id.map(subset.groupby('sequence_id').audit_classification.agg(lambda values:' | '.join(sorted(set(values.dropna()))))).fillna('')
+        for field in ['candidate_annotation','candidate_lineage','candidate_architecture_context','candidate_evolutionary_context','candidate_annotation_source']:
+            if field in subset:
+                values=subset.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
+                report[field]=report.candidate_id.map(values).fillna('')
     else:
         report['family']='Unassigned family'
     grouping=ROOT/'phylogeny_family_groups.tsv'

@@ -14,6 +14,8 @@ The visualization is a **hypothesis map**, not a validated pathway diagram, kine
 
 The diagram is editable SVG: drag any family node to rearrange its edges, use **Center node names** to put names in the middle of nodes, reset the layout, or export the current arrangement as a vector SVG.
 
+The **Node font** slider adjusts names from 10 to 24 px. Long names wrap, and node heights fit the labels while retaining family counts. SVG downloads retain the selected size. The atlas-enhanced candidate panel includes narrative-calibrated names, lineage, domain architecture and evolutionary context alongside the original family audit. Broad family inventory counts remain separate from canonical/subfamily interpretation: the talin screen, for example, includes five architecture-retaining talin proteins, one partial talin-like protein and three HIP1R-like candidates.
+
 Use **Hide unconnected nodes** to show only nodes linked by the currently enabled edge classes. The control updates when relationship filters change and is preserved when centering names or resetting positions. SVG exports retain the visible-node selection.
 
 ## Nanoscale zones and functional views

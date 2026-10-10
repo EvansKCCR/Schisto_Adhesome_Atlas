@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 from nanoscale_architecture import architecture_json
+from candidate_annotations import FIELDS as ANNOTATION_FIELDS, family_summaries
 
 
 FAMILY_NODES = {
@@ -64,12 +65,13 @@ def candidate_rows(adhesome, fn3):
 def map_payload(rows, focus_family=None, focus_candidate=None):
     fields = ['sequence_id','species','family','assigned_family','prototype_family','map_node','evidence_tier','grade',
               'family_decision','assignment_interpretation','orthogroup','domain_evidence','topology_evidence',
-              'motif_context_evidence','source_collection']
+              'motif_context_evidence','source_collection'] + ANNOTATION_FIELDS
     displayed = rows.reindex(columns=fields).fillna('').astype(str)
     return {
         'candidates': displayed.to_dict('records'),
         'focus_node': FAMILY_NODES.get(focus_family,''),
         'focus_candidate': focus_candidate or '',
+        'family_summaries':family_summaries(),
     }
 
 
@@ -114,6 +116,9 @@ function atlasText(parent,tag,text){const el=document.createElement(tag);el.text
 function atlasCandidateDetail(parent,record){
   const box=document.createElement('div');box.className='atlas-candidate';parent.appendChild(box);
   atlasText(box,'strong',record.sequence_id+' · '+record.species);
+  if(record.candidate_annotation)atlasText(box,'h3',record.candidate_annotation);
+  for(const [heading,field] of [['Lineage','candidate_lineage'],['Architecture','candidate_architecture_context'],['Evolution','candidate_evolutionary_context']])if(record[field])atlasText(box,'p',heading+': '+record[field]);
+  if(record.candidate_annotation_source)atlasText(box,'p','Annotation source: curator narrative · '+record.candidate_annotation_basis);
   atlasText(box,'p',record.evidence_tier+' · '+(record.assignment_interpretation||record.family_decision||record.grade||'FN3 architecture screen'));
   if(record.family&&record.family!==record.prototype_family)atlasText(box,'p','Screening family: '+record.family+' → reviewed family: '+record.prototype_family);
   if(record.orthogroup)atlasText(box,'p','Orthogroup: '+record.orthogroup);
@@ -123,6 +128,7 @@ function atlasCandidateDetail(parent,record){
 }
 showNode=function(n){
   atlasFocusNode=n;atlasOriginalShowNode(n);atlasFocus(n);
+  if(atlasPayload.family_summaries[n.family]){atlasText(info,'h3','Calibrated family interpretation');atlasText(info,'p',atlasPayload.family_summaries[n.family])}
   const connected=edges.filter(e=>e.a===n.id||e.b===n.id);
   atlasText(info,'h3','Potential linked families');
   if(connected.length){const list=document.createElement('ul');info.appendChild(list);connected.forEach(e=>{
@@ -142,7 +148,7 @@ showNode=function(n){
   if(records.length){
     const select=document.createElement('select');select.setAttribute('aria-label','Select candidate protein');info.appendChild(select);
     const prompt=document.createElement('option');prompt.value='';prompt.textContent='Select a protein';select.appendChild(prompt);
-    records.forEach(r=>{const option=document.createElement('option');option.value=r.sequence_id;option.textContent=r.sequence_id+' · '+r.evidence_tier;select.appendChild(option)});
+    records.forEach(r=>{const option=document.createElement('option');option.value=r.sequence_id;option.textContent=r.sequence_id+' · '+(r.candidate_annotation||r.evidence_tier);select.appendChild(option)});
     const detail=document.createElement('div');info.appendChild(detail);
     select.onchange=()=>{detail.innerHTML='';const record=records.find(r=>r.sequence_id===select.value);if(record)atlasCandidateDetail(detail,record)};
     if(atlasPayload.focus_candidate&&records.some(r=>r.sequence_id===atlasPayload.focus_candidate)){
@@ -198,7 +204,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                  and edge['kind'] in edge_kinds]
     columns = ['sequence_id','species','family','assigned_family','prototype_family','map_node','module','evidence_tier',
                'grade','family_decision','assignment_interpretation','orthogroup','domain_evidence','topology_evidence',
-               'motif_context_evidence','host_orthology_flag','source_collection']
+               'motif_context_evidence','host_orthology_flag','source_collection'] + ANNOTATION_FIELDS
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',
     'interpretation':'Family-level hypotheses from the interactive architecture. The S. mansoni ILK–PINCH–Nck2 complex has experimental support from Gelmedin et al. (2017), DOI 10.1371/journal.ppat.1006147. Ligand relationships target an integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only; host-vascular and SmVKR1 nodes are marked context_only and have no audited candidate count. No specific α–β protein pairing is inferred.',

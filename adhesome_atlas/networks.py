@@ -72,6 +72,10 @@ def load_network(code, candidates):
     exact['display_family'] = exact.reviewed_family.fillna('Unassigned') if 'reviewed_family' in exact else exact.family
     family = exact.groupby('node').display_family.agg(lambda x:' | '.join(sorted(set(x.dropna()))))
     nodes['Family'] = nodes.sequence_id.str.removeprefix(code+'__').map(family).fillna('Unmapped')
+    for field in ['candidate_annotation','candidate_lineage','candidate_architecture_context','candidate_evolutionary_context','candidate_annotation_source']:
+        if field in exact:
+            values=exact.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
+            nodes[field]=nodes.sequence_id.map(values).fillna('')
     if 'DeepLoc_2.1' in exact:
         loc = exact.groupby('node')['DeepLoc_2.1'].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
         nodes['DeepLoc localization'] = nodes.sequence_id.str.removeprefix(code+'__').map(loc).replace('',pd.NA).fillna('Unmapped')
@@ -119,14 +123,16 @@ def network_panel(candidates, key, detailed=False):
         for row in grouping.itertuples():
             category=row.group
             color=row.color if color_by=='Original STRING colors' else ('#9aa5ae' if category in ['Unmapped','Unannotated'] else colors[category])
-            vector_nodes.append({'id':row.identifier,'label':row.node,'x':row.x_position,'y':row.y_position,
+            vector_nodes.append({'id':row.identifier,'label':row.node,'annotation':getattr(row,'candidate_annotation',''),'x':row.x_position,'y':row.y_position,
                 'radius':9+row.filtered_degree**.5*2,'color':color,'category':str(category),
                 'detail':{'Family':str(row.Family),'STRING compartment':compartments.get(row.identifier,''),
-                          'Degree':int(row.filtered_degree),'Annotation':str(row.annotation) if pd.notna(row.annotation) else ''}})
+                          'Degree':int(row.filtered_degree),'Candidate annotation':getattr(row,'candidate_annotation',''),
+                          'Lineage':getattr(row,'candidate_lineage',''),'Architecture':getattr(row,'candidate_architecture_context',''),
+                          'Evolution':getattr(row,'candidate_evolutionary_context',''),'STRING annotation':str(row.annotation) if pd.notna(row.annotation) else ''}})
         vector_edges=[{'source':row.node1_string_id,'target':row.node2_string_id}
                       for row in edges.itertuples()]
         st.iframe(vector_network_html(vector_nodes,vector_edges,f'{SPECIES[code]} · STRING associations'),height=810)
-    st.caption('Initial positions retain the STRING layout; drag nodes to edit the vector display, center their names, or download SVG. Node size reflects degree after filtering. Family and DeepLoc labels require a unique STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in node details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
+    st.caption('Initial positions retain the STRING layout; drag nodes to edit the vector display, center their names, or download SVG. Circle size reflects filtered degree unless auto-fit expands it to contain centered labels. Family and DeepLoc labels require a unique STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in node details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
     if detailed:
         tabs=st.tabs(['Interaction table','Protein table','Functional annotations','Network statistics'])
         with tabs[0]:

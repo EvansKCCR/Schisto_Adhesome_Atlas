@@ -21,6 +21,7 @@ from simulator import SIMULATOR_FILE, simulator_html
 from linked_explorer import linked_explorer_html
 from family_audit import apply_family_audit
 from figure_exports import plotly_chart, figure_download_settings
+from candidate_annotations import FIELDS as ANNOTATION_FIELDS, family_summaries
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -300,7 +301,7 @@ elif page == 'Summary graphs':
 
 elif page == 'Candidate catalogue':
     st.subheader('Candidate catalogue')
-    defaults = [c for c in ['sequence_id','species','catalogue_family','family','assigned_family','reviewed_family','audit_classification','assignment_interpretation','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
+    defaults = [c for c in ['sequence_id','species','candidate_annotation','candidate_lineage','catalogue_family','family','assigned_family','reviewed_family','audit_classification','assignment_interpretation','grade','family_decision','module','status','length','architecture','DeepLoc_2.1','orthogroup','evidence_review_stage','priority_group'] if c in df]
     columns = st.multiselect('Visible annotation fields', list(df.columns), default=defaults)
     table(df[columns])
     a,b = st.columns(2)
@@ -326,7 +327,12 @@ elif page == 'Family assignment audit':
         if not count.empty:
             chart(px.bar(count,x='family',y='records',color='audit_classification',barmode='stack',title='Audited decisions by screening family'))
         cols=[c for c in ['sequence_id','species','family','assigned_family','recommended_family','reviewed_family','audit_classification','assignment_interpretation','grade','family_decision','FN1_count','FN2_count','FN3_count','domain_match','domain_type_fraction','domain_copy_fraction','domain_score_0_4','orthology_score_0_3','motif_score_0_2','motif_score_0_1','localization_score_0_1','total_score_0_10','rationale','competing_supported_families'] if c in reviewed]
+        cols=cols[:2]+[field for field in ANNOTATION_FIELDS if field in reviewed]+cols[2:]
         table(reviewed[cols])
+        with st.expander('Calibrated family and lineage interpretations'):
+            synopses=family_summaries()
+            table(pd.DataFrame([{'Family':family,'Interpretation':body} for family,body in synopses.items()
+                                if family in set(reviewed.family)]))
         download(reviewed,'audited_family_assignments.csv')
         if cohort=='Adhesome candidates':
             current_book = books['files/adhesome_candidates_list.xlsx']
@@ -350,6 +356,10 @@ elif page == 'Protein dossier':
     row = records.iloc[0]
     st.subheader(key)
     st.write(f"{row.species} · {' / '.join(records.catalogue_family.unique())}")
+    if row.get('candidate_annotation_source',''):
+        st.markdown('**'+row.candidate_annotation+'**')
+        st.write(row.candidate_architecture_context+' '+row.candidate_evolutionary_context)
+        st.caption('Lineage: '+row.candidate_lineage+' · '+row.candidate_annotation_basis)
     seq = sequences.get(key, '')
     a,b,c = st.columns(3)
     a.metric('Sequence length', f'{len(seq):,} aa' if seq else 'Unavailable')
