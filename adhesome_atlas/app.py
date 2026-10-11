@@ -23,6 +23,7 @@ from family_audit import apply_family_audit
 from figure_exports import plotly_chart, figure_download_settings
 from candidate_annotations import FIELDS as ANNOTATION_FIELDS, family_summaries
 from smart_links import smart_panel
+from string_workbench import string_panel
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -248,11 +249,13 @@ elif page == 'Interactions':
     validated = cohorts['Adhesome candidates'][cohorts['Adhesome candidates'].sequence_id.isin(
         ['Sman__Smp_079760', 'Sman__Smp_020540', 'Sman__Smp_014850'])]
     table(validated[[c for c in ['sequence_id', 'reviewed_family', 'audit_classification', 'assignment_interpretation', 'grade', 'family_decision'] if c in validated]])
-    mode = st.radio('Network workspace', ['Unified reconstruction', 'Species STRING explorer'], horizontal=True)
+    mode = st.radio('Network workspace', ['Unified reconstruction', 'Species STRING explorer', 'STRING query & import'], horizontal=True)
     if mode == 'Unified reconstruction':
         reconstruction_panel(network_candidates, load_network, 'reconstruction_')
-    else:
+    elif mode == 'Species STRING explorer':
         network_panel(network_candidates, 'interactions_', detailed=True)
+    else:
+        string_panel(network_candidates)
 
 elif page == 'Orthology & evidence':
     evidence_view(df)
@@ -448,7 +451,7 @@ elif page == 'Protein dossier':
         else:
             st.warning('No source FASTA sequence found.')
     with tabs[4]:
-        smart_panel(key, records)
+        smart_panel(key, records, seq)
 
 elif page == 'Comparative lab':
     st.subheader('Comparative lab')

@@ -89,13 +89,40 @@ def query_manifest(identifier, domains, ordered=True, text_only=False):
     return output.getvalue()
 
 
-def smart_panel(key, records):
+def sequence_form(sequence, pfam=True):
+    """Browser POST avoids putting long protein sequences into a GET URL."""
+    from html import escape
+    from smart_fetch import sequence_payload
+    payload = sequence_payload(sequence, pfam)
+    payload.pop('TEXTONLY')  # Browser opens SMART's graphical results rather than text output.
+    fields = ''.join('<input type="hidden" name="' + name + '" value="' + escape(value, quote=True) + '">' for name, value in payload.items())
+    return '<form action="' + BASE + '/smart/show_motifs.pl" method="post" target="_blank">' + fields + '<button type="submit" style="background:#064c2c;color:white;border:0;border-bottom:4px solid #f4cf24;border-radius:8px;padding:12px 18px;font:bold 16px Arial;cursor:pointer">Analyze original sequence in SMART ↗</button></form>'
+
+
+def smart_panel(key, records, sequence=''):
     import streamlit as st
     from identifier_labels import identifier_annotations
     st.markdown('### SMART domain architecture lookup')
     st.write('Open pre-calculated protein architectures, domain descriptions, and proteins sharing a domain organisation or composition in SMART.')
     options = identifier_options(key, records, identifier_annotations())
     prefix = 'smart_' + key
+    with st.expander('Analyze the original protein sequence', expanded=True):
+        from smart_fetch import normalize_sequence
+        value = st.text_area('Protein sequence / FASTA', value=sequence, height=125, key=prefix + '_sequence')
+        pfam = st.checkbox('Include Pfam in SMART sequence analysis', value=True, key=prefix + '_pfam')
+        try:
+            normalized = normalize_sequence(value)
+        except ValueError as error:
+            st.info(str(error))
+        else:
+            st.caption(f'{len(normalized):,} amino acids · Original sequence is sent only when you click Analyze. SMART displays existing results for recognized sequences or queues a new analysis.')
+            st.iframe(sequence_form(normalized, pfam), height=65)
+            fasta_name = re.sub(r'[^A-Za-z0-9_.-]', '_', key) + '_SMART.fasta'
+            st.download_button('Download sequence for SMART', '>' + key + '\n' + normalized + '\n', fasta_name, 'text/plain', key=prefix + '_seq_fasta')
+            script = Path(__file__).with_name('smart_fetch.py')
+            st.download_button('Download SMART sequence script', script.read_bytes(), script.name, 'text/x-python', key=prefix + '_seq_script')
+            st.code('python3 smart_fetch.py --fasta ' + fasta_name + ' --output SMART_results --fetch' + (' --no-pfam' if not pfam else ''), language='bash')
+            st.caption('The WSL script submits SEQUENCE by POST with TEXTONLY=1, waits for queued results, and saves the response plus sequence-hash provenance. The browser button opens graphical SMART results in a new tab.')
     left, right = st.columns([1.1, 1])
     with left:
         selected = st.selectbox('Candidate identifier', [item['identifier'] for item in options], key=prefix + '_choice')
@@ -130,4 +157,4 @@ def smart_panel(key, records):
         st.code('python3 smart_fetch.py smart_queries.csv --output SMART_results\npython3 smart_fetch.py smart_queries.csv --output SMART_results --fetch', language='bash')
         st.caption('The first command previews the requests; --fetch downloads responses with a five-second minimum interval. HTML is a page response, not a self-contained architecture figure. Use SMART’s viewer to export its diagram as SVG or bitmap; there is no documented static figure-download URL used here.')
         st.markdown('[SMART FAQ and official sequence-submission script](' + FAQ + ') · [SMART protein example](' + protein_url('Q8TEW0') + ')')
-        st.write('For a sequence absent from SMART, use its sequence-analysis form with the Protein FASTA from Sequence & provenance. SMART’s official batch script submits SEQUENCE by POST and polls results.cgi by job ID; this GET downloader does not submit new sequence analyses.')
+        st.write('For an unrecognized identifier, use Analyze the original protein sequence above. The same script supports --fasta for SMART’s POST-and-poll sequence workflow.')

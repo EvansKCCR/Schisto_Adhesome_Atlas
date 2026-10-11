@@ -16,6 +16,8 @@ Szklarczyk D et al. (2025). **The STRING database in 2025: protein networks with
 
 Used to contextualize the supplied protein-association networks and evidence channels. The resource URL is retained as requested; the exported TSV files do not independently establish their STRING release. STRING associations are not automatically direct physical interactions.
 
+[STRING API documentation](https://string-db.org/help/api/) defines the identifier-mapping, functional/physical network TSV, SVG and high-resolution PNG query parameters used by the Interactions query/import workspace. Live requests are pinned to STRING 12.5 and their parameters, response hashes, timestamps and unresolved identifiers are preserved in downloadable provenance.
+
 ## ELM
 
 [Eukaryotic Linear Motif resource](http://elm.eu.org/).
@@ -91,7 +93,7 @@ Helminth genome and gene-model reference resource. Report the actual WBPS releas
 
 Letunic I, Bork P. SMART resource reference recommended by the current server: *Nucleic Acids Research*, [doi:10.1093/nar/gkaf1023](https://doi.org/10.1093/nar/gkaf1023).
 
-Protein dossier links use SMART's protein (`ID`), domain (`DOMAIN`) and architecture (`identical` / `similar`) GET queries. This external lookup does not alter the atlas's original Pfam/CDD domain calls. New sequence analysis follows SMART's documented POST submission and job polling workflow. Architecture figures can be exported through SMART's viewer.
+Protein dossier links use SMART's protein (`ID`), domain (`DOMAIN`) and architecture (`identical` / `similar`) GET queries. Its sequence form and WSL script query the original protein by `SEQUENCE` POST; the script uses `TEXTONLY=1` and job polling as documented in SMART's official batch example. This external lookup does not alter the atlas's original Pfam/CDD domain calls. Architecture figures can be exported through SMART's viewer.
 
 ## Nanoscale adhesion architecture and mechanotransduction
 
