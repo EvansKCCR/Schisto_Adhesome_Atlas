@@ -85,6 +85,14 @@ Howe KL, Bolt BJ, Shafie M, Kersey P, Berriman M (2017). **WormBase ParaSite—a
 
 Helminth genome and gene-model reference resource. Report the actual WBPS release and assembly accession used for each proteome separately.
 
+## SMART
+
+[SMART](https://smart.embl.de/) · [Query scripting FAQ](https://smart.embl.de/faq.cgi).
+
+Letunic I, Bork P. SMART resource reference recommended by the current server: *Nucleic Acids Research*, [doi:10.1093/nar/gkaf1023](https://doi.org/10.1093/nar/gkaf1023).
+
+Protein dossier links use SMART's protein (`ID`), domain (`DOMAIN`) and architecture (`identical` / `similar`) GET queries. This external lookup does not alter the atlas's original Pfam/CDD domain calls. New sequence analysis follows SMART's documented POST submission and job polling workflow. Architecture figures can be exported through SMART's viewer.
+
 ## Nanoscale adhesion architecture and mechanotransduction
 
 Kanchanawong P et al. (2010). **Nanoscale architecture of integrin-based cell adhesions.** *Nature*, 468, 580–584. [doi:10.1038/nature09621](https://doi.org/10.1038/nature09621). Reference basis for the integrin-signalling, force-transduction and actin-regulation schematic; it does not establish schistosome nanoscale coordinates.

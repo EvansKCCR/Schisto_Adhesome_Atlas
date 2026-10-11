@@ -22,6 +22,7 @@ from linked_explorer import linked_explorer_html
 from family_audit import apply_family_audit
 from figure_exports import plotly_chart, figure_download_settings
 from candidate_annotations import FIELDS as ANNOTATION_FIELDS, family_summaries
+from smart_links import smart_panel
 
 st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome', page_icon='🧬', layout='wide')
 st.markdown("""<style>
@@ -391,7 +392,7 @@ elif page == 'Protein dossier':
         st.caption('Overlapping features can overlap visually; inspect the tables for all hits. CDD track displays specific hits only. Topology states are the original DeepTMHMM codes (I/O/M/S).')
     else:
         st.info('No positional annotations available for this protein.')
-    tabs = st.tabs(['Annotations', 'Motifs', 'Prediction evidence', 'Sequence & provenance'])
+    tabs = st.tabs(['Annotations', 'Motifs', 'Prediction evidence', 'Sequence & provenance', 'SMART domains'])
     with tabs[0]:
         table(records.T.reset_index().rename(columns={'index':'field'}).astype(str))
     with tabs[1]:
@@ -446,6 +447,8 @@ elif page == 'Protein dossier':
             st.download_button('↓ Protein FASTA', fasta_export([key], sequences), key+'.fasta')
         else:
             st.warning('No source FASTA sequence found.')
+    with tabs[4]:
+        smart_panel(key, records)
 
 elif page == 'Comparative lab':
     st.subheader('Comparative lab')
@@ -540,7 +543,7 @@ elif page == 'Source Library':
 
 st.divider()
 with st.expander('Resource citations and acknowledgements'):
-    st.markdown('Networks: [STRING](https://version-12-5.string-db.org/) · Motifs: [ELM](http://elm.eu.org/) · Protein references: [UniProt](https://www.uniprot.org/) · Domains: [InterPro](https://www.ebi.ac.uk/interpro/) and [NCBI CDD](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) · Predictions: [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/), [DeepLoc 2.1](https://services.healthtech.dtu.dk/services/DeepLoc-2.1/), [DeepTMHMM](https://services.healthtech.dtu.dk/services/DeepTMHMM-1.0/) · Genomes: [WormBase ParaSite](https://parasite.wormbase.org/).')
+    st.markdown('Networks: [STRING](https://version-12-5.string-db.org/) · Motifs: [ELM](http://elm.eu.org/) · Protein references: [UniProt](https://www.uniprot.org/) · Domains: [InterPro](https://www.ebi.ac.uk/interpro/), [NCBI CDD](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) and [SMART](https://smart.embl.de/) · Predictions: [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/), [DeepLoc 2.1](https://services.healthtech.dtu.dk/services/DeepLoc-2.1/), [DeepTMHMM](https://services.healthtech.dtu.dk/services/DeepTMHMM-1.0/) · Genomes: [WormBase ParaSite](https://parasite.wormbase.org/).')
     st.caption('Open Citations in the sidebar for publication references and the downloadable bibliography.')
 st.caption('SCHISTO-ADHESOME ATLAS  /  Local annotation atlas  /  Source: adhesome_atlas  /  Assignments integrate complementary evidence')
 creator_credit()
