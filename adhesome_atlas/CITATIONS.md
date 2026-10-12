@@ -87,6 +87,14 @@ Howe KL, Bolt BJ, Shafie M, Kersey P, Berriman M (2017). **WormBase ParaSite—a
 
 Helminth genome and gene-model reference resource. Report the actual WBPS release and assembly accession used for each proteome separately.
 
+## Topological clustering
+
+Bader GD, Hogue CWV (2003). **An automated method for finding molecular complexes in large protein interaction networks.** *BMC Bioinformatics*, 4, 2. [doi:10.1186/1471-2105-4-2](https://doi.org/10.1186/1471-2105-4-2). Basis for MCODE core-density weighting, seed growth, fluff and haircut.
+
+Van Dongen S (2008). **Graph Clustering Via a Discrete Uncoupling Process.** *SIAM Journal on Matrix Analysis and Applications*, 30(1), 121–141. [doi:10.1137/040608635](https://doi.org/10.1137/040608635). Basis for MCL stochastic expansion and inflation. The Atlas provides a bounded NumPy implementation with explicit pruning, convergence and extraction settings, rather than invoking the external MCL executable.
+
+Clauset A, Newman MEJ, Moore C (2004). **Finding community structure in very large networks.** *Physical Review E*, 70, 066111. [doi:10.1103/PhysRevE.70.066111](https://doi.org/10.1103/PhysRevE.70.066111). Basis for the NetworkX greedy-modularity community analysis.
+
 ## SMART
 
 [SMART](https://smart.embl.de/) · [Query scripting FAQ](https://smart.embl.de/faq.cgi).

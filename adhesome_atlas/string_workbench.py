@@ -16,6 +16,7 @@ from networks import mapping_export
 from reconstruction import topology, network_matrices
 from string_fetch import BASE, api_url, api_request, parameters, network_parameters, mapping_ids, tsv_rows
 from vector_network import vector_network_html
+from topological_clustering import clustering_panel
 
 TAXA = {'Shae': 6185, 'Sjap': 6182, 'Sman': 6183}
 
@@ -148,6 +149,7 @@ def analysis_panel(state, candidates, key='string_import_'):
         plotly_chart(px.scatter(metrics, x='closeness', y='betweenness', color=metrics.community.astype(str), size=metrics.degree.clip(lower=1), hover_name='node', hover_data=['degree', 'Family', 'orthogroup', 'clustering_coefficient'], title='Imported network · closeness and betweenness'), width='stretch', key=key+'centrality')
         summary = metrics.groupby('community').agg(proteins=('identifier', 'size'), mean_clustering=('clustering_coefficient', 'mean'), mean_degree=('degree', 'mean')).reset_index()
         st.dataframe(summary, width='stretch', hide_index=True)
+        clustering_panel(graph, metrics, key + 'clustering', SPECIES[code] + ' · imported STRING')
     with tabs[1]:
         st.dataframe(edges, width='stretch', hide_index=True)
         st.download_button('Download filtered STRING interactions · TSV', edges.to_csv(sep='\t', index=False), 'string_imported_filtered.tsv', 'text/tab-separated-values', key=key+'edges')

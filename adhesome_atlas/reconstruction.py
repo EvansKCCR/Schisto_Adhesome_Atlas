@@ -9,6 +9,7 @@ import streamlit as st
 from data import ROOT, SPECIES
 from vector_network import vector_network_html
 from figure_exports import plotly_chart
+from topological_clustering import clustering_panel
 
 LAYERS = ['Extracellular','Membrane','Membrane-proximal','Actin-coupling','Scaffolding','Signalling','Unresolved']
 COLORS = dict(zip(LAYERS,['#cb8e46','#377eb8','#26a69a','#7b62a3','#da6d98','#c85b4b','#9ba8b2']))
@@ -401,6 +402,7 @@ def reconstruction_panel(candidates,loader,key):
                     st.dataframe(comparison,width='stretch',hide_index=True)
                 else:
                     st.info('The displayed network has no edges to split.')
+            clustering_panel(graph, metrics, key + 'clustering', 'Unified adhesion network')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
     with tabs[2]:
         try: ranking=prioritize(metrics,graph,all_nodes)
@@ -606,6 +608,12 @@ def orthogroup_view(nodes,edges,candidates,key):
             width='stretch',hide_index=True)
         st.dataframe(links[links.source.eq(chosen)|links.target.eq(chosen)],width='stretch',hide_index=True)
     st.caption(f'{len(visible)} displayed orthogroups · {len(links)} retained group associations · {len(internal)} within-group STRING associations. Edge colors summarize species with retained associations, not species specificity. Workbook-only nodes have no inferred STRING links.')
+    with st.expander('Orthogroup topology · clustering algorithms'):
+        clustering_nodes = visible.copy()
+        clustering_nodes['identifier'] = clustering_nodes.orthogroup
+        clustering_nodes['node'] = clustering_nodes.orthogroup
+        clustering_nodes['Family'] = clustering_nodes.families
+        clustering_panel(graph, clustering_nodes, key + 'ortho_clustering', 'Orthogroup consensus network')
     with st.expander('Orthogroup evidence tables and downloads'):
         st.markdown('**Orthogroup membership and topology**')
         st.dataframe(visible,width='stretch',hide_index=True)

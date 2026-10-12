@@ -1,10 +1,12 @@
 """STRING export integration. No inferred identifier aliases or interaction edges."""
 import pandas as pd
+import networkx as nx
 import plotly.express as px
 import streamlit as st
 from data import ROOT, SPECIES
 from vector_network import vector_network_html
 from figure_exports import plotly_chart
+from topological_clustering import clustering_panel
 
 def mapping_export(code):
     frames=[]
@@ -134,7 +136,7 @@ def network_panel(candidates, key, detailed=False):
         st.iframe(vector_network_html(vector_nodes,vector_edges,f'{SPECIES[code]} · STRING associations'),height=810)
     st.caption('Initial positions retain the STRING layout; drag nodes to edit the vector display, center their names, or download SVG. Circle size reflects filtered degree unless auto-fit expands it to contain centered labels. Family and DeepLoc labels require a unique STRING query mapping or exact catalogue identifier/alias. Conflicting or many-query mappings remain unresolved; identity and bit scores are retained for review. STRING localization highlights membership in the chosen reported compartment; all compartment terms remain in node details and the protein table. An unreported term is not evidence of biological absence. Gray family/DeepLoc nodes are unmapped. Full and short edge exports are not combined.')
     if detailed:
-        tabs=st.tabs(['Interaction table','Protein table','Functional annotations','Network statistics'])
+        tabs=st.tabs(['Interaction table','Protein table','Functional annotations','Network statistics','Topological clustering'])
         with tabs[0]:
             st.dataframe(edges,width='stretch',hide_index=True)
             st.download_button('↓ Filtered interactions · CSV',edges.to_csv(index=False),code+'_interactions.csv',key=key+'edges')
@@ -149,6 +151,12 @@ def network_panel(candidates, key, detailed=False):
             st.write(f'Undirected density: {2*m/(n*(n-1)) if n>1 else 0:.3f} · Mean degree: {nodes.filtered_degree.mean() if n else 0:.2f}')
             if n:
                 plotly_chart(px.bar(nodes.nlargest(15,'filtered_degree'),x='node',y='filtered_degree',title='Most connected displayed proteins'),width='stretch',key=key+'degree')
+        with tabs[4]:
+            graph = nx.Graph()
+            graph.add_nodes_from(nodes.identifier)
+            graph.add_edges_from((a, b) for a, b in zip(edges.node1_string_id, edges.node2_string_id)
+                                 if a in graph and b in graph)
+            clustering_panel(graph, nodes, key + 'clustering', SPECIES[code] + ' · STRING associations')
 
 def extra_resources(code,nodes,key):
     folder=ROOT/'adhesome_network'/code
