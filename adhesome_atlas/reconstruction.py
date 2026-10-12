@@ -10,6 +10,7 @@ from data import ROOT, SPECIES
 from vector_network import vector_network_html
 from figure_exports import plotly_chart
 from topological_clustering import clustering_panel
+from candidate_prioritization import prioritization_panel
 
 LAYERS = ['Extracellular','Membrane','Membrane-proximal','Actin-coupling','Scaffolding','Signalling','Unresolved']
 COLORS = dict(zip(LAYERS,['#cb8e46','#377eb8','#26a69a','#7b62a3','#da6d98','#c85b4b','#9ba8b2']))
@@ -192,6 +193,7 @@ def retained_subgraph(nodes,edges,identifiers):
             edges[edges.node1_string_id.isin(retained) & edges.node2_string_id.isin(retained)].copy())
 
 def prioritize(nodes,graph,all_nodes):
+    """Legacy normalized feature adapter; the active UI uses architecture-first ranking."""
     result=nodes[['identifier','node','species','Family','layer','interface_connections','degree','betweenness','closeness']].copy()
     for f in FEATURES: result[f]=float('nan')
     orth=all_nodes[all_nodes.orthogroup.ne('')].groupby('orthogroup').species.nunique().to_dict()
@@ -216,6 +218,7 @@ def prioritize(nodes,graph,all_nodes):
                 value=float(r[f])
                 if not math.isfinite(value) or not 0<=value<=1: raise ValueError(f'{f} must be between 0 and 1')
                 result.loc[mask,f]=value
+                result.loc[mask,f+'_basis']='Curated override: '+r['reference']
         result.loc[mask,'host_similarity_flag']=r['host_similarity_flag'] or 'Not assessed'
     result['available_features']=result[FEATURES].notna().sum(axis=1)
     result['integrated_score']=result[FEATURES].mean(axis=1).where(result.available_features.eq(7))
@@ -405,11 +408,17 @@ def reconstruction_panel(candidates,loader,key):
             clustering_panel(graph, metrics, key + 'clustering', 'Unified adhesion network')
         st.download_button('Download topology analysis',metrics.to_csv(index=False),'network_topology.csv',key=key+'metrics_csv')
     with tabs[2]:
-        try: ranking=prioritize(metrics,graph,all_nodes)
-        except ValueError as exc:st.error(str(exc));ranking=pd.DataFrame()
-        st.caption('Workbook domain coverage and topology agreement, aligned motif residue conservation, branch support and aligned host divergence populate the evidence features. Calculation details are retained in the basis columns. Exploratory integrated score = equal-weight mean of seven 0–1 features, calculated only for complete records. Conservation uses source HOG species coverage / 3 where available, otherwise mapped network orthogroup coverage / 3; connectivity is degree centrality. Source-derived values can be overridden by cited curated values. Motif conservation measures aligned peptide residue identity; host divergence is one minus identity to the closest aligned human homologue over paired amino-acid sites. Phylogenetic support uses the smaller SH-aLRT/UFBoot value for the smallest multispecies Schistosoma clade; it is branch support, not an orthology probability. Missing values are not zero. The evidence-convergence assessment complements the numerical score. Incomplete records are listed by interface connections, betweenness and degree. Host orthologues flag selectivity review but do not measure sequence similarity or exclude proteins.')
-        st.dataframe(ranking,width='stretch',hide_index=True)
-        st.download_button('Download prioritization and missing evidence',ranking.to_csv(index=False),'candidate_prioritization.csv',key=key+'rank_csv')
+        try:
+            features=prioritize(metrics,graph,all_nodes).set_index('identifier')
+            measured=metrics.copy()
+            measured['host_similarity_flag']=measured.identifier.map(features.host_similarity_flag)
+            for field in ['domain_architecture','motif_conservation','topology_compatibility','phylogenetic_support','host_divergence']:
+                for column in [field,field+'_basis']:
+                    if column in features:
+                        measured[column]=measured.identifier.map(features[column])
+            prioritization_panel(candidates,measured,key+'priority',SPECIES.get(view,view)+f' · STRING threshold {threshold:.2f}')
+        except ValueError as exc:
+            st.error(str(exc))
     with tabs[3]:
         st.write('Populate the TSV templates in adhesome_network/curation. No illustrative biological records are prefilled. Reload source files after editing. References must identify the evidence supporting each assessment.')
         st.dataframe(metrics[[c for c in ['identifier','sequence_id','candidate_annotation','candidate_lineage','mapping_basis','mapping_candidates','mapping_source','mapping_identity_percent','mapping_bitscore','mapping_query_evidence','mapping_review','user_nominated_sequence_ids','user_mapping_interpretation','user_mapping_note','orthogroup','orthology_basis','source_HOG_species_count','Family','layer','layer_basis','evidence_review_stage'] if c in metrics]],width='stretch',hide_index=True)
