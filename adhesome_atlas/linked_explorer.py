@@ -89,10 +89,10 @@ def linked_explorer_html(map_html, simulator_html):
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 *{{box-sizing:border-box}}body{{margin:0;font-family:Arial,sans-serif;background:#f4f6f2;color:#111}}
-header{{height:62px;display:flex;align-items:center;gap:10px;padding:8px 14px;background:#064c2c;color:#fff}}
-header strong{{font-size:15px;margin-right:auto}}header button{{padding:8px 13px;border:2px solid #ffe34d;border-radius:8px;background:#fff;color:#111;font-weight:750;cursor:pointer}}
+header{{height:62px;display:flex;align-items:center;gap:10px;padding:8px 14px;background:#eef6ef;color:#000000;border-top:4px solid #064c2c}}
+header strong{{font-size:16px;margin-right:auto}}header button{{padding:8px 13px;border:2px solid #ffe34d;border-radius:8px;background:#fff;color:#000000;font-weight:750;cursor:pointer}}
 header button.active{{background:#ffe34d}}header button:focus-visible{{outline:3px solid #e11d48;outline-offset:2px}}
-#status{{padding:6px 14px;background:#fff9d8;color:#111;font-size:12px;border-bottom:1px solid #d4c069}}
+#status{{padding:6px 14px;background:#fff9d8;color:#000000;font-size:14px;border-bottom:1px solid #d4c069}}
 iframe{{width:100%;height:calc(100vh - 91px);border:0;display:block;background:#fff}}iframe[hidden]{{display:none}}
 @media(max-width:680px){{header{{height:auto;flex-wrap:wrap}}header strong{{width:100%}}iframe{{height:calc(100vh - 130px)}}}}
 </style></head><body>

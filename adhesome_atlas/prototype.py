@@ -84,8 +84,8 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
     enhancement = r"""
 <style>
 .node.atlas-focus rect{fill:#fff3b0;stroke-width:5}.node.atlas-neighbor rect{fill:#f0fdf4;stroke-width:3}
-.node.provisional rect{stroke-dasharray:6 4;fill:#fffbeb}.chip.provisional{background:#fef3c7;color:#92400e}
-.edge.atlas-dim{opacity:.13}.node.atlas-dim{opacity:.36}
+.node.provisional rect{stroke-dasharray:6 4;fill:#fffbeb}.chip.provisional{background:#fef3c7;color:#000000}
+.edge.atlas-dim{opacity:.13}.node.atlas-dim{opacity:1}.node.atlas-dim rect{opacity:.3}
 #info select{width:100%;padding:7px;border:1px solid #94a3b8;border-radius:6px;background:white;color:#0f172a}
 #info .atlas-candidate{padding:8px;background:#f7f9fc;border-left:4px solid #16a34a;margin-top:9px}
 </style>

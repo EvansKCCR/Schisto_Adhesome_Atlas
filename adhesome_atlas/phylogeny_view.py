@@ -13,6 +13,7 @@ from data import ROOT
 from family_merges import atlas_group
 from identifier_labels import annotate_tips, identifier_annotations, canonical_sequence_id
 from figure_exports import plotly_chart, selected_export_config
+from candidate_annotations import calibrate_candidates
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
         'inference/gene_tree.iqtree', 'inference/branch_evidence.tsv', 'inference/run.json')
@@ -114,7 +115,7 @@ def read_group(folder):
     root = parse_newick(companion_path(folder,'inference/gene_tree.treefile').read_text(encoding='utf-8'))
     tips = pd.read_csv(companion_path(folder,'tips.tsv'), sep='\t', dtype=str).fillna('')
     branches = pd.read_csv(companion_path(folder,'inference/branch_evidence.tsv'), sep='\t', dtype=str).fillna('')
-    return root, annotate_tips(tips), branches
+    return root, calibrate_candidates(annotate_tips(tips)), branches
 
 def tree_collection(folder):
     """Use recorded analysis provenance, not candidate names, to group trees."""
@@ -169,18 +170,19 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
     fig.add_trace(go.Scatter(x=xs,y=ys,mode='lines',line=dict(color='#8b9aaa',width=1.3),hoverinfo='skip',showlegend=False))
     fig.add_trace(go.Scatter(x=bx,y=by,text=labels,hovertext=hover,hoverinfo='text',
                             mode='markers+text' if supports else 'markers',textposition='top left',
-                            textfont=dict(size=10),marker=dict(size=5,color='#516779'),showlegend=False))
+                            textfont=dict(size=14,color='#000000'),marker=dict(size=5,color='#516779'),showlegend=False,cliponaxis=False))
     for sp in sorted(set(metadata.get(n.name,{}).get('species','Unknown') for n in leaves)):
         group = [n for n in leaves if metadata.get(n.name,{}).get('species','Unknown') == sp]
         candidate = [metadata.get(n.name,{}).get('candidate') == '1' for n in group]
         fig.add_trace(go.Scatter(x=[positions[n][0] for n in group],y=[positions[n][1] for n in group],
             mode='markers+text',name=NAMES.get(sp,sp),
-            text=[escape(('★ ' if c else '')+metadata.get(n.name,{}).get('display_label',n.name)) for n,c in zip(group,candidate)],textposition='middle right',
-            hovertext=[escape(f'{metadata.get(n.name,{}).get("display_label",n.name)} | Gene/tree ID: {n.name} | {NAMES.get(sp,sp)} | Candidate: {c} | Length: {metadata.get(n.name,{}).get("length","unknown")} aa') for n,c in zip(group,candidate)],hoverinfo='text',
+            text=[escape(('★ ' if c else '')+metadata.get(n.name,{}).get('display_label',n.name)) for n,c in zip(group,candidate)],textposition='middle right',textfont=dict(size=16,color='#000000'),
+            hovertext=[escape(f'{metadata.get(n.name,{}).get("display_label",n.name)} | Gene/tree ID: {n.name} | {NAMES.get(sp,sp)} | Candidate: {c} | {metadata.get(n.name,{}).get("candidate_annotation","")} | {metadata.get(n.name,{}).get("candidate_lineage","")} | Length: {metadata.get(n.name,{}).get("length","unknown")} aa') for n,c in zip(group,candidate)],hoverinfo='text',
             marker=dict(color=COLORS.get(sp,'#999999'),symbol=['diamond' if c else 'circle' for c in candidate],
                         size=[14 if focus and (focus.lower() in n.name.lower() or focus.lower() in metadata.get(n.name,{}).get('display_label','').lower()) else 8 for n in group]),cliponaxis=False))
     xmax = max(x for x,y in positions.values()) or 1
-    fig.update_layout(height=max(500, min(12000,len(leaves)*24+150)),margin=dict(l=20,r=260,t=50,b=60),
+    label_length=max((len(metadata.get(node.name,{}).get('display_label',node.name)) for node in leaves),default=20)
+    fig.update_layout(height=max(500,len(leaves)*30+170),margin=dict(l=90,r=min(600,max(300,label_length*9+40)),t=85,b=70),
         xaxis=dict(title='Topological depth (equal branch lengths)' if cladogram else 'Branch length · substitutions per site',range=[-xmax*.02,xmax*1.08]),
         yaxis=dict(visible=False,range=[-1,len(leaves)]),plot_bgcolor='white',
         legend=dict(orientation='h',y=1.03),dragmode='pan')

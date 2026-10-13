@@ -37,23 +37,23 @@ def vector_network_html(nodes, edges, title, *, label_mode='hidden'):
     return r'''<!doctype html><html lang="en"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f8f2;color:#14221a;font:14px Arial,sans-serif}
-.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 13px;background:#064c2c;color:#fff}
+*{box-sizing:border-box}body{margin:0;background:#f5f8f2;color:#000000;font:15px Arial,sans-serif}
+.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 13px;background:#eef6ef;color:#000000;border-top:4px solid #064c2c}
 .bar strong{margin-right:auto;font-size:15px}.bar label{font-weight:700}
-button,select{padding:7px 10px;border:1px solid #a9c1ae;border-radius:7px;background:#fff;color:#102c1a;font-weight:650;cursor:pointer}
-.hint{padding:7px 13px;font-size:12px;color:#33443a;background:#e7f1e8}
+button,select{padding:7px 10px;border:1px solid #a9c1ae;border-radius:7px;background:#fff;color:#000000;font-weight:650;cursor:pointer}
+.hint{padding:7px 13px;font-size:14px;color:#000000;background:#e7f1e8}
 .stage{overflow:auto;background:#fff;border-bottom:1px solid #d4e1d6}
 svg{display:block;width:100%;height:690px;min-width:700px;touch-action:none}
 .node{cursor:grab}.node:active{cursor:grabbing}.node text{pointer-events:none}
 .node:hover circle{stroke:#b91c1c;stroke-width:3}.edge{pointer-events:none}
 .detail{min-height:62px;padding:10px 14px;background:#fff;line-height:1.45}
-.detail strong{color:#064c2c}.detail span{display:inline-block;margin-right:16px}
-.legend{padding:8px 14px;background:#fff;font-size:12px}.legend span{display:inline-flex;gap:5px;align-items:center;margin:4px 12px 4px 0}.legend i{width:11px;height:11px;border:1px solid #777;border-radius:50%;display:inline-block}
+.detail strong{color:#000000}.detail span{display:inline-block;margin-right:16px}
+.legend{padding:8px 14px;background:#fff;font-size:14px;color:#000000}.legend span{display:inline-flex;gap:5px;align-items:center;margin:4px 12px 4px 0}.legend i{width:11px;height:11px;border:1px solid #777;border-radius:50%;display:inline-block}
 </style></head><body>
 <div class="bar"><strong id="heading"></strong><label for="names">Node names</label>
 <select id="names"><option value="hidden">Hidden</option><option value="outside">Outside nodes</option><option value="center">Centered in nodes</option></select>
 <label for="labelContent">Label content</label><select id="labelContent"><option value="name">Protein / group names</option><option value="annotation">Candidate annotation</option><option value="both">Names + annotation</option></select>
-<label for="labelSize">Font size <output id="labelSizeValue">12</output> px</label><input id="labelSize" type="range" min="8" max="32" value="12" aria-label="Node name font size"/>
+<label for="labelSize">Font size <output id="labelSizeValue">16</output> px</label><input id="labelSize" type="range" min="12" max="32" value="16" aria-label="Node name font size"/>
 <label><input id="autoFit" type="checkbox" checked/> Auto-fit circles</label>
 <label><input id="hideUnconnected" type="checkbox"/> Hide unconnected nodes</label>
 <button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="fit">Fit view</button>
@@ -89,7 +89,7 @@ svg.addEventListener('pointermove',event=>{if(!pan)return;const p=point(event,pa
 svg.addEventListener('pointerup',()=>pan=null);svg.addEventListener('pointercancel',()=>pan=null);
 function updateEdge(record){const a=byId.get(record.data.source),b=byId.get(record.data.target);record.line.setAttribute('x1',a.x);record.line.setAttribute('y1',a.y);record.line.setAttribute('x2',b.x);record.line.setAttribute('y2',b.y)}
 function wrapLabel(label,text,width){const lines=[];let line='';const measure=value=>{label.textContent=value;return label.getComputedTextLength()};for(const token of text.match(/[^\s/_-]+[\s/_-]*|[\s/_-]+/g)||['']){if(measure((line+token).trimEnd())<=width){line+=token;continue}if(line.trim()){lines.push(line.trim());line=''}for(const char of token){if(line&&measure((line+char).trimEnd())>width){lines.push(line.trim());line=''}line+=char}}if(line.trim())lines.push(line.trim());return lines.length?lines:['']}
-function updateLabels(){const size=Number(labelSize.value);document.getElementById('labelSizeValue').textContent=size;for(const n of data.nodes){const group=nodeGroups.get(n.id),label=group.querySelector('text'),circle=group.querySelector('circle'),mode=names.value;label.style.display=mode==='hidden'?'none':'';label.setAttribute('font-size',size);label.setAttribute('font-weight',mode==='center'?'700':'600');label.setAttribute('fill','#10251a');
+function updateLabels(){const size=Number(labelSize.value);document.getElementById('labelSizeValue').textContent=size;for(const n of data.nodes){const group=nodeGroups.get(n.id),label=group.querySelector('text'),circle=group.querySelector('circle'),mode=names.value;label.style.display=mode==='hidden'?'none':'';label.setAttribute('font-size',size);label.setAttribute('font-weight',mode==='center'?'700':'600');label.setAttribute('fill','#000000');
   const raw=labelContent.value==='annotation'?(n.annotation||n.label):labelContent.value==='both'&&n.annotation?n.label+'\n'+n.annotation:n.label;
   const lines=raw.split('\n').flatMap(text=>wrapLabel(label,text,Math.max(100,size*10))),spacing=size*1.2,start=mode==='center'?-(lines.length-1)*spacing/2:n.radius+size+4;label.replaceChildren();lines.forEach((line,i)=>{const span=element('tspan',{x:0,y:start+i*spacing});span.textContent=line;label.appendChild(span)});
   let radius=n.radius;if(mode==='center'&&autoFit.checked){const box=label.getBBox(),x=Math.max(Math.abs(box.x),Math.abs(box.x+box.width)),y=Math.max(Math.abs(box.y),Math.abs(box.y+box.height));radius=Math.max(radius,Math.hypot(x,y)+8)}circle.setAttribute('r',radius);
