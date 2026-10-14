@@ -25,7 +25,7 @@ for group in ['OG0000665','OG0000212']:
 @lru_cache(maxsize=2)
 def _dictionary(path,mtime,size):
  frame=pd.read_excel(path,sheet_name=0).fillna('')
- return {str(row['Row Labels']).strip():{out:str(row[col]).strip() for col,out in COLUMNS.items()} for _,row in frame.iterrows()}
+ return {str(row['Row Labels']).strip():{out:str(row[col]).strip().replace('supplied dataset','current library').replace('supplied material','current library').replace('supplied information','information in the current library') for col,out in COLUMNS.items()} for _,row in frame.iterrows()}
 
 def dictionary():
  path=ROOT/'orthology/Orthogroup_dictionary.xlsx'

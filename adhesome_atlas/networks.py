@@ -183,6 +183,6 @@ def extra_resources(code,nodes,key):
         for exp in tree.findall('.//mi:experimentDescription',ns):
             rows.append({'experiment_id':exp.get('id'),'channel':exp.findtext('mi:names/mi:shortLabel',namespaces=ns),'description':exp.findtext('mi:names/mi:fullName',namespaces=ns),'references':'; '.join(f"{ref.get('db')}:{ref.get('id')}" for ref in exp.findall('mi:bibref/mi:xref/*',ns))})
         st.markdown('#### PSI-MI export evidence channels')
-        st.caption('Alternative serialization of the supplied STRING evidence; XML interactions are not added again as new graph edges.')
+        st.caption('Alternative serialization of the STRING evidence in the current library; XML interactions are not added again as new graph edges.')
         st.dataframe(pd.DataFrame(rows),width='stretch',hide_index=True)
         st.download_button('Download original PSI-MI XML',xml.read_bytes(),xml.name,key=key+'xml')

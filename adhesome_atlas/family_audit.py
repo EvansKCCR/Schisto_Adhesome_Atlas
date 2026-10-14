@@ -2,8 +2,8 @@
 import pandas as pd
 
 
-SUPPORTED_DECISIONS = {'Retain family assignment', 'Retain; resolves competing family'}
-PROVISIONAL_DECISIONS = {'Retain provisionally', 'Family-level provisional only'}
+SUPPORTED_DECISIONS = {'Retain family assignment', 'Retain; resolves competing family', 'Retain provisionally'}
+PROVISIONAL_DECISIONS = {'Family-level provisional only'}
 
 
 def apply_family_audit(frame):
@@ -15,16 +15,26 @@ def apply_family_audit(frame):
             'Provisional' if value in PROVISIONAL_DECISIONS else
             'Ambiguous' if value.startswith('Ambiguous') else 'Unassigned'
         )
+        out['assignment_interpretation'] = decision.map(
+            lambda value: 'Parasite-specific supported cluster' if value == 'Retain provisionally' else
+            'Provisional candidate' if value in PROVISIONAL_DECISIONS else
+            'Supported family assignment' if value in SUPPORTED_DECISIONS else
+            'Unassigned family'
+        )
         accepted = out.audit_classification.isin(['Supported', 'Provisional'])
-        assigned = out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
+        assigned = out.audit_family if 'audit_family' in out else out.assigned_family.combine_first(out.family) if 'assigned_family' in out else out.family
         out['reviewed_family'] = assigned.where(accepted)
         out['family_assignment_basis'] = out.family_decision
     elif 'recommended_family' in out:
         out['audit_classification'] = out.grade.map({'A': 'Supported', 'B': 'Supported', 'C': 'Provisional', 'D': 'Unassigned'}).fillna('Unassigned')
         out['reviewed_family'] = out.recommended_family.where(out.audit_classification.ne('Unassigned'))
         out['family_assignment_basis'] = out.rationale
+        out['assignment_interpretation'] = out.audit_classification.map(
+            {'Supported':'Supported family assignment','Provisional':'Provisional candidate',
+             'Unassigned':'Unassigned family'})
     else:
         out['audit_classification'] = 'Screening hypothesis'
         out['reviewed_family'] = pd.NA
-        out['family_assignment_basis'] = 'No family audit supplied for this collection'
+        out['family_assignment_basis'] = 'No family audit information is present in the current library for this collection. To be updated when additional information is available.'
+        out['assignment_interpretation'] = 'Screening hypothesis'
     return out

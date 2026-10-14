@@ -1,6 +1,6 @@
 # Schistosome Integrin-Adhesome Matrix Simulator
 
-The simulator reconstructs stochastic nascent adhesion complexes at individual ECM lattice sites. The standalone file is `schistosome_integrin_adhesome_hypothesis_simulator.html`; all simulation and SVG rendering code is contained in that HTML.
+The simulator reconstructs stochastic nascent adhesion complexes at individual ECM lattice sites. It adapts the `Framework.py` into a spatial, inspectable and reproducible model linked to the atlas family map. The standalone file is `schistosome_integrin_adhesome_hypothesis_simulator.html`; all simulation and SVG rendering code is contained in that HTML.
 
 ## Nanoscale organization and functional hubs
 
@@ -95,7 +95,7 @@ Force values are normalized assumed units. No conversion to pN, fitted binding e
 | Clutch reinforcement | 0.5 |
 | Downstream projection gates | 1 (reference VKR1 gate = 0) |
 
-The structural defaults and W assumptions follow the supplied Framework; the actin-attachment and feedback controls make its proposed feedback-amplification phase explicit.
+The structural defaults and W assumptions follow the Framework; the actin-attachment and feedback controls make its proposed feedback-amplification phase explicit.
 
 ## Inspecting the simulation
 

@@ -48,7 +48,7 @@ This hypothesis does not require the schistosome network to be identical to a ca
 
 The current visualization contains **272 family-assignment records across 22 audit families**, distributed across *S. haematobium*, *S. japonicum*, and *S. mansoni*.
 
-Node counts represent the number of records assigned to each audit family in the current supplied library. They should be interpreted as **family-inventory counts**, not as evidence that:
+Node counts represent the number of records assigned to each audit family in the current library. They should be interpreted as **family-inventory counts**, not as evidence that:
 
 - every candidate is expressed in the relevant tissue or life stage;
 - every candidate is localized to an adhesion structure;
@@ -140,7 +140,7 @@ The visualization should not be used to infer:
 
 - experimentally measured binding affinity;
 - protein abundance or expression;
-- tissue or subcellular localization unless supplied independently;
+- tissue or subcellular localization unless documented independently;
 - temporal activation order;
 - phosphorylation state;
 - force magnitude or mechanosensitivity;

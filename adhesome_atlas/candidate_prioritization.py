@@ -42,8 +42,8 @@ def prioritization_panel(candidates, measured_nodes, key, network_title='Display
     a, b = st.columns(2)
     scope = a.radio('Prioritization scope', ['All catalogue candidates', 'Candidates in displayed network'], key=key + '_scope')
     mode = b.radio('Network scoring', ['Measured topology', 'Family-role proxy'], key=key + '_mode',
-                   help='Measured topology uses the current filtered graph. Family-role proxy reproduces the supplied script’s role weights and is explicitly labeled.')
-    st.caption(network_title + ' · Measured scores use its current node/edge filters. FN3 ranking retains the supplied separate architecture and ligand-context model; network centralities are shown as supporting fields.')
+                   help='Measured topology uses the current filtered graph. Family-role proxy reproduces the prioritization model’s role weights and is explicitly labeled.')
+    st.caption(network_title + ' · Measured scores use its current node/edge filters. FN3 ranking retains the separate architecture and ligand-context model; network centralities are shown as supporting fields.')
     prepared = candidates.reset_index(drop=True).copy()
     from identifier_labels import identifier_annotations
     annotations = identifier_annotations()

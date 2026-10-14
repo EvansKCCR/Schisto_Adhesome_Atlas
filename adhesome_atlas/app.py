@@ -281,7 +281,7 @@ elif page == 'Summary statistics':
     st.markdown('### Audited family assignments')
     classification = df.groupby(['species','audit_classification']).agg(assignment_records=('sequence_id','size'),distinct_proteins=('sequence_id','nunique')).reset_index()
     table(classification)
-    st.caption('Length summaries use one record per protein. Family and status groups may overlap; they are not additive protein totals. Sequence availability reflects only the files currently supplied.')
+    st.caption('Length summaries use one record per protein. Family and status groups may overlap; they are not additive protein totals. Sequence availability reflects the files in the current library.')
 
 elif page == 'Summary graphs':
     st.subheader('Components · Summary graphs')
@@ -547,7 +547,7 @@ elif page == 'Source Library':
     st.write(f'Sequence conflicts across FASTA sources: {len(conflicts)}')
     if conflicts:
         table(pd.DataFrame(conflicts))
-    st.markdown('**Interpretation:** The adhesome collection uses one audited family assignment per protein from the current pipeline; screening hypotheses remain available in its source workbook. FN3 review assignments remain separate. Family FASTAs supply sequence provenance. STRING network edges come from supplied exports; the prototype family map additionally distinguishes reference-inferred edges from the experimentally supported *S. mansoni* ILK–PINCH–Nck2 complex.')
+    st.markdown('**Interpretation:** The adhesome collection uses one audited family assignment per protein from the current pipeline; screening hypotheses remain available in its source workbook. FN3 review assignments remain separate. Family FASTAs supply sequence provenance. STRING network edges come from library exports; the prototype family map additionally distinguishes reference-inferred edges from the experimentally supported *S. mansoni* ILK–PINCH–Nck2 complex.')
 
 st.divider()
 with st.expander('Resource citations and acknowledgements'):

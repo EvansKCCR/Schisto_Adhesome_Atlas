@@ -98,7 +98,7 @@ def map_payload(rows, focus_family=None, focus_candidate=None):
 
 
 def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
-    """Enhance the supplied standalone HTML without changing its source layout."""
+    """Enhance the interactive HTML without changing its source layout."""
     html = path.read_text(encoding='utf-8')
     match=re.search(r'const nodes=(\[.*?\]);',html,re.S)
     if match:
@@ -108,7 +108,7 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
             if node['id'] in FAMILY_NODES.values():
                 records=rows[rows.map_node.eq(node['id'])]
                 node['count']=' / '.join(str(records.loc[records.species.eq(sp),'sequence_id'].nunique()) for sp in ['S. haematobium','S. japonicum','S. mansoni'])
-                node['extra']='Current dictionary-resolved candidate inventory'
+                node['extra']=''
 
         context=rows[~rows.map_node.isin(known)].groupby('map_node',sort=True)
         for index,(node_id,records) in enumerate(context):
@@ -180,7 +180,7 @@ showNode=function(n){
   if(connected.length){const list=document.createElement('ul');info.appendChild(list);connected.forEach(e=>{
     const other=nodes.find(x=>x.id===(e.a===n.id?e.b:e.a));
     atlasText(list,'li',other.title+' · '+(e.evidence_class||e.kind)+(e.class==='ligand'?' · putative ligand–αβ heterodimer':''));
-  })}else atlasText(info,'p','No explicit partner edge in the supplied prototype.');
+  })}else atlasText(info,'p','No additional interaction information is present in the current library. To be updated when additional information is available.');
   if(connected.some(e=>e.a===n.id&&e.b==='integrin_ab'&&e.class==='ligand'))
     atlasText(info,'p','This ligand class is linked to the putative receptor containing both integrin α and β families. The participating protein pair is unresolved.');
   if(n.id==='inta'||n.id==='intb'){

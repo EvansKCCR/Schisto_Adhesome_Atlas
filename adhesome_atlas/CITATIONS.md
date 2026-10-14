@@ -10,11 +10,11 @@ These references acknowledge the databases and methods relevant to the atlas. Pu
 
 ## STRING
 
-[STRING 12.5 resource link supplied for this atlas](https://version-12-5.string-db.org/).
+[STRING 12.5 resource link used by this atlas](https://version-12-5.string-db.org/).
 
 Szklarczyk D et al. (2025). **The STRING database in 2025: protein networks with directionality of regulation.** *Nucleic Acids Research*. [Publication](https://pubmed.ncbi.nlm.nih.gov/39558183/).
 
-Used to contextualize the supplied protein-association networks and evidence channels. The resource URL is retained as requested; the exported TSV files do not independently establish their STRING release. STRING associations are not automatically direct physical interactions.
+Used to contextualize the library protein-association networks and evidence channels. The resource URL is retained as requested; the exported TSV files do not independently establish their STRING release. STRING associations are not automatically direct physical interactions.
 
 [STRING API documentation](https://string-db.org/help/api/) defines the identifier-mapping, functional/physical network TSV, SVG and high-resolution PNG query parameters used by the Interactions query/import workspace. Live requests are pinned to STRING 12.5 and their parameters, response hashes, timestamps and unresolved identifiers are preserved in downloadable provenance.
 
@@ -48,7 +48,7 @@ Reference for integrated protein-family and domain classification. An InterPro c
 
 Wang J et al. (2023). **The conserved domain database in 2023.** *Nucleic Acids Research*, 51(D1), D384–D388. [doi:10.1093/nar/gkac1096](https://doi.org/10.1093/nar/gkac1096).
 
-The supplied hit files identify Batch CD-Search. Its recommended additional references are:
+The library hit files identify Batch CD-Search. Its recommended additional references are:
 
 - Marchler-Bauer A, Bryant SH (2004). **CD-Search: protein domain annotations on the fly.** *Nucleic Acids Research*, 32(Web Server issue), W327–W331. [Publication](https://pubmed.ncbi.nlm.nih.gov/15215404/).
 - Marchler-Bauer A et al. (2011). **CDD: a Conserved Domain Database for the functional annotation of proteins.** *Nucleic Acids Research*, 39(Database issue), D225–D229. [doi:10.1093/nar/gkq1189](https://doi.org/10.1093/nar/gkq1189).
@@ -61,7 +61,7 @@ The supplied hit files identify Batch CD-Search. Its recommended additional refe
 
 Teufel F et al. (2022). **SignalP 6.0 predicts all five types of signal peptides using protein language models.** *Nature Biotechnology*. [doi:10.1038/s41587-021-01156-3](https://doi.org/10.1038/s41587-021-01156-3).
 
-Method reference for supplied signal-peptide and cleavage-site predictions.
+Method reference for library signal-peptide and cleavage-site predictions.
 
 ## DeepLoc 2.1
 
@@ -69,7 +69,7 @@ Method reference for supplied signal-peptide and cleavage-site predictions.
 
 Ødum MT et al. (2024). **DeepLoc 2.1: multi-label membrane protein type prediction using protein language models.** *Nucleic Acids Research*, 52(W1), W215–W220. [doi:10.1093/nar/gkae237](https://doi.org/10.1093/nar/gkae237).
 
-Method reference for supplied subcellular-localization and membrane-type predictions.
+Method reference for library subcellular-localization and membrane-type predictions.
 
 ## DeepTMHMM
 
@@ -77,7 +77,7 @@ Method reference for supplied subcellular-localization and membrane-type predict
 
 Hallgren J et al. (2022). **DeepTMHMM predicts alpha and beta transmembrane proteins using deep neural networks.** *bioRxiv*, preprint. [doi:10.1101/2022.04.08.487609](https://doi.org/10.1101/2022.04.08.487609).
 
-Method reference for supplied transmembrane-topology predictions. The official tool name is DeepTMHMM (the requested “DeepTMHH” refers to this tool). The reference above is the preprint recommended by the tool's server.
+Method reference for library transmembrane-topology predictions. The official tool name is DeepTMHMM (the requested “DeepTMHH” refers to this tool). The reference above is the preprint recommended by the tool's server.
 
 ## WormBase ParaSite
 
