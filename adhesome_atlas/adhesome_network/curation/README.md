@@ -21,7 +21,7 @@ Each STRING ID occurs once. The species must match. Sharing a family annotation 
 - Regulatory relationship
 - Functional coupling
 
-To pass the conservative transfer gate, `orthology_transfer`, `domain_compatibility`, `motif_compatibility`, `topology_compatibility`, and `family_relationship` must all equal `supported`. A nonempty `reference` must identify the characterized reference interaction and its compatibility assessment. `phylogenetic_support` is retained when `supported`; otherwise it is not counted as supporting evidence. Blank or unassessed prerequisites exclude the row and expose it in the edge-evidence view. This strict implementation follows the requested all-prerequisites rule; it does not automatically validate the supplied assessments.
+To pass the conservative transfer gate, `orthology_transfer`, `domain_compatibility`, `motif_compatibility`, `topology_compatibility`, and `family_relationship` must all equal `supported`. A nonempty `reference` must identify the characterized reference interaction and its compatibility assessment. `phylogenetic_support` is retained when `supported`; otherwise it is not counted as supporting evidence. Blank or unassessed prerequisites exclude the row and expose it in the edge-evidence view. This strict implementation follows the requested all-prerequisites rule; it does not automatically validate the library assessments.
 
 Reference transfers are not assigned a synthetic STRING score. The STRING score slider filters STRING edges only. Relationship and evidence-support filters apply to both sources. Network topology currently uses undirected associations: source/target ordering is preserved in the table, but regulatory direction is not analyzed.
 
