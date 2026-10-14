@@ -9,6 +9,7 @@ from identifier_labels import identifier_annotations
 import re
 from phylogeny_view import NAMES
 from figure_exports import plotly_chart
+from orthogroup_annotations import annotate_dictionary, FN3_SUMMARY
 
 
 def read_collection(folder):
@@ -45,6 +46,10 @@ def orthology_panel(candidates=None):
         curated=pd.read_csv(grouping,sep='\t')
         labels_by_og=curated.groupby('orthogroup').family.agg(lambda values:' | '.join(sorted(set(values))))
         report['family']=report.Orthogroup.map(labels_by_og).fillna(report.family)
+    report=annotate_dictionary(report)
+    report['family']=report.orthogroup_identity.where(report.orthogroup_identity.ne(''),report.family)
+    hogs=annotate_dictionary(hogs)
+    if folder.name=='fibronectin_like_candidate': st.info(FN3_SUMMARY)
     annotations=identifier_annotations()
     lookup={key:key.split('__')[0]+'__'+row.protein_annotation_id for key,row in annotations.iterrows() if row.protein_annotation_id}
     def display_ids(frame):

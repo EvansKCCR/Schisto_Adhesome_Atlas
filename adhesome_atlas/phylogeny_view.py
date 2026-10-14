@@ -14,6 +14,7 @@ from family_merges import atlas_group
 from identifier_labels import annotate_tips, identifier_annotations, canonical_sequence_id
 from figure_exports import plotly_chart, selected_export_config
 from candidate_annotations import calibrate_candidates
+from orthogroup_annotations import annotate_dictionary
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
         'inference/gene_tree.iqtree', 'inference/branch_evidence.tsv', 'inference/run.json')
@@ -226,6 +227,8 @@ def tree_groups(folders, candidates=None, classification="All"):
             names=sorted(set(matches.family.dropna().astype(str)))
         if not kinase_names:
             names=sorted({'Unassigned kinase candidates' if name in {'Src','FAK','ILK'} else name for name in names})
+        identity=annotate_dictionary(pd.DataFrame([{'orthogroup':og}])).orthogroup_identity.iloc[0]
+        if identity: names=[identity]
         modules=sorted(set(matches.module.dropna().astype(str))) if not matches.empty and 'module' in matches else []
         rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection,'classification':' / '.join(sorted(set(matches.audit_classification.dropna().astype(str)))) if not matches.empty and 'audit_classification' in matches else 'Not recorded','source_orthogroups':[og],'tree_level':'Orthogroup tree'})
     return rows
@@ -296,7 +299,7 @@ def phylogeny_panel(candidates=None):
     for p in options:
         grouped.setdefault((collections[p],atlas_group(info[p]['orthogroup'])),[]).append(p)
     chosen=st.selectbox('Phylogenetic family / orthogroup',list(grouped),
-                        format_func=lambda value:(f"{' / '.join(info[grouped[value][0]]['families'])} · joint family tree" if value[0]==FAMILY_COLLECTION else f'{value[1]} · {value[0]}'),
+                        format_func=lambda value:(f"{' / '.join(info[grouped[value][0]]['families'])} · joint family tree" if value[0]==FAMILY_COLLECTION else f"{' / '.join(info[grouped[value][0]]['families'])} · {value[1]} · {value[0]}"),
                         key='phylo_tree')
     # Search selects the family group, not an incomplete subset of its runs.
     members=[p for p in folders if collections[p]==chosen[0] and atlas_group(p.name.removesuffix('_fib'))==chosen[1]]

@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 from nanoscale_architecture import architecture_json
+from orthogroup_annotations import FIELDS as DICTIONARY_FIELDS, FN3_SUMMARY
 from candidate_annotations import FIELDS as ANNOTATION_FIELDS, family_summaries
 
 
@@ -57,19 +58,40 @@ def candidate_rows(adhesome, fn3):
     retained['evidence_tier'] = retained.audit_classification.map({'Supported':'Core family-retained','Provisional':'Provisional'})
     retained.loc[retained.family_decision.eq('Retain provisionally'),'evidence_tier'] = 'Parasite-specific supported cluster'
     retained['source_collection'] = 'Adhesome candidates'
-    combined = retained
-    combined['map_node'] = combined.prototype_family.map(FAMILY_NODES)
-    return combined[combined.map_node.notna()].copy()
+    extra=fn3.copy()
+    extra['prototype_family']=extra.get('candidate_annotation',extra.family)
+    extra['source_collection']='FN3 review'
+    extra['evidence_tier']='FN3 architecture screen'
+    combined=pd.concat([retained,extra],ignore_index=True)
+    combined['map_node']=combined.prototype_family.map(FAMILY_NODES)
+    # Split noncanonical identities out of broad screening-family map nodes.
+    patterns={'alpha_actinin':r'(?i)alpha.actinin', 'cofilin':r'(?i)cofilin|ADF',
+              'laminin_like':r'(?i)laminin', 'zyxin_like':r'(?i)zyxin|ajuba',
+              'kindlin':r'(?i)kindlin', 'filamin':r'(?i)filamin',
+              'integrin_alpha':r'(?i)integrin.*(?:α|alpha)', 'integrin_beta':r'(?i)integrin.*(?:β|beta)',
+              'Src':r'(?i)src', 'FAK':r'(?i)fak', 'ILK':r'(?i)ilk',
+              'talin':r'(?i)talin', 'paxillin_like':r'(?i)paxillin',
+              'PINCH_like':r'(?i)pinch', 'actin':r'(?i)^(?:conventional|cytoplasmic|actin-like|actin$)',
+              'PTP_PEST':r'(?i)non-receptor|pest'}
+    for family,pattern in patterns.items():
+        different=combined.prototype_family.eq(family)&combined.orthogroup_identity.fillna('').ne('')&~combined.orthogroup_identity.fillna('').str.contains(pattern,regex=True)
+        combined.loc[different,'prototype_family']=combined.loc[different,'candidate_annotation']
+        combined.loc[different,'map_node']=None
+    pinch=combined.candidate_annotation.str.contains('PINCH',case=False,na=False)
+    combined.loc[pinch,'prototype_family']='PINCH_like';combined.loc[pinch,'map_node']='pinch'
+    missing=combined.map_node.isna()
+    combined.loc[missing,'map_node']=combined.loc[missing,'prototype_family'].map(lambda value:'context_'+re.sub(r'[^a-z0-9]+','_',str(value).lower()).strip('_'))
+    return combined.drop_duplicates(['sequence_id','map_node']).copy()
 
 
 def map_payload(rows, focus_family=None, focus_candidate=None):
     fields = ['sequence_id','species','family','assigned_family','prototype_family','map_node','evidence_tier','grade',
               'family_decision','assignment_interpretation','orthogroup','domain_evidence','topology_evidence',
-              'motif_context_evidence','source_collection'] + ANNOTATION_FIELDS
+              'motif_context_evidence','source_collection'] + ANNOTATION_FIELDS + DICTIONARY_FIELDS
     displayed = rows.reindex(columns=fields).fillna('').astype(str)
     return {
         'candidates': displayed.to_dict('records'),
-        'focus_node': FAMILY_NODES.get(focus_family,''),
+        'focus_node': next(iter(rows.loc[rows.prototype_family.eq(focus_family),'map_node']),''),
         'focus_candidate': focus_candidate or '',
         'family_summaries':family_summaries(),
     }
@@ -78,6 +100,29 @@ def map_payload(rows, focus_family=None, focus_candidate=None):
 def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
     """Enhance the supplied standalone HTML without changing its source layout."""
     html = path.read_text(encoding='utf-8')
+    match=re.search(r'const nodes=(\[.*?\]);',html,re.S)
+    if match:
+        diagram=json.loads(match.group(1))
+        known={node['id'] for node in diagram}
+        for node in diagram:
+            if node['id'] in FAMILY_NODES.values():
+                records=rows[rows.map_node.eq(node['id'])]
+                node['count']=' / '.join(str(records.loc[records.species.eq(sp),'sequence_id'].nunique()) for sp in ['S. haematobium','S. japonicum','S. mansoni'])
+                node['extra']='Current dictionary-resolved candidate inventory'
+
+        context=rows[~rows.map_node.isin(known)].groupby('map_node',sort=True)
+        for index,(node_id,records) in enumerate(context):
+            diagram.append(dict(id=node_id,family=str(records.prototype_family.iloc[0]),
+                x=35+(index%2)*545,y=1390+(index//2)*125,w=510,h=100,
+                title=str(records.prototype_family.iloc[0]),count=' / '.join(str(records.loc[records.species.eq(sp),'sequence_id'].nunique()) for sp in ['S. haematobium','S. japonicum','S. mansoni']),
+                color='#08743f',status='libraryOnly',layer='Annotated family context',
+                extra='Orthogroup annotation · select for evidence',
+                detail='Annotated family context. Reference binding partners are listed as annotations; edges require separately curated interaction evidence.',
+                nanoscale_zone='context',functional_modules=[]))
+        html=html[:match.start(1)]+json.dumps(diagram,ensure_ascii=False)+html[match.end(1):]
+        height=1390+((len(context)+1)//2)*125 if len(context) else 1335
+        html=html.replace('viewBox="0 0 1120 1335"',f'viewBox="0 0 1120 {height}"')
+        html=html.replace("clone.setAttribute('height','2670')",f"clone.setAttribute('height','{height*2}')")
     html = re.sub(r'const nanoscaleArchitecture = .*?;(?=\n)',
                   lambda _: 'const nanoscaleArchitecture = '+architecture_json()+';',html,count=1)
     payload = json.dumps(map_payload(rows, focus_family, focus_candidate), ensure_ascii=False).replace('<', '\\u003c')
@@ -91,6 +136,7 @@ def interactive_html(path: Path, rows, focus_family=None, focus_candidate=None):
 </style>
 <script>
 const atlasPayload = __ATLAS_PAYLOAD__;
+atlasPayload.fn3_summary=__FN3_SUMMARY__;
 const atlasOriginalShowNode = showNode;
 const atlasOriginalDrawEdges = drawEdges, atlasOriginalDrawNodes = drawNodes;
 let atlasFocusNode = null;
@@ -117,8 +163,8 @@ function atlasCandidateDetail(parent,record){
   const box=document.createElement('div');box.className='atlas-candidate';parent.appendChild(box);
   atlasText(box,'strong',record.sequence_id+' · '+record.species);
   if(record.candidate_annotation)atlasText(box,'h3',record.candidate_annotation);
-  for(const [heading,field] of [['Lineage','candidate_lineage'],['Architecture','candidate_architecture_context'],['Evolution','candidate_evolutionary_context']])if(record[field])atlasText(box,'p',heading+': '+record[field]);
-  if(record.candidate_annotation_source)atlasText(box,'p','Annotation source: curator narrative · '+record.candidate_annotation_basis);
+  for(const [heading,field] of [['Lineage','candidate_lineage'],['Architecture','candidate_architecture_context'],['Evolution','candidate_evolutionary_context'],['Reference binding partners','reference_binding_partners'],['Function','putative_function'],['Annotation confidence','annotation_confidence'],['References','annotation_references']])if(record[field])atlasText(box,'p',heading+': '+record[field]);
+  if(record.candidate_annotation_source)atlasText(box,'p','Annotation source: '+record.candidate_annotation_source+' · '+record.candidate_annotation_basis);
   atlasText(box,'p',record.evidence_tier+' · '+(record.assignment_interpretation||record.family_decision||record.grade||'FN3 architecture screen'));
   if(record.family&&record.family!==record.prototype_family)atlasText(box,'p','Screening family: '+record.family+' → reviewed family: '+record.prototype_family);
   if(record.orthogroup)atlasText(box,'p','Orthogroup: '+record.orthogroup);
@@ -160,7 +206,7 @@ const initialFocus=nodes.find(n=>n.id===atlasPayload.focus_node)||
   nodes.find(n=>atlasPayload.candidates.some(r=>r.sequence_id===atlasPayload.focus_candidate&&r.map_node===n.id));
 if(initialFocus)showNode(initialFocus);
 </script>
-""".replace('__ATLAS_PAYLOAD__', payload)
+""".replace('__ATLAS_PAYLOAD__', payload).replace('__FN3_SUMMARY__',json.dumps(FN3_SUMMARY))
     return html.replace('</body>', enhancement + '</body>')
 
 
@@ -204,7 +250,7 @@ def hypothesis(rows, families, tiers, edge_kinds):
                  and edge['kind'] in edge_kinds]
     columns = ['sequence_id','species','family','assigned_family','prototype_family','map_node','module','evidence_tier',
                'grade','family_decision','assignment_interpretation','orthogroup','domain_evidence','topology_evidence',
-               'motif_context_evidence','host_orthology_flag','source_collection'] + ANNOTATION_FIELDS
+               'motif_context_evidence','host_orthology_flag','source_collection'] + ANNOTATION_FIELDS + DICTIONARY_FIELDS
     candidates = subset.reindex(columns=columns).fillna('').astype(str).to_dict('records')
     return {'title':'Evidence-stratified schistosome adhesome hypothesis',
     'interpretation':'Family-level hypotheses from the interactive architecture. The S. mansoni ILK–PINCH–Nck2 complex has experimental support from Gelmedin et al. (2017), DOI 10.1371/journal.ppat.1006147. Ligand relationships target an integrin αβ heterodimer only when both subunit families are selected. Reference-unresolved edges are marked reference_only; host-vascular and SmVKR1 nodes are marked context_only and have no audited candidate count. No specific α–β protein pairing is inferred.',

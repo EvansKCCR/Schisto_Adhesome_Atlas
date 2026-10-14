@@ -82,6 +82,11 @@ def build_motif_tables(books, cohorts):
     elm = _species(elm)
     elm = elm.merge(fn3_audit, on='sequence_id', how='left', validate='many_to_one')
     elm['display_family'] = elm.reviewed_family.fillna('FN3 review / other')
+    annotations=pd.concat([cohorts['Adhesome candidates'],cohorts['FN3 / fibronectin-like review']],ignore_index=True)
+    annotations=annotations[['sequence_id','candidate_annotation','orthogroup_identity','orthogroup_annotation_source']].drop_duplicates('sequence_id')
+    summary=summary.merge(annotations,on='sequence_id',how='left',validate='many_to_one')
+    sites=sites.merge(annotations,on='sequence_id',how='left',validate='many_to_one')
+    elm=elm.merge(annotations,on='sequence_id',how='left',validate='many_to_one')
     return summary, sites, elm
 
 

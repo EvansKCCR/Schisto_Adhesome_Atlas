@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import streamlit as st
 from data import ROOT, SPECIES
+from orthogroup_annotations import annotate_dictionary
 from vector_network import vector_network_html
 from figure_exports import plotly_chart
 from topological_clustering import clustering_panel
@@ -489,6 +490,10 @@ def orthogroup_consensus(nodes,edges,candidates):
         ).reset_index()
     summary['conservation']=summary.species_count.map(
         lambda count:'Three species' if count==3 else 'Two species' if count==2 else 'One species')
+    groups=annotate_dictionary(groups)
+    annotated=groups.orthogroup_identity.ne('')
+    groups.loc[annotated,'candidate_annotation']=groups.loc[annotated,'orthogroup_identity']
+    groups.loc[annotated,'primary_family']=groups.loc[annotated,'orthogroup_identity']
     return groups,summary,members,internal
 
 
@@ -595,7 +600,7 @@ def orthogroup_view(nodes,edges,candidates,key):
     vector_nodes=[]
     for row in visible.itertuples():
         value=float(getattr(row,size_field))
-        vector_nodes.append({'id':row.orthogroup,'label':row.orthogroup,'annotation':row.candidate_annotation or row.families,
+        vector_nodes.append({'id':row.orthogroup,'label':(row.candidate_annotation or row.orthogroup)+' · '+row.orthogroup,'annotation':row.candidate_annotation or row.families,
             'x':float(positions[row.orthogroup][0]),'y':float(positions[row.orthogroup][1]),
             'radius':8+11*(value/maximum)**.5,
             'color':category_colors.get(str(getattr(row,color_field)),'#08743f'),

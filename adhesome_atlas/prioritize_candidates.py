@@ -195,6 +195,8 @@ def common(row, candidate_class):
                   assignment_interpretation=text(row.get('assignment_interpretation')),
                   candidate_annotation=text(row.get('candidate_annotation')), rationale=text(row.get('rationale')),
                   priority_group=text(row.get('priority_group')))
+    for field in ['orthogroup_identity','orthogroup_evolution','reference_binding_partners','putative_function','annotation_confidence','annotation_references','orthogroup_annotation_source']:
+        result[field]=text(row.get(field))
     if result['family_decision'] == 'Retain provisionally':
         result['audit_classification'] = 'Supported'
         result['assignment_interpretation'] = 'Parasite-specific supported cluster'

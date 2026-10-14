@@ -22,6 +22,7 @@ from linked_explorer import linked_explorer_html
 from family_audit import apply_family_audit
 from figure_exports import plotly_chart, figure_download_settings
 from candidate_annotations import FIELDS as ANNOTATION_FIELDS, family_summaries
+from orthogroup_annotations import FIELDS as DICTIONARY_FIELDS, FN3_SUMMARY
 from smart_links import smart_panel
 from string_workbench import string_panel
 
@@ -167,9 +168,11 @@ if page == 'Introduction':
     assignment_counts = cohorts['Adhesome candidates'].audit_classification.value_counts()
     cluster_count = cohorts['Adhesome candidates'].family_decision.eq('Retain provisionally').sum()
     st.markdown(f"Schistosome proteomes contain a broadly shared repertoire of candidate integrin, adaptor, scaffold, cytoskeletal, and signalling families. The current audit retains **{assignment_counts.get('Supported', 0)} supported** family assignments, including **{cluster_count} parasite-specific supported-cluster** records, and **{assignment_counts.get('Provisional', 0)} provisional** candidates. Most drawn family relationships are hypotheses; the *S. mansoni* ILK–PINCH–Nck2 complex has experimental support from [Gelmedin et al. (2017)](https://doi.org/10.1371/journal.ppat.1006147). Counts are ordered as *S. haematobium / S. japonicum / S. mansoni*. Extracellular ligand edges target the integrin αβ heterodimer, with ligand binding and subunit specificity still to be tested.")
+    st.info(FN3_SUMMARY)
     st.subheader('Explore the prototype map')
     map_rows = candidate_rows(cohorts['Adhesome candidates'], cohorts['FN3 / fibronectin-like review'])
     map_families = sorted(map_rows.prototype_family.unique())
+    map_node_lookup=map_rows.set_index('prototype_family').map_node.to_dict()
     focus_family = st.selectbox('Locate a protein family', ['All families'] + map_families,
                                 format_func=lambda name: name.replace('_',' ') if name!='All families' else name)
     focus_pool = map_rows if focus_family=='All families' else map_rows[map_rows.prototype_family.eq(focus_family)]
@@ -203,20 +206,20 @@ if page == 'Introduction':
     if scope=='Custom families':
         selected_families = st.multiselect('Families to include', map_families, default=map_families)
     elif scope=='Focused family and linked partners' and focus_family!='All families':
-        focus_node = FAMILY_NODES[focus_family]
+        focus_node = map_node_lookup[focus_family]
         linked_nodes = {focus_node} | {b if a==focus_node else a for a,b,_,_ in map_edges if focus_node in (a,b)}
         if COMPLEX_NODE in linked_nodes:
             linked_nodes.update({'inta', 'intb'})
             if focus_node in {'inta', 'intb'}:
                 linked_nodes.update(a for a,b,_,_ in map_edges if b == COMPLEX_NODE)
-        selected_families = [family for family in map_families if FAMILY_NODES[family] in linked_nodes]
+        selected_families = [family for family in map_families if map_node_lookup[family] in linked_nodes]
         st.caption('Included families: '+', '.join(name.replace('_',' ') for name in selected_families))
     else:
         selected_families = map_families
         if scope=='Focused family and linked partners':
             st.caption('Select a family above to focus the hypothesis; showing all mapped families for now.')
-    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Parasite-specific supported cluster','Provisional'],
-                                     default=['Core family-retained','Parasite-specific supported cluster','Provisional'])
+    selected_tiers = st.multiselect('Evidence tiers', ['Core family-retained','Parasite-specific supported cluster','Provisional','FN3 architecture screen'],
+                                     default=['Core family-retained','Parasite-specific supported cluster','Provisional','FN3 architecture screen'])
     edge_kinds = list(dict.fromkeys(kind for _,_,kind,_ in map_edges))
     selected_edges = st.multiselect('Relationship classes', edge_kinds,
                                      default=[kind for kind in edge_kinds if kind!='referenceUnresolved'],
@@ -364,6 +367,8 @@ elif page == 'Protein dossier':
         st.markdown('**'+row.candidate_annotation+'**')
         st.write(row.candidate_architecture_context+' '+row.candidate_evolutionary_context)
         st.caption('Lineage: '+row.candidate_lineage+' · '+row.candidate_annotation_basis)
+        for field in ['reference_binding_partners','annotation_confidence','annotation_references']:
+            if row.get(field,''): st.write(field.replace('_',' ').title()+': '+str(row[field]))
     seq = sequences.get(key, '')
     a,b,c = st.columns(3)
     a.metric('Sequence length', f'{len(seq):,} aa' if seq else 'Unavailable')

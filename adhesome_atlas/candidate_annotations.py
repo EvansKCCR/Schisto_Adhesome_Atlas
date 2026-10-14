@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 import pandas as pd
+from orthogroup_annotations import annotate_dictionary, FIELDS as DICTIONARY_FIELDS
 
 RESOURCE = Path(__file__).parent/'resource_library/candidate_annotation_calibration'
 FIELDS = ['candidate_annotation','candidate_lineage','candidate_architecture_context',
@@ -56,6 +57,16 @@ def calibrate_candidates(frame):
     out=frame.copy()
     for field in FIELDS:
         out[field]=[record[field] for record in rows]
+    out=annotate_dictionary(out)
+    matched=out.orthogroup_identity.ne('')
+    # Reference tree tips keep their own taxon annotations.
+    if 'candidate' in out: matched &= out.candidate.astype(str).eq('1')
+    out.loc[matched,'candidate_annotation']=out.loc[matched,'orthogroup_identity']
+    out.loc[matched,'candidate_lineage']=out.loc[matched,'orthogroup_evolution']
+    out.loc[matched,'candidate_annotation_basis']='Orthogroup dictionary and curator interpretation'
+    out.loc[matched,'candidate_annotation_source']=out.loc[matched,'orthogroup_annotation_source']
+    out.loc[matched,'candidate_evolutionary_context']=out.loc[matched,'putative_function']
+    out.loc[matched,'candidate_architecture_context']=out.loc[matched,'annotation_evidence_notes']
     if 'adhesome_interpretation' in out:
         out['audit_adhesome_interpretation']=out.adhesome_interpretation
         matched=out.candidate_annotation_source.ne('')
