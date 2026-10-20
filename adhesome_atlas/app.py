@@ -146,7 +146,7 @@ elif page=='Interactions':
     st.caption('Choose a network workspace, then select the visualization, centrality, clustering or evidence section. Each section uses the full page width.')
     workspace=st.selectbox('Network workspace',['Curated orthogroup consensus','STRING query & import'])
     if workspace=='Curated orthogroup consensus':consensus_panel(all_candidates)
-    else:string_panel(all_candidates)
+    else:string_panel(all_candidates,sequences)
 
 elif page=='Orthology':orthology_panel(all_candidates)
 elif page=='Phylogeny':

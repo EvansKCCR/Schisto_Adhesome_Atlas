@@ -14,7 +14,7 @@ from family_merges import atlas_group
 from figure_exports import plotly_chart
 from networks import mapping_export
 from reconstruction import topology, network_matrices
-from string_fetch import BASE, api_url, api_request, parameters, network_parameters, mapping_ids, tsv_rows
+from string_fetch import BASE, api_url, api_request, parameters, network_parameters, mapping_ids, tsv_rows, resolve_proteins
 from vector_network import vector_network_html
 from topological_clustering import clustering_panel
 
@@ -67,7 +67,8 @@ def parse_network(text, species, score_scale=1):
     return data.sort_values('combined_score', ascending=False, kind='stable').drop_duplicates('pair').drop(columns='pair').reset_index(drop=True)
 
 
-def annotations_for_nodes(identifiers, candidates, local_mapping, plan, api_mapping, code):
+def annotations_for_nodes(identifiers, candidates, local_mapping, plan, api_mapping, code, taxon=None):
+    taxon=TAXA.get(code) if taxon is None else taxon
     links = {}
     for record in local_mapping.to_dict('records'):
         seq = record['queryItem']
@@ -76,7 +77,7 @@ def annotations_for_nodes(identifiers, candidates, local_mapping, plan, api_mapp
         links.setdefault(record['stringId'], set()).add(seq)
     for record in plan.to_dict('records'):
         query = record['query_id']
-        sid = api_mapping.get(query, query if query.startswith(str(TAXA[code]) + '.') else '')
+        sid = api_mapping.get(record['sequence_id'],api_mapping.get(query, query if query.startswith(str(taxon) + '.') else ''))
         if sid:
             links.setdefault(sid, set()).add(record['sequence_id'])
     source = candidates[candidates.sequence_id.str.startswith(code + '__')]
@@ -101,7 +102,7 @@ def annotations_for_nodes(identifiers, candidates, local_mapping, plan, api_mapp
 def analysis_panel(state, candidates, key='string_import_'):
     code = state['code']
     key += hashlib.sha256((code + state['raw'] + json.dumps(sorted(set(state.get('resolved', {}).values())))).encode()).hexdigest()[:12] + '_'
-    taxon = TAXA[code]
+    taxon = state.get('taxon',TAXA[code])
     st.markdown('### Imported STRING network · topology and communities')
     st.caption('Source: ' + state['source'] + ' · ' + SPECIES[code] + ' · ' + state.get('network_type', 'User-declared network type') + '. This workspace is retained in the current session; original library exports remain unchanged.')
     a, b, c = st.columns(3)
@@ -110,7 +111,7 @@ def analysis_panel(state, candidates, key='string_import_'):
     color_by = c.selectbox('Imported node colors', ['Family', 'orthogroup', 'community'], key=key+'color')
     edges = state['edges']
     ids = set(edges.node1_string_id) | set(edges.node2_string_id) | set(state.get('resolved', {}).values())
-    nodes = annotations_for_nodes(ids, candidates, mapping_export(code), state['plan'], state.get('resolved', {}), code)
+    nodes = annotations_for_nodes(ids, candidates, mapping_export(code), state['plan'], state.get('resolved', {}), code,taxon)
     labels = dict(zip(edges.node1_string_id, edges.node1)) | dict(zip(edges.node2_string_id, edges.node2))
     nodes['node'] = nodes.identifier.map(labels).fillna(nodes.identifier)
     families = st.multiselect('Filter imported families', sorted(nodes.Family.unique()), key=key+'families')
@@ -142,7 +143,7 @@ def analysis_panel(state, candidates, key='string_import_'):
                    'Closeness': row.closeness, 'Clustering coefficient': row.clustering_coefficient, 'Community': int(row.community)}} for row in metrics.itertuples()]
     vector_edges = [{'source': row.node1_string_id, 'target': row.node2_string_id, 'width': 1 + 2 * row.combined_score} for row in edges.itertuples()]
     if display=='Interactive network':
-        st.iframe(vector_network_html(vector_nodes, vector_edges, SPECIES[code] + ' · queried / imported STRING', label_mode='centered'), height=950)
+        st.iframe(vector_network_html(vector_nodes, vector_edges, SPECIES[code] + ' · queried / imported STRING', label_mode='center'), height=950)
 
     if display=='Centrality & clusters':
         st.caption('Unweighted undirected topology is recalculated after filtering. Betweenness is normalized; closeness uses the disconnected-graph correction. Communities use greedy modularity; local clustering and k-core describe neighborhood structure. STRING confidence filters edges and is not a path length.')
@@ -176,7 +177,8 @@ def analysis_panel(state, candidates, key='string_import_'):
         st.rerun()
 
 
-def string_panel(candidates):
+def string_panel(candidates,sequences=None):
+    sequences=sequences or {}
     st.markdown('### STRING query & TSV import')
     st.write('Choose catalogue families or orthogroups, resolve their proteins in STRING 12.5, and import the returned associations for interactive topology analysis.')
     code = st.selectbox('STRING query species', list(SPECIES), format_func=SPECIES.get, key='string_query_species')
@@ -196,9 +198,26 @@ def string_panel(candidates):
     if len(plan) and st.checkbox('Refine the selected candidate list', key='string_query_refine'):
         proteins = st.multiselect('Candidate proteins for this query', sorted(plan.sequence_id.unique()), default=sorted(plan.sequence_id.unique()), key='string_query_proteins')
         plan = plan[plan.sequence_id.isin(proteins)]
+    mode_label=st.selectbox('STRING protein mapping',[
+        'Protein sequences (recommended)','Identifiers + sequence fallback','Identifiers only'],
+        help='Sequence mode submits the original amino-acid FASTA to STRING similarity search, avoiding unrecognized Atlas gene IDs.')
+    mode={'Protein sequences (recommended)':'sequences','Identifiers + sequence fallback':'auto','Identifiers only':'identifiers'}[mode_label]
+    if mode=='sequences':
+        plan['query_id']=plan.sequence_id
+        plan['query_basis']='Original protein sequence · STRING similarity search'
+    plan['sequence_length']=plan.sequence_id.map(lambda identifier:len(sequences.get(identifier,'')))
+    query_sequences={row.query_id:sequences[row.sequence_id] for row in plan.itertuples() if sequences.get(row.sequence_id)}
+    min_identity,max_evalue,min_score_gap=80,1e-5,.05
+    if mode!='identifiers':
+        with st.expander('Sequence mapping criteria'):
+            st.caption('A unique highest-bitscore representative is mapped after these filters. Every alignment hit is retained. Identity describes the returned alignment; full-length coverage is not reported by this STRING endpoint.')
+            aa,bb,cc=st.columns(3)
+            min_identity=aa.number_input('Minimum alignment identity (%)',0.0,100.0,80.0,1.0)
+            max_evalue=bb.number_input('Maximum alignment E-value',min_value=1e-300,max_value=1.0,value=1e-5,format='%.1e')
+            min_score_gap=cc.number_input('Minimum bitscore gap (%)',0.0,100.0,5.0,1.0)/100
     identifiers = sorted(set(plan.query_id))
-    st.caption(f'{plan.sequence_id.nunique()} candidate proteins → {len(identifiers)} unique query IDs · taxon {TAXA[code]}. Families and orthogroups select their protein members; STRING is queried with protein IDs.')
-    cols = [name for name in ['sequence_id', 'candidate_annotation', 'query_family', 'audit_classification', 'query_orthogroup', 'query_id', 'query_basis'] if name in plan]
+    st.caption(f'{plan.sequence_id.nunique()} candidate proteins → {len(identifiers)} unique queries · taxon {TAXA[code]} · {len(query_sequences)} original sequences available. Families and orthogroups select their protein members.')
+    cols = [name for name in ['sequence_id', 'candidate_annotation', 'query_family', 'audit_classification', 'query_orthogroup', 'query_id', 'query_basis','sequence_length'] if name in plan]
     with st.expander('Selected candidates and STRING query mapping', expanded=bool(identifiers)):
         st.dataframe(plan[cols], width='stretch', hide_index=True)
     a, b, c = st.columns(3)
@@ -207,33 +226,48 @@ def string_panel(candidates):
     network_type = c.selectbox('STRING network type', ['functional', 'physical'], key='string_query_type')
     if identifiers:
         config = {'species': TAXA[code], 'identifiers': identifiers, 'score': score, 'add_nodes': int(extra), 'network_type': network_type,
-                  'candidate_selection': plan[cols].to_dict('records'), 'string_version': '12.5'}
-        signature = hashlib.sha256(json.dumps({'species': code, 'ids': identifiers}, sort_keys=True).encode()).hexdigest()
+                  'candidate_selection': plan[cols].to_dict('records'), 'string_version': '12.5','mapping_mode':mode,
+                  'sequences':query_sequences if mode!='identifiers' else {},
+                  'sequence_thresholds':{'min_identity':min_identity,'max_evalue':max_evalue,'min_score_gap':min_score_gap}}
+        mapping_signature={key:config[key] for key in ['species','identifiers','mapping_mode','sequence_thresholds']}
+        mapping_signature['sequence_hashes']={query:hashlib.sha256(sequence.encode()).hexdigest() for query,sequence in config['sequences'].items()}
+        signature = hashlib.sha256(json.dumps(mapping_signature,sort_keys=True).encode()).hexdigest()
         map_params = parameters(identifiers, TAXA[code], echo_query=1)
-        with st.expander('Standardized STRING GET URLs and WSL script'):
-            st.code(api_url('get_string_ids', map_params), language='text')
-            if len(api_url('get_string_ids', map_params)) <= 1800:
-                st.link_button('Open STRING identifier mapping TSV', api_url('get_string_ids', map_params))
+        with st.expander('STRING requests, original FASTA and WSL script'):
+            if mode!='identifiers':
+                st.code('POST '+BASE+'/api/json/similarity_search\nspecies='+str(TAXA[code])+'\nsequences=<original protein FASTA>',language='text')
+                fasta=''.join('>'+identifier+'\n'+sequence+'\n' for identifier,sequence in query_sequences.items())
+                st.download_button('Download selected original protein sequences · FASTA',fasta,'string_selected_candidates.faa','text/plain',key='string_sequence_fasta')
+            if mode!='sequences':
+                st.code(api_url('get_string_ids', map_params), language='text')
+                if len(api_url('get_string_ids', map_params)) <= 1800:
+                    st.link_button('Open STRING identifier mapping TSV', api_url('get_string_ids', map_params))
             st.download_button('Download STRING query configuration', json.dumps(config, indent=2), 'string_query.json', 'application/json', key='string_query_config')
             script = Path(__file__).with_name('string_fetch.py')
             st.download_button('Download STRING query script', script.read_bytes(), script.name, 'text/x-python', key='string_query_script')
             st.code('python3 string_fetch.py string_query.json --output STRING_results --fetch', language='bash')
-            st.caption('Small queries use URL-encoded GET parameters. Long lists use POST. The script maps identifiers first, waits at least one second between API calls, and saves mapping, network TSV and provenance for upload below.')
+            st.caption('Sequences use POST to the STRING similarity-search endpoint. Identifier queries use GET for short lists and POST for long lists. The configuration includes the original sequences and selected mapping criteria. Requests are sequential, one second apart; mapping, all alignment hits, network TSV and provenance are saved.')
         if st.button('1 · Resolve selected proteins in STRING', key='string_query_resolve'):
             try:
-                with st.spinner('Resolving protein IDs in STRING 12.5…'):
-                    raw, log = api_request('get_string_ids', map_params)
-                    resolved, unresolved = mapping_ids(raw, identifiers, TAXA[code])
-                st.session_state['atlas_string_mapping'] = {'signature': signature, 'raw': raw, 'resolved': resolved, 'unresolved': unresolved, 'log': log}
+                with st.spinner('Mapping selected proteins in STRING 12.5…'):
+                    progress=st.empty()
+                    result=resolve_proteins(identifiers,TAXA[code],query_sequences,mode,min_identity,max_evalue,min_score_gap,progress=progress.caption)
+                    progress.empty()
+                st.session_state['atlas_string_mapping'] = {'signature': signature,**result}
             except Exception as error:
                 st.error('STRING mapping failed: ' + str(error))
         mapping = st.session_state.get('atlas_string_mapping')
         if mapping and mapping['signature'] == signature:
-            st.success(f'{len(mapping["resolved"])} query IDs resolved; {len(mapping["unresolved"])} unresolved.')
+            st.success(f'{len(mapping["resolved"])} proteins mapped; {len(mapping["unresolved"])} unresolved.')
             with st.expander('Resolved STRING protein mapping', expanded=True):
                 st.dataframe(pd.DataFrame(tsv_rows(mapping['raw'], ['queryItem', 'stringId'])), width='stretch', hide_index=True)
             if mapping['unresolved']:
-                st.write('Unresolved: ' + ', '.join(mapping['unresolved']))
+                st.dataframe(pd.DataFrame([{'query':query,'status':mapping['status_by_query'].get(query,'Unresolved')} for query in mapping['unresolved']]),hide_index=True,width='stretch')
+            if mapping.get('sequence_hits'):
+                with st.expander('Sequence alignments · selected and alternative STRING representatives'):
+                    st.dataframe(pd.DataFrame(mapping['sequence_hits']),hide_index=True,width='stretch')
+                    st.download_button('Download all sequence alignment hits · TSV',pd.DataFrame(mapping['sequence_hits']).to_csv(sep='\t',index=False),'string_sequence_hits.tsv','text/tab-separated-values')
+            st.download_button('Download STRING mapping provenance',json.dumps(mapping['log'],indent=2),'string_mapping_run.json','application/json')
             st.download_button('Download resolved STRING mapping · TSV', mapping['raw'], 'string_mapping.tsv', 'text/tab-separated-values', key='string_mapping_download')
             if mapping['resolved']:
                 params = network_parameters(sorted(set(mapping['resolved'].values())), TAXA[code], score, extra, network_type)
@@ -250,9 +284,10 @@ def string_panel(candidates):
                         with st.spinner('Fetching the STRING association TSV…'):
                             raw, log = api_request('network', params)
                             edges = parse_network(raw, TAXA[code])
-                        st.session_state['atlas_string_network'] = {'code': code, 'source': 'STRING 12.5 API', 'network_type': network_type,
+                        st.session_state['atlas_string_network'] = {'code': code,'taxon':TAXA[code], 'source': 'STRING 12.5 API', 'network_type': network_type,
                             'edges': edges, 'raw': raw, 'resolved': mapping['resolved'], 'plan': plan,
-                            'provenance': {'config': config, 'mapping_request': mapping['log'], 'network_request': log, 'unresolved': mapping['unresolved']}}
+                            'provenance': {'config': config, 'mapping_request': mapping['log'], 'network_request': log, 'unresolved': mapping['unresolved'],
+                                'resolved_mapping':mapping['resolved'],'mapping_status':mapping['status_by_query'],'sequence_hits':mapping.get('sequence_hits',[])}}
                     except Exception as error:
                         st.error('STRING network fetch failed: ' + str(error))
     else:
@@ -282,7 +317,7 @@ def string_panel(candidates):
                         for alias in [seq, seq.split('__')[-1], record['query_id']]:
                             if alias in query_alias:
                                 resolved[record['query_id']] = query_alias[alias]
-                st.session_state['atlas_string_network'] = {'code': code, 'source': uploaded.name, 'network_type': declared,
+                st.session_state['atlas_string_network'] = {'code': code,'taxon':TAXA[code], 'source': uploaded.name, 'network_type': declared,
                     'edges': edges, 'raw': raw, 'resolved': resolved, 'plan': import_plan,
                     'provenance': {'source_file': uploaded.name, 'sha256': hashlib.sha256(uploaded.getvalue()).hexdigest(),
                                    'taxon': TAXA[code], 'score_scale': scale, 'mapping_file': mapping_upload.name if mapping_upload else '',

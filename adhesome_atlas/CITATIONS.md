@@ -14,9 +14,11 @@ These references acknowledge the databases and methods relevant to the atlas. Pu
 
 Szklarczyk D et al. (2025). **The STRING database in 2025: protein networks with directionality of regulation.** *Nucleic Acids Research*. [Publication](https://pubmed.ncbi.nlm.nih.gov/39558183/).
 
-Used to contextualize the library protein-association networks and evidence channels. The resource URL is retained as requested; the exported TSV files do not independently establish their STRING release. STRING associations are not automatically direct physical interactions.
+Used by the user-initiated STRING query/import workspace and its evidence channels. The default consensus network uses the curated metazoan reference library. The resource URL is retained as requested; the exported TSV files do not independently establish their STRING release. STRING associations are not automatically direct physical interactions.
 
 [STRING API documentation](https://string-db.org/help/api/) defines the identifier-mapping, functional/physical network TSV, SVG and high-resolution PNG query parameters used by the Interactions query/import workspace. Live requests are pinned to STRING 12.5 and their parameters, response hashes, timestamps and unresolved identifiers are preserved in downloadable provenance.
+
+[STRING's official sequence-search implementation](https://github.com/meringlab/string-mcp/blob/master/server.py) defines `POST /api/json/similarity_search` with original amino-acid FASTA and species parameters. The Atlas calls this STRING endpoint directly; no MCP server or AI service is required. Its returned alignment identity, E-value, bitscore and representative identifiers are retained for sequence-to-STRING mapping. [STRING sequence-search help](https://string-db.org/help/getting_started/) describes sequence-based searches in the web interface.
 
 ## ELM
 
@@ -108,3 +110,8 @@ Protein dossier links use SMART's protein (`ID`), domain (`DOMAIN`) and architec
 Kanchanawong P et al. (2010). **Nanoscale architecture of integrin-based cell adhesions.** *Nature*, 468, 580–584. [doi:10.1038/nature09621](https://doi.org/10.1038/nature09621). Reference basis for the integrin-signalling, force-transduction and actin-regulation schematic; it does not establish schistosome nanoscale coordinates.
 
 del Rio A et al. (2009). **Stretching single talin rod molecules activates vinculin binding.** *Science*, 323, 638–641. [doi:10.1126/science.1162912](https://doi.org/10.1126/science.1162912). Reference basis for force-exposed talin binding sites and vinculin recruitment.
+
+
+## Curated metazoan reference interaction library
+
+The active reference evidence is retained verbatim in `adhesome_network/interactions.csv`, with Source, Target, Effect, Type, PMID and data_source columns. The family crosswalk and aggregated family-edge CSV preserve the mapping scope and source PMIDs. The Interactions evidence table and CSV downloads provide the exact references supporting each projected orthogroup relationship. These library references, rather than removed preloaded STRING exports, underpin the default consensus graph.
