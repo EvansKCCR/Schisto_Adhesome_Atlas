@@ -19,6 +19,7 @@ from simulator import simulator_html,SIMULATOR_FILE
 from feedback import feedback_panel
 from branding import identity_banner,creator_credit
 from candidate_profiles import profile_payload,candidate_map_html,atlas_url
+from string_fetch import scientific_evalue
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…')
@@ -44,9 +45,12 @@ def cached_profiles(signature,_candidates,_books,_motifs):
 
 def table(frame):
     shown=frame.copy()
+    evalues={c for c in shown if str(c).lower().replace('-','').replace('_','').replace(' ','')=='evalue'}
     for c in shown:
-        if shown[c].dtype==object: shown[c]=shown[c].fillna('').astype(str)
-    st.dataframe(shown,hide_index=True,width='stretch')
+        if c in evalues:shown[c]=pd.to_numeric(shown[c],errors='coerce')
+        elif shown[c].dtype==object: shown[c]=shown[c].fillna('').astype(str)
+    st.dataframe(shown,hide_index=True,width='stretch',column_config={
+        c:st.column_config.NumberColumn('E-value',format='scientific') for c in evalues})
 
 def download(frame,name,label='Download table CSV'):
     st.download_button(label,frame.to_csv(index=False),name,'text/csv')
@@ -173,9 +177,12 @@ elif page=='Protein dossier':
             domains=books['files/NCBI_CDD.xlsx']['NCBI_CDD_selected_hits'];domains=domains[domains.sequence_id.eq(protein)]
             st.write('Pfam: '+str(row.architecture));st.write('CDD: '+str(row.NCBI_CDD_architecture))
             if len(domains):
-                domain_plot=domains.assign(span=domains.end-domains.start+1)
-                plotly_chart(px.bar(domain_plot,x='span',base='start',y='short_name',orientation='h',hover_data=['accession','start','end','evalue'],title='CDD domain architecture',labels={'span':'Residue position','short_name':'Domain'}),width='stretch')
-            table(domains);download(domains,'domains_'+protein+'.csv')
+                domain_plot=domains.assign(span=domains.end-domains.start+1,evalue=pd.to_numeric(domains.evalue,errors='coerce'))
+                plotly_chart(px.bar(domain_plot,x='span',base='start',y='short_name',orientation='h',hover_data={'accession':True,'start':True,'end':True,'evalue':':.3e'},title='CDD domain architecture',labels={'span':'Residue position','short_name':'Domain','evalue':'E-value'}),width='stretch')
+            table(domains)
+            domain_export=domains.copy()
+            domain_export['evalue']=domain_export.evalue.map(lambda value:'' if pd.isna(value) else scientific_evalue(value))
+            download(domain_export,'domains_'+protein+'.csv')
         with tabs[2]:motif_view(motifs[motifs.sequence_id.eq(protein)],'dossier_motifs')
         with tabs[3]:
             topology=books['files/Topology_predictions.xlsx']['Topology_predictions'];table(topology[topology.protein_id.eq(protein)])
