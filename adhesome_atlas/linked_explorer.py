@@ -37,22 +37,18 @@ for node, scenario in NODE_SCENARIOS.items():
                           'growth' if node in {'shc','grb2'} else
                           'cytoskeleton' if node in {'actin','actinin','filamin','cofilin','profilin','zyxin'} else 'mechanics')
 
+for family,node in {'integrin_alpha':'inta','integrin_beta':'intb','PINCH_like':'pinch','ILK':'ilk','FAK':'fak','Src':'src','alpha_actinin':'actinin','PTP_PEST':'ptppest','Grb2':'grb2','Shc':'shc','Nck':'nck','zyxin_like':'zyxin'}.items():
+    NODE_SCENARIOS[family]=NODE_SCENARIOS[node]
+
 _MAP_BRIDGE = r'''
-<style>#info .atlas-simulate{margin-top:14px;padding:10px 14px;border:2px solid #075d32;border-radius:8px;background:#ffe34d;color:#111;font-weight:800;cursor:pointer}#info .atlas-simulate:focus-visible{outline:3px solid #b91c1c;outline-offset:2px}</style>
 <script>
-const atlasMapShowNode=showNode;
-showNode=function(node){
-  atlasMapShowNode(node);const button=document.createElement('button');button.className='atlas-simulate';button.textContent='Explore downstream simulation →';
-  button.addEventListener('click',()=>{
-    const selected=info.querySelector('select[aria-label="Select candidate protein"]');
-    const id=selected?.value||atlasPayload.focus_candidate;
-    const candidate=atlasPayload.candidates.find(r=>r.sequence_id===id&&(r.map_node===node.id||(node.id==='integrin_ab'&&['inta','intb'].includes(r.map_node))));
-    window.parent.postMessage({type:'schisto-adhesome-node',node:node.id,title:node.title,candidate:candidate?.sequence_id||'',candidate_annotation:candidate?.candidate_annotation||'',candidate_lineage:candidate?.candidate_lineage||'',species:candidate?.species||'',module:document.getElementById('moduleFocus')?.value||'all'},'*');
-  });
-  const heading=info.querySelector('h2');if(heading)heading.insertAdjacentElement('afterend',button);else info.prepend(button);
-  const caption=document.createElement('p');caption.textContent='Opens local I–T–V assembly matrices, force-dependent recruitment and actin feedback. Peripheral families select explicit coupling proxies.';button.insertAdjacentElement('afterend',caption);
+const atlasNodeDetails=nodeDetails;
+nodeDetails=function(id){atlasNodeDetails(id);
+ const panel=document.getElementById('sidebar');if(!panel)return;
+ const button=document.createElement('button');button.textContent='Explore downstream simulation →';
+ button.style.cssText='padding:10px;background:#ffe34d;color:#000;border:2px solid #064c2c;border-radius:8px;font-weight:bold';
+ button.onclick=()=>{const selected=DATA.families.find(f=>f.id===id);window.parent.postMessage({type:'schisto-adhesome-node',node:id,title:id,candidate:'',candidate_annotation:'',species:({'Schistosoma haematobium':'S. haematobium','Schistosoma japonicum':'S. japonicum','Schistosoma mansoni':'S. mansoni'}[document.getElementById('species')?.value]||document.getElementById('species')?.value||''),module:'all'},'*')};panel.prepend(button);
 };
-const atlasInitialLinkedNode=nodes.find(n=>n.id===atlasPayload.focus_node);if(atlasInitialLinkedNode)showNode(atlasInitialLinkedNode);
 </script>
 '''
 
@@ -64,7 +60,7 @@ function candidateScenario(value){let scenario=atlasNodeScenarios[value.node];co
     (value.node==='vinculin'&&annotation.startsWith('Catenin-related'))||
     (value.node==='ilk'&&/^(GS-domain|MAPK-activated|OSR1-like|ILK-screened)/.test(annotation));
   if(distinct)scenario={controls:{},module:scenario?.module||'cytoskeleton',stage:'Calibrated lineage context',note:annotation+' is distinct from the canonical family component represented by this scenario. The baseline I–T–V model is displayed.'};
-  return scenario;
+  return scenario||{controls:{},module:'mechanics',stage:'Family context',note:'No family-specific simulation mechanism is present in the current library. The baseline model is displayed; additional coupling will be added when information is available.'};
 }
 window.addEventListener('message',event=>{
   if(event.source!==window.parent||!event.data)return;

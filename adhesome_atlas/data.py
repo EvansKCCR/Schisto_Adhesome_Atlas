@@ -1,134 +1,64 @@
-from atlas_paths import phylogeny_root
-"""Read-only, provenance-preserving adapters for the supplied annotation library."""
+"""Read-only adapters for the current multi-species atlas library."""
 from pathlib import Path
 import re
 import pandas as pd
-from evidence import annotate
-from family_audit import apply_family_audit
-from candidate_annotations import calibrate_candidates
-
-ROOT = Path(__file__).resolve().parent
-SPECIES = {'Shae': 'S. haematobium', 'Sjap': 'S. japonicum', 'Sman': 'S. mansoni'}
-
-def fingerprint():
-    return tuple((p.relative_to(ROOT).as_posix(), p.stat().st_mtime_ns, p.stat().st_size)
-                 for p in source_files())
+ROOT=Path(__file__).resolve().parent
+SPECIES={'Sbovis':'Schistosoma bovis','Scura':'Schistosoma curassoni','Shae':'Schistosoma haematobium','Sinter':'Schistosoma intercalatum','Sjap':'Schistosoma japonicum','Sman':'Schistosoma mansoni','Srhoda':'Schistosoma rodhaini'}
 
 def source_files():
-    folders = ['files','family_specific_candidate_fasta','topology_localization_cdd','resource_library','adhesome_network',phylogeny_root(ROOT).name,'orthology','conservative_adhesome_family_assignment_audit']
-    library = [p for folder in folders for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() in {'.xlsx','.fasta','.faa','.csv','.tsv','.txt','.3line','.xml','.all','.treefile','.iqtree','.json','.md','.py'}]
-    presentation = [ROOT/name for name in ['Integrin_adhesome_presentation.emf','Schistosome_adhesome_interactive.html','README_schistosome_adhesome_interactive.md','schistosome_integrin_adhesome_hypothesis_simulator.html','README_adhesome_hypothesis_simulator.md','refresh_interactive_map.py','nanoscale_architecture.py','figure_exports.py','candidate_annotations.py','orthogroup_annotations.py'] if (ROOT/name).is_file()]
-    return library + presentation + [ROOT/name for name in ['smart_links.py','smart_fetch.py','string_fetch.py','string_workbench.py','topological_clustering.py','prioritize_candidates.py','candidate_prioritization.py'] if (ROOT/name).is_file()]
+    folders=['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny']
+    library=[p for folder in folders for p in (ROOT/folder).rglob('*') if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() not in {'.pyc','.tmp'}]
+    documents=[p for p in ROOT.iterdir() if p.is_file() and p.suffix.lower() in {'.md','.jpeg','.png','.pptx'}]
+    return sorted(library+documents)
+
+def fingerprint():
+    return tuple((p.relative_to(ROOT).as_posix(),p.stat().st_mtime_ns,p.stat().st_size) for p in source_files())
 
 def fasta(path):
-    records = {}
-    key = None
+    records={};key=None
     for line in path.read_text(encoding='utf-8-sig').splitlines():
-        if line.startswith('>'):
-            key = line[1:].split()[0]
-            records[key] = ''
-        elif key:
-            records[key] += line.strip()
+        if line.startswith('>'): key=line[1:].split()[0];records[key]=''
+        elif key: records[key]+=line.strip()
     return records
 
 def load():
-    books = {p.relative_to(ROOT).as_posix(): pd.read_excel(p, sheet_name=None)
-             for p in source_files() if p.suffix == '.xlsx'}
-    cohorts = {}
-    for label, name, sheet in [
-        ('Adhesome candidates', 'adhesome_candidates_list.xlsx', 'Audited_family_assignment'),
-        ('FN3 / fibronectin-like review', 'fibronectin_like_candidate.xlsx', 'Candidates'),
-        ('All screening hypotheses', 'all_candidate_protein_list.xlsx', 'candidates')]:
-        name = 'files/' + name
-        if sheet not in books[name]:
-            choices=[s for s,t in books[name].items() if {'protein_id','family','length'} <= set(t.columns)]
-            if len(choices)!=1:
-                raise ValueError(f'{name}: cannot uniquely identify candidate worksheet')
-            sheet=choices[0]
-        df = books[name][sheet].copy()
-        if 'standardized_id' in df:
-            df['sequence_id'] = df.protein_id.astype(str).where(
-                df.protein_id.astype(str).str.contains('__', regex=False),
-                df.standardized_id.astype(str) + '__' + df.protein_id.astype(str))
-        else:
-            df['sequence_id'] = df.protein_id
-        df['species'] = df.sequence_id.str.split('__').str[0].map(SPECIES).fillna(
-            df.get('Specie', pd.Series(index=df.index, dtype=object))).fillna('Unknown')
-        df['source'] = name + ' / ' + sheet
-        if 'Pfam_architecture' in df:
-            df['architecture'] = df.Pfam_architecture
-        cohorts[label] = annotate(apply_family_audit(df))
-    motif_frames=[]
-    for workbook, choices in [('files/adhesome_candidates_list.xlsx',['Motif_annotations','MotifScan_hits']),
-                              ('files/fibronectin_like_candidate.xlsx',['motif_scan_hits','Motif_annotations'])]:
-        sheet=next((name for name in choices if name in books[workbook]),None)
-        if sheet is None: raise ValueError(f'{workbook}: motif annotation worksheet missing')
-        annotations=books[workbook][sheet].copy()
-        annotations['source']=workbook+' / '+sheet
-        if 'motif_id' in annotations:
-            annotations['motif_label']=annotations.motif_id.fillna('')+' · '+annotations.motif_name.fillna('')
-            annotations['context_state']=annotations.candidate_tier.map({
-                'context_supported_candidate':'region_supported',
-                'context_conflict':'outside_expected_region',
-                'sequence_only_candidate':'sequence_only',
-                'review_only':'review_only'}).fillna(annotations.candidate_tier)
-        elif 'elm_class' in annotations:
-            annotations['motif_label']=annotations.elm_class
-            annotations['candidate_tier']=annotations.context_state
-        else:
-            # Pipeline v4 supplies one contextual motif summary per protein-family.
-            annotations['motif_label'] = annotations.priority_sites.fillna('').where(
-                annotations.priority_sites.notna(), annotations.library_ids.fillna(''))
-            annotations['candidate_tier'] = annotations.candidate_tiers.fillna('')
-            annotations['context_state'] = annotations.candidate_tier.map(
-                lambda value: 'region_supported' if 'context_supported_candidate' in value else
-                'review_only' if 'review_only' in value else 'sequence_only')
-            annotations['role'] = 'summary'
-            annotations['start'] = ''
-            annotations['end'] = ''
-            annotations['peptide'] = ''
-            annotations['functional_hypothesis'] = annotations.functional_hypotheses.fillna('')
-        motif_frames.append(annotations)
-    motifs=pd.concat(motif_frames,ignore_index=True)
-    from prioritization_evidence import enrich
-    for label in ['Adhesome candidates','FN3 / fibronectin-like review']:
-        cohorts[label] = enrich(cohorts[label], motifs, ROOT)
-    cohorts={label:calibrate_candidates(frame) for label,frame in cohorts.items()}
-    sequences, memberships, conflicts = {}, [], []
-    for p in (p for p in source_files() if p.suffix == '.fasta'):
-        for key, sequence in fasta(p).items():
-            if key in sequences and sequence != sequences[key]:
-                conflicts.append({'sequence_id': key, 'source': p.relative_to(ROOT).as_posix()})
-            else:
-                sequences[key] = sequence
-            memberships.append({'sequence_id': key, 'source': p.relative_to(ROOT).as_posix(), 'length': len(sequence)})
-    raw = {}
-    topologies = {}
-    for p in sorted((ROOT / 'topology_localization_cdd').iterdir()):
-        name = p.name
-        if p.suffix == '.csv':
-            table = pd.read_csv(p)
-            table['sequence_id'] = table.iloc[:, 0]
-            raw[name] = table
-        elif 'CDD' in name and p.suffix.lower() in {'.txt', '.tsv'}:
-            table = pd.read_csv(p, sep='\t', comment='#')
-            table['sequence_id'] = table.Query.str.extract(r'>(\S+)')
-            raw[name] = table
-        elif 'SignalP' in name or 'SiganP' in name:
-            table = pd.read_csv(p, sep='\t', comment='#', names=['sequence_id', 'Prediction', 'OTHER', 'SP(Sec/SPI)', 'CS Position'])
-            raw[name] = table
-        elif p.suffix == '.3line':
-            lines = [s.strip() for s in p.read_text().splitlines() if s.strip()]
-            records = []
-            for i in range(0, len(lines), 3):
-                header, sequence, states = lines[i:i+3]
-                key = header[1:].split()[0]
-                if len(sequence) != len(states):
-                    raise ValueError(f'Topology length mismatch: {key}')
-                topologies[key] = states
-                records.append({'sequence_id': key, 'class': header.split('|')[-1].strip(), 'length': len(sequence), 'states': states})
-            raw[name] = pd.DataFrame(records)
-    return cohorts, books, motifs, sequences, pd.DataFrame(memberships), raw, topologies, conflicts
+    books={p.relative_to(ROOT).as_posix():pd.read_excel(p,sheet_name=None) for p in (ROOT/'files').glob('*.xlsx') if not p.name.startswith('~$')}
+    df=books['files/adhesome_candidates_list.xlsx']['Audited_family_assignment'].copy()
+    df['sequence_id']=df.protein_id.astype(str)
+    df['species']=df.Specie
+    df['family']=df.putative_audited_family.fillna('Unassigned')
+    df['reviewed_family']=df.family
+    df['catalogue_family']=df.family
+    df['candidate_annotation']=df.protein_name.fillna(df.family)
+    df['audit_classification']=df.grade.map({'A':'Supported','B':'Supported','C':'Provisional','D':'Unassigned'}).fillna('Unassigned')
+    df['status']=df.family_support_level.fillna(df.family_decision)
+    df['architecture']=df.Pfam_architecture
+    df['orthogroup']=df.Orthology_Orthogroup.fillna('')
+    df['orthology_scope']=df.Orthology_HOG_status.fillna('Not recorded')
+    df['source']='files/adhesome_candidates_list.xlsx / Audited_family_assignment'
+    df['family_assignment_basis']=df.family_decision
+    df['assignment_interpretation']=df.protein_name.fillna(df.family)
+    inventory=pd.read_csv(ROOT/'adhesome_network/Schistosome_adhesome_family_inventory.csv').fillna('')
+    df['module']=df.family.map(inventory.set_index('family').visual_group).fillna('Other family context')
+    motifs=books['files/Motif_annotations.xlsx']['Motif_annotations'].copy()
+    motifs['motif_id']=motifs.motif_function
+    motifs['motif_name']=motifs.motif_function
+    motifs['motif_label']=motifs.motif_function
+    motifs['peptide']=motifs.representative_peptide
+    motifs['candidate_tier']=motifs.reassessed_context_tier
+    motifs['context_state']=motifs.reassessed_context_tier
+    motifs['functional_hypothesis']=motifs.context_explanation
+    motifs['source']='files/Motif_annotations.xlsx / Motif_annotations'
+    df['motif_context_evidence']=df.sequence_id.map(motifs.groupby('sequence_id').reassessed_context_tier.agg(lambda x:' | '.join(sorted(set(x.dropna()))))).fillna('No additional motif information present in the current library')
+    sequences={};members=[];conflicts=[]
+    for p in (ROOT/'family_specific_candidate_fasta').rglob('*'):
+        if p.suffix.lower() not in {'.fasta','.faa','.fa'}: continue
+        for key,seq in fasta(p).items():
+            if key in sequences and sequences[key]!=seq: conflicts.append({'sequence_id':key,'source':p.relative_to(ROOT).as_posix()})
+            else: sequences[key]=seq
+            members.append({'sequence_id':key,'source':p.relative_to(ROOT).as_posix(),'length':len(seq)})
+    raw={sheet:frame for name,sheets in books.items() for sheet,frame in sheets.items() if 'candidate' not in name.lower()}
+    return {'Adhesome candidates':df},books,motifs,sequences,pd.DataFrame(members),raw,{},conflicts
 
 def intervals(text):
     return [(m.group(1), int(m.group(2)), int(m.group(3)))

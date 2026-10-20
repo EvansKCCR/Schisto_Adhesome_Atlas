@@ -1,119 +1,46 @@
-"""Explore standalone orthology exports without modifying source assignments."""
-import json
+"""Orthology explorer driven by the active candidate reports."""
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 from data import ROOT
-from family_merges import atlas_group, merge_memberships
-from identifier_labels import identifier_annotations
-import re
-from phylogeny_view import NAMES
 from figure_exports import plotly_chart
-from orthogroup_annotations import annotate_dictionary, FN3_SUMMARY
 
-
-def read_collection(folder):
-    return tuple(pd.read_csv(folder/name,sep='\t',dtype=str).fillna('') for name in ['candidate_report.tsv','candidate_HOGs.tsv','direct_orthologues.tsv'])
-
-
-def orthology_panel(candidates=None):
+def orthology_panel(candidates):
     st.header('Orthology')
-    st.write('Explore evolutionary relationships, reference orthologues and gene-family copy counts across eight species.')
-    st.caption('References: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758). Controls here are independent of the catalogue sidebar filters.')
-    folders=sorted(p.parent for p in (ROOT/'orthology').glob('*/candidate_report.tsv'))
-    if not folders:
-        st.info('No orthology candidate reports found.'); return
-    labels={'adhesome_candidates_list':'Adhesome candidates','fibronectin_like_candidate':'Fibronectin-like candidates'}
-    folder=st.selectbox('Orthology collection',folders,format_func=lambda p:labels.get(p.name,p.name),key='orthology_collection')
-    report,hogs,direct=read_collection(folder)
-    if candidates is not None and {'sequence_id','family','source'} <= set(candidates):
-        subset=candidates[candidates.source.str.contains(folder.name,regex=False,na=False)]
-        # Standalone orthology exports can retain proteins removed from a later audited workbook.
-        report=report[report.candidate_id.isin(subset.sequence_id)].copy()
-        families=subset.groupby('sequence_id').family.agg(lambda values:' | '.join(sorted(set(values.dropna()))))
-        report['family']=report.candidate_id.map(families).fillna('Unassigned family')
-        report['Screening family']=report.family
-        report['Reviewed family']=report.candidate_id.map(subset.groupby('sequence_id').reviewed_family.agg(lambda values:' | '.join(sorted(set(values.dropna()))))).fillna('')
-        report['Audit classification']=report.candidate_id.map(subset.groupby('sequence_id').audit_classification.agg(lambda values:' | '.join(sorted(set(values.dropna()))))).fillna('')
-        for field in ['candidate_annotation','candidate_lineage','candidate_architecture_context','candidate_evolutionary_context','candidate_annotation_source']:
-            if field in subset:
-                values=subset.groupby('sequence_id')[field].agg(lambda x:' | '.join(sorted(set(x.dropna()))))
-                report[field]=report.candidate_id.map(values).fillna('')
-    else:
-        report['family']='Unassigned family'
-    grouping=ROOT/'phylogeny_family_groups.tsv'
-    if grouping.exists():
-        curated=pd.read_csv(grouping,sep='\t')
-        labels_by_og=curated.groupby('orthogroup').family.agg(lambda values:' | '.join(sorted(set(values))))
-        report['family']=report.Orthogroup.map(labels_by_og).fillna(report.family)
-    report=annotate_dictionary(report)
-    report['family']=report.orthogroup_identity.where(report.orthogroup_identity.ne(''),report.family)
-    hogs=annotate_dictionary(hogs)
-    if folder.name=='fibronectin_like_candidate': st.info(FN3_SUMMARY)
-    annotations=identifier_annotations()
-    lookup={key:key.split('__')[0]+'__'+row.protein_annotation_id for key,row in annotations.iterrows() if row.protein_annotation_id}
-    def display_ids(frame):
-        displayed=frame.copy()
-        for col in displayed:
-            displayed[col]=displayed[col].map(lambda value:re.sub(r'[A-Za-z]+__[A-Za-z0-9_.-]+',lambda match:lookup.get(match.group(),match.group()),str(value)))
-        return displayed
-    st.caption('Protein accessions are displayed using identifier maps. Original gene IDs remain available in the source downloads; search accepts either identifier. Family browsing uses curated orthogroup labels; the table separately shows each current candidate’s screened and audited family.')
-
-    species=st.multiselect('Candidate species',['Shae','Sjap','Sman'],default=['Shae','Sjap','Sman'],format_func=NAMES.get,key='orthology_species')
-    families=sorted({family for value in report.family for family in value.split(' | ')})
-    family=st.selectbox('Protein family',['All families']+families,key='orthology_family')
-    scope=st.multiselect('Evolutionary scope',sorted(report.HOG_status.unique()),key='orthology_scope')
-    query=st.text_input('Find a candidate, reference protein or orthogroup',key='orthology_search')
-    selected=report[report.candidate_id.str.split('__').str[0].isin(species)].copy()
-    if family!='All families': selected=selected[selected.family.map(lambda value:family in value.split(' | '))]
-    if scope: selected=selected[selected.HOG_status.isin(scope)]
-    if query: selected=selected[selected.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1) | display_ids(selected).apply(lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
-    selected_hogs=hogs[hogs.Orthogroup.isin(set(selected.Orthogroup)-{''})]
-    selected_direct=direct[direct.candidate_id.isin(selected.candidate_id)]
-    selected['Source orthogroup']=selected.Orthogroup
-    selected['Orthogroup']=selected.Orthogroup.map(atlas_group)
-    selected_hogs=merge_memberships(selected_hogs)
-    st.caption('Integrin alpha combines OG0000401 and OG0001220 as one atlas family group. Source orthogroup IDs remain in the tables; reference relationships retain their original assignments.')
-    for col,label,value in zip(st.columns(4),['Candidates','Mapped candidates','Orthogroups','Reference relationship records'],[selected.candidate_id.nunique(),selected.loc[selected.mapping_status.eq('matched'),'candidate_id'].nunique(),selected_hogs.Orthogroup.nunique(),len(selected_direct)]):
-        col.metric(label,value)
-    st.caption('Relationship records may contain multiple orthologue IDs; they are not individual protein-pair counts. Copy counts describe all members of each selected orthogroup, including non-candidates.')
-    tabs=st.tabs(['Summary','Candidate assignments','Orthogroup membership','Direct orthologues','Provenance & downloads'])
+    folders=sorted(p.parent for p in (ROOT/'orthology').rglob('candidate_report.tsv'))
+    if not folders: st.info('No orthology report is present in the current library.');return
+    folder=st.selectbox('Orthology collection',folders,format_func=lambda p:p.name)
+    signature=tuple((p.name,p.stat().st_mtime_ns,p.stat().st_size) for p in folder.glob('*') if p.is_file())
+    @st.cache_data(show_spinner=False)
+    def read(folder,signature):
+        return tuple(pd.read_csv(folder/name,sep='\t',dtype=str).fillna('') for name in ['candidate_report.tsv','candidate_HOGs.tsv','direct_orthologues.tsv'])
+    report,hogs,direct=read(folder,signature)
+    annotations=candidates.drop_duplicates('sequence_id').set_index('sequence_id')
+    report=report[report.candidate_id.isin(annotations.index)].copy()
+    for field in ['family','species','candidate_annotation','grade','assignment_confidence']:
+        report[field]=report.candidate_id.map(annotations[field])
+    refs=sorted(direct.reference_species.unique())
+    st.caption(f'{candidates.species.nunique()} candidate species; {len(refs)} reference taxa in the active direct-orthologue report. Reference names and copy counts follow the report headers. Orthogroup IDs belong to this run; no historical groups are merged.')
+    a,b=st.columns(2)
+    species=a.multiselect('Orthology species',sorted(report.species.unique()),default=sorted(report.species.unique()))
+    families=b.multiselect('Orthology families',sorted(report.family.unique()))
+    query=st.text_input('Find a candidate, orthogroup or reference protein')
+    selected=report[report.species.isin(species)]
+    if families:selected=selected[selected.family.isin(families)]
+    if query:selected=selected[selected.astype(str).apply(lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
+    groups=hogs[hogs.Orthogroup.isin(set(selected.Orthogroup)-{''})]
+    direct=direct[direct.candidate_id.isin(selected.candidate_id)]
+    for col,label,value in zip(st.columns(4),['Candidates','Orthogroups','Reference taxa','Relationship records'],[selected.candidate_id.nunique(),groups.Orthogroup.nunique(),direct.reference_species.nunique(),len(direct)]): col.metric(label,value)
+    tabs=st.tabs(['Overview','Candidate assignments','Orthogroup members','Direct orthologues'])
     with tabs[0]:
-        if family!='All families' and not selected.empty:
-            st.subheader('Family orthogroups')
-            family_members=selected.groupby('Orthogroup').candidate_id.agg(lambda values:', '.join(sorted(set(values)))).reset_index(name='Candidate proteins')
-            st.dataframe(display_ids(family_members),width='stretch',hide_index=True)
-        if selected.empty: st.info('No candidates match these filters.')
-        else:
-            summary=selected.assign(species=selected.candidate_id.str.split('__').str[0].map(NAMES)).groupby(['species','HOG_status']).candidate_id.nunique().reset_index(name='Candidates')
-            plotly_chart(px.bar(summary,x='species',y='Candidates',color='HOG_status',title='Evolutionary scope by candidate species'),width='stretch')
-        if not selected_direct.empty:
-            relationships=selected_direct.groupby(['reference_species','relationship']).candidate_id.nunique().reset_index(name='Candidates')
-            relationships.reference_species=relationships.reference_species.map(NAMES)
-            plotly_chart(px.bar(relationships,x='reference_species',y='Candidates',color='relationship',title='Direct orthology relationship types'),width='stretch')
-        if not selected_hogs.empty:
-            display=selected_hogs.sort_values('Orthogroup').head(60)
-            codes=[c for c in ['Shae','Sjap','Sman','Hsap','Mmus','Xlae','Dmel','Cele'] if c in display]
-            matrix=display.set_index('Orthogroup')[codes].map(lambda x:len({v.strip() for v in x.split(',') if v.strip()}))
-            plotly_chart(px.imshow(matrix.rename(columns=NAMES),aspect='auto',color_continuous_scale='YlGn',labels={'color':'Proteins'},title='Orthogroup copy counts',height=max(350,len(matrix)*20)),width='stretch')
-            st.caption(f'Showing {len(display)} of {len(selected_hogs)} selected orthogroups in alphabetical order. Search to focus the heatmap; the membership table includes every selected group.')
-    with tabs[1]:
-        st.dataframe(display_ids(selected),width='stretch',hide_index=True)
-        st.download_button('Download filtered candidate assignments',display_ids(selected).to_csv(index=False),folder.name+'_candidates.csv','text/csv')
-    with tabs[2]:
-        st.dataframe(display_ids(selected_hogs),width='stretch',hide_index=True)
-        st.download_button('Download filtered orthogroups',display_ids(selected_hogs).to_csv(index=False),folder.name+'_orthogroups.csv','text/csv')
-    with tabs[3]:
-        refs=st.multiselect('Reference species',sorted(direct.reference_species.unique()),format_func=NAMES.get,key='orthology_refs')
-        types=st.multiselect('Relationship types',sorted(direct.relationship.unique()),key='orthology_relationships')
-        filtered=selected_direct
-        if refs: filtered=filtered[filtered.reference_species.isin(refs)]
-        if types: filtered=filtered[filtered.relationship.isin(types)]
-        st.dataframe(display_ids(filtered),width='stretch',hide_index=True)
-        st.download_button('Download filtered direct orthologues',display_ids(filtered).to_csv(index=False),folder.name+'_direct_orthologues.csv','text/csv')
-    with tabs[4]:
-        provenance=folder/'provenance.json'
-        if provenance.exists(): st.json(json.loads(provenance.read_text(encoding='utf-8')),expanded=False)
-        st.caption('Original exports preserve source paths and hashes. Downloads below contain complete source files, independent of active filters.')
-        for path in sorted(folder.iterdir()):
-            if path.is_file(): st.download_button('Download '+path.name,path.read_bytes(),folder.name+'_'+path.name,key='orthology_original_'+path.name)
+        if len(selected):plotly_chart(px.bar(selected.groupby(['species','HOG_status']).size().reset_index(name='Candidates'),x='species',y='Candidates',color='HOG_status'),width='stretch')
+        st.dataframe(pd.DataFrame({'Reference taxon':refs}),hide_index=True,width='stretch')
+        numeric=[col for col in groups if col not in ['Orthogroup','Matched_candidates']]
+        display=groups.head(40).copy()
+        if not display.empty:
+            counts=display.set_index('Orthogroup')[numeric].map(lambda value:len([v for v in str(value).split(',') if v.strip()]))
+            plotly_chart(px.imshow(counts,aspect='auto',title='Orthogroup member counts · first 40 selected groups'),width='stretch')
+    for tab,frame,name in [(tabs[1],selected,'candidate_assignments'),(tabs[2],groups,'orthogroup_members'),(tabs[3],direct,'direct_orthologues')]:
+        with tab:
+            st.dataframe(frame,width='stretch',hide_index=True)
+            st.download_button('Download '+name.replace('_',' '),frame.to_csv(index=False),name+'.csv')

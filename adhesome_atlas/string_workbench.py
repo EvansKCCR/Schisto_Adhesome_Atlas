@@ -178,6 +178,9 @@ def string_panel(candidates):
     st.markdown('### STRING query & TSV import')
     st.write('Choose catalogue families or orthogroups, resolve their proteins in STRING 12.5, and import the returned associations for interactive topology analysis.')
     code = st.selectbox('STRING query species', list(SPECIES), format_func=SPECIES.get, key='string_query_species')
+    TAXA[code]=int(st.number_input('STRING species taxon ID',min_value=0,value=TAXA.get(code,0),step=1,help='Enter the NCBI taxon ID recognized by STRING for this species. Coverage depends on the STRING release. No cross-species substitution is made.'))
+    if not TAXA[code]:
+        st.info('Enter a STRING taxon ID to prepare queries or import a species network.'); return
     inventory = candidate_inventory(candidates, code, mapping_export(code))
     classifications = st.multiselect('Query candidate classification', sorted(inventory.audit_classification.dropna().unique()), default=[name for name in ['Supported','Provisional'] if name in set(inventory.audit_classification)], key='string_query_classification')
     inventory = inventory[inventory.audit_classification.isin(classifications)]

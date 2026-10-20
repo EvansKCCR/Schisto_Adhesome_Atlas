@@ -9,12 +9,12 @@ import zipfile
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-from data import ROOT
-from family_merges import atlas_group
-from identifier_labels import annotate_tips, identifier_annotations, canonical_sequence_id
+from data import ROOT,SPECIES
+
+
 from figure_exports import plotly_chart, selected_export_config
-from candidate_annotations import calibrate_candidates
-from orthogroup_annotations import annotate_dictionary
+
+
 
 KEEP = ('tips.tsv', 'inference/gene_tree.treefile', 'inference/trimmed.faa',
         'inference/gene_tree.iqtree', 'inference/branch_evidence.tsv', 'inference/run.json')
@@ -90,7 +90,7 @@ def discover_trees(root=ROOT):
         folder=tree.parent.parent if tree.parent.name=='inference' else tree.parent
         missing=[name for name in KEEP if not companion_path(folder,name).is_file()]
         if missing: incomplete.append({'tree':str(tree),'missing':', '.join(missing)})
-        else: folders.append(folder)
+        folders.append(folder)
     return sorted(set(folders)),incomplete,trees
 
 
@@ -114,9 +114,12 @@ def companion_bundle(folder, export_name):
 
 def read_group(folder):
     root = parse_newick(companion_path(folder,'inference/gene_tree.treefile').read_text(encoding='utf-8'))
-    tips = pd.read_csv(companion_path(folder,'tips.tsv'), sep='\t', dtype=str).fillna('')
-    branches = pd.read_csv(companion_path(folder,'inference/branch_evidence.tsv'), sep='\t', dtype=str).fillna('')
-    return root, calibrate_candidates(annotate_tips(tips)), branches
+    tip_path=companion_path(folder,'tips.tsv')
+    tips=pd.read_csv(tip_path,sep='\t',dtype=str).fillna('') if tip_path.exists() else pd.DataFrame([{'sequence_id':node.name,'species':node.name.partition('__')[0],'candidate':'0'} for node in layout(root)[2]])
+    tips['display_label']=tips.sequence_id
+    branch_path=companion_path(folder,'inference/branch_evidence.tsv')
+    branches=pd.read_csv(branch_path,sep='\t',dtype=str).fillna('') if branch_path.exists() else pd.DataFrame(columns=['branch_id','support_label','tip_ids','interpretation'])
+    return root,tips,branches
 
 def tree_collection(folder):
     """Use recorded analysis provenance, not candidate names, to group trees."""
@@ -189,192 +192,47 @@ def tree_figure(root, tips, branches, supports=True, cladogram=False, focus=''):
         legend=dict(orientation='h',y=1.03),dragmode='pan')
     return fig, matched
 
-def tree_groups(folders, candidates=None, classification="All"):
-    """Group original runs by catalogue annotations and explicit family assignments."""
-    explicit=ROOT/'phylogeny_family_groups.tsv'
-    curated=pd.read_csv(explicit,sep='\t').fillna('') if explicit.exists() else pd.DataFrame(columns=['family','orthogroup'])
-    rows=[]
-    for folder in folders:
-        og=folder.name.removesuffix('_fib')
-        collection=tree_collection(folder)
-        if collection==FAMILY_COLLECTION:
-            row,matches=family_run_metadata(folder,candidates)
-            if classification!='All':
-                if matches.empty or 'audit_classification' not in matches: continue
-                matches=matches[matches.audit_classification.eq(classification)]
-                if matches.empty: continue
-            row['classification']=' / '.join(sorted(set(matches.audit_classification.dropna().astype(str)))) if not matches.empty and 'audit_classification' in matches else 'Not recorded'
-            rows.append(row)
-            continue
-        matches=pd.DataFrame()
-        if candidates is not None and 'orthogroup' in candidates:
-            matches=candidates[candidates.orthogroup.eq(og)]
-            if 'source' in matches:
-                token='fibronectin_like_candidate' if collection=='Fibronectin-like' else 'adhesome_candidates_list'
-                matches=matches[matches.source.str.contains(token,regex=False,na=False)]
-        names=sorted(set(curated.loc[curated.orthogroup.eq(og),'family']))
-        kinase_names=set(names) & {'Src','FAK','ILK'}
-        if kinase_names and not matches.empty:
-            # Exclude cross-family screening hypotheses before classifying a run.
-            matches=matches[matches.family.isin(kinase_names)]
-        if classification!='All':
-            if matches.empty or 'audit_classification' not in matches: continue
-            matches=matches[matches.audit_classification.eq(classification)]
-            if matches.empty: continue
-        names=sorted(set(curated.loc[curated.orthogroup.eq(og),'family']))
-
-        if not names and not matches.empty:
-            names=sorted(set(matches.family.dropna().astype(str)))
-        if not kinase_names:
-            names=sorted({'Unassigned kinase candidates' if name in {'Src','FAK','ILK'} else name for name in names})
-        identity=annotate_dictionary(pd.DataFrame([{'orthogroup':og}])).orthogroup_identity.iloc[0]
-        if identity: names=[identity]
-        modules=sorted(set(matches.module.dropna().astype(str))) if not matches.empty and 'module' in matches else []
-        rows.append({'folder':folder,'orthogroup':og,'families':names or ['Unassigned family'],'modules':modules or ['Unassigned module'],'collection':collection,'classification':' / '.join(sorted(set(matches.audit_classification.dropna().astype(str)))) if not matches.empty and 'audit_classification' in matches else 'Not recorded','source_orthogroups':[og],'tree_level':'Orthogroup tree'})
-    return rows
-
 
 def phylogeny_panel(candidates=None):
     st.subheader('Phylogenetic evidence explorer')
-    st.caption('Reference proteomes: H. sapiens (GRCh38.p14) · M. musculus (GRCm39) · X. laevis (Xenopus_laevis_v10.1) · D. melanogaster (GCF_000001215.4) · C. elegans (PRJNA13758).')
-    st.write('Inspect gene_tree.treefile with representative protein identifiers from identifier_map.tsv, species colors and ★ / diamond candidate tips from tips.tsv. Branch annotations are matched to branch_evidence.tsv by their exact descendant tip sets.')
-    st.info('Family-level trees jointly analyse family members across their source orthogroups. Earlier orthogroup trees remain available as separate collections. Trees retain their inferred topology and branch support; the rectangular origin is a display convention for the unrooted trees.')
-    folders,incomplete,tree_files = discover_trees()
+    st.caption('Trees are discovered recursively from Phylogeny on every refresh. Add a new gene_tree.treefile and its available companions; completed trees appear automatically. Partial runs remain visible with their missing companions listed. Source orthogroups are preserved exactly.')
+    folders,incomplete,trees=discover_trees()
     if incomplete:
-        st.warning(f'{len(incomplete)} tree runs have missing companion files.')
-        with st.expander('Incomplete phylogeny files'): st.dataframe(pd.DataFrame(incomplete),hide_index=True)
-    if not folders:
-        st.error('No complete phylogeny runs are available in this app environment.')
-        st.code(str(phylogeny_root(ROOT)),language=None)
-        st.write(f'Tree files found: {len(tree_files)}. The phylogeny directory must be deployed alongside app.py, including gene_tree.treefile, tips.tsv, trimmed.faa, gene_tree.iqtree, branch_evidence.tsv and run.json for each run.')
-        st.code('app.py\nPhylogeny/\n  family_phylogeny/family_…/tips.tsv\n  family_phylogeny/family_…/inference/gene_tree.treefile\n  adhesome_candidates_list/OG…/tips.tsv\n  adhesome_candidates_list/OG…/inference/gene_tree.treefile\n  fibronectin_like_candidate/OG…/tips.tsv\n  fibronectin_like_candidate/OG…/inference/gene_tree.treefile',language=None)
-        return
-    with st.expander('Phylogeny source location'):
-        st.code(str(phylogeny_root(ROOT)),language=None)
-        st.caption(f'{len(tree_files)} tree files found; {len(folders)} complete runs.')
-    collections = {p: tree_collection(p) for p in folders}
-    collection_options=['All trees']+sorted(set(collections.values()))
-    collection = st.selectbox('Phylogeny collection',collection_options,
-                            index=collection_options.index(FAMILY_COLLECTION) if FAMILY_COLLECTION in collection_options else 0,
-                            key='phylo_collection')
-    selected = [p for p in folders if collection == 'All trees' or collections[p] == collection]
-    classification=st.radio('Classification',['Supported','Provisional','All'],index=2,horizontal=True,key='phylo_classification')
-    metadata=tree_groups(selected,candidates,classification)
-    selected=[row['folder'] for row in metadata]
-    st.caption('Classification uses the audited family assignment, not the original screening status. A tree is included when it contains a matching candidate; all original tips and branches remain visible. A tree with mixed decisions can appear in both classifications.')
-    browse=st.radio('Browse trees by',['Protein family','Functional module','Orthogroup'],horizontal=True,key='phylo_browse')
-    field='families' if browse=='Protein family' else 'modules'
-    if browse!='Orthogroup':
-        categories=sorted({value for row in metadata for value in row[field]})
-        category=st.selectbox(browse,['All groups']+categories,key='phylo_group_'+field,format_func=lambda value:value.replace('_',' '))
-        if category!='All groups':
-            selected=[row['folder'] for row in metadata if category in row[field]]
-        st.caption('The family-level collection displays jointly inferred family trees. Other collections group existing orthogroup trees for browsing. Original topology, branch lengths and support values are preserved.')
-        if browse=='Protein family' and category!='All groups' and collection!=FAMILY_COLLECTION:
-            group_file=ROOT/'phylogeny_family_groups.tsv'
-            if group_file.exists():
-                requested=pd.read_csv(group_file,sep='\t')
-                expected=set(requested.loc[requested.family.eq(category),'orthogroup'])
-                available={og for row in metadata for og in row['source_orthogroups']}
-                missing=sorted(expected-available)
-                if missing: st.info('Tree unavailable in this collection: '+', '.join(missing))
-
-    info={row['folder']:row for row in metadata}
-    query = st.text_input('Find a family, orthogroup or protein', key='phylo_search')
-    lookup=identifier_annotations()
-    matched_ids=set(lookup.loc[lookup.apply(lambda col:col.astype(str).str.contains(query,case=False,regex=False)).any(axis=1),'sequence_id']) if query else set()
-    options=[]
-    for p in selected:
-        text=companion_path(p,'tips.tsv').read_text(encoding='utf-8')
-        if not query or query.lower() in p.name.lower() or query.lower() in ' '.join(info[p]['families']).lower() or query.lower() in text.lower() or any(canonical_sequence_id(line.split('\t')[0]) in matched_ids for line in text.splitlines()[1:]): options.append(p)
-
-    st.caption(f'{len(options)} of {len(folders)} trees · independent of the catalogue sidebar filters')
-    with st.expander('Trees in this group'):
-        inventory=pd.DataFrame([{'Family':' / '.join(info[p]['families']),'Functional module':' / '.join(info[p]['modules']),'Tree run':info[p]['orthogroup'],'Source orthogroups':', '.join(info[p]['source_orthogroups']),'Tree level':info[p]['tree_level'],'Collection':collections[p],'Classification':info[p]['classification']} for p in options])
-        st.dataframe(inventory,width='stretch',hide_index=True)
-
-    if not options:
-        st.info('No matching phylogenetic groups.'); return
-    grouped={}
-    for p in options:
-        grouped.setdefault((collections[p],atlas_group(info[p]['orthogroup'])),[]).append(p)
-    chosen=st.selectbox('Phylogenetic family / orthogroup',list(grouped),
-                        format_func=lambda value:(f"{' / '.join(info[grouped[value][0]]['families'])} · joint family tree" if value[0]==FAMILY_COLLECTION else f"{' / '.join(info[grouped[value][0]]['families'])} · {value[1]} · {value[0]}"),
-                        key='phylo_tree')
-    # Search selects the family group, not an incomplete subset of its runs.
-    members=[p for p in folders if collections[p]==chosen[0] and atlas_group(p.name.removesuffix('_fib'))==chosen[1]]
-    if len(members)>1:
-        st.subheader('Integrin α · combined family group')
-        tables=[]
-        for folder in members:
-            _,tips,_=read_group(folder)
-            tables.append(tips.assign(source_orthogroup=folder.name))
-        all_tips=pd.concat(tables,ignore_index=True)
-        candidate_tips=all_tips[all_tips.candidate.eq('1')]
-        a,b,c=st.columns(3)
-        a.metric('Source orthogroups',len(members))
-        b.metric('Distinct candidate proteins',candidate_tips.sequence_id.nunique())
-        c.metric('Distinct tree proteins',all_tips.sequence_id.nunique())
-        st.caption('The combined member list includes both orthogroups. Select either tree tab below; each retains its original branch lengths and support. Search and classification select the family group without removing its other source tree.')
-        tabs=st.tabs(['Combined members']+[p.name+' · tree' for p in members])
-        with tabs[0]:
-            st.markdown('**Schistosome candidates from both orthogroups**')
-            columns=['source_orthogroup','display_label','sequence_id','species','candidate']
-            st.dataframe(candidate_tips[columns],width='stretch',hide_index=True)
-            with st.expander('All reference and candidate proteins'):
-                st.dataframe(all_tips[columns],width='stretch',hide_index=True)
-            st.download_button('Download combined member list',all_tips.to_csv(index=False),'integrin_alpha_combined_members.csv','text/csv')
-        for tab,folder in zip(tabs[1:],members):
-            with tab: render_tree_run(folder,collections[folder])
-    else:
-        if chosen[0]==FAMILY_COLLECTION:
-            row=info[members[0]]
-            st.subheader(' / '.join(row['families'])+' · family-level phylogeny')
-            st.caption('Jointly inferred tree · Source orthogroups: '+', '.join(row['source_orthogroups']))
-        render_tree_run(members[0],collections[members[0]])
-
-
-def render_tree_run(folder,collection):
-    st.caption(f'Analysis collection: {collection} · Source folder: {folder.relative_to(ROOT).as_posix()}')
-    export_name=folder.relative_to(phylogeny_root(ROOT)).as_posix().replace('/','_')
-    try:
-        root,tips,branches = read_group(folder)
-        run = json.loads(companion_path(folder,'inference/run.json').read_text(encoding='utf-8'))
-    except (ValueError, OSError, IndexError) as exc:
-        st.error(f'Unable to read this phylogeny: {exc}'); return
-    a,b,c = st.columns(3)
-    a.metric('Tree tips',len(layout(root)[2])); b.metric('Candidate tips',tips.candidate.eq('1').sum()); c.metric('Species',tips.species.nunique())
-    supports = st.checkbox('Show branch support labels',value=True,key=export_name+'_supports')
-    cladogram = st.checkbox('Equal branch lengths (cladogram)',value=False,key=export_name+'_cladogram')
-    focus = st.text_input('Highlight a tip ID',key=export_name+'_focus')
-    fig,matched = tree_figure(root,tips,branches,supports,cladogram,focus)
-    report = companion_path(folder,'inference/gene_tree.iqtree').read_text(encoding='utf-8')
-    if 'SH-aLRT support (%) / ultrafast bootstrap support (%)' in report:
-        st.caption('Support labels: SH-aLRT (%) / ultrafast bootstrap (%), as documented in gene_tree.iqtree. Neither value is a probability of adhesome membership.')
-    else:
-        st.caption('Support labels are reproduced verbatim; consult the IQ-TREE report for their definition.')
-    plotly_chart(fig,width='stretch',config={'scrollZoom':True},filename=export_name+'_tree',key=export_name+'_plot')
-    if len(matched) != len(branches):
-        st.warning(f'{len(branches)-len(matched)} branch-evidence rows could not be joined to the displayed tree; see the original table below.')
-    st.download_button('Download interactive tree · HTML',fig.to_html(include_plotlyjs=True,
-                       config=selected_export_config(fig,filename=export_name+'_tree',config={'scrollZoom':True})),
-                       f'{export_name}_tree.html','text/html',key=export_name+'_html')
-    tabs = st.tabs(['Tip annotations','Branch evidence','Reproducibility'])
-    with tabs[0]:
-        st.dataframe(tips[['display_label','protein_annotation_id']+[c for c in tips if c not in ['display_label','protein_annotation_id']]],width='stretch',hide_index=True)
-        st.download_button('Download mapped tip annotations',tips.to_csv(index=False),export_name+'_mapped_tips.csv','text/csv',key=export_name+'_tips')
-    with tabs[1]:
-        display_branches=branches.copy()
-        labels=tips.set_index('sequence_id').display_label.to_dict()
-        display_branches.insert(0,'protein_tip_ids',display_branches.tip_ids.map(lambda value:', '.join(labels.get(key.strip(),key.strip()) for key in value.split(','))))
-        st.dataframe(display_branches,width='stretch',hide_index=True)
-    with tabs[2]:
-        st.caption('Original tree and tip IDs are preserved. Display labels use the representative protein ID; mapped tip annotations are downloadable separately.')
-        st.caption('The retained trimmed alignment supports rerunning tree inference. run.json preserves original commands and hashes, including references to removed intermediate files; it is not a promise that upstream alignment can be rerun from this reduced library.')
-        st.json(run,expanded=False)
-        with st.expander('IQ-TREE report'): st.text(report)
-        for relative in KEEP:
-            path=companion_path(folder,relative)
-            if path.is_file():
-                st.download_button(f'Download {path.name}',path.read_bytes(),path.name,key=f'{export_name}_{relative}')
-        st.download_button('Download tree and companions · ZIP',companion_bundle(folder,export_name),f'{export_name}_phylogeny.zip','application/zip')
+        with st.expander('Companion files awaiting addition'): st.dataframe(pd.DataFrame(incomplete),hide_index=True,width='stretch')
+    if not folders: st.info('No gene_tree.treefile is present yet. To be updated when additional phylogeny files are available.'); return
+    info=[]
+    for folder in folders:
+        og=folder.name
+        families=sorted(set(candidates.loc[candidates.orthogroup.eq(og),'family'])) if candidates is not None else []
+        info.append({'folder':folder,'orthogroup':og,'families':' | '.join(families)})
+    query=st.text_input('Find a tree, orthogroup or protein family')
+    filtered=[]
+    for record in info:
+        tips_path=companion_path(record['folder'],'tips.tsv')
+        text=record['orthogroup']+' '+record['families']
+        if tips_path.exists(): text+=' '+tips_path.read_text(encoding='utf-8')
+        if not query or query.casefold() in text.casefold(): filtered.append(record)
+    st.caption(f'{len(filtered)} of {len(info)} available trees')
+    if not filtered: st.info('No matching phylogenetic groups.');return
+    chosen=st.selectbox('Phylogenetic orthogroup',range(len(filtered)),format_func=lambda index:filtered[index]['orthogroup']+' · '+filtered[index]['families'])
+    folder=filtered[chosen]['folder']
+    try: root,tips,branches=read_group(folder)
+    except (OSError,ValueError,IndexError) as error: st.info('This tree is being prepared: '+str(error));return
+    if candidates is not None:
+        annotations=candidates.set_index('sequence_id').candidate_annotation.to_dict()
+        tips['candidate_annotation']=tips.sequence_id.map(annotations).fillna('')
+    for col,label,value in zip(st.columns(3),['Tree tips','Candidate tips','Species'],[len(tips),tips.candidate.eq('1').sum(),tips.species.nunique()]):col.metric(label,int(value))
+    supports=st.checkbox('Show branch support labels',value=True)
+    cladogram=st.checkbox('Equal branch lengths (cladogram)')
+    focus=st.text_input('Highlight a tip ID')
+    palette=['#08743f','#d08b00','#b91c1c','#1d4ed8','#7e22ce','#db2777','#0891b2','#4d7c0f','#a16207','#4338ca','#0f766e','#be123c','#64748b','#c2410c','#6d28d9','#0369a1','#65a30d','#9f1239','#475569','#9333ea','#713f12']
+    for i,sp in enumerate(sorted(tips.species.unique())):
+        COLORS[sp]=palette[i%len(palette)]
+        parts=sp.removeprefix('Bench_').split('_')
+        NAMES[sp]=SPECIES.get(sp,' '.join(parts[:2]) if sp.startswith('Bench_') else sp)
+    fig,matched=tree_figure(root,tips,branches,supports,cladogram,focus)
+    plotly_chart(fig,width='stretch')
+    st.caption('Species colors and candidate diamonds/stars follow tips.tsv. Branch evidence is matched by exact descendant tip sets. The unrooted-tree origin is a display convention. Support labels retain the source IQ-TREE values.')
+    st.dataframe(tips,width='stretch',hide_index=True)
+    st.dataframe(branches,width='stretch',hide_index=True)
+    st.download_button('Download available tree and reproducibility companions',companion_bundle(folder,folder.name),folder.name+'_phylogeny.zip','application/zip')
