@@ -18,12 +18,29 @@ from linked_explorer import linked_explorer_html
 from simulator import simulator_html,SIMULATOR_FILE
 from feedback import feedback_panel
 from branding import identity_banner,creator_credit
+from candidate_profiles import profile_payload,candidate_map_html,atlas_url
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…')
 def cached_data(signature):return load()
 cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(fingerprint())
 all_candidates=cohorts['Adhesome candidates']
+requested_protein=st.query_params.get('protein','')
+requested_view=st.query_params.get('view','')
+route=(requested_view,requested_protein)
+if st.session_state.get('atlas_route')!=route:
+    st.session_state['atlas_route']=route
+    if requested_view in {'Introduction','Protein dossier'}:
+        st.session_state['atlas_page']=requested_view
+    if requested_protein in set(all_candidates.sequence_id):
+        st.session_state['map_candidate']=requested_protein
+        st.session_state['dossier_protein']=requested_protein
+app_url=st.context.url or ''
+
+@st.cache_data(show_spinner='Connecting candidate evidence profiles…')
+def cached_profiles(signature,_candidates,_books,_motifs):
+    return profile_payload(_candidates,_books,_motifs)
+
 
 def table(frame):
     shown=frame.copy()
@@ -53,7 +70,7 @@ def motif_view(sites,key='motifs'):
 with st.sidebar:
     st.markdown('## 🧬 Schisto-Adhesome Atlas')
     st.caption('COMPARATIVE · INTEGRIN · ADHESOME')
-    page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'])
+    page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'],key='atlas_page')
     species=st.multiselect('Species',sorted(all_candidates.species.unique()),default=sorted(all_candidates.species.unique()))
     families=st.multiselect('Protein families',sorted(all_candidates.family.unique()))
     classification=st.selectbox('Classification',['All','Supported','Provisional'])
@@ -73,22 +90,30 @@ if page=='Introduction':
     st.write('The Schisto-Adhesome Atlas is an interactive platform for exploring adhesion-associated proteins across medically important Schistosoma species. It integrates protein annotations, orthology, phylogeny, conserved domains and motif exploration to reveal evolutionary relationships, parasite-specific features and potential functional interaction modules. By connecting comparative bioinformatics with experimental prioritization, the Atlas supports the discovery of candidate drug targets, vaccine antigens and biomarkers for schistosomiasis research.')
     for col,label,value in zip(st.columns(4),['Candidates','Species','Families','Orthogroups'],[len(all_candidates),all_candidates.species.nunique(),all_candidates.family.nunique(),all_candidates.loc[all_candidates.orthogroup.ne(''),'orthogroup'].nunique()]):col.metric(label,value)
     st.subheader('Explore the interactive adhesome hypothesis')
+    labels=all_candidates.set_index('sequence_id').candidate_annotation.to_dict()
+    choices=['']+sorted(all_candidates.sequence_id)
+    focus=st.selectbox('Locate a candidate on the map',choices,key='map_candidate',
+        format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
     network_dir=ROOT/'adhesome_network'
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
     if path:
         html=path.read_text(encoding='utf-8').replace('previously supplied model','adhesome model in the library')
+        profiles=cached_profiles(fingerprint(),all_candidates,books,motifs)
+        html=candidate_map_html(html,profiles,app_url=app_url,focus_candidate=focus)
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')
         sim=ROOT/SIMULATOR_FILE
         if sim.exists():html=linked_explorer_html(html,simulator_html(sim,all_candidates))
         st.iframe(html,height=1050)
         st.download_button('Download interactive map and linked simulator',html,'Schisto_Adhesome_interactive.html','text/html')
-        st.caption('Select a family on the map to inspect its evidence and open its linked downstream simulation. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
+        st.caption('Locate a protein or select a family on the map to explore candidate profiles, reference partners, the complete Protein dossier and linked downstream simulation. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
     else:st.info('No interactive map is present in the current network library.')
     st.subheader('Build an evidence-stratified schistosome adhesome hypothesis')
     st.write('Use Interactions to choose species, grades and families, construct the orthogroup consensus graph, and download membership, reference-edge evidence, centrality and provenance.')
 
 elif page=='Components':
-    view=st.radio('Component view',['Summary statistics','Summary graphs','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],horizontal=True)
+    st.header('Components')
+    st.caption('Choose a section below. Species, family and classification filters remain in the sidebar.')
+    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'])
     if view in ['Summary statistics','Summary graphs','Comparative lab']:
         counts=selected.groupby(['species','family']).sequence_id.nunique().reset_index(name='Proteins')
         if view=='Summary statistics':table(selected.groupby(['species','grade','assignment_confidence']).size().reset_index(name='Candidates'))
@@ -109,7 +134,9 @@ elif page=='Components':
     else:table(selected);download(selected,'candidate_catalogue.csv')
 
 elif page=='Interactions':
-    workspace=st.radio('Network workspace',['Curated orthogroup consensus','STRING query & import'],horizontal=True)
+    st.header('Interactions')
+    st.caption('Choose a network workspace, then select the visualization, centrality, clustering or evidence section. Each section uses the full page width.')
+    workspace=st.selectbox('Network workspace',['Curated orthogroup consensus','STRING query & import'])
     if workspace=='Curated orthogroup consensus':consensus_panel(all_candidates)
     else:string_panel(all_candidates)
 
@@ -122,10 +149,15 @@ elif page=='Phylogeny':
 elif page=='Motif explorer':motif_view(motifs[motifs.sequence_id.isin(selected.sequence_id)])
 elif page=='Protein dossier':
     st.header('Protein dossier')
-    if selected.empty:st.info('No proteins match the catalogue filters.')
+    if selected.empty and requested_protein not in set(all_candidates.sequence_id):st.info('No proteins match the catalogue filters.')
     else:
-        protein=st.selectbox('Protein',sorted(selected.sequence_id),format_func=lambda p:p+' · '+selected.set_index('sequence_id').loc[p,'candidate_annotation'])
-        records=selected[selected.sequence_id.eq(protein)];row=records.iloc[0]
+        dossier_pool=all_candidates if requested_protein in set(all_candidates.sequence_id) else selected
+        if st.session_state.get('dossier_protein') not in set(dossier_pool.sequence_id):
+            st.session_state['dossier_protein']=sorted(dossier_pool.sequence_id)[0]
+        annotations=dossier_pool.set_index('sequence_id').candidate_annotation.to_dict()
+        protein=st.selectbox('Protein',sorted(dossier_pool.sequence_id),key='dossier_protein',format_func=lambda p:p+' · '+annotations[p])
+        records=dossier_pool[dossier_pool.sequence_id.eq(protein)];row=records.iloc[0]
+        st.link_button('Locate this candidate on the interactive hypothesis ↗',atlas_url(app_url,'Introduction',protein))
         st.subheader(row.candidate_annotation);st.caption(protein+' · '+row.species+' · '+row.family+' · '+row.grade)
         tabs=st.tabs(['Overview','Domains','Motif','Topology','Orthology','Sequence & SMART'])
         with tabs[0]:table(records.T.reset_index().rename(columns={'index':'Field',records.index[0]:'Value'}))

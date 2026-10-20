@@ -43,12 +43,13 @@ def vector_network_html(nodes, edges, title, *, label_mode='hidden'):
 button,select{padding:7px 10px;border:1px solid #a9c1ae;border-radius:7px;background:#fff;color:#000000;font-weight:650;cursor:pointer}
 .hint{padding:7px 13px;font-size:14px;color:#000000;background:#e7f1e8}
 .stage{overflow:auto;background:#fff;border-bottom:1px solid #d4e1d6}
-svg{display:block;width:100%;height:690px;min-width:700px;touch-action:none}
+svg{display:block;width:100%;height:clamp(360px,62vh,600px);min-width:0;touch-action:none}
 .node{cursor:grab}.node:active{cursor:grabbing}.node text{pointer-events:none}
 .node:hover circle{stroke:#b91c1c;stroke-width:3}.edge{pointer-events:none}
 .detail{min-height:62px;padding:10px 14px;background:#fff;line-height:1.45}
 .detail strong{color:#000000}.detail span{display:inline-block;margin-right:16px}
 .legend{padding:8px 14px;background:#fff;font-size:14px;color:#000000}.legend span{display:inline-flex;gap:5px;align-items:center;margin:4px 12px 4px 0}.legend i{width:11px;height:11px;border:1px solid #777;border-radius:50%;display:inline-block}
+:fullscreen{background:white;overflow:auto}:fullscreen svg{height:calc(100vh - 250px)}@media(max-width:680px){.bar{gap:7px}.bar strong{width:100%}.bar button,.bar select{font-size:13px}}
 </style></head><body>
 <div class="bar"><strong id="heading"></strong><label for="names">Node names</label>
 <select id="names"><option value="hidden">Hidden</option><option value="outside">Outside nodes</option><option value="center">Centered in nodes</option></select>
@@ -57,7 +58,7 @@ svg{display:block;width:100%;height:690px;min-width:700px;touch-action:none}
 <label><input id="autoFit" type="checkbox" checked/> Auto-fit circles</label>
 <label><input id="hideUnconnected" type="checkbox"/> Hide unconnected nodes</label>
 <button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="fit">Fit view</button>
-<button id="reset">Reset positions</button><button id="export">Download vector SVG</button></div>
+<button id="fullscreen">Full screen</button><button id="reset">Reset positions</button><button id="export">Download vector SVG</button></div>
 <div class="hint">Drag nodes to rearrange them; pan the background and scroll to zoom. Font size adjusts node names; auto-fit expands circles around centered, wrapped labels. Circle metrics remain in node details. Fit view includes expanded circles. SVG downloads preserve label sizes and the current layout.</div>
 <div class="stage"><svg id="network" viewBox="0 0 1200 720" role="img" aria-label="Editable vector network"><rect id="background" x="0" y="0" width="1200" height="720" fill="#ffffff"/><g id="edgeLayer"></g><g id="nodeLayer"></g></svg></div>
 <div class="detail" id="detail" aria-live="polite">Select a node to inspect its annotation.</div>
@@ -70,6 +71,8 @@ const original=new Map(data.nodes.map(n=>[n.id,{x:n.x,y:n.y}]));
 const incident=new Map(data.nodes.map(n=>[n.id,[]]));
 const nodeGroups=new Map();
 document.getElementById('heading').textContent=data.title;
+document.getElementById('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(error){document.getElementById('detail').textContent='Use the Fit view and zoom controls to explore the graph; full screen is unavailable in this embedded browser.'}};
+document.addEventListener('fullscreenchange',()=>document.getElementById('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen');
 const names=document.getElementById('names');names.value=data.labelMode;
 const labelSize=document.getElementById('labelSize'),autoFit=document.getElementById('autoFit'),labelContent=document.getElementById('labelContent');
 const hideUnconnected=document.getElementById('hideUnconnected');

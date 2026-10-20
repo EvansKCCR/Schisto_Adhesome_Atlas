@@ -37,5 +37,7 @@ def apply_style():
     [data-testid="stMarkdownContainer"] a{color:#075d32;text-decoration:underline;text-underline-offset:3px;font-weight:600}
     [data-testid="stMarkdownContainer"] a:hover{color:#b91c1c}
     @media(max-width:640px){.hero{padding:26px 22px}.eyebrow{letter-spacing:1px}.block-container{padding-top:1.2rem}[data-testid="stMetric"]{padding:14px}}
+    [data-testid="stMainBlockContainer"]{min-width:0} [data-testid="stVerticalBlock"]{min-width:0} iframe{max-width:100%}
+    [data-testid="stHeading"]{scroll-margin-top:80px}
     </style>""", unsafe_allow_html=True)
     

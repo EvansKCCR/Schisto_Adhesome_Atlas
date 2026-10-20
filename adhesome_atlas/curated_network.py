@@ -64,8 +64,8 @@ def consensus_panel(candidates):
     def measured(nodes,edges): return topology(nodes,edges)
     metrics,graph=measured(nodes,edges)
     for col,label,value in zip(st.columns(4),['Orthogroups','Candidate proteins','Projected pairs','Communities'],[len(nodes),members[members.orthogroup.isin(nodes.identifier)].sequence_id.nunique(),graph.number_of_edges(),metrics.community.nunique()]): col.metric(label,value)
-    tabs=st.tabs(['Interactive network','Centrality & matrices','Topological clustering','Evidence & downloads'])
-    with tabs[0]:
+    section=st.selectbox('Network analysis section',['Interactive network','Centrality & matrices','Topological clustering','Evidence & downloads'])
+    if section=='Interactive network':
         color=st.selectbox('Consensus node colors',['Family','layer','community'])
         categories=sorted(metrics[color].astype(str).unique());palette=px.colors.qualitative.Dark24
         colors={v:palette[i%len(palette)] for i,v in enumerate(categories)}
@@ -75,9 +75,9 @@ def consensus_panel(candidates):
         positions=nx.spring_layout(sub,seed=20) if len(sub)<=300 else nx.circular_layout(sub)
         vnodes=[dict(id=r.identifier,label=r.identifier,annotation=r.Family,x=float(positions[r.identifier][0]),y=float(positions[r.identifier][1]),radius=12+min(15,r.degree),color=colors[str(getattr(r,color))],category=str(getattr(r,color)),detail={'Families':r.Family,'Candidate count':r.member_count,'Species':r.species,'Grades':r.grades}) for r in visible.itertuples()]
         vedges=[dict(source=a,target=b,detail={'Evidence':'Metazoan reference projection'}) for a,b in sub.edges()]
-        st.iframe(vector_network_html(vnodes,vedges,'Orthogroup consensus adhesome',label_mode='centered'),height=810)
+        st.iframe(vector_network_html(vnodes,vedges,'Orthogroup consensus adhesome',label_mode='centered'),height=950)
         st.caption(f'Drawing {len(visible)} of {len(metrics)} filtered orthogroups, ordered by degree. Centrality, clustering and downloads use the full filtered graph. Drag nodes, adjust label size, center names and export SVG in the viewer.')
-    with tabs[1]:
+    if section=='Centrality & matrices':
         st.caption('Unweighted undirected topology of the filtered projected graph. Reference evidence row counts are not binding affinities. Closeness uses the disconnected-graph correction; betweenness measures shortest-path brokerage. Centrality supports prioritization and does not establish essentiality.')
         st.dataframe(metrics.sort_values('betweenness',ascending=False),hide_index=True,width='stretch')
         metric=st.selectbox('Rank orthogroups by',['betweenness','closeness','degree','clustering_coefficient','k_core'])
@@ -88,8 +88,8 @@ def consensus_panel(candidates):
             plotly_chart(px.imshow(adjacency,aspect='auto',title='Adjacency matrix'),width='stretch')
             st.dataframe(distance,width='stretch');st.caption('Shortest-path distances use the full filtered graph; unreachable pairs are blank.')
             st.download_button('Download distances CSV',distance.to_csv(),'orthogroup_distances.csv')
-    with tabs[2]: clustering_panel(graph,metrics,'curated_clusters','Orthogroup consensus')
-    with tabs[3]:
+    if section=='Topological clustering': clustering_panel(graph,metrics,'curated_clusters','Orthogroup consensus')
+    if section=='Evidence & downloads':
         st.dataframe(edges,width='stretch',hide_index=True)
         for label,frame,name in [('Orthogroup centrality',metrics,'orthogroup_centrality.csv'),('Projected reference evidence',edges,'orthogroup_reference_edges.csv'),('Candidate membership',members[members.orthogroup.isin(nodes.identifier)],'orthogroup_members.csv')]:st.download_button('Download '+label,frame.to_csv(index=False),name)
         files=[NET/'Schistosome_human_reference_family_edges.csv',NET/'Schistosome_human_gene_family_crosswalk.csv',NET/'interactions.csv',ROOT/'files/adhesome_candidates_list.xlsx']

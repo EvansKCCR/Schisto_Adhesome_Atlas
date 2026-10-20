@@ -47,7 +47,7 @@ nodeDetails=function(id){atlasNodeDetails(id);
  const panel=document.getElementById('sidebar');if(!panel)return;
  const button=document.createElement('button');button.textContent='Explore downstream simulation →';
  button.style.cssText='padding:10px;background:#ffe34d;color:#000;border:2px solid #064c2c;border-radius:8px;font-weight:bold';
- button.onclick=()=>{const selected=DATA.families.find(f=>f.id===id);window.parent.postMessage({type:'schisto-adhesome-node',node:id,title:id,candidate:'',candidate_annotation:'',species:({'Schistosoma haematobium':'S. haematobium','Schistosoma japonicum':'S. japonicum','Schistosoma mansoni':'S. mansoni'}[document.getElementById('species')?.value]||document.getElementById('species')?.value||''),module:'all'},'*')};panel.prepend(button);
+ button.onclick=()=>{const selected=window.atlasSelectedCandidate?.();window.parent.postMessage({type:'schisto-adhesome-node',node:id,title:id,candidate:selected?.sequence_id||'',candidate_annotation:selected?.candidate_annotation||'',orthogroup:selected?.orthogroup||'',species:selected?.species||({'Schistosoma haematobium':'S. haematobium','Schistosoma japonicum':'S. japonicum','Schistosoma mansoni':'S. mansoni'}[document.getElementById('species')?.value]||document.getElementById('species')?.value||''),module:'all'},'*')};panel.prepend(button);
 };
 </script>
 '''

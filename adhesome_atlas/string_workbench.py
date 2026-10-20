@@ -131,6 +131,7 @@ def analysis_panel(state, candidates, key='string_import_'):
     metrics, graph = topology(nodes, edges)
     for column, label, value in zip(st.columns(4), ['Proteins', 'Unique pairs', 'Components', 'Communities'], [len(metrics), graph.number_of_edges(), nx.number_connected_components(graph), metrics.community.nunique()]):
         column.metric(label, value)
+    display=st.selectbox('Imported network section',['Interactive network','Centrality & clusters','Interactions & mapping','Matrices','Query provenance'],key=key+'section')
     positions = nx.spring_layout(graph, seed=23, weight=None)
     colors = {category: px.colors.qualitative.Alphabet[i % 26] for i, category in enumerate(sorted(metrics[color_by].astype(str).unique()))}
     vector_nodes = [{'id': row.identifier, 'label': row.node, 'annotation': row.candidate_annotation,
@@ -140,9 +141,10 @@ def analysis_panel(state, candidates, key='string_import_'):
                    'Mapping': row.mapping_status, 'Degree': int(row.degree), 'Betweenness': row.betweenness,
                    'Closeness': row.closeness, 'Clustering coefficient': row.clustering_coefficient, 'Community': int(row.community)}} for row in metrics.itertuples()]
     vector_edges = [{'source': row.node1_string_id, 'target': row.node2_string_id, 'width': 1 + 2 * row.combined_score} for row in edges.itertuples()]
-    st.iframe(vector_network_html(vector_nodes, vector_edges, SPECIES[code] + ' · queried / imported STRING', label_mode='centered'), height=810)
-    tabs = st.tabs(['Centrality & clusters', 'Interactions & mapping', 'Matrices', 'Query provenance'])
-    with tabs[0]:
+    if display=='Interactive network':
+        st.iframe(vector_network_html(vector_nodes, vector_edges, SPECIES[code] + ' · queried / imported STRING', label_mode='centered'), height=950)
+
+    if display=='Centrality & clusters':
         st.caption('Unweighted undirected topology is recalculated after filtering. Betweenness is normalized; closeness uses the disconnected-graph correction. Communities use greedy modularity; local clustering and k-core describe neighborhood structure. STRING confidence filters edges and is not a path length.')
         st.dataframe(metrics, width='stretch', hide_index=True)
         st.download_button('Download imported centrality and clusters', metrics.to_csv(index=False), 'string_imported_topology.csv', key=key+'metrics')
@@ -150,12 +152,12 @@ def analysis_panel(state, candidates, key='string_import_'):
         summary = metrics.groupby('community').agg(proteins=('identifier', 'size'), mean_clustering=('clustering_coefficient', 'mean'), mean_degree=('degree', 'mean')).reset_index()
         st.dataframe(summary, width='stretch', hide_index=True)
         clustering_panel(graph, metrics, key + 'clustering', SPECIES[code] + ' · imported STRING')
-    with tabs[1]:
+    if display=='Interactions & mapping':
         st.dataframe(edges, width='stretch', hide_index=True)
         st.download_button('Download filtered STRING interactions · TSV', edges.to_csv(sep='\t', index=False), 'string_imported_filtered.tsv', 'text/tab-separated-values', key=key+'edges')
         st.caption('Shared STRING representatives retain all mapped candidate IDs; no paralogue is chosen automatically. Additional neighbors remain visible with their mapping status.')
         st.dataframe(metrics[['identifier', 'node', 'sequence_id', 'Family', 'orthogroup', 'mapping_status']], width='stretch', hide_index=True)
-    with tabs[2]:
+    if display=='Matrices':
         ordered = metrics.sort_values(['degree', 'identifier'], ascending=[False, True]).identifier.tolist()
         chosen = st.multiselect('Matrix proteins (maximum 60)', ordered, default=ordered[:min(20,len(ordered))], max_selections=60, key=key+'matrix')
         chosen = [identifier for identifier in chosen if identifier in graph]
@@ -165,7 +167,7 @@ def analysis_panel(state, candidates, key='string_import_'):
             plotly_chart(px.imshow(distances, aspect='auto', color_continuous_scale='YlGn', title='Shortest-path distance matrix'), width='stretch', key=key+'distance_plot')
             st.download_button('Download shortest-path matrix', distances.to_csv(), 'string_distance_matrix.csv', key=key+'distances')
             st.download_button('Download adjacency matrix', adjacency.to_csv(), 'string_adjacency_matrix.csv', key=key+'adjacency')
-    with tabs[3]:
+    if display=='Query provenance':
         st.json(state.get('provenance', {}))
         st.download_button('Download STRING query provenance', json.dumps(state.get('provenance', {}), indent=2), 'string_query_run.json', 'application/json', key=key+'provenance')
         st.download_button('Download original STRING response · TSV', state['raw'], 'string_network_original.tsv', 'text/tab-separated-values', key=key+'raw')
