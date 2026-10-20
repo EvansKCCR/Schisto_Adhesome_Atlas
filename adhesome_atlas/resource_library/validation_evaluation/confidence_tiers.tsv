@@ -1,0 +1,9 @@
+control_class	tier	count
+background_negative	not_recruited	229
+hard_negative	negative_excluded	78
+hard_negative	not_recruited	41
+positive	ambiguous_family	1
+positive	not_recruited	1
+positive	provisional_only	12
+positive	recruited_unresolved	50
+positive	specific_supported	171

@@ -1,0 +1,118 @@
+{
+  "pipeline_version": "1.0",
+  "status": "complete",
+  "validation_target": "validation",
+  "input_sequences": 595,
+  "labelled_input_controls": 583,
+  "scored_controls": 583,
+  "unique_scored_sequences": 583,
+  "sequence_verified_controls": 581,
+  "accession_label_only_controls": 2,
+  "unscored_reasons": {
+    "unlabelled_control": 12
+  },
+  "scored_control_classes": {
+    "positive": 235,
+    "hard_negative": 119,
+    "background_negative": 229
+  },
+  "labels_absent_from_validation_input": [],
+  "exact_forward_reference_overlap": 225,
+  "identity_calibration_training_overlap": 130,
+  "family_label_coverage": [
+    {
+      "family_rule_coverage": "configured",
+      "positive_controls": 209
+    },
+    {
+      "family_rule_coverage": "needs_mapping_review",
+      "positive_controls": 5
+    },
+    {
+      "family_rule_coverage": "outside_configured_family_gates",
+      "positive_controls": 21
+    }
+  ],
+  "family_label_coverage_summary": {
+    "positive_controls": 235,
+    "mapped_expected_family_controls": 230,
+    "unmapped_expected_family_controls": 5,
+    "mapped_fraction": 0.9787234042553191,
+    "mapped_specific_family_controls": 230,
+    "broad_ancestor_rollup_controls": 6,
+    "source_scope": "trusted labels/name ontology; broad ancestors are declared ontology roll-ups, not independent gold or sequence-linked holdouts"
+  },
+  "gate_trace_coverage": {
+    "available": 314,
+    "unavailable": 281
+  },
+  "exact_exclusion_ablation_unavailable_controls": 0,
+  "robustness_scope": "Saved-output exclusion ablation, exact-sequence deduplication and reference/calibration overlap strata. No model retraining, reference removal or independent holdout inference performed.",
+  "calibration_training_overlap_is_acceptance_gate": false,
+  "identity_calibration_overlap_basis": "Exact sequences in the saved training model, including historical overlap if its numerical estimates are stale/disabled; not a classification gate",
+  "negative_control_exclusions": 78,
+  "primary_policy": "dual_gate_supported",
+  "primary_metrics": {
+    "policy": "dual_gate_supported",
+    "population": "all_controls",
+    "unevaluable_policy_controls": 0,
+    "TP": 171,
+    "FP": 0,
+    "TN": 348,
+    "FN": 64,
+    "n": 583,
+    "PPV": 1.0,
+    "recall": 0.7276595744680852,
+    "F1": 0.8423645320197044,
+    "specificity": 1.0,
+    "NPV": 0.8446601941747572,
+    "accuracy": 0.8902229845626072,
+    "balanced_accuracy": 0.8638297872340426
+  },
+  "policies": {
+    "stage1_recruitment": "Exported stage 1 hypothesis, including provisional follow-up",
+    "stage2_candidate_retention": "Stage 1 candidate present in the final audit after exclusions, including unresolved candidates; membership retention only, not family correctness",
+    "audit_before_negative_exclusion": "Stage 1 plus unambiguous A/B call passing the complete family gate, before negative exclusions",
+    "audit_without_exact_negative_exclusion": "Complete unambiguous A/B family gate with diagnostic negative exclusions retained and exact-sequence exclusions removed; counterfactual audit only",
+    "dual_gate_supported": "Stage 1 plus unambiguous final A/B call passing the complete family gate, after negative exclusions",
+    "dual_gate_strong": "Stage 1 plus a final strong grade A call passing the complete family gate, after negative exclusions",
+    "broad_family_supported": "Stage 1 plus a supported broad or distinct named family at the declared resolution; no provisional or ambiguous promotion",
+    "specific_family_supported": "Stage 1 plus a supported distinct named family at the declared resolution; does not establish an exact gene or paralogue; legacy unresolved resolution is unevaluable",
+    "provisional_annotation": "Stage 1 plus a named provisional annotation, reported separately from supported calls",
+    "ambiguous_annotation": "Stage 1 with competing family annotations, reported separately from supported and provisional calls",
+    "audit_including_provisional": "Stage 1 plus any final A/B/C named family; exploratory coverage, not a passed full family gate"
+  },
+  "undefined_metric_policy": "null in JSON, blank in TSV, n.a. in HTML; never fabricated zero",
+  "interpretation": "Reference-panel control self-test with exact reference overlap, calibrated controls and configured negative exclusions. This is not independent held-out or novel-lineage performance. Membership and family correctness are reported separately; evaluation never changes calls or weights.",
+  "input_sha256": {
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/inputs/targets/validation.faa": "dcf43d01763e4ec9a09b7b2333cb475b405d58cc4f841bb08781fe2b2bdd8af7",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/detection/validation/prepared/validation.faa": "2d2c381ece3080f396434a2e0b3075f87290bc5b08a3ead9d42998335a84acee",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/detection/validation/prepared/validation.id_map.csv": "9a6a64ecd80d61460c139236b39498af58f9cfd2c28b5e61bfb567da00084def",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/detection/validation/prepared/preparation.json": "8836a8f0fc248168e29e15247a0596b7cc839baab438018edd5adecd92bb4313",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/detection/validation/proteome.json": "03b9af5a780a91078122b3a748917bf128eaa211f56a0c5e2a92d846d86d7cfe",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/02_calibration_set/calibration_set.xlsx": "60b0717fadfc099b87ebbd848ff2db978b2d5047d33ae60af336d3fe559e5570",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/02_calibration_set/calibration.faa": "12ca98e1027983765f628ca4bc309dc266f197ba819f826e5bd8340ed5cc14c8",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/workflow_manifest.json": "c10c96c4570cc60dad1135edbb90e5639efd6d051981daaca3fa7a60cf4f8e05",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/hypotheses.tsv": "2174239be33c17f40caecebdf80e568b7e4ff8e996c8a26ef503a769709e7a41",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/handoff/detection/validation/candidates/candidates.csv": "796a75bfe1fb84e318c550257e757de9e0384ac7537773599529c6c0bbb64a6d",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/final_expanded/Stage_2_output.xlsx": "84c02e94181ad07f11f8173b2816d6963ef2d8a1e9d37e83fe93333082c4df16",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/final_expanded/audited_family_assignments.tsv": "ce798bdd8bd2a6c29d0cd1dd24b8bab5886c583ce527e355f8469b650d5bb8e0",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/final_expanded/negative_control_exclusions.tsv": "386dffc9a14572a43308cbd8c5a2a96b701cb49a1889725e53df9127fd304815",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/final_expanded/configuration/family_rules.json": "5583b06397cf6c03cbf5212b1343dc23e9af3dc7c6c7098dc0a8f00134ceb08c",
+    "/mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/final_expanded/configuration/family_identity_rules.json": "7026f17e214e5ddf271ce4c437a5e2ca56d4692799d734c15986ec2280bef747"
+  },
+  "evaluation_resources": {
+    "evaluate_validation.py": "600c685bee88ffc1f2e56bb4bfbd56a77f675e0bf5e65229dfc086c0121fd355",
+    "02_calibration_set/calibration_set.xlsx": "60b0717fadfc099b87ebbd848ff2db978b2d5047d33ae60af336d3fe559e5570",
+    "02_calibration_set/calibration.faa": "12ca98e1027983765f628ca4bc309dc266f197ba819f826e5bd8340ed5cc14c8",
+    "calibrate_identity.py": "a3a49b23de245fa0104cc9b8eb66b5b21e981cfb30e469cce20ca5a1629859e5",
+    "label_ontology.py": "16fc138c290bcc36f7e1468f0a0b6b5b057922196cbdce6f546111ab463bce6d",
+    "validation_reporting.py": "d0027a3023d4d94b38a907612d44bb63bd47d6507e0e09ff8fef85e32c714742",
+    "classification_contract.py": "9c49c5bc5c3045a213bfe2b3326c86074eee2f69c2045d0cdf48c6343c7b92ba",
+    "05_conservative_adhesome_family_assignment_audit/family_identity_rules.json": "7026f17e214e5ddf271ce4c437a5e2ca56d4692799d734c15986ec2280bef747",
+    "02_calibration_set/identity_probability_model.json": "601f004c3b8cce384ee7d8e3d2d7a1b5472b84b0344815df4468b3fc75e4bf63",
+    "01_detection/config/family_rules.json": "5583b06397cf6c03cbf5212b1343dc23e9af3dc7c6c7098dc0a8f00134ceb08c",
+    "01_detection/references/adhesome_v1.0/search_catalogue.csv": "81fadbee137b23e4a6dd3ade763e6e6a263d3da857fc47eacd0a5114e1b3bbf9",
+    "01_detection/references/adhesome_v1.0/metazoan_catalogue.csv": "e7c4f004e9548a012e4626e9942c5a9afc55bf16c154c30a7d3137077f3d945d"
+  }
+}

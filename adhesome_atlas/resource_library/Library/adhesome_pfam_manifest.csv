@@ -1,0 +1,177 @@
+Pfam accession,Domain or family,Adhesome role
+PF01839,FG-GAP repeat,Integrin alpha extracellular head
+PF00092,von Willebrand factor type A domain,Integrin ligand recognition
+PF00362,Integrin beta chain VWA domain,Integrin beta receptor architecture
+PF08725,Integrin beta cytoplasmic domain,Adaptor docking at beta tail
+PF00373,FERM central domain,Integrin-tail and membrane-proximal scaffolding
+PF00640,Phosphotyrosine interaction domain (PTB/PID),NPxY motif recognition
+PF08726,Ca2+ insensitive EF hand,Cytoskeletal calcium-insensitive EF-hand module
+PF01608,I/LWEQ domain,Actin linkage
+PF00018,SH3 domain,Proline-rich motif recognition
+PF00017,SH2 domain,Phosphotyrosine recognition
+PF07714,Protein tyrosine and serine/threonine kinase,Adhesion kinase signalling
+PF00069,Protein kinase domain,Kinase signalling
+PF02259,FAT domain,"PIKK FAT domain; generic signalling/competitor context, not FAK focal adhesion targeting"
+PF00412,LIM domain,Adhesion scaffolding and targeting
+PF00307,Calponin homology (CH) domain,Actin binding and cytoskeletal linkage
+PF00435,Spectrin repeat,Cytoskeletal scaffolding
+PF00630,Filamin/ABP280 repeat,Actin-linked mechanosensitive scaffold
+PF01044,Vinculin family,Adhesion reinforcement
+PF02218,Repeat in HS1/Cortactin,Arp2/3-associated actin regulation
+PF00241,Cofilin/tropomyosin-type actin-binding protein,Actin filament turnover
+PF00022,Actin,Cytoskeletal filament
+PF04062,ARP2/3 complex ARPC3 (21 kDa) subunit,Actin nucleation complex
+PF00235,Profilin,Actin monomer regulation
+PF00400,"WD domain, G-beta repeat",Multivalent scaffolding
+PF01344,Kelch motif,Actin-associated scaffolding
+PF00651,BTB/POZ domain,Adaptor assembly
+PF07707,BTB And C-terminal Kelch,Kelch-protein architecture
+PF00568,WH1 domain,Proline-rich ligand recognition
+PF02208,Sorbin homologous domain,Adhesion adaptor targeting
+PF12026,Crk-Associated Substrate C-terminal domain,Mechanosensitive phosphotyrosine scaffold
+PF01146,Caveolin,Caveolar membrane scaffold
+PF00769,Ezrin/radixin/moesin family C terminal,Actin linkage
+PF00169,PH domain,Membrane phosphoinositide binding
+PF00788,Ras association (RalGDS/AF-6) domain,Small-GTPase interaction
+PF08947,BPS (Between PH and SH2),Adaptor signalling
+PF00595,PDZ domain,Scaffold assembly
+PF00536,SAM domain (Sterile alpha motif),Protein interaction
+PF00168,C2 domain,Membrane interaction
+PF00102,Protein-tyrosine phosphatase,Adhesion signal dephosphorylation
+PF01412,Putative GTPase activating protein for Arf,Arf-family GTPase regulation
+PF00620,RhoGAP domain,Rho-family GTPase regulation
+PF00621,RhoGEF domain,Rho-family nucleotide exchange
+PF00616,GTPase-activator protein for Ras-like GTPase,Ras-family GTPase regulation
+PF00617,RasGEF domain,Ras-family nucleotide exchange
+PF00618,RasGEF N-terminal motif,RasGEF regulation
+PF06920,"DHR-2, Lobe A",Rac-family nucleotide exchange
+PF04727,ELMO/CED-12 family,DOCK-ELMO Rac activation
+PF00786,P21-Rho-binding domain,Rho-GTPase effector binding
+PF00071,Ras family,Actin-signalling switch
+PF00025,ADP-ribosylation factor family,Membrane trafficking switch
+PF01477,PLAT/LH2 domain,Lipid-surface and extracellular interaction
+PF00151,Lipase,Extracellular lipid hydrolysis
+PF00130,Phorbol esters/diacylglycerol binding domain (C1 domain),Diacylglycerol or protein interaction
+PF01369,Sec7 domain,Arf-family nucleotide exchange
+PF03114,BAR domain,Membrane curvature and scaffolding
+PF00614,Phospholipase D,Phospholipid signalling
+PF00388,"Phosphatidylinositol-specific phospholipase C, X domain",Phosphoinositide hydrolysis
+PF00387,"Phosphatidylinositol-specific phospholipase C, Y domain",Phosphoinositide hydrolysis
+PF03372,Endonuclease/Exonuclease/phosphatase family,Phosphoinositide turnover
+PF01504,Phosphatidylinositol-4-phosphate 5-Kinase,Phosphoinositide synthesis
+PF00454,Phosphatidylinositol 3- and 4-kinase,Phosphoinositide signalling
+PF00613,"Phosphoinositide 3-kinase family, accessory domain (PIK domain)",PI3K architecture
+PF00792,Phosphoinositide 3-kinase C2,Membrane association
+PF02192,"PI3-kinase family, p85-binding domain",PI3K regulation
+PF10409,C2 domain of PTEN tumour-suppressor protein,Membrane targeting
+PF00023,Ankyrin repeat,Protein interaction scaffold
+PF00036,EF hand domain,Calcium-dependent regulation
+PF00481,Protein phosphatase 2C,Serine/threonine dephosphorylation
+PF00149,Calcineurin-like phosphoesterase,Serine/threonine dephosphorylation
+PF00782,"Dual specificity phosphatase, catalytic domain",Phosphatase signalling
+PF00648,Calpain family cysteine protease,Adhesion protein proteolysis
+PF01067,"Calpain large subunit, domain III",Calpain architecture
+PF00656,Caspase domain,Proteolytic signalling
+PF00413,Matrixin,ECM proteolysis
+PF00045,Hemopexin,Metalloprotease substrate interaction
+PF00097,"Zinc finger, C3HC4 type (RING finger)",E3 ubiquitin ligase activity
+PF00627,UBA/TS-N domain,Ubiquitin recognition
+PF00041,Fibronectin type III domain,Extracellular recognition; generic domain requiring family evidence
+PF01391,Collagen triple helix repeat (20 copies),Collagen-like extracellular matrix
+PF00054,Laminin G domain,Extracellular ligand recognition
+PF02210,Laminin G domain,Extracellular ligand recognition
+PF00052,Laminin B (Domain IV),Extracellular matrix architecture
+PF00053,Laminin EGF domain,Extracellular matrix architecture
+PF00055,Laminin N-terminal (Domain VI),Extracellular matrix architecture
+PF00357,Integrin alpha cytoplasmic region,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF08441,Integrin alpha Ig-like domain 1,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF20805,Integrin alpha Ig-like domain 2,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF20806,Integrin alpha Ig-like domain 3,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF03623,Focal adhesion targeting region,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF18124,Kindlin-2 N-terminal domain,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF18038,FERM N-terminal domain,v3 alpha-integrin / FAK / kindlin architecture calibration
+PF21477,"FAK1/PYK2, FERM domain C-lobe",v3 alpha-integrin / FAK / kindlin architecture calibration
+PF00039,Fibronectin type I domain,ECM architecture context; not diagnostic alone
+PF00040,Fibronectin type II domain,ECM architecture context; not diagnostic alone
+PF01033,Somatomedin B domain,ECM architecture context; not diagnostic alone
+PF12796,Ankyrin repeats (3 copies),Alternative ILK ankyrin model
+PF00011,HSP20,Reference signatures for HSPB1
+PF00012,HSP70,Reference signatures for HSPA2
+PF00021,UPAR_LY6,Reference signatures for PLAUR
+PF00027,cNMP_binding,Reference signatures for KCNH2
+PF00038,Filament,"Reference signatures for SYNM, VIM"
+PF00047,ig,"Reference signatures for CEACAM1, THY1"
+PF00057,Ldl_recept_a,Reference signatures for LRP1
+PF00058,Ldl_recept_b,Reference signatures for LRP1
+PF00059,Lectin_C,"Reference signatures for LAYN, PKD1"
+PF00061,Lipocalin,Reference signatures for FABP3
+PF00063,Myosin_head,Reference signatures for MYH9
+PF00076,RRM_1,"Reference signatures for PABPC1, RAVER1"
+PF00091,Tubulin,Reference signatures for TUBA1B
+PF00128,Alpha-amylase,Reference signatures for SLC3A2
+PF00155,Aminotran_1_2,Reference signatures for SPTLC1
+PF00200,Disintegrin,Reference signatures for ADAM12
+PF00233,PDEase_I,Reference signatures for PDE4D
+PF00262,Calreticulin,Reference signatures for CALR
+PF00335,Tetraspanin,"Reference signatures for CD151, TSPAN1"
+PF00377,Prion,Reference signatures for PRNP
+PF00431,CUB,"Reference signatures for NRP1, NRP2"
+PF00520,Ion_trans,Reference signatures for KCNH2
+PF00629,MAM,"Reference signatures for NRP1, NRP2"
+PF00658,MLLE,Reference signatures for PABPC1
+PF00754,F5_F8_type_C,"Reference signatures for NRP1, NRP2"
+PF00801,PKD,Reference signatures for PKD1
+PF00999,Na_H_Exchanger,Reference signatures for SLC9A1
+PF01034,Syndecan,Reference signatures for SDC4
+PF01363,FYVE,Reference signatures for ZFYVE21
+PF01421,Reprolysin,Reference signatures for ADAM12
+PF01562,Pep_M12B_propep,Reference signatures for ADAM12
+PF01576,Myosin_tail_1,Reference signatures for MYH9
+PF02063,MARCKS,Reference signatures for MARCKS
+PF02736,Myosin_N,Reference signatures for MYH9
+PF02816,Alpha_kinase,Reference signatures for TRPM7
+PF03953,Tubulin_C,Reference signatures for TUBA1B
+PF03991,Prion_octapep,Reference signatures for PRNP
+PF04045,P34-Arc,Reference signatures for ARPC2
+PF04549,CD47,Reference signatures for CD47
+PF04732,Filament_head,Reference signatures for VIM
+PF04880,NUDE_C,Reference signatures for NDEL1
+PF05104,Rib_recp_KP_reg,Reference signatures for KTN1
+PF06729,CENP-R,Reference signatures for ITGB3BP
+PF07645,EGF_CA,Reference signatures for LRP1
+PF07654,C1-set,Reference signatures for SIRPA
+PF07679,I-set,"Reference signatures for MYOM1, NEXN, PALLD"
+PF07686,V-set,"Reference signatures for CEACAM1, PVR, SIRPA"
+PF07690,MFS_1,Reference signatures for SLC16A3
+PF08016,PKD_channel,Reference signatures for PKD1
+PF08204,V-set_CD47,Reference signatures for CD47
+PF08205,C2-set_2,Reference signatures for PVR
+PF08516,ADAM_CR,Reference signatures for ADAM12
+PF09744,RH1,Reference signatures for MAPK8IP3
+PF11587,Prion_bPrPp,Reference signatures for PRNP
+PF11980,DUF3481,"Reference signatures for NRP1, NRP2"
+PF12662,cEGF,Reference signatures for LRP1
+PF13426,PAS_9,Reference signatures for KCNH2
+PF13855,LRR_8,Reference signatures for PKD1
+PF13895,Ig_2,Reference signatures for CEACAM1
+PF13927,Ig_3,Reference signatures for CEACAM1
+PF14670,FXa_inhibition,Reference signatures for LRP1
+PF15355,Chisel,Reference signatures for SMPX
+PF16028,SLC3A2_N,Reference signatures for SLC3A2
+PF16471,JIP_LZII,Reference signatures for MAPK8IP3
+PF16519,TRPM_tetra,Reference signatures for TRPM7
+PF16644,NEXCaM_BD,Reference signatures for SLC9A1
+PF16696,ZFYVE21_C,Reference signatures for ZFYVE21
+PF16764,Sharpin_PH,Reference signatures for SHARPIN
+PF18100,PDE4_UCR,Reference signatures for PDE4D
+PF18139,LSDAT_euk,Reference signatures for TRPM7
+PF19056,WD40_2,Reference signatures for MAPK8IP3
+PF22327,Nudt16-like,Reference signatures for NUDT16L1
+PF23317,YVC1_C,Reference signatures for TRPM7
+PF25393,LTM,Reference signatures for SHARPIN
+PF25508,TRPM2,Reference signatures for TRPM7
+PF25530,EF-hand_SWAP70_N,Reference signatures for DEF6
+PF26060,TGFBR3_N,Reference signatures for ENG
+PF28321,Ig_MYOM1,Reference signatures for MYOM1
+PF00046,Homeobox,Negative-class architecture in current family rules
+PF03535,Paxillin,Current paxillin-family architecture gate

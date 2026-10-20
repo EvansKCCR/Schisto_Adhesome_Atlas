@@ -1,0 +1,1231 @@
+policy	expected_admissible_families	group_kind	positive_controls	TP	FP	FN	precision	recall	F1
+audit_before_negative_exclusion	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+audit_before_negative_exclusion	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_before_negative_exclusion	CSRP_like	mapped_gold	1	1	2	0	0.3333333333333333	1.0	0.5
+audit_before_negative_exclusion	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Csk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	FHL_like	mapped_gold	1	1	2	0	0.3333333333333333	1.0	0.5
+audit_before_negative_exclusion	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_before_negative_exclusion	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Grb2	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	ILK	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	PDLIM_family	mapped_gold	1	1	6	0	0.14285714285714285	1.0	0.25
+audit_before_negative_exclusion	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_before_negative_exclusion	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Src	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	alpha_actinin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	filamin	mapped_gold	1	1	2	0	0.3333333333333333	1.0	0.5
+audit_before_negative_exclusion	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	kindlin	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_before_negative_exclusion	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_before_negative_exclusion	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	vinculin	mapped_gold	1	1	3	0	0.25	1.0	0.4
+audit_before_negative_exclusion	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	2	0	0.3333333333333333	1.0	0.5
+audit_before_negative_exclusion	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_before_negative_exclusion	HIP1_HIP1R_like	predicted_only	0	0	2	0	0.0		0.0
+audit_before_negative_exclusion	spectrin_like	predicted_only	0	0	4	0	0.0		0.0
+audit_including_provisional	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+audit_including_provisional	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_including_provisional	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_including_provisional	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_including_provisional	CSRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	Csk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_including_provisional	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	FHL_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_including_provisional	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	Grb2	mapped_gold	1	1	1	0	0.5	1.0	0.6666666666666666
+audit_including_provisional	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	ILK	mapped_gold	1	1	1	0	0.5	1.0	0.6666666666666666
+audit_including_provisional	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	PDLIM_family	mapped_gold	1	1	1	0	0.5	1.0	0.6666666666666666
+audit_including_provisional	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_including_provisional	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_including_provisional	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+audit_including_provisional	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+audit_including_provisional	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_including_provisional	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	Src	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_including_provisional	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	alpha_actinin	mapped_gold	1	1	1	0	0.5	1.0	0.6666666666666666
+audit_including_provisional	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	filamin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+audit_including_provisional	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+audit_including_provisional	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	kindlin	mapped_gold	3	3	5	0	0.375	1.0	0.5454545454545454
+audit_including_provisional	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_including_provisional	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_including_provisional	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_including_provisional	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_including_provisional	vinculin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_including_provisional	fibronectin_like	predicted_only	0	0	2	0	0.0		0.0
+audit_including_provisional	vitronectin_like	predicted_only	0	0	1	0	0.0		0.0
+audit_without_exact_negative_exclusion	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+audit_without_exact_negative_exclusion	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_without_exact_negative_exclusion	CSRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Csk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	FHL_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_without_exact_negative_exclusion	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Grb2	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	ILK	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	PDLIM_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_without_exact_negative_exclusion	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Src	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	alpha_actinin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	filamin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	kindlin	mapped_gold	3	3	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+audit_without_exact_negative_exclusion	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+audit_without_exact_negative_exclusion	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+audit_without_exact_negative_exclusion	vinculin	mapped_gold	1	1	3	0	0.25	1.0	0.4
+audit_without_exact_negative_exclusion	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	2	0	0.3333333333333333	1.0	0.5
+audit_without_exact_negative_exclusion	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+broad_family_supported	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+broad_family_supported	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+broad_family_supported	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+broad_family_supported	CSRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	Csk;Src_Csk_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+broad_family_supported	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	FHL_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+broad_family_supported	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	Grb2	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	ILK	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	PDLIM_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	PET_LIM_like;Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+broad_family_supported	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+broad_family_supported	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+broad_family_supported	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+broad_family_supported	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+broad_family_supported	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	Src;Src_Csk_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+broad_family_supported	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	actin;actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	alpha_actinin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	filamin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+broad_family_supported	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+broad_family_supported	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	kindlin	mapped_gold	3	3	0	0	1.0	1.0	1.0
+broad_family_supported	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+broad_family_supported	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+broad_family_supported	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+broad_family_supported	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+broad_family_supported	vinculin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+broad_family_supported	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+dual_gate_strong	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+dual_gate_strong	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_strong	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_strong	CSRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	Csk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_strong	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	FHL_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_strong	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	Grb2	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	ILK	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	PDLIM_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+dual_gate_strong	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_strong	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+dual_gate_strong	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+dual_gate_strong	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_strong	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	Src	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_strong	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	alpha_actinin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	filamin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+dual_gate_strong	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+dual_gate_strong	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	kindlin	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_strong	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_strong	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_strong	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_strong	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+dual_gate_strong	vinculin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_strong	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+dual_gate_supported	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+dual_gate_supported	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_supported	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_supported	CSRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	Csk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_supported	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	FHL_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_supported	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	Grb2	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	ILK	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	PDLIM_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+dual_gate_supported	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_supported	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+dual_gate_supported	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+dual_gate_supported	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_supported	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	Src	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_supported	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	alpha_actinin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	filamin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+dual_gate_supported	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+dual_gate_supported	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	kindlin	mapped_gold	3	3	0	0	1.0	1.0	1.0
+dual_gate_supported	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+dual_gate_supported	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+dual_gate_supported	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+dual_gate_supported	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+dual_gate_supported	vinculin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+dual_gate_supported	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+provisional_annotation	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+provisional_annotation	ADAM_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	AKT_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ARF_GTPase_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ASAP_AGAP_like	mapped_gold	4	0	0	4		0.0	0.0
+provisional_annotation	Abl_family	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	BCAR3_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	BCAR_CAS_like	mapped_gold	3	0	0	3		0.0	0.0
+provisional_annotation	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	CD47_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	CEACAM_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	CSRP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Crk	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	Csk	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ENA_VASP_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	ERM_like	mapped_gold	3	0	0	3		0.0	0.0
+provisional_annotation	FABP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	FAK	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	FHL_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	GAB_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	GRB7_family	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Grb2	mapped_gold	1	0	1	1	0.0	0.0	0.0
+provisional_annotation	HSP70_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ILK	mapped_gold	1	0	1	1	0.0	0.0	0.0
+provisional_annotation	INPP5_SHIP_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	KCNH_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	LAR_RPTP	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	LASP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	LDLR_related_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	MACF1_spectraplakin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	MAPK_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	NF2_merlin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Nck	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	OSTF1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PABP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PAK_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PDLIM_family	mapped_gold	1	0	1	1	0.0	0.0	0.0
+provisional_annotation	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PINCH_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	PIP5K_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PKA_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PKC_like	mapped_gold	4	0	0	4		0.0	0.0
+provisional_annotation	PLAUR_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PLCG_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	PPP2_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PRKD_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PTEN_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PTPN1_PTP1B_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PTPN2_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PTPRH_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PTPRO_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	PTP_PEST	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RNF5_185_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RPTP_alpha_epsilon	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RasGAP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Ras_GTPase_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	RhoGAP_like	mapped_gold	7	0	0	7		0.0	0.0
+provisional_annotation	RhoGEF_like	mapped_gold	8	0	0	8		0.0	0.0
+provisional_annotation	Rho_GTPase_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SHARPIN_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SHP_PTPN6_11_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	SIRP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SLC16_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SLC3_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SORBS_like	mapped_gold	3	0	0	3		0.0	0.0
+provisional_annotation	SOS_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Shc	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Src	mapped_gold	3	0	0	3		0.0	0.0
+provisional_annotation	Syk	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	TRPM_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	Testin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	ZFYVE21_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	actin_conventional	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	alpha_actinin	mapped_gold	1	0	1	1	0.0	0.0	0.0
+provisional_annotation	calpain_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	cofilin	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	coronin_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	cortactin_HS1_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	cytohesin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	filamin	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	integrin_alpha	mapped_gold	17	0	0	17		0.0	0.0
+provisional_annotation	integrin_beta	mapped_gold	8	0	0	8		0.0	0.0
+provisional_annotation	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	kindlin	mapped_gold	3	0	5	3	0.0	0.0	0.0
+provisional_annotation	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	liprin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	migfilin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	nectin_PVR_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	neuropilin_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	palladin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	parvin_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	paxillin_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	profilin	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	small_HSP_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	syntenin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	talin	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	tensin_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	tetraspanin_like	mapped_gold	2	0	0	2		0.0	0.0
+provisional_annotation	tubulin_like	mapped_gold	4	0	0	4		0.0	0.0
+provisional_annotation	vinculin	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	zyxin_ajuba_like;zyxin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	zyxin_like	mapped_gold	1	0	0	1		0.0	0.0
+provisional_annotation	fibronectin_like	predicted_only	0	0	2	0	0.0		0.0
+provisional_annotation	vitronectin_like	predicted_only	0	0	1	0	0.0		0.0
+specific_family_supported	ABI_like	mapped_gold	3	0	0	3		0.0	0.0
+specific_family_supported	ADAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	AKT_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	ARF_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	ARPC2_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	ASAP_AGAP_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+specific_family_supported	Abl_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	BCAR3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	BCAR_CAS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+specific_family_supported	CBL_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	CD47_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	CEACAM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	CIB_like	mapped_gold	2	0	0	2		0.0	0.0
+specific_family_supported	CSRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	Crk	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	Csk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	DOCK_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	ELMO_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	ENA_VASP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	ERM_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+specific_family_supported	FABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	FAK	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	FHL_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	GAB_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	GIT_like	mapped_gold	2	0	0	2		0.0	0.0
+specific_family_supported	GRB7_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	Grb2	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	HSP70_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	ICAP1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	ILK	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	INPP5_SHIP_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	INSR_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	IRS_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	ITGB3BP_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	KCNH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	LAR_RPTP	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	LASP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	LDLR_related_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	LIMK_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	MACF1_spectraplakin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	MAPK8IP_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	MAPK_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	MARCKS_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	MMP_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	NDEL1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	NF2_merlin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	Nck	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	OSTF1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PABP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PAK_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PDE4_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	PDLIM_family	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PDPK1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	PEAK_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	PI3K_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	PINCH_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	PIP5K_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PKA_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PKC_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+specific_family_supported	PLAUR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PLCG_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PLD_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	PPM_like	mapped_gold	2	0	0	2		0.0	0.0
+specific_family_supported	PPP2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PPP6_regulatory_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	PRKD_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PTEN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PTPN1_PTP1B_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PTPN2_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PTPRH_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PTPRO_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	PTP_PEST	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	RACK1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	RAPGEF_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	RAVER_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	RNF5_185_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	ROCK_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	RPTP_alpha_epsilon	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	RasGAP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	Ras_GTPase_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	RhoGAP_like	mapped_gold	7	7	0	0	1.0	1.0	1.0
+specific_family_supported	RhoGEF_like	mapped_gold	8	8	0	0	1.0	1.0	1.0
+specific_family_supported	Rho_GTPase_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	SH2B_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	SH3KBP1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	SHARPIN_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	SHP_PTPN6_11_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	SIRP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	SLC16_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	SLC3_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	SLC9_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	SMPX_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	SORBS_like	mapped_gold	3	3	0	0	1.0	1.0	1.0
+specific_family_supported	SOS_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	SPTLC_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	SRCIN1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	STAT_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	Shc	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	Src	mapped_gold	3	3	0	0	1.0	1.0	1.0
+specific_family_supported	Syk	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	TESK_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	THY1_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	TIAM_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	TRPM_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	Testin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	ZFYVE21_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	actin_conventional	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	alpha_actinin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	calpain_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	calreticulin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	caspase_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	caveolin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	cofilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	coronin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	cortactin_HS1_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	cytohesin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	defensin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	dynamin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	filamin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	integrin_alpha	mapped_gold	17	17	0	0	1.0	1.0	1.0
+specific_family_supported	integrin_beta	mapped_gold	8	8	0	0	1.0	1.0	1.0
+specific_family_supported	intermediate_filament_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	kindlin	mapped_gold	3	3	0	0	1.0	1.0	1.0
+specific_family_supported	kinectin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	layilin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	liprin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	migfilin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	myomesin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	myosin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	nectin_PVR_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	neuropilin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	nexilin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	nischarin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	palladin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	parvin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	paxillin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	plakin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	polycystin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	prion_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	profilin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	slingshot_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	small_HSP_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	supervillin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	syndecan_like	mapped_gold	2	0	0	2		0.0	0.0
+specific_family_supported	synemin_like	mapped_gold	1	0	0	1		0.0	0.0
+specific_family_supported	syntenin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	talin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	tensin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	tetraspanin_like	mapped_gold	2	2	0	0	1.0	1.0	1.0
+specific_family_supported	tubulin_like	mapped_gold	4	4	0	0	1.0	1.0	1.0
+specific_family_supported	vinculin	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	zyxin_ajuba_like;zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0
+specific_family_supported	zyxin_like	mapped_gold	1	1	0	0	1.0	1.0	1.0

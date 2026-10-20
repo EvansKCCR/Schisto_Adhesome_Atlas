@@ -1,0 +1,236 @@
+accession	protein_id	trusted_protein_name	trusted_genes	expected_families	expected_broad_families	expected_specific_families	family_label_source	family_rule_coverage	family_label_review_required	family_label_review_reason	legacy_catalogue_families_ignored
+P12814	validation__P12814	Alpha-actinin-1	ACTN1	alpha_actinin		alpha_actinin	trusted_name_ontology	configured	False		alpha_actinin
+P23528	validation__P23528	Cofilin-1	CFL;CFL1	cofilin		cofilin	trusted_name_or_direct_gene_ontology	configured	False		cofilin
+Q9BR76	validation__Q9BR76	Coronin-1B	CORO1B	coronin_like		coronin_like	trusted_name_ontology	configured	False		
+Q14247	validation__Q14247	Src substrate cortactin	CTTN;EMS1	cortactin_HS1_like		cortactin_HS1_like	trusted_name_ontology	configured	False		
+P21333	validation__P21333	Filamin-A	FLN;FLN1;FLNA	filamin		filamin	trusted_gene_identity_ontology	configured	False		filamin
+Q14145	validation__Q14145	Kelch-like ECH-associated protein 1	INRF2;KEAP1;KIAA0132;KLHL19				requires_trusted_family_review	needs_mapping_review	True	No curated own-identity family mapping; recruitment family and predicted annotation are not gold labels.	
+Q14847	validation__Q14847	LIM and SH3 domain protein 1	LASP1;MLN50	LASP_like		LASP_like	trusted_name_ontology	configured	False		
+Q8N8S7	validation__Q8N8S7	Protein enabled homolog	ENAH;MENA	ENA_VASP_like		ENA_VASP_like	trusted_name_ontology	configured	False		
+Q0ZGT2	validation__Q0ZGT2	Nexilin	NEXN	nexilin_like		nexilin_like	trusted_name_ontology	outside_configured_family_gates	False		
+O95425	validation__O95425	Supervillin	SVIL	supervillin_like		supervillin_like	trusted_name_ontology	outside_configured_family_gates	False		
+P50552	validation__P50552	Vasodilator-stimulated phosphoprotein	VASP	ENA_VASP_like		ENA_VASP_like	trusted_name_ontology	configured	False		
+Q92828	validation__Q92828	Coronin-2A	CORO2A;IR10;WDR2	coronin_like		coronin_like	trusted_name_ontology	configured	False		
+P60709	validation__P60709	Actin, cytoplasmic 1	ACTB	actin_conventional	actin	actin_conventional	trusted_gene_identity_ontology	configured	False		actin
+Q96IF1	validation__Q96IF1	LIM domain-containing protein ajuba	AJUBA;JUB	zyxin_ajuba_like;zyxin_like		zyxin_ajuba_like;zyxin_like	trusted_name_or_direct_gene_ontology	configured	False		zyxin_like
+O94875	validation__O94875	Sorbin and SH3 domain-containing protein 2	ARGBP2;KIAA0777;SORBS2	SORBS_like		SORBS_like	trusted_name_ontology	configured	False		
+P56945	validation__P56945	Breast cancer anti-estrogen resistance protein 1	BCAR1;CAS;CASS1;CRKAS	BCAR_CAS_like		BCAR_CAS_like	trusted_name_ontology	configured	False		
+Q03135	validation__Q03135	Caveolin-1	CAV;CAV1	caveolin_like		caveolin_like	trusted_name_ontology	configured	False		
+Q9UHP9	validation__Q9UHP9	Small muscular protein	SMPX;SRMX	SMPX_like		SMPX_like	trusted_name_ontology	configured	False		
+Q96B97	validation__Q96B97	SH3 domain-containing kinase-binding protein 1	CIN85;SH3KBP1	SH3KBP1_like		SH3KBP1_like	trusted_name_ontology	configured	False		
+P46108	validation__P46108	Adapter molecule crk	CRK	Crk		Crk	trusted_name_or_direct_gene_ontology	configured	False		Crk
+P46109	validation__P46109	Crk-like protein	CRKL	Crk		Crk	trusted_name_or_direct_gene_ontology	configured	False		Crk
+P15311	validation__P15311	Ezrin	EZR;VIL2	ERM_like		ERM_like	trusted_name_ontology	configured	False		
+Q14192	validation__Q14192	Four and a half LIM domains protein 2	DRAL;FHL2;SLIM3	FHL_like		FHL_like	trusted_name_ontology	configured	False		
+Q13480	validation__Q13480	GRB2-associated-binding protein 1	GAB1	GAB_like		GAB_like	trusted_name_ontology	configured	False		
+P62993	validation__P62993	Growth factor receptor-bound protein 2	ASH;GRB2	Grb2		Grb2	trusted_gene_identity_ontology	configured	False		Grb2
+Q14451	validation__Q14451	Growth factor receptor-bound protein 7	GRB7	GRB7_family		GRB7_family	trusted_name_ontology	configured	False		
+Q14511	validation__Q14511	Enhancer of filamentation 1	CASL;NEDD9	BCAR_CAS_like		BCAR_CAS_like	trusted_name_ontology	configured	False		
+Q9NQ75	validation__Q9NQ75	Cas scaffolding protein family member 4	C20orf32;CASS4;HEFL	BCAR_CAS_like		BCAR_CAS_like	trusted_name_ontology	configured	False		
+O43294	validation__O43294	Transforming growth factor beta-1-induced transcript 1 protein	ARA55;TGFB1I1				requires_trusted_family_review	needs_mapping_review	True	No curated own-identity family mapping; recruitment family and predicted annotation are not gold labels.	paxillin_like
+O14713	validation__O14713	Integrin beta-1-binding protein 1	ICAP1;ITGB1BP1	ICAP1_like		ICAP1_like	trusted_name_ontology	configured	False		
+Q9BQL6	validation__Q9BQL6	Fermitin family homolog 1	C20orf42;FERMT1;KIND1;URP1	kindlin		kindlin	trusted_gene_identity_ontology	configured	False		kindlin
+Q96AC1	validation__Q96AC1	Fermitin family homolog 2	FERMT2;KIND2;MIG2;PLEKHC1	kindlin		kindlin	trusted_gene_identity_ontology	configured	False		kindlin
+Q86UX7	validation__Q86UX7	Fermitin family homolog 3	FERMT3;KIND3;MIG2B;URP2	kindlin		kindlin	trusted_gene_identity_ontology	configured	False		kindlin
+O60711	validation__O60711	Leupaxin	LDLP;LPXN	paxillin_like		paxillin_like	trusted_gene_identity_ontology	configured	False		paxillin_like
+Q13136	validation__Q13136	Liprin-alpha-1	LIP1;PPFIA1	liprin_like		liprin_like	trusted_name_ontology	configured	False		
+Q93052	validation__Q93052	Lipoma-preferred partner	LPP				requires_trusted_family_review	needs_mapping_review	True	No curated own-identity family mapping; recruitment family and predicted annotation are not gold labels.	zyxin_like
+P35240	validation__P35240	Merlin	NF2;SCH	NF2_merlin_like		NF2_merlin_like	trusted_name_ontology	configured	False		
+Q8WUP2	validation__Q8WUP2	Filamin-binding LIM protein 1	FBLIM1;FBLP1	migfilin_like		migfilin_like	trusted_name_ontology	configured	False		zyxin_like
+P26038	validation__P26038	Moesin	MSN	ERM_like		ERM_like	trusted_name_ontology	configured	False		
+O43639	validation__O43639	Cytoplasmic protein NCK2	GRB4;NCK2	Nck		Nck	trusted_name_or_direct_gene_ontology	configured	False		Nck
+Q8WX93	validation__Q8WX93	Palladin	CGI-151;KIAA0992;PALLD	palladin_like		palladin_like	trusted_name_ontology	configured	False		
+Q9NVD7	validation__Q9NVD7	Alpha-parvin	MXRA2;PARVA	parvin_like		parvin_like	trusted_name_or_direct_gene_ontology	configured	False		
+Q9HBI1	validation__Q9HBI1	Beta-parvin	CGI-56;PARVB	parvin_like		parvin_like	trusted_name_or_direct_gene_ontology	configured	False		
+P49023	validation__P49023	Paxillin	PXN	paxillin_like		paxillin_like	trusted_gene_identity_ontology	configured	False		paxillin_like
+P48059	validation__P48059	LIM and senescent cell antigen-like-containing domain protein 1	LIMS1;PINCH;PINCH1	PINCH_like		PINCH_like	trusted_name_or_direct_gene_ontology	configured	False		PINCH_like
+Q7Z4I7	validation__Q7Z4I7	LIM and senescent cell antigen-like-containing domain protein 2	LIMS2;PINCH2	PINCH_like		PINCH_like	trusted_name_or_direct_gene_ontology	configured	False		PINCH_like
+P63244	validation__P63244	Small ribosomal subunit protein RACK1	GNB2L1;HLC7;PIG21;RACK1	RACK1_like		RACK1_like	trusted_name_ontology	outside_configured_family_gates	False		
+P35241	validation__P35241	Radixin	RDX	ERM_like		ERM_like	trusted_name_ontology	configured	False		
+Q92882	validation__Q92882	Osteoclast-stimulating factor 1	OSTF1	OSTF1_like		OSTF1_like	trusted_name_ontology	configured	False		
+O15061	validation__O15061	Synemin	DMN;KIAA0353;SYN;SYNM	synemin_like		synemin_like	trusted_name_ontology	outside_configured_family_gates	False		
+O00560	validation__O00560	Syntenin-1	MDA9;SDCBP;SYCL	syntenin_like		syntenin_like	trusted_name_ontology	configured	False		
+Q9Y490	validation__Q9Y490	Talin-1	KIAA1027;TLN;TLN1	talin		talin	trusted_gene_identity_ontology	configured	False		talin
+Q9HBL0	validation__Q9HBL0	Tensin-1	TNS;TNS1	tensin_like		tensin_like	trusted_name_ontology	configured	False		
+Q9UGI8	validation__Q9UGI8	Testin	TES	Testin_like	PET_LIM_like	Testin_like	trusted_name_ontology	configured	False		
+Q15654	validation__Q15654	Thyroid receptor-interacting protein 6	OIP1;TRIP6				requires_trusted_family_review	needs_mapping_review	True	No curated own-identity family mapping; recruitment family and predicted annotation are not gold labels.	zyxin_like
+P18206	validation__P18206	Vinculin	VCL	vinculin		vinculin	trusted_gene_identity_ontology	configured	False		vinculin
+O60504	validation__O60504	Vinexin	SCAM1;SORBS3	SORBS_like		SORBS_like	trusted_name_ontology	configured	False		
+O75112	validation__O75112	LIM domain-binding protein 3	KIAA0613;LDB3;ZASP	PDLIM_family		PDLIM_family	trusted_name_or_direct_gene_ontology	configured	False		
+Q15942	validation__Q15942	Zyxin	ZYX	zyxin_like		zyxin_like	trusted_name_or_direct_gene_ontology	configured	False		zyxin_like
+Q9GZM8	validation__Q9GZM8	Nuclear distribution protein nudE-like 1	EOPA;MITAP1;NDEL1;NUDEL	NDEL1_like		NDEL1_like	trusted_name_ontology	configured	False		
+Q9NRF2	validation__Q9NRF2	SH2B adapter protein 1	KIAA1299;SH2B;SH2B1	SH2B_like		SH2B_like	trusted_name_ontology	configured	False		
+Q63HR2	validation__Q63HR2	Tensin-2	KIAA1075;TENC1;TNS2	tensin_like		tensin_like	trusted_name_ontology	configured	False		
+Q9BQ24	validation__Q9BQ24	Zinc finger FYVE domain-containing protein 21	ZFYVE21	ZFYVE21_like		ZFYVE21_like	trusted_name_ontology	configured	False		
+P08195	validation__P08195	Amino acid transporter heavy chain SLC3A2	MDU1;SLC3A2	SLC3_like		SLC3_like	trusted_name_ontology	configured	False		
+Q86UP2	validation__Q86UP2	Kinectin	CG1;KIAA0004;KTN1	kinectin_like		kinectin_like	trusted_name_ontology	configured	False		
+Q07954	validation__Q07954	Prolow-density lipoprotein receptor-related protein 1	A2MR;APR;LRP1	LDLR_related_like		LDLR_related_like	trusted_name_ontology	configured	False		
+P15151	validation__P15151	Poliovirus receptor	PVR;PVS	nectin_PVR_like		nectin_PVR_like	trusted_name_ontology	configured	False		
+P31431	validation__P31431	Syndecan-4	SDC4	syndecan_like		syndecan_like	trusted_name_ontology	configured	False		
+P34741	validation__P34741	Syndecan-2	HSPG1;SDC2	syndecan_like		syndecan_like	trusted_name_ontology	configured	False		
+P56199	validation__P56199	Integrin alpha-1	ITGA1	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+P17301	validation__P17301	Integrin alpha-2	CD49B;ITGA2	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+P26006	validation__P26006	Integrin alpha-3	ITGA3;MSK18	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+P13612	validation__P13612	Integrin alpha-4	CD49D;ITGA4	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+P08648	validation__P08648	Integrin alpha-5	FNRA;ITGA5	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+P23229	validation__P23229	Integrin alpha-6	ITGA6	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+Q4LE35	validation__Q4LE35	Integrin alpha-7	ITGA7 variant protein	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+P53708	validation__P53708	Integrin alpha-8	ITGA8	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+Q13797	validation__Q13797	Integrin alpha-9	ITGA9	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+O75578	validation__O75578	Integrin alpha-10	ITGA10;UNQ468/PRO827	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+Q9UKX5	validation__Q9UKX5	Integrin alpha-11	ITGA11;MSTP018	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+Q13349	validation__Q13349	Integrin alpha-D	ITGAD	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+P38570	validation__P38570	Integrin alpha-E	ITGAE	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+P20701	validation__P20701	Integrin alpha-L	CD11A;ITGAL	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+P11215	validation__P11215	Integrin alpha-M	CD11B;CR3A;ITGAM	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+P06756	validation__P06756	Integrin alpha-V	ITGAV;MSK8;VNRA;VTNR	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		integrin_alpha
+P20702	validation__P20702	Integrin alpha-X	CD11C;ITGAX	integrin_alpha		integrin_alpha	trusted_name_or_direct_gene_ontology	configured	False		
+P05556	validation__P05556	Integrin beta-1	FNRB;ITGB1;MDF2;MSK12	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		integrin_beta
+P05107	validation__P05107	Integrin beta-2	CD18;ITGB2;MFI7	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		integrin_beta
+P05106	validation__P05106	Integrin beta-3	GP3A;ITGB3	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		integrin_beta
+P16144	validation__P16144	Integrin beta-4	ITGB4	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		integrin_beta
+P18084	validation__P18084	Integrin beta-5	ITGB5	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		integrin_beta
+P18564	validation__P18564	Integrin beta-6	ITGB6	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		
+P26010	validation__P26010	Integrin beta-7	ITGB7	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		
+P26012	validation__P26012	Integrin beta-8	ITGB8	integrin_beta		integrin_beta	trusted_name_or_direct_gene_ontology	configured	False		
+O14786	validation__O14786	Neuropilin-1	NRP;NRP1;VEGF165R	neuropilin_like		neuropilin_like	trusted_name_ontology	configured	False		
+O60462	validation__O60462	Neuropilin-2	NRP2;VEGF165R2	neuropilin_like		neuropilin_like	trusted_name_ontology	configured	False		
+P48509	validation__P48509	CD151 antigen	CD151;TSPAN24	tetraspanin_like		tetraspanin_like	trusted_name_ontology	configured	False		
+Q08499	validation__Q08499	3',5'-cyclic-AMP phosphodiesterase 4D	DPDE3;PDE4D	PDE4_like		PDE4_like	trusted_name_ontology	configured	False		
+P98161	validation__P98161	Polycystin-1	PKD1	polycystin_like		polycystin_like	trusted_name_ontology	outside_configured_family_gates	False		
+Q96QT4	validation__Q96QT4	Transient receptor potential cation channel subfamily M member 7	CHAK1;LTRPC7;TRPM7	TRPM_like		TRPM_like	trusted_name_ontology	configured	False		
+P27797	validation__P27797	Calreticulin	CALR;CRTC	calreticulin_like		calreticulin_like	trusted_name_ontology	outside_configured_family_gates	False		
+Q9ULH1	validation__Q9ULH1	Arf-GAP with SH3 domain, ANK repeat and PH domain-containing protein 1	ASAP1;DDEF1;KIAA1249;PAG2	ASAP_AGAP_like		ASAP_AGAP_like	trusted_name_ontology	configured	False		
+Q8TDY4	validation__Q8TDY4	Arf-GAP with SH3 domain, ANK repeat and PH domain-containing protein 3	ASAP3;DDEFL1;UPLC1	ASAP_AGAP_like		ASAP_AGAP_like	trusted_name_ontology	configured	False		
+Q9Y2X7	validation__Q9Y2X7	ARF GTPase-activating protein GIT1	GIT1	GIT_like		GIT_like	trusted_name_ontology	configured	False		
+Q14161	validation__Q14161	ARF GTPase-activating protein GIT2	GIT2;KIAA0148	GIT_like		GIT_like	trusted_name_ontology	configured	False		
+Q9UNA1	validation__Q9UNA1	Rho GTPase-activating protein 26	ARHGAP26;GRAF;KIAA0621;OPHN1L	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+Q9NRY4	validation__Q9NRY4	Rho GTPase-activating protein 35	ARHGAP35;GRF1;GRLF1;KIAA1722;P190A;p190ARHOGAP	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+O43150	validation__O43150	Arf-GAP with SH3 domain, ANK repeat and PH domain-containing protein 2	ASAP2;DDEF2;KIAA0400	ASAP_AGAP_like		ASAP_AGAP_like	trusted_name_ontology	configured	False		
+Q8N264	validation__Q8N264	Rho GTPase-activating protein 24	ARHGAP24;FILGAP	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+Q96QB1	validation__Q96QB1	Rho GTPase-activating protein 7	ARHGAP7;DLC1;KIAA1723;STARD12	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+Q99490	validation__Q99490	Arf-GAP with GTPase, ANK repeat and PH domain-containing protein 2	AGAP2;CENTG1;KIAA0167	ASAP_AGAP_like		ASAP_AGAP_like	trusted_name_ontology	configured	False		
+Q9Y3M8	validation__Q9Y3M8	StAR-related lipid transfer protein 13	DLC2;GT650;STARD13	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+P20936	validation__P20936	Ras GTPase-activating protein 1	GAP;RASA;RASA1	RasGAP_like		RasGAP_like	trusted_name_ontology	configured	False		
+Q01524	validation__Q01524	Defensin-6	DEF6;DEFA6	defensin_like		defensin_like	trusted_name_ontology	configured	False		
+Q14185	validation__Q14185	Dedicator of cytokinesis protein 1	DOCK1	DOCK_like		DOCK_like	trusted_name_ontology	configured	False		
+Q92556	validation__Q92556	Engulfment and cell motility protein 1	ELMO1;KIAA0281	ELMO_like		ELMO_like	trusted_name_ontology	configured	False		
+Q15052	validation__Q15052	Rho guanine nucleotide exchange factor 6	ARHGEF6;COOL2;KIAA0006;PIXA	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+Q14155	validation__Q14155	Rho guanine nucleotide exchange factor 7	ARHGEF7;COOL1;KIAA0142;Nbla10314;P85SPR;PAK3BP;PIXB	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+P50570	validation__P50570	Dynamin-2	DNM2;DYN2	dynamin_like		dynamin_like	trusted_name_ontology	configured	False		
+Q7L0Q8	validation__Q7L0Q8	Rho-related GTP-binding protein RhoU	ARHU;CDC42L1;G28K;RHOU;SB128;WRCH1	Rho_GTPase_like		Rho_GTPase_like	trusted_name_ontology	configured	False		
+P19174	validation__P19174	1-phosphatidylinositol 4,5-bisphosphate phosphodiesterase gamma-1	PLC1;PLCG1	PLCG_like		PLCG_like	trusted_name_ontology	configured	False		
+Q92835	validation__Q92835	Phosphatidylinositol 3,4,5-trisphosphate 5-phosphatase 1	INPP5D;SHIP;SHIP1	INPP5_SHIP_like		INPP5_SHIP_like	trusted_name_ontology	configured	False		
+O15357	validation__O15357	Phosphatidylinositol 3,4,5-trisphosphate 5-phosphatase 2	INPPL1;SHIP2	INPP5_SHIP_like		INPP5_SHIP_like	trusted_name_ontology	configured	False		
+Q13352	validation__Q13352	Centromere protein R	CENPR;ITGB3BP;NRIF3	ITGB3BP_like		ITGB3BP_like	trusted_name_ontology	configured	False		
+Q8IY67	validation__Q8IY67	Ribonucleoprotein PTB-binding 1	KIAA1978;RAVER1	RAVER_like		RAVER_like	trusted_name_ontology	outside_configured_family_gates	False		
+P40763	validation__P40763	Signal transducer and activator of transcription 3	APRF;STAT3	STAT_like		STAT_like	trusted_name_ontology	configured	False		
+O15269	validation__O15269	Serine palmitoyltransferase 1	LCB1;SPTLC1	SPTLC_like		SPTLC_like	trusted_name_ontology	outside_configured_family_gates	False		
+Q13418	validation__Q13418	Scaffold protein ILK	ILK;ILK1;ILK2	ILK		ILK	trusted_gene_identity_ontology	configured	False		ILK
+Q13153	validation__Q13153	Serine/threonine-protein kinase PAK 1	PAK1	PAK_like		PAK_like	trusted_name_ontology	configured	False		
+O15530	validation__O15530	3-phosphoinositide-dependent protein kinase 1	PDK1;PDPK1	PDPK1_like		PDPK1_like	trusted_name_ontology	configured	False		
+P17252	validation__P17252	Protein kinase C alpha type	PKCA;PRKACA;PRKCA	PKC_like		PKC_like	trusted_name_ontology	configured	False		
+Q05655	validation__Q05655	Protein kinase C delta type	PKCD;PRKCD	PKC_like		PKC_like	trusted_name_ontology	configured	False		
+Q15139	validation__Q15139	Serine/threonine-protein kinase D1	PKD;PKD1;PRKCM;PRKD1	PRKD_like		PRKD_like	trusted_name_ontology	configured	False		
+Q02156	validation__Q02156	Protein kinase C epsilon type	PKCE;PRKCE	PKC_like		PKC_like	trusted_name_ontology	configured	False		
+Q04759	validation__Q04759	Protein kinase C theta type	PRKCQ;PRKCT	PKC_like		PKC_like	trusted_name_ontology	configured	False		
+Q96MI6	validation__Q96MI6	Protein phosphatase 1M	PPM1E;PPM1M	PPM_like		PPM_like	trusted_name_ontology	outside_configured_family_gates	False		
+P49593	validation__P49593	Protein phosphatase 1F	KIAA0015;POPX2;PPM1F	PPM_like		PPM_like	trusted_name_ontology	outside_configured_family_gates	False		
+P67775	validation__P67775	Serine/threonine-protein phosphatase 2A catalytic subunit alpha isoform	PPP2CA	PPP2_like		PPP2_like	trusted_name_ontology	configured	False		
+P00519	validation__P00519	Tyrosine-protein kinase ABL1	ABL;ABL1;JTK7	Abl_family		Abl_family	trusted_name_or_direct_gene_ontology	configured	False		Abl_family
+P41240	validation__P41240	Tyrosine-protein kinase CSK	CSK	Csk	Src_Csk_like	Csk	trusted_name_or_direct_gene_ontology	configured	False		Csk
+Q05397	validation__Q05397	Focal adhesion kinase 1	FAK;FAK1;PTK2	FAK		FAK	trusted_name_or_direct_gene_ontology	configured	False		FAK
+Q14289	validation__Q14289	Protein-tyrosine kinase 2-beta	FAK2;PTK2B;PYK2;RAFTK	FAK		FAK	trusted_name_or_direct_gene_ontology	configured	False		FAK
+P12931	validation__P12931	Proto-oncogene tyrosine-protein kinase Src	SRC;SRC1	Src	Src_Csk_like	Src	trusted_name_or_direct_gene_ontology	configured	False		Src
+Q9H792	validation__Q9H792	Inactive tyrosine-protein kinase PEAK1	KIAA2002;PEAK1	PEAK_like		PEAK_like	trusted_name_ontology	outside_configured_family_gates	False		
+P10586	validation__P10586	Receptor-type tyrosine-protein phosphatase F	LAR;PTPRF	LAR_RPTP		LAR_RPTP	trusted_name_or_direct_gene_ontology	configured	False		LAR_RPTP
+Q05209	validation__Q05209	Tyrosine-protein phosphatase non-receptor type 12	PTPN12	PTP_PEST		PTP_PEST	trusted_name_or_direct_gene_ontology	configured	False		PTP_PEST
+P18433	validation__P18433	Receptor-type tyrosine-protein phosphatase alpha	PTPA;PTPRA;PTPRL2	RPTP_alpha_epsilon		RPTP_alpha_epsilon	trusted_name_or_direct_gene_ontology	configured	False		RPTP_alpha_epsilon
+P29350	validation__P29350	Tyrosine-protein phosphatase non-receptor type 6	HCP;PTP1C;PTPN6	SHP_PTPN6_11_like		SHP_PTPN6_11_like	trusted_name_ontology	configured	False		
+Q06124	validation__Q06124	Tyrosine-protein phosphatase non-receptor type 11	PTP2C;PTPN11;SHPTP2	SHP_PTPN6_11_like		SHP_PTPN6_11_like	trusted_name_ontology	configured	False		
+P04156	validation__P04156	Major prion protein	ALTPRP;PRIP;PRNP;PRP	prion_like		prion_like	trusted_name_ontology	configured	False		
+P35579	validation__P35579	Myosin-9	MYH9	myosin_like		myosin_like	trusted_name_ontology	configured	False		
+Q9UPN3	validation__Q9UPN3	Microtubule-actin cross-linking factor 1, isoforms 1/2/3/4/5	ABP620;ACF7;KIAA0465;KIAA0754;KIAA1251;MACF1	MACF1_spectraplakin_like		MACF1_spectraplakin_like	trusted_name_ontology	configured	False		
+O15144	validation__O15144	Actin-related protein 2/3 complex subunit 2	ARC34;ARPC2;PRO2446	ARPC2_like		ARPC2_like	trusted_name_ontology	configured	False		
+P29966	validation__P29966	Myristoylated alanine-rich C-kinase substrate	MACS;MARCKS;PRKCSL	MARCKS_like		MARCKS_like	trusted_name_ontology	configured	False		
+P07737	validation__P07737	Profilin-1	PFN1	profilin		profilin	trusted_name_or_direct_gene_ontology	configured	False		profilin
+Q8IZP0	validation__Q8IZP0	Abl interactor 1	ABI1;SSH3BP1	ABI_like		ABI_like	trusted_name_ontology	configured	False		
+Q9NYB9	validation__Q9NYB9	Abl interactor 2	ABI2;ARGBPIA	ABI_like		ABI_like	trusted_name_ontology	configured	False		
+Q9P2A4	validation__Q9P2A4	ABI gene family member 3	ABI3;NESH	ABI_like		ABI_like	trusted_name_ontology	configured	False		
+O15084	validation__O15084	Serine/threonine-protein phosphatase 6 regulatory ankyrin repeat subunit A	ANKRD28;KIAA0379	PPP6_regulatory_like		PPP6_regulatory_like	trusted_name_ontology	outside_configured_family_gates	False		
+P21291	validation__P21291	Cysteine and glycine-rich protein 1	CSRP;CSRP1;CYRP	CSRP_like		CSRP_like	trusted_name_ontology	configured	False		
+P35568	validation__P35568	Insulin receptor substrate 1	IRS1	IRS_like		IRS_like	trusted_name_ontology	configured	False		
+Q9UPT6	validation__Q9UPT6	C-Jun-amino-terminal kinase-interacting protein 3	JIP3;KIAA1066;MAPK8IP3	MAPK8IP_like		MAPK8IP_like	trusted_name_ontology	configured	False		
+Q15149	validation__Q15149	Plectin	PLEC;PLEC1	plakin_like		plakin_like	trusted_name_ontology	configured	False		
+Q9BX66	validation__Q9BX66	Sorbin and SH3 domain-containing protein 1	KIAA0894;KIAA1296;SH3D5;SORBS1	SORBS_like		SORBS_like	trusted_name_ontology	configured	False		
+P29353	validation__P29353	SHC-transforming protein 1	SHC;SHC1;SHCA	Shc		Shc	trusted_name_or_direct_gene_ontology	configured	False		Shc
+P52179	validation__P52179	Myomesin-1	MYOM1	myomesin_like		myomesin_like	trusted_name_ontology	outside_configured_family_gates	False		
+O60635	validation__O60635	Tetraspanin-1	TSPAN1	tetraspanin_like		tetraspanin_like	trusted_name_ontology	configured	False		
+P68363	validation__P68363	Tubulin alpha-1B chain	TUBA1B	tubulin_like		tubulin_like	trusted_name_ontology	configured	False		
+P68366	validation__P68366	Tubulin alpha-4A chain	TUBA1;TUBA4A	tubulin_like		tubulin_like	trusted_name_ontology	configured	False		
+Q9NY65	validation__Q9NY65	Tubulin alpha-8 chain	TUBA8;TUBAL2	tubulin_like		tubulin_like	trusted_name_ontology	configured	False		
+Q71U36	validation__Q71U36	Tubulin alpha-1A chain	TUBA1A;TUBA3	tubulin_like		tubulin_like	trusted_name_ontology	configured	False		
+P08670	validation__P08670	Vimentin	VIM	intermediate_filament_like		intermediate_filament_like	trusted_name_ontology	configured	False		
+Q9H0F6	validation__Q9H0F6	Sharpin	PSEC0216;SHARPIN;SIPL1	SHARPIN_like		SHARPIN_like	trusted_name_ontology	configured	False		
+P05413	validation__P05413	Fatty acid-binding protein, heart	FABP11;FABP3;MDGI	FABP_like		FABP_like	trusted_name_ontology	configured	False		
+Q9Y2I1	validation__Q9Y2I1	Nischarin	IRAS;KIAA0975;NISCH	nischarin_like		nischarin_like	trusted_name_ontology	configured	False		
+Q99828	validation__Q99828	Calcium and integrin-binding protein 1	CIB;CIB1;KIP;PRKDCIP	CIB_like		CIB_like	trusted_name_ontology	outside_configured_family_gates	False		
+O75838	validation__O75838	Calcium and integrin-binding family member 2	CIB2;KIP2	CIB_like		CIB_like	trusted_name_ontology	outside_configured_family_gates	False		
+Q9C0H9	validation__Q9C0H9	SRC kinase signaling inhibitor 1	KIAA1684;P140;SNIP;SRCIN1	SRCIN1_like		SRCIN1_like	trusted_name_ontology	outside_configured_family_gates	False		
+O43184	validation__O43184	Disintegrin and metalloproteinase domain-containing protein 12	ADAM12;MLTN;UNQ346/PRO545	ADAM_like		ADAM_like	trusted_name_ontology	configured	False		
+P13688	validation__P13688	Cell adhesion molecule CEACAM1	BGP;BGP1;CEACAM1	CEACAM_like		CEACAM_like	trusted_name_ontology	configured	False		
+Q08722	validation__Q08722	Leukocyte surface antigen CD47	CD47;MER6	CD47_like		CD47_like	trusted_name_ontology	configured	False		
+Q6UX15	validation__Q6UX15	Layilin	LAYN;UNQ208/PRO234	layilin_like		layilin_like	trusted_name_ontology	outside_configured_family_gates	False		
+P78324	validation__P78324	Tyrosine-protein phosphatase non-receptor type substrate 1	BIT;MFR;MYD1;PTPNS1;SHPS1;SIRP;SIRPA	SIRP_like		SIRP_like	trusted_name_ontology	configured	False		
+P04216	validation__P04216	Thy-1 membrane glycoprotein	THY1	THY1_like		THY1_like	trusted_name_ontology	outside_configured_family_gates	False		
+Q03405	validation__Q03405	Urokinase plasminogen activator surface receptor	MO3;PLAUR;UPAR	PLAUR_like		PLAUR_like	trusted_name_ontology	configured	False		
+Q12809	validation__Q12809	Voltage-gated inwardly rectifying potassium channel KCNH2	ERG;ERG1;HERG;KCNH2	KCNH_like		KCNH_like	trusted_name_ontology	configured	False		
+O15427	validation__O15427	Monocarboxylate transporter 4	MCT3;MCT4;SLC16A3	SLC16_like		SLC16_like	trusted_name_ontology	configured	False		
+P19634	validation__P19634	Sodium/hydrogen exchanger 1	APNH1;NHE1;SLC9A1	SLC9_like		SLC9_like	trusted_name_ontology	configured	False		
+P04792	validation__P04792	Heat shock protein beta-1	HSP27;HSP28;HSPB1	small_HSP_like		small_HSP_like	trusted_name_ontology	configured	False		
+P54652	validation__P54652	Heat shock-related 70 kDa protein 2	HSPA2	HSP70_like		HSP70_like	trusted_name_ontology	configured	False		
+P22681	validation__P22681	E3 ubiquitin-protein ligase CBL	CBL;CBL2;RNF55	CBL_like		CBL_like	trusted_name_ontology	configured	False		
+Q99942	validation__Q99942	E3 ubiquitin-protein ligase RNF5	G16;NG2;RMA1;RNF5	RNF5_185_like		RNF5_185_like	trusted_name_ontology	configured	False		
+Q96GF1	validation__Q96GF1	E3 ubiquitin-protein ligase RNF185	RNF185	RNF5_185_like		RNF5_185_like	trusted_name_ontology	configured	False		
+Q13017	validation__Q13017	Rho GTPase-activating protein 5	ARHGAP5;RHOGAP5	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+A7KAX9	validation__A7KAX9	Rho GTPase-activating protein 32	ARHGAP32;GRIT;KIAA0712;RICS	RhoGAP_like		RhoGAP_like	trusted_name_ontology	configured	False		
+O75815	validation__O75815	Breast cancer anti-estrogen resistance protein 3	BCAR3;NSP2;SH2D3B;UNQ271/PRO308	BCAR3_like		BCAR3_like	trusted_name_ontology	configured	False		
+Q13905	validation__Q13905	Rap guanine nucleotide exchange factor 1	GRF2;RAPGEF1	RAPGEF_like		RAPGEF_like	trusted_name_ontology	outside_configured_family_gates	False		
+Q07889	validation__Q07889	Son of sevenless homolog 1	SOS1	SOS_like		SOS_like	trusted_name_ontology	configured	False		
+Q13009	validation__Q13009	Rho guanine nucleotide exchange factor TIAM1	TIAM1	TIAM_like		TIAM_like	trusted_name_ontology	configured	False		
+O75962	validation__O75962	Triple functional domain protein	TRIO	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+P15498	validation__P15498	Proto-oncogene vav	VAV;VAV1	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+P52735	validation__P52735	Guanine nucleotide exchange factor VAV2	VAV2	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+Q9UKW4	validation__Q9UKW4	Guanine nucleotide exchange factor VAV3	VAV3	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+Q9NZN5	validation__Q9NZN5	Rho guanine nucleotide exchange factor 12	ARHGEF12;KIAA0382;LARG	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+Q92974	validation__Q92974	Rho guanine nucleotide exchange factor 2	ARHGEF2;KIAA0651;LFP40	RhoGEF_like		RhoGEF_like	trusted_name_ontology	configured	False		
+Q99418	validation__Q99418	Cytohesin-2	ARNO;CYTH2;PSCD2;PSCD2L	cytohesin_like		cytohesin_like	trusted_name_ontology	configured	False		
+P84077	validation__P84077	ADP-ribosylation factor 1	ARF1	ARF_GTPase_like		ARF_GTPase_like	trusted_name_ontology	configured	False		
+P01112	validation__P01112	GTPase HRas	HRAS;HRAS1	Ras_GTPase_like		Ras_GTPase_like	trusted_name_ontology	configured	False		
+P61586	validation__P61586	Transforming protein RhoA	ARH12;ARHA;RHO12;RHOA	Rho_GTPase_like		Rho_GTPase_like	trusted_name_ontology	configured	False		
+Q13393	validation__Q13393	Phospholipase D1	PLD1	PLD_like		PLD_like	trusted_name_ontology	configured	False		
+P07384	validation__P07384	Calpain-1 catalytic subunit	CANPL1;CAPN1;PIG30	calpain_like		calpain_like	trusted_name_ontology	configured	False		
+P17655	validation__P17655	Calpain-2 catalytic subunit	CANPL2;CAPN2	calpain_like		calpain_like	trusted_name_ontology	configured	False		
+Q14790	validation__Q14790	Caspase-8	CASP8;MCH5	caspase_like		caspase_like	trusted_name_ontology	configured	False		
+P50281	validation__P50281	Matrix metalloproteinase-14	MMP14	MMP_like		MMP_like	trusted_name_ontology	configured	False		
+P42336	validation__P42336	Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform	PIK3CA	PI3K_like		PI3K_like	trusted_name_ontology	configured	False		
+O60331	validation__O60331	Phosphatidylinositol 4-phosphate 5-kinase type-1 gamma	KIAA0589;PIP5K1C	PIP5K_like		PIP5K_like	trusted_name_ontology	configured	False		
+P60484	validation__P60484	Phosphatidylinositol 3,4,5-trisphosphate 3-phosphatase and dual-specificity protein phosphatase PTEN	MMAC1;PTEN;TEP1	PTEN_like		PTEN_like	trusted_name_ontology	configured	False		
+P11940	validation__P11940	Polyadenylate-binding protein 1	PAB1;PABP;PABP1;PABPC1;PABPC2	PABP_like		PABP_like	trusted_name_ontology	configured	False		
+Q8WYL5	validation__Q8WYL5	Protein phosphatase Slingshot homolog 1	KIAA1298;SSH1;SSH1L	slingshot_like		slingshot_like	trusted_name_ontology	configured	False		
+P31749	validation__P31749	RAC-alpha serine/threonine-protein kinase	AKT1;PKB;RAC	AKT_like		AKT_like	trusted_name_ontology	configured	False		
+P28482	validation__P28482	Mitogen-activated protein kinase 1	ERK2;MAPK1;PRKM1;PRKM2	MAPK_like		MAPK_like	trusted_name_ontology	configured	False		
+P45983	validation__P45983	Mitogen-activated protein kinase 8	JNK1;MAPK8;PRKM8;SAPK1;SAPK1C	MAPK_like		MAPK_like	trusted_name_ontology	configured	False		
+P53667	validation__P53667	LIM domain kinase 1	LIMK;LIMK1	LIMK_like		LIMK_like	trusted_name_ontology	outside_configured_family_gates	False		
+P17612	validation__P17612	cAMP-dependent protein kinase catalytic subunit alpha	PKACA;PRKACA	PKA_like		PKA_like	trusted_name_ontology	configured	False		
+Q13464	validation__Q13464	Rho-associated protein kinase 1	ROCK1	ROCK_like		ROCK_like	trusted_name_ontology	configured	False		
+Q9H0C8	validation__Q9H0C8	Integrin-linked kinase-associated serine/threonine phosphatase 2C	ILKAP				requires_trusted_family_review	needs_mapping_review	True	No curated own-identity family mapping; recruitment family and predicted annotation are not gold labels.	
+P06213	validation__P06213	Insulin receptor	INSR	INSR_like		INSR_like	trusted_name_ontology	configured	False		
+P06241	validation__P06241	Tyrosine-protein kinase Fyn	FYN	Src	Src_Csk_like	Src	trusted_name_or_direct_gene_ontology	configured	False		Src
+P07948	validation__P07948	Tyrosine-protein kinase Lyn	JTK8;LYN	Src	Src_Csk_like	Src	trusted_name_or_direct_gene_ontology	configured	False		Src
+P43405	validation__P43405	Tyrosine-protein kinase SYK	SYK	Syk		Syk	trusted_name_or_direct_gene_ontology	configured	False		Syk
+Q15569	validation__Q15569	Dual specificity testis-specific protein kinase 1	TESK1	TESK_like		TESK_like	trusted_name_ontology	outside_configured_family_gates	False		
+P18031	validation__P18031	Tyrosine-protein phosphatase non-receptor type 1	PTP1B;PTPN1	PTPN1_PTP1B_like		PTPN1_PTP1B_like	trusted_name_or_direct_gene_ontology	configured	False		
+Q16827	validation__Q16827	Receptor-type tyrosine-protein phosphatase O	GLEPP1;PTPRO;PTPU2	PTPRO_like		PTPRO_like	trusted_name_ontology	configured	False		
+Q9HD43	validation__Q9HD43	Receptor-type tyrosine-protein phosphatase H	PTPRH;SAP1	PTPRH_like		PTPRH_like	trusted_name_ontology	configured	False		
+P17706	validation__P17706	Tyrosine-protein phosphatase non-receptor type 2	PTPN2;PTPT	PTPN2_like		PTPN2_like	trusted_name_ontology	configured	False		

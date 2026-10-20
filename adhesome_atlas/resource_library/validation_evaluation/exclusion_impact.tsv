@@ -1,0 +1,4 @@
+exclusion_gate	control_class	excluded	passed_family_gate_before_exclusion
+exact_negative_control_sequence	positive	0	0
+exact_negative_control_sequence	hard_negative	78	23
+exact_negative_control_sequence	background_negative	0	0
