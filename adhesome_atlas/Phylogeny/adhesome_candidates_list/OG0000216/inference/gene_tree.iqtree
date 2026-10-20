@@ -1,0 +1,609 @@
+IQ-TREE 2.4.0 built Feb 12 2025
+
+Input file name: /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/annotation/downstream/phylogeny/OG0000216/inference/trimmed.faa
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 20260920
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 96 sequences with 794 amino-acid sites
+Number of constant sites: 105 (= 13.2242% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 105 (= 13.2242% of all sites)
+Number of parsimony informative sites: 408
+Number of distinct site patterns: 756
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: Q.insect+F+I+G4
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+Q.insect+F+I+G4  -18995.464   38410.929 +        1   38562.936 +        1   39393.116 +        1
+JTT+I+G4         -19067.669   38517.338 - 7.83e-24   38639.172 - 2.79e-17   39410.661 - 0.000155
+Q.pfam+F+I+G4    -19006.585   38433.170 - 1.48e-05   38585.177 - 1.48e-05   39415.358 - 1.48e-05
+Q.insect+I+G4    -19074.610   38531.220 - 7.57e-27   38653.054 -  2.7e-20   39424.543 -  1.5e-07
+JTTDCMut+I+G4    -19074.923   38531.846 - 5.53e-27   38653.680 - 1.97e-20   39425.169 -  1.1e-07
+Q.mammal+I+G4    -19087.729   38557.458 - 1.52e-32   38679.292 - 5.41e-26   39450.781 - 3.01e-13
+LG+F+I+G4        -19027.059   38474.119 -  1.9e-14   38626.126 -  1.9e-14   39456.306 -  1.9e-14
+WAG+F+I+G4       -19027.910   38475.819 - 8.11e-15   38627.826 - 8.11e-15   39458.007 - 8.11e-15
+Q.yeast+F+I+G4   -19031.013   38482.027 - 3.64e-16   38634.034 - 3.64e-16   39464.214 - 3.64e-16
+JTT+F+I+G4       -19033.464   38486.928 - 3.14e-17   38638.935 - 3.14e-17   39469.116 - 3.14e-17
+JTTDCMut+F+I+G4  -19035.151   38490.303 - 5.81e-18   38642.309 - 5.81e-18   39472.490 - 5.81e-18
+VT+I+G4          -19101.125   38584.250 - 2.31e-38   38706.084 - 8.24e-32   39477.573 - 4.57e-19
+Q.pfam+I+G4      -19105.983   38593.966 - 1.79e-40   38715.800 -  6.4e-34   39487.289 - 3.55e-21
+VT+F+I+G4        -19049.615   38519.231 - 3.04e-24   38671.237 - 3.04e-24   39501.418 - 3.04e-24
+WAG+I+G4         -19120.278   38622.557 - 1.11e-46   38744.391 - 3.96e-40   39515.880 -  2.2e-27
+Q.plant+I+G4     -19138.265   38658.529 - 1.71e-54   38780.363 - 6.11e-48   39551.852 - 3.39e-35
+LG+I+G4          -19149.960   38681.920 - 1.43e-59   38803.753 - 5.09e-53   39575.243 - 2.83e-40
+LG+I+R4          -19140.982   38673.963 - 7.64e-58   38803.317 - 6.34e-53   39590.671 - 1.26e-43
+LG+I+R5          -19138.026   38672.052 - 1.98e-57   38804.496 - 3.51e-53   39598.115 - 3.06e-45
+LG+G4            -19165.093   38710.186 - 1.04e-65   38830.551 - 7.73e-59   39598.832 - 2.13e-45
+LG+R4            -19149.126   38688.253 - 6.02e-61   38816.079 - 1.07e-55   39600.284 - 1.03e-45
+Q.plant+F+I+G4   -19099.250   38618.499 - 8.45e-46   38770.506 - 8.45e-46   39600.687 - 8.45e-46
+LG+I+R3          -19153.772   38695.543 - 1.57e-62   38821.854 - 5.98e-57   39602.897 -  2.8e-46
+LG+R5            -19148.443   38690.887 - 1.61e-61   38821.779 - 6.21e-57   39612.272 - 2.58e-48
+rtREV+F+I+G4     -19106.195   38632.389 - 8.14e-49   38784.396 - 8.14e-49   39614.577 - 8.14e-49
+LG+R3            -19177.214   38740.429 - 2.82e-72   38865.236 - 2.27e-66   39643.106 - 5.19e-55
+Q.yeast+I+G4     -19184.227   38750.454 - 1.87e-74   38872.288 - 6.68e-68   39643.777 - 3.71e-55
+LG+I+R2          -19203.869   38791.737 - 2.03e-83   38915.052 - 3.46e-77   39689.737 - 3.89e-65
+Q.mammal+F+I+G4  -19150.832   38721.663 - 3.35e-68   38873.670 - 3.35e-68   39703.851 - 3.35e-68
+Q.bird+I+G4      -19219.877   38821.754 - 6.17e-90   38943.588 -  2.2e-83   39715.077 - 1.22e-70
+cpREV+F+I+G4     -19168.405   38756.811 - 7.81e-76   38908.818 - 7.81e-76   39738.998 - 7.81e-76
+Dayhoff+F+I+G4   -19170.413   38760.827 - 1.05e-76   38912.834 - 1.05e-76   39743.014 - 1.05e-76
+DCMut+F+I+G4     -19170.937   38761.874 - 6.21e-77   38913.881 - 6.21e-77   39744.061 - 6.21e-77
+LG+R2            -19235.317   38852.634 - 1.22e-96   38974.468 - 4.33e-90   39745.957 - 2.41e-77
+mtInv+F+I+G4     -19172.633   38765.267 - 1.14e-77   38917.274 - 1.14e-77   39747.454 - 1.14e-77
+PMB+I+G4         -19241.522   38865.044 - 2.46e-99   38986.878 - 8.75e-93   39758.367 - 4.86e-80
+PMB+F+I+G4       -19188.215   38796.431 - 1.95e-84   38948.438 - 1.95e-84   39778.618 - 1.95e-84
+Blosum62+F+I+G4  -19194.101   38808.202 - 5.41e-87   38960.209 - 5.41e-87   39790.390 - 5.41e-87
+mtMet+F+I+G4     -19231.735   38883.471 - 2.45e-103   39035.478 - 2.45e-103   39865.658 - 2.45e-103
+cpREV+I+G4       -19298.495   38978.989 - 4.44e-124   39100.823 - 1.58e-117   39872.312 - 8.79e-105
+Dayhoff+I+G4     -19302.136   38986.273 - 1.16e-125   39108.107 - 4.15e-119   39879.596 - 2.3e-106
+DCMut+I+G4       -19302.702   38987.405 - 6.6e-126   39109.239 - 2.35e-119   39880.728 - 1.31e-106
+Blosum62+I+G4    -19305.428   38992.856 - 4.33e-127   39114.690 - 1.54e-120   39886.179 - 8.56e-108
+rtREV+I+G4       -19322.296   39026.593 - 2.04e-134   39148.426 - 7.28e-128   39919.916 - 4.05e-115
+Q.bird+F+I+G4    -19273.658   38967.315 - 1.52e-121   39119.322 - 1.52e-121   39949.503 - 1.52e-121
+FLU+F+I+G4       -19280.774   38981.547 - 1.24e-124   39133.554 - 1.24e-124   39963.735 - 1.24e-124
+mtREV+F+I+G4     -19281.780   38983.560 - 4.52e-125   39135.567 - 4.52e-125   39965.748 - 4.51e-125
+HIVb+F+I+G4      -19329.547   39079.095 - 8.12e-146   39231.101 - 8.12e-146   40061.282 - 8.12e-146
+mtZOA+F+I+G4     -19342.824   39105.647 - 1.39e-151   39257.654 - 1.39e-151   40087.835 - 1.39e-151
+FLU+I+G4         -19426.135   39234.269 - 1.64e-179   39356.103 - 5.83e-173   40127.592 - 3.24e-160
+HIVb+I+G4        -19477.320   39336.639 - 9.65e-202   39458.473 - 3.44e-195   40229.962 - 1.91e-182
+mtVer+F+I+G4     -19437.201   39294.402 - 1.43e-192   39446.409 - 1.43e-192   40276.590 - 1.43e-192
+LG+I             -19651.092   39682.185 - 8.92e-277   39802.549 - 6.63e-270   40570.830 - 1.83e-256
+FLAVI+F+I+G4     -19604.680   39629.360 - 2.64e-265   39781.367 - 2.64e-265   40611.548 - 2.64e-265
+mtMAM+F+I+G4     -19614.845   39649.690 - 1.01e-269   39801.697 - 1.01e-269   40631.878 - 1.01e-269
+mtART+F+I+G4     -19656.094   39732.189 - 1.24e-287   39884.196 - 1.24e-287   40714.376 - 1.24e-287
+LG               -19781.706   39941.412 -        0   40060.319 -        0   40825.380 - 9.72e-312
+FLAVI+I+G4       -19806.464   39994.929 -        0   40116.763 -        0   40888.252 -        0
+HIVw+F+I+G4      -19814.801   40049.602 -        0   40201.609 -        0   41031.790 -        0
+mtZOA+I+G4       -19988.154   40358.307 -        0   40480.141 -        0   41251.630 -        0
+mtMet+I+G4       -20042.355   40466.710 -        0   40588.544 -        0   41360.033 -        0
+mtREV+I+G4       -20129.611   40641.222 -        0   40763.056 -        0   41534.545 -        0
+mtInv+I+G4       -20185.304   40752.608 -        0   40874.442 -        0   41645.931 -        0
+mtVer+I+G4       -20199.031   40780.062 -        0   40901.896 -        0   41673.385 -        0
+HIVw+I+G4        -20207.771   40797.543 -        0   40919.377 -        0   41690.866 -        0
+mtMAM+I+G4       -20513.103   41408.206 -        0   41530.040 -        0   42301.529 -        0
+mtART+I+G4       -20535.316   41452.632 -        0   41574.466 -        0   42345.955 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: Q.insect+F+I+G4
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.0594
+  pi(R) = 0.0828
+  pi(N) = 0.0252
+  pi(D) = 0.0629
+  pi(C) = 0.0258
+  pi(Q) = 0.0397
+  pi(E) = 0.0543
+  pi(G) = 0.0668
+  pi(H) = 0.0271
+  pi(I) = 0.0423
+  pi(L) = 0.1105
+  pi(K) = 0.0442
+  pi(M) = 0.0163
+  pi(F) = 0.0363
+  pi(P) = 0.0599
+  pi(S) = 0.0962
+  pi(T) = 0.0484
+  pi(W) = 0.0148
+  pi(Y) = 0.0262
+  pi(V) = 0.0608
+
+Model of rate heterogeneity: Invar+Gamma with 4 categories
+Proportion of invariable sites: 0.0247
+Gamma shape alpha: 1.2114
+
+ Category  Relative_rate  Proportion
+  0         0              0.0247
+  1         0.1816         0.2438
+  2         0.5457         0.2438
+  3         1.0538         0.2438
+  4         2.3201         0.2438
+Relative rates are computed as MEAN of the portion of the Gamma distribution falling in the category.
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -18973.8578 (s.e. 617.6833)
+Unconstrained log-likelihood (without tree): -5236.2829
+Number of free parameters (#branches + #model parameters): 210
+Akaike information criterion (AIC) score: 38367.7157
+Corrected Akaike information criterion (AICc) score: 38519.7225
+Bayesian information criterion (BIC) score: 39349.9032
+
+Total tree length (sum of branch lengths): 26.8220
+Sum of internal branch lengths: 9.9790 (37.2044% of tree length)
+
+WARNING: 24 near-zero internal branches (<0.0013) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004182.1' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++----------------------Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004182.1
+|
++--------------Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004183.1
+|
+|                               +--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000023040
+|                            +--| (8.3/44)
+|                            |  |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000033495
+|                            |  +--| (100/100)
+|                            |     +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000011207
+|                        +---| (99.5/100)
+|                        |   |  +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000365692
+|                        |   +--| (86.9/100)
+|                        |      +**Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000037557
+|                +-------| (100/100)
+|                |       +----Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000012569
+|             +--| (89.4/87)
+|             |  +----------Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000076422
+|          +--| (94.3/93)
+|          |  |                  +**Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000062108
+|          |  |               +--| (90.4/98)
+|          |  |               |  |     +**Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000362608
+|          |  |               |  |  +--| (88.4/98)
+|          |  |               |  |  |  +**Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000030947
+|          |  |               |  +--| (72.4/68)
+|          |  |               |     |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000024811
+|          |  |               |     +--| (89.6/94)
+|          |  |               |        +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000000637
+|          |  |            +--| (96.2/100)
+|          |  |            |  +---Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000016825
+|          |  |         +--| (100/100)
+|          |  |         |  +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000045927
+|          |  |      +--| (77/73)
+|          |  |      |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132458
+|          |  |   +--| (63.3/70)
+|          |  |   |  +-----Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000004915
+|          |  +---| (99.3/98)
+|          |      |  +-------------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000016276
+|          |      +--| (37.8/72)
+|          |         |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000071912
+|          |         |  +--| (3.8/65)
+|          |         |  |  +--Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000009559
+|          |         +--| (96.4/73)
+|          |            |  +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000038411
+|          |            +--| (94.5/46)
+|          |               |        +**Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000353824
+|          |               |     +--| (91/100)
+|          |               |     |  +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000070860
+|          |               |  +--| (100/100)
+|          |               |  |  |  +**Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000044603
+|          |               |  |  +--| (92.3/100)
+|          |               |  |     +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000072553
+|          |               +--| (90.1/46)
+|          |                  +--Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000043231
+|      +---| (53.4/72)
+|      |   |  +-----------------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000010447
+|      |   +--| (88.1/76)
+|      |      |      +--------------------------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000036094
+|      |      |   +--| (21.2/46)
+|      |      |   |  |                        +-----Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118609
+|      |      |   |  |         +--------------| (100/100)
+|      |      |   |  |         |              +-----Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000131405
+|      |      |   |  |  +------| (96.2/99)
+|      |      |   |  |  |      +-------------Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130819
+|      |      |   |  +--| (72.1/72)
+|      |      |   |     +------------------------------------Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000011573
+|      |      +---| (94.8/89)
+|      |          |                     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000072388
+|      |          |                  +--| (100/100)
+|      |          |                  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129418
+|      |          |               +**| (0/42)
+|      |          |               |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000074328
+|      |          |               |  |     +--| (90.4/92)
+|      |          |               |  |     |  |        +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113945
+|      |          |               |  |     |  |     +**| (0/44)
+|      |          |               |  |     |  |     |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113990
+|      |          |               |  |     |  |  +**| (0/64)
+|      |          |               |  |     |  |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000115201
+|      |          |               |  |     |  |  |  +**| (0/42)
+|      |          |               |  |     |  |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140692
+|      |          |               |  |     |  +--| (75.3/64)
+|      |          |               |  |     |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121916
+|      |          |               |  |  +--| (99.9/100)
+|      |          |               |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121155
+|      |          |               |  +--| (61.6/64)
+|      |          |               |     |                          +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000094102
+|      |          |               |     |                       +**| (0/33)
+|      |          |               |     |                       |  |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127701
+|      |          |               |     |                       |  +--| (92.2/90)
+|      |          |               |     |                       |     |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127852
+|      |          |               |     |                       |     +**| (0/91)
+|      |          |               |     |                       |        +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129188
+|      |          |               |     |                    +--| (92.1/63)
+|      |          |               |     |                    |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000141516
+|      |          |               |     |                 +**| (0/88)
+|      |          |               |     |                 |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130670
+|      |          |               |     |              +**| (0/24)
+|      |          |               |     |              |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118408
+|      |          |               |     |           +**| (0/28)
+|      |          |               |     |           |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000147459
+|      |          |               |     |        +**| (0/28)
+|      |          |               |     |        |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000152156
+|      |          |               |     |     +--| (99.8/100)
+|      |          |               |     |     |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000156219
+|      |          |               |     |  +--| (99.4/100)
+|      |          |               |     |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148337
+|      |          |               |     +--| (99.1/100)
+|      |          |               |        |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130054
+|      |          |               |        +--| (96.2/99)
+|      |          |               |           +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140759
+|      |          +---------------| (100/100)
+|      |                          |                                +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000088582
+|      |                          |                             +**| (0/20)
+|      |                          |                             |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127478
+|      |                          |                          +--| (91.9/34)
+|      |                          |                          |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127872
+|      |                          |                          |  +**| (0/33)
+|      |                          |                          |     |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127875
+|      |                          |                          |     |  +**| (0/48)
+|      |                          |                          |     |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128628
+|      |                          |                          |     +--| (84.9/66)
+|      |                          |                          |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129114
+|      |                          |                       +**| (0/7)
+|      |                          |                       |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128372
+|      |                          |                       |  +--| (84.1/63)
+|      |                          |                       |     +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128979
+|      |                          |                    +--| (75.5/18)
+|      |                          |                    |  |     +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128425
+|      |                          |                    |  |  +--| (61.7/11)
+|      |                          |                    |  |  |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128750
+|      |                          |                    |  +**| (0/9)
+|      |                          |                    |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129290
+|      |                          |                 +--| (76.2/44)
+|      |                          |                 |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128085
+|      |                          |              +**| (0/25)
+|      |                          |              |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127864
+|      |                          |              |  |     +**| (0/36)
+|      |                          |              |  |     |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128346
+|      |                          |              |  |  +**| (0/18)
+|      |                          |              |  |  |  |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129431
+|      |                          |              |  |  |  +--| (95.2/76)
+|      |                          |              |  |  |     +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129795
+|      |                          |              |  +--| (85/14)
+|      |                          |              |     |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128110
+|      |                          |              |     +--| (40.6/68)
+|      |                          |              |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129563
+|      |                          |           +--| (88.5/53)
+|      |                          |           |  |     +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128005
+|      |                          |           |  |  +--| (0/47)
+|      |                          |           |  |  |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128084
+|      |                          |           |  |  |  |     +**| (0/34)
+|      |                          |           |  |  |  |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128407
+|      |                          |           |  |  |  |  +**| (0/41)
+|      |                          |           |  |  |  |  |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129828
+|      |                          |           |  |  |  +--| (83.9/35)
+|      |                          |           |  |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128454
+|      |                          |           |  +**| (0/37)
+|      |                          |           |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129553
+|      |                          |        +**| (0/20)
+|      |                          |        |  |  +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127520
+|      |                          |        |  +**| (0/34)
+|      |                          |        |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129347
+|      |                          |     +--| (99.7/91)
+|      |                          |     |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128263
+|      |                          |     |  |  +--| (87.9/85)
+|      |                          |     |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129078
+|      |                          |     |  +--| (79.7/56)
+|      |                          |     |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129350
+|      |                          |  +--| (12.8/33)
+|      |                          |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000126879
+|      |                          +--| (78.2/51)
+|      |                             |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114761
+|      |                             +--| (96.8/96)
+|      |                                +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114977
++------| (98/100)
+       |               +------Fhepatica__FhHiC23_g6062
+       |         +-----| (99.6/100)
+       |         |     |                +--Sbovis__SBOV2_28390
+       |         |     |             +**| (0/59)
+       |         |     |             |  +**Scura__SCUR1_39530
+       |         |     |          +--| (85.6/97)
+       |         |     |          |  +--Shae__MS3_00001897
+       |         |     |       +--| (95.6/99)
+       |         |     |       |  +--Sinter__SINT2_38040
+       |         |     |    +--| (98.2/99)
+       |         |     |    |  |  +--Sman__Smp_090890
+       |         |     |    |  +--| (71.8/78)
+       |         |     |    |     +--Srhoda__SRDH2_39520
+       |         |     +----| (98.8/99)
+       |         |          +--Sjap__EWB00_006175
+       +---------| (99.7/100)
+                 +-------------------Taenia__TsM_000007700
+
+Tree in newick format:
+
+(Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004182.1:1.6160721276,Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004183.1:1.0160216318,(((((((Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000023040:0.0529436966,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000033495:0.0172360989,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000011207:0.0050986128)100/100:0.1189489809)8.3/44:0.0096708608,(Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000365692:0.0046396254,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000037557:0.0000027595)86.9/100:0.0301894981)99.5/100:0.2969702940,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000012569:0.3933438316)100/100:0.5850437666,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000076422:0.7570777327)89.4/87:0.1735958896,((((((Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000062108:0.0000026617,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000362608:0.0000010001,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000030947:0.0000020641)88.4/98:0.0122962832,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000024811:0.0613830130,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000000637:0.0174927178)89.6/94:0.0135354218)72.4/68:0.0050018264)90.4/98:0.0410606192,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000016825:0.2981802407)96.2/100:0.1021188102,Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000045927:0.1780874913)100/100:0.2630889579,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132458:0.1420001001)77/73:0.0583489289,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000004915:0.4417006786)63.3/70:0.0843592130,(Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000016276:0.9551235990,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000071912:0.1909731453,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000009559:0.0783574118)3.8/65:0.0353472096,(Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000038411:0.0329397608,(((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000353824:0.0000022305,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000070860:0.1840335286)91/100:0.0304747193,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000044603:0.0000022305,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000072553:0.0244406125)92.3/100:0.0326337591)100/100:0.2404708450,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000043231:0.1339244339)90.1/46:0.0477730465)94.5/46:0.0607849538)96.4/73:0.1396514251)37.8/72:0.0929970044)99.3/98:0.2994364239)94.3/93:0.2593293899,(Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000010447:1.2787524699,((Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000036094:1.8816324836,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118609:0.4304803120,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000131405:0.4201785050)100/100:1.0671527900,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130819:0.9985795024)96.2/99:0.5328190747,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000011573:2.5280054935)72.1/72:0.1450700340)21.2/46:0.1191636175,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000072388:0.0455767196,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129418:0.1256429842)100/100:0.2287819481,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000074328:0.0041245374,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113945:0.0000010001,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113990:0.0000010001)0/44:0.0000010001,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000115201:0.0041177858,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140692:0.0041191052)0/42:0.0000010001)0/64:0.0000010001,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121916:0.0040728259)75.3/64:0.0040559741)90.4/92:0.0123692824,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121155:0.0334683453)99.9/100:0.1087597943,(((((((((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000094102:0.0041233744,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127701:0.0000010001,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127852:0.0000022584,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129188:0.0000010001)0/91:0.0000010001)92.2/90:0.0078465853)0/33:0.0000020073,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000141516:0.0038226891)92.1/63:0.0038548339,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130670:0.0000028454)0/88:0.0000025467,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118408:0.0000010001)0/24:0.0000010001,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000147459:0.0000010001)0/28:0.0000028848,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000152156:0.0000010001)0/28:0.0000010001,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000156219:0.0000010001)99.8/100:0.1126213617,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148337:0.0067393877)99.4/100:0.1383781248,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130054:0.0059591745,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140759:0.0135578151)96.2/99:0.0642147347)99.1/100:0.1078342925)61.6/64:0.0237270087)0/42:0.0000020424,(((((((((((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000088582:0.0065193933,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127478:0.0280234703)0/20:0.0000022985,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127872:0.0163787186,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127875:0.0054293207,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128628:0.0222167663)0/48:0.0000021415,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129114:0.0054848216)84.9/66:0.0054457944)0/33:0.0000023323)91.9/34:0.0041050078,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128372:0.0041971926,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128979:0.0000010001)84.1/63:0.0041824093)0/7:0.0000029535,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128425:0.0000022610,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128750:0.0000020211)61.7/11:0.0081016141,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129290:0.0053913457)0/9:0.0000010001)75.5/18:0.0033003928,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128085:0.0018903977)76.2/44:0.0035899916,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127864:0.0058134907,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128346:0.0000010001)0/36:0.0000029085,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129431:0.0000023506,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129795:0.0000020137)95.2/76:0.0081170818)0/18:0.0000021302,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128110:0.0000020416,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129563:0.0041218223)40.6/68:0.0040876497)85/14:0.0040554470)0/25:0.0000020058,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128005:0.0000024035,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128084:0.0059815066,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128407:0.0164449664)0/34:0.0000026186,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129828:0.0000010001)0/41:0.0000023744,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128454:0.0056601656)83.9/35:0.0045852220)0/47:0.0138825377,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129553:0.0104358849)0/37:0.0000022279)88.5/53:0.0043856211,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127520:0.0000010001,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129347:0.0107672449)0/34:0.0000026361)0/20:0.0000022748,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128263:0.0094099473,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129078:0.0084697248)87.9/85:0.0144945476,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129350:0.0129941251)79.7/56:0.0071392433)99.7/91:0.0929515084,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000126879:0.1353044149)12.8/33:0.0172530915,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114761:0.0159522150,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114977:0.0414892739)96.8/96:0.0400631701)78.2/51:0.0303006768)100/100:1.1423045820)94.8/89:0.2815711855)88.1/76:0.1978655766)53.4/72:0.3060261312,((Fhepatica__FhHiC23_g6062:0.5228884279,(((((Sbovis__SBOV2_28390:0.0013619448,Scura__SCUR1_39530:0.0000010001)0/59:0.0000010001,Shae__MS3_00001897:0.0027173056)85.6/97:0.0026597069,Sinter__SINT2_38040:0.0041311983)95.6/99:0.0154215971,(Sman__Smp_090890:0.0017122673,Srhoda__SRDH2_39520:0.0051038741)71.8/78:0.0058935570)98.2/99:0.0964080408,Sjap__EWB00_006175:0.0968130648)98.8/99:0.3543806138)99.6/100:0.4498721368,Taenia__TsM_000007700:1.3995158843)99.7/100:0.6971307279)98/100:0.4859552369);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -18981.121312
+Robinson-Foulds distance between ML tree and consensus tree: 18
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++----------------------Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004182.1
+|
++--------------Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004183.1
+|
+|                                +--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000023040
+|                             +--| (44)
+|                             |  |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000033495
+|                             |  +--| (100)
+|                             |     +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000011207
+|                         +---| (100)
+|                         |   |  +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000365692
+|                         |   +--| (100)
+|                         |      +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000037557
+|                 +-------| (100)
+|                 |       +----Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000012569
+|              +--| (87)
+|              |  +----------Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000076422
+|          +---| (93)
+|          |   |                  +--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000062108
+|          |   |               +--| (98)
+|          |   |               |  |     +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000362608
+|          |   |               |  |  +--| (98)
+|          |   |               |  |  |  +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000030947
+|          |   |               |  +--| (68)
+|          |   |               |     |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000024811
+|          |   |               |     +--| (94)
+|          |   |               |        +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000000637
+|          |   |            +--| (100)
+|          |   |            |  +---Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000016825
+|          |   |         +--| (100)
+|          |   |         |  +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000045927
+|          |   |      +--| (73)
+|          |   |      |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132458
+|          |   |   +--| (70)
+|          |   |   |  +-----Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000004915
+|          |   +---| (98)
+|          |       |  +-------------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000016276
+|          |       +--| (72)
+|          |          |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000071912
+|          |          |     +--| (65)
+|          |          |     |  +--Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000009559
+|          |          |  +--| (50)
+|          |          |  |  |  +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000038411
+|          |          |  |  +--| (27)
+|          |          |  |     +--Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000043231
+|          |          +--| (73)
+|          |             |     +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000353824
+|          |             |  +--| (100)
+|          |             |  |  +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000070860
+|          |             +--| (100)
+|          |                |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000044603
+|          |                +--| (100)
+|          |                   +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000072553
+|      +---| (72)
+|      |   |  +------------------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000010447
+|      |   +--| (76)
+|      |      |     +--------------------------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000036094
+|      |      |  +--| (46)
+|      |      |  |  |                        +-----Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118609
+|      |      |  |  |         +--------------| (100)
+|      |      |  |  |         |              +-----Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000131405
+|      |      |  |  |  +------| (99)
+|      |      |  |  |  |      +-------------Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130819
+|      |      |  |  +--| (72)
+|      |      |  |     +------------------------------------Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000011573
+|      |      +--| (89)
+|      |         |                     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000072388
+|      |         |                  +--| (100)
+|      |         |                  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129418
+|      |         |               +--| (42)
+|      |         |               |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000074328
+|      |         |               |  |     +--| (92)
+|      |         |               |  |     |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113945
+|      |         |               |  |     |  |     +--| (44)
+|      |         |               |  |     |  |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113990
+|      |         |               |  |     |  |  +--| (64)
+|      |         |               |  |     |  |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000115201
+|      |         |               |  |     |  |  |  +--| (42)
+|      |         |               |  |     |  |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140692
+|      |         |               |  |     |  +--| (64)
+|      |         |               |  |     |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121916
+|      |         |               |  |  +--| (100)
+|      |         |               |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121155
+|      |         |               |  +--| (64)
+|      |         |               |     |                          +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000094102
+|      |         |               |     |                       +--| (33)
+|      |         |               |     |                       |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127701
+|      |         |               |     |                       |  +--| (90)
+|      |         |               |     |                       |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127852
+|      |         |               |     |                       |     +--| (91)
+|      |         |               |     |                       |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129188
+|      |         |               |     |                    +--| (63)
+|      |         |               |     |                    |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000141516
+|      |         |               |     |                 +--| (88)
+|      |         |               |     |                 |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130670
+|      |         |               |     |              +--| (30)
+|      |         |               |     |              |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000147459
+|      |         |               |     |           +--| (28)
+|      |         |               |     |           |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118408
+|      |         |               |     |        +--| (28)
+|      |         |               |     |        |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000152156
+|      |         |               |     |     +--| (100)
+|      |         |               |     |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000156219
+|      |         |               |     |  +--| (100)
+|      |         |               |     |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148337
+|      |         |               |     +--| (100)
+|      |         |               |        |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130054
+|      |         |               |        +--| (99)
+|      |         |               |           +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140759
+|      |         +---------------| (100)
+|      |                         |                          +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000088582
+|      |                         |                       +--| (20)
+|      |                         |                       |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127478
+|      |                         |                    +--| (34)
+|      |                         |                    |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127872
+|      |                         |                    |  +--| (33)
+|      |                         |                    |     |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127875
+|      |                         |                    |     |  +--| (48)
+|      |                         |                    |     |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128628
+|      |                         |                    |     +--| (66)
+|      |                         |                    |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129114
+|      |                         |                 +--| (30)
+|      |                         |                 |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128372
+|      |                         |                 |  |  +--| (63)
+|      |                         |                 |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128979
+|      |                         |                 |  +--| (19)
+|      |                         |                 |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128425
+|      |                         |                 |     +--| (23)
+|      |                         |                 |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129290
+|      |                         |              +--| (44)
+|      |                         |              |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128085
+|      |                         |              |  +--| (36)
+|      |                         |              |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128750
+|      |                         |           +--| (25)
+|      |                         |           |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127864
+|      |                         |           |  |     +--| (36)
+|      |                         |           |  |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128346
+|      |                         |           |  |  +--| (18)
+|      |                         |           |  |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129431
+|      |                         |           |  |  |  +--| (76)
+|      |                         |           |  |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129795
+|      |                         |           |  +--| (14)
+|      |                         |           |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128110
+|      |                         |           |     +--| (68)
+|      |                         |           |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129563
+|      |                         |        +--| (53)
+|      |                         |        |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128005
+|      |                         |        |  |     +--| (49)
+|      |                         |        |  |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128454
+|      |                         |        |  |  +--| (47)
+|      |                         |        |  |  |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128084
+|      |                         |        |  |  |  |  +--| (34)
+|      |                         |        |  |  |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128407
+|      |                         |        |  |  |  +--| (41)
+|      |                         |        |  |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129828
+|      |                         |        |  +--| (37)
+|      |                         |        |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129553
+|      |                         |     +--| (91)
+|      |                         |     |  |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127520
+|      |                         |     |  |  +--| (34)
+|      |                         |     |  |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129347
+|      |                         |     |  +--| (22)
+|      |                         |     |     |     +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128263
+|      |                         |     |     |  +--| (85)
+|      |                         |     |     |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129078
+|      |                         |     |     +--| (56)
+|      |                         |     |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129350
+|      |                         |  +--| (33)
+|      |                         |  |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000126879
+|      |                         +--| (51)
+|      |                            |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114761
+|      |                            +--| (96)
+|      |                               +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114977
++------| (100)
+       |               +------Fhepatica__FhHiC23_g6062
+       |         +-----| (100)
+       |         |     |                +--Sbovis__SBOV2_28390
+       |         |     |             +--| (59)
+       |         |     |             |  +--Scura__SCUR1_39530
+       |         |     |          +--| (97)
+       |         |     |          |  +--Shae__MS3_00001897
+       |         |     |       +--| (99)
+       |         |     |       |  +--Sinter__SINT2_38040
+       |         |     |    +--| (99)
+       |         |     |    |  |  +--Sman__Smp_090890
+       |         |     |    |  +--| (78)
+       |         |     |    |     +--Srhoda__SRDH2_39520
+       |         |     +----| (99)
+       |         |          +--Sjap__EWB00_006175
+       +---------| (100)
+                 +-------------------Taenia__TsM_000007700
+
+
+Consensus tree in newick format: 
+
+(Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004182.1:1.6121077311,Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00004183.1:1.0308724541,(((((((Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000023040:0.0532126806,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000033495:0.0173128640,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000011207:0.0051222338)100:0.1196054988)44:0.0097668005,(Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000365692:0.0046618333,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000037557:0.0000022305)100:0.0302291949)100:0.2929991674,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000012569:0.4011413276)100:0.5867269914,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000076422:0.7565296430)87:0.1624118627,((((((Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000062108:0.0000023982,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000362608:0.0000022305,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000030947:0.0000022305)98:0.0123234737,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000024811:0.0613103031,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000000637:0.0174618568)94:0.0135340922)68:0.0049545900)98:0.0405323081,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000016825:0.2988088902)100:0.1074265211,Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000045927:0.1723823243)100:0.2559848093,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132458:0.1474380190)73:0.0662057304,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000004915:0.4335692159)70:0.0974916122,(Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000016276:0.9681122127,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000071912:0.1960204131,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000009559:0.0783779355)65:0.0533649602,(Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000038411:0.0430659522,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000043231:0.1791097831)27:0.0308772746)50:0.0853367347,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000353824:0.0000022325,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000070860:0.1845906219)100:0.0374521129,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000044603:0.0000028512,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000072553:0.0245876790)100:0.0260161583)100:0.2156940624)73:0.0629051204)72:0.1034992910)98:0.3085212317)93:0.2733816439,(Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000010447:1.3070090037,((Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000036094:1.8966698418,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118609:0.4356849321,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000131405:0.4226684634)100:1.0764041040,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130819:1.0018166501)99:0.5378102327,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000011573:2.5484191446)72:0.1429145922)46:0.1215576874,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000072388:0.0458642642,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129418:0.1258435156)100:0.2296707963,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000074328:0.0041324861,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113945:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000113990:0.0000022305)44:0.0000022305,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000115201:0.0041259021,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140692:0.0041272329)42:0.0000022305)64:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121916:0.0040807365)64:0.0040639676)92:0.0123875932,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000121155:0.0335241522)100:0.1090137236,(((((((((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000094102:0.0041305232,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127701:0.0000022305,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127852:0.0000022325,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129188:0.0000022305)91:0.0000022325)90:0.0078609879)33:0.0000022325,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000141516:0.0038295509)63:0.0038615671,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130670:0.0000022305)88:0.0000020155,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000147459:0.0000022305)30:0.0000020155,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000118408:0.0000022305)28:0.0000020155,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000152156:0.0000022305)28:0.0000020155,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000156219:0.0000022305)100:0.1128549460,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148337:0.0068071552)100:0.1387183766,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000130054:0.0059776375,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000140759:0.0135743627)99:0.0643860747)100:0.1080617745)64:0.0237795087)42:0.0000020401,(((((((((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000088582:0.0065500310,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127478:0.0281224691)20:0.0000022015,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127872:0.0164184785,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127875:0.0054425758,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128628:0.0222702557)48:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129114:0.0054986895)66:0.0054590798)33:0.0000022305)34:0.0041181594,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128372:0.0042088630,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128979:0.0000022305)63:0.0041937872,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128425:0.0054378855,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129290:0.0054043679)23:0.0000022305)19:0.0000022305)30:0.0022210704,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128085:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128750:0.0000022841)36:0.0068822382)44:0.0031910158,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127864:0.0058287200,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128346:0.0000022305)36:0.0000022305,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129431:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129795:0.0000022305)76:0.0081427072)18:0.0000022305,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128110:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129563:0.0041352780)68:0.0041008487)14:0.0040680469)25:0.0000022325,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128005:0.0000024671,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128454:0.0113927321)49:0.0171275592,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128084:0.0059986699,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128407:0.0164846905)34:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129828:0.0000022305)41:0.0054594647)47:0.0000022903,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129553:0.0104609425)37:0.0000022708)53:0.0043982540,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000127520:0.0000022305,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129347:0.0107918548)34:0.0000022305,((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000128263:0.0094455126,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129078:0.0084719750)85:0.0145340321,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000129350:0.0130019671)56:0.0071624858)22:0.0000022325)91:0.0932366142,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000126879:0.1356907866)33:0.0172814127,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114761:0.0159871957,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000114977:0.0416026614)96:0.0401499480)51:0.0303266802)100:1.1522906648)89:0.2711138403)76:0.2033871335)72:0.3081082968,((Fhepatica__FhHiC23_g6062:0.5288396309,(((((Sbovis__SBOV2_28390:0.0013623283,Scura__SCUR1_39530:0.0000022305)59:0.0000022305,Shae__MS3_00001897:0.0027193464)97:0.0026614300,Sinter__SINT2_38040:0.0041346554)99:0.0154383091,(Sman__Smp_090890:0.0017132575,Srhoda__SRDH2_39520:0.0051090800)78:0.0059002394)99:0.0965218650,Sjap__EWB00_006175:0.0969781247)99:0.3511580131)100:0.4477283498,Taenia__TsM_000007700:1.4152928994)100:0.7004292823)100:0.4914557039);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/annotation/downstream/phylogeny/OG0000216/inference/gene_tree.treefile -m "Q.insect+F+I{0.0246654}+G4{1.21136}" --length 794
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/annotation/downstream/phylogeny/OG0000216/inference/trimmed.faa --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/pipeline_validation/integrin_adhesome_analysis/runs/annotation/downstream/phylogeny/OG0000216/inference/trimmed.faa --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Mon Oct 19 22:04:17 2026
+Total CPU time used: 7914.833997 seconds (2h:11m:54s)
+Total wall-clock time used: 3975.46039 seconds (1h:6m:15s)
+
