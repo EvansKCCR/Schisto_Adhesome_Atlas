@@ -148,6 +148,11 @@ draw();
 .atlas-profile .atlas-scroll{max-height:300px;overflow:auto;margin:6px 0}.atlas-profile table{border-collapse:collapse;width:100%;font-size:13px;color:#000}
 .atlas-profile td,.atlas-profile th{border:1px solid #c4cfc5;padding:6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}.atlas-profile th{background:#eef6ef;color:#000}.atlas-profile .atlas-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 .atlas-profile a{color:#064c2c;text-decoration:underline;font-weight:bold}.atlas-profile small{font-size:12px;color:#222}.atlas-profile button:focus-visible,.atlas-profile a:focus-visible{outline:3px solid #b91c1c;outline-offset:2px}
+
+.atlas-connected-info{padding:9px;background:#fff8ce;border:1px solid #c4a731;border-radius:6px;margin:8px 0;color:#000;font-size:14px}
+.atlas-panel-close{display:none}
+@media(min-width:760px){main{grid-template-columns:minmax(0,1fr) minmax(300px,370px)!important}.sidebar{position:sticky;top:12px;max-height:calc(100vh - 24px)!important;min-height:0!important;overflow:auto!important}#network{min-height:420px!important}}
+@media(max-width:759px){.sidebar{position:fixed!important;right:0;top:0;width:min(94vw,430px);height:100vh;max-height:100vh!important;min-height:0!important;z-index:10000;box-shadow:-5px 0 24px #0005;transform:translateX(110%);transition:transform .16s ease}.atlas-side-open .sidebar{transform:translateX(0)}.atlas-panel-close{display:inline-block!important;margin-bottom:8px}.atlas-profiles-bar input{min-width:180px}}
 </style>
 
 <script>
@@ -193,8 +198,40 @@ function atlasFamilyProfiles(family){const panel=document.getElementById('sideba
  const detail=atlasElement('div',undefined,section);
  function refresh(){const query=search.value.trim().toLowerCase();select.replaceChildren();for(const p of records.filter(p=>[p.sequence_id,p.candidate_annotation,p.species,p.orthogroup].join(' ').toLowerCase().includes(query))){const option=atlasElement('option',p.sequence_id+' · '+p.species+' · '+p.grade,select);option.value=p.sequence_id}if(records.some(p=>p.sequence_id===atlasCandidateId)&&[...select.options].some(o=>o.value===atlasCandidateId))select.value=atlasCandidateId;else select.selectedIndex=-1}
  search.oninput=refresh;select.onchange=()=>{atlasCandidateId=select.value;atlasRenderProfile(detail,atlasCandidateId)};refresh();
- if(records.some(p=>p.sequence_id===atlasCandidateId))atlasRenderProfile(detail,atlasCandidateId)
+ if(!records.some(p=>p.sequence_id===atlasCandidateId))atlasCandidateId=[...records].sort((a,b)=>(a.grade||'Z').localeCompare(b.grade||'Z')||a.sequence_id.localeCompare(b.sequence_id))[0].sequence_id;
+ select.value=atlasCandidateId;atlasRenderProfile(detail,atlasCandidateId);
+ const caption=atlasElement('p','Showing '+atlasCandidateId+'. Choose any candidate above to compare its profile.',section);caption.style.fontWeight='700';
+ const pathInfo=atlasElement('div',undefined,section);pathInfo.id='atlas-connected-info';pathInfo.className='atlas-connected-info';section.prepend(pathInfo);
+ panel.prepend(section);panel.scrollTop=0;
+ const close=atlasElement('button','Close candidate panel',section);close.className='atlas-panel-close';close.onclick=()=>document.body.classList?.remove('atlas-side-open');section.prepend(close);
+ panel.setAttribute('aria-label','Candidate profiles and connected network paths');document.body.classList?.add('atlas-side-open');
+ atlasHighlightConnections()
 }
+
+function atlasConnectedPath(start,edges,mode='2',target=''){
+ const adjacency=new Map();for(const e of edges){if(!adjacency.has(e.a))adjacency.set(e.a,[]);if(!adjacency.has(e.b))adjacency.set(e.b,[]);adjacency.get(e.a).push({node:e.b,edge:e.id});adjacency.get(e.b).push({node:e.a,edge:e.id})}
+ const distance=new Map([[start,0]]),parents=new Map(),queue=[start],limit=target||mode==='component'?Infinity:Number(mode);
+ for(let i=0;i<queue.length;i++){const node=queue[i];if(distance.get(node)>=limit)continue;const links=[...(adjacency.get(node)||[])].sort((a,b)=>a.node.localeCompare(b.node)||String(a.edge).localeCompare(String(b.edge)));for(const link of links){if(distance.has(link.node))continue;distance.set(link.node,distance.get(node)+1);parents.set(link.node,{node,edge:link.edge});queue.push(link.node)}}
+ if(target){if(!distance.has(target))return {nodes:new Set([start]),edges:new Set(),path:[],distance,unreachable:true};const path=[target],ids=new Set();let next=target;while(next!==start){const parent=parents.get(next);ids.add(parent.edge);next=parent.node;path.unshift(next)}return {nodes:new Set(path),edges:ids,path,distance,unreachable:false}}
+ const nodes=new Set(distance.keys()),ids=new Set(edges.filter(e=>nodes.has(e.a)&&nodes.has(e.b)).map(e=>e.id));return {nodes,edges:ids,path:[],distance,unreachable:false}
+}
+window.atlasConnectedPath=atlasConnectedPath;
+function atlasHighlightConnections(){if(!current.family)return;
+ const mode=document.getElementById('atlas-path-scope')?.value||'2',target=document.getElementById('atlas-path-target')?.value||'';
+ const result=atlasConnectedPath(current.family,activeEdges,mode,target);
+ document.querySelectorAll('[data-edge-id]').forEach(path=>{const included=result.edges.has(path.getAttribute('data-edge-id'));path.setAttribute('opacity',included?'1':'.045');if(included){path.setAttribute('stroke','#08743f');path.setAttribute('stroke-width','4')}});
+ document.querySelectorAll('[data-family]').forEach(group=>{const id=group.getAttribute('data-family');group.setAttribute('opacity',result.nodes.has(id)?'1':'.25');if(result.nodes.has(id)){const rect=group.querySelector('rect');if(rect){rect.setAttribute('stroke',id===current.family?'#b91c1c':'#08743f');rect.setAttribute('stroke-width',id===current.family?'4':'3')}}});
+ const info=document.getElementById('atlas-connected-info');if(info){info.replaceChildren();atlasElement('strong','Connected path from '+current.family,info);
+ atlasElement('p',result.unreachable?'Target '+target+' is not connected under the selected network filters.':target?result.path.join(' ↔ '):result.nodes.size+' families · '+result.edges.size+' relationships · '+(mode==='component'?'connected component':mode+'-step neighborhood'),info);
+ atlasElement('small','Paths follow the displayed family associations and active evidence filters.',info)}
+ const status=document.getElementById('atlas-profile-status');if(status)status.textContent=current.family+' · '+result.nodes.size+' connected families · candidate profiles open in the side panel';
+}
+const atlasPathDraw=draw;
+draw=function(){atlasPathDraw();
+ if(!current.family&&!current.edge)document.body.classList?.remove('atlas-side-open');
+ else {const panel=document.getElementById('sidebar');document.body.classList?.add('atlas-side-open');if(panel&&!panel.querySelector('button.atlas-panel-close')){const button=atlasElement('button','Close side panel');button.className='atlas-panel-close';button.onclick=()=>document.body.classList?.remove('atlas-side-open');panel.prepend(button)}}
+ atlasHighlightConnections()};
+
 const atlasProfileNodeDetails=nodeDetails;
 nodeDetails=function(family){atlasProfileNodeDetails(family);atlasFamilyProfiles(family)};
 window.atlasSelectedCandidate=()=>{const record=atlasProfileIndex.get(atlasCandidateId);return record&&current.family===record.family&&atlasFamilyRecords(record.family).some(p=>p.sequence_id===record.sequence_id)?record:null};
@@ -212,6 +249,14 @@ const atlasGlobalSearch=atlasElement('input',undefined,atlasBar);atlasGlobalSear
 const atlasOptions=atlasElement('datalist',undefined,atlasBar);atlasOptions.id='atlas-profile-options';
 for(const p of atlasProfileIndex.values()){const option=atlasElement('option',undefined,atlasOptions);option.value=p.sequence_id;option.label=[p.candidate_annotation,p.species,p.family,p.orthogroup].join(' · ')}
 const atlasLocate=atlasElement('button','Locate protein',atlasBar);const atlasStatus=atlasElement('span','Select an identifier to highlight its family and open the candidate profile.',atlasBar);atlasStatus.id='atlas-profile-status';atlasStatus.setAttribute('role','status');
+
+const atlasPathLabel=atlasElement('label','Connected path',atlasBar);atlasPathLabel.htmlFor='atlas-path-scope';
+const atlasPathScope=atlasElement('select',undefined,atlasBar);atlasPathScope.id='atlas-path-scope';
+for(const [value,label] of [['1','Direct partners'],['2','2-step neighborhood'],['component','Connected component']]){const option=atlasElement('option',label,atlasPathScope);option.value=value}atlasPathScope.value='2';atlasPathScope.onchange=()=>draw();
+const atlasPathTargetLabel=atlasElement('label','Shortest path to',atlasBar);atlasPathTargetLabel.htmlFor='atlas-path-target';
+const atlasPathTarget=atlasElement('select',undefined,atlasBar);atlasPathTarget.id='atlas-path-target';atlasElement('option','Choose a target family (optional)',atlasPathTarget).value='';
+for(const family of DATA.families){const option=atlasElement('option',family.id,atlasPathTarget);option.value=family.id}atlasPathTarget.onchange=()=>draw();
+
 function atlasLocateFromSearch(){const query=atlasGlobalSearch.value.trim();if(atlasProfileIndex.has(query)){window.atlasSelectCandidate(query);return}
  const matches=[...atlasProfileIndex.values()].filter(p=>[p.sequence_id,p.candidate_annotation,p.species,p.family,p.orthogroup].join(' ').toLowerCase().includes(query.toLowerCase()));
  if(matches.length===1)window.atlasSelectCandidate(matches[0].sequence_id);else atlasStatus.textContent=matches.length+' matching candidates. Choose a protein accession from the suggestions.'}
