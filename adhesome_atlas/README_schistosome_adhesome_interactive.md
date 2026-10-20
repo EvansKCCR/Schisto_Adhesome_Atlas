@@ -16,3 +16,21 @@ Profiles show annotation confidence, grade, family decision, orthogroup, Pfam/CD
 **Open complete Protein dossier** opens the selected accession in the atlas. The dossier also provides **Locate this candidate on the interactive hypothesis**. Deep links use `?view=Protein+dossier&protein=<accession>` or `?view=Introduction&protein=<accession>`. Hosted links are included in exports created from the atlas; a standalone local HTML still contains the evidence profile without requiring a running server.
 
 The selected candidate accession, annotation, species and orthogroup are passed into its linked simulation context. The map continues to represent family-level relationships.
+
+
+## Node clicks: connected paths and profiles
+
+Clicking a family node now highlights its connected network and immediately opens a matching candidate profile at the top of the side panel. The initial selection uses grade then accession ordering; the complete filtered candidate list remains selectable. Existing exact candidate selections are retained when compatible with the clicked node and filters.
+
+**Connected path** chooses direct partners, a two-step neighborhood (default), or the connected component. **Shortest path to** highlights one deterministic shortest route to a selected family. Paths use the currently displayed, undirected family associations and evidence filters. An unreachable target is reported explicitly. Profiles stay linked to the selected family; path highlighting does not assign interactions to individual candidate proteins.
+
+At typical desktop widths the profile panel remains beside the map. Narrow screens open a closable right-hand panel, rather than placing the profile below the graph. JSON profile downloads, complete dossier links and candidate-aware simulator links remain available.
+
+
+## Persistent candidate–path simulation workspace
+
+Nodes are clickable and keyboard-accessible buttons. Clicking a node opens its linked candidates directly; **Locate a candidate** is optional. The map sends the exact selected accession, species, orthogroup, full profile, active evidence filters and highlighted path to the linked viewer. A dedicated candidate panel remains visible in **Adhesome map**, **Downstream simulation** and **Map + simulation** views. The mobile layout keeps it in a separate lower pane.
+
+Choose another protein in **Candidates linked to this node**, or change the path on the map: the profile and active simulation update together. **Simulate candidate and path** starts the scenario. The selected route or neighborhood stays visible in the profile panel. Profile JSON downloads include its highlighted path and filters. Simulator exports retain the selected candidate record, source names, path edges, filters, path gate assumptions and seed.
+
+**Use highlighted path for downstream coupling** applies explicit module gates. FAK/Src requires both families; the bridge requires ILK, PINCH and Nck. Other functional projections use their displayed module participants. VKR1 remains restricted to S. mansoni context. These gates select hypothetical downstream readouts; they do not alter binding weights from reference row counts. The same-seed baseline keeps the same path gates, separating the candidate mechanism proxy from the path scope. Disable the checkbox to retain the path as annotation only.

@@ -105,7 +105,7 @@ if page=='Introduction':
         if sim.exists():html=linked_explorer_html(html,simulator_html(sim,all_candidates))
         st.iframe(html,height=1050)
         st.download_button('Download interactive map and linked simulator',html,'Schisto_Adhesome_interactive.html','text/html')
-        st.caption('Locate a protein or select a family on the map to explore candidate profiles, reference partners, the complete Protein dossier and linked downstream simulation. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
+        st.caption('Click any node to explore its linked candidates, then simulate the selected candidate and highlighted path. The profile remains visible beside the simulation; the search box is optional. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
     else:st.info('No interactive map is present in the current network library.')
     st.subheader('Build an evidence-stratified schistosome adhesome hypothesis')
     st.write('Use Interactions to choose species, grades and families, construct the orthogroup consensus graph, and download membership, reference-edge evidence, centrality and provenance.')

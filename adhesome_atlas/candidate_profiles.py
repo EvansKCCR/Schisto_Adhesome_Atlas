@@ -77,6 +77,7 @@ const atlasProfiles=__PROFILES__;
 const atlasProfileConfig=__CONFIG__;
 const atlasProfileIndex=new Map(atlasProfiles.candidates.map(values=>{const record=Object.fromEntries(atlasProfiles.fields.map((key,i)=>[key,values[i]]));return [record.sequence_id,record]}));
 let atlasCandidateId='';
+let atlasLastContextKey='';
 function atlasElement(tag,text,parent){const e=document.createElement(tag);if(text!==undefined)e.textContent=String(text??'');if(parent)parent.appendChild(e);return e}
 function atlasTextValue(value){return value===null||value===undefined||value===''?'No additional information present in the current library':String(value)}
 function atlasLabel(key){return ({sequence_id:'Protein accession',candidate_annotation:'Protein annotation',architecture:'Pfam architecture',orthogroup:'Orthogroup',orthology_scope:'Evolutionary scope','DeepLoc_2.1':'Localization',DeepTMHMM:'Transmembrane topology','SignalP.v6.0':'Signal peptide',total_score_0_10:'Integrated evidence score (0–10)',domain_score_0_4:'Domain score (0–4)',orthology_score_0_3:'Benchmark-adjusted orthology score (0–3)',motif_score_0_2:'Motif score (0–2)',localization_score_0_1:'Localization score (0–1)'})[key]||key.replaceAll('_',' ')}
@@ -87,16 +88,18 @@ function atlasEvidenceTable(parent,section,id,title){const details=atlasElement(
  section.fields.forEach(key=>atlasElement('th',atlasLabel(key),head));for(const record of rows){const tr=atlasElement('tr',undefined,table);record.forEach(value=>atlasElement('td',atlasTextValue(value),tr))}
 }
 function atlasDossierURL(id){if(!atlasProfileConfig.app_url)return '';const u=new URL(atlasProfileConfig.app_url);u.search='';u.hash='';u.searchParams.set('view','Protein dossier');u.searchParams.set('protein',id);return u.href}
-function atlasProfileDownload(id){const record=atlasProfileIndex.get(id);if(!record)return;
+function atlasCandidateEvidence(id){const record=atlasProfileIndex.get(id);if(!record)return null;
  const rows=section=>(section.rows[id]||[]).map(values=>Object.fromEntries(section.fields.map((field,index)=>[field,values[index]])));
- const profile={candidate:record,domains:rows(atlasProfiles.domains),motifs:rows(atlasProfiles.motifs),orthologues:rows(atlasProfiles.orthology),sources:atlasProfiles.sources};
+ return {candidate:record,domains:rows(atlasProfiles.domains),motifs:rows(atlasProfiles.motifs),orthologues:rows(atlasProfiles.orthology),sources:atlasProfiles.sources};
+}
+function atlasProfileDownload(id){const profile=atlasCandidateEvidence(id);if(!profile)return;
  const blob=new Blob([JSON.stringify(profile,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=id+'_candidate_profile.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
 }
 function atlasRenderProfile(parent,id){parent.replaceChildren();const record=atlasProfileIndex.get(id);if(!record)return;
  atlasElement('h3',record.candidate_annotation,parent);atlasElement('p',record.sequence_id+' · '+record.species,parent);
  const actions=atlasElement('div',undefined,parent);actions.className='atlas-actions';const url=atlasDossierURL(id);
  if(url){const link=atlasElement('a','Open complete Protein dossier ↗',actions);link.href=url;link.target='_blank';link.rel='noopener'}
- const button=atlasElement('button','Download candidate profile · JSON',actions);button.onclick=()=>atlasProfileDownload(id);
+ const button=atlasElement('button','Download candidate profile · JSON',actions);button.setAttribute('data-atlas-profile-download','true');button.onclick=()=>atlasProfileDownload(id);
  atlasKeyValues(parent,record,['family','grade','audit_classification','assignment_confidence','family_decision','annotation_resolution','length','orthogroup','orthology_scope']);
  const architecture=atlasElement('details',undefined,parent);architecture.open=true;atlasElement('summary','Architecture & localization',architecture);atlasKeyValues(architecture,record,['architecture','NCBI_CDD_architecture','DeepLoc_2.1','DeepTMHMM','SignalP.v6.0']);
  const evidence=atlasElement('details',undefined,parent);atlasElement('summary','Integrated evidence & family decision',evidence);atlasKeyValues(evidence,record,['total_score_0_10','domain_score_0_4','orthology_raw_score_0_3','orthology_score_0_3','motif_score_0_2','localization_score_0_1','Orthology_benchmark_status','Orthology_benchmark_weight','Orthology_reference_support','identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses']);
@@ -112,9 +115,9 @@ function atlasFamilyProfiles(family){const panel=document.getElementById('sideba
  if(!records.length){atlasElement('p','No candidate profiles in this selection.',section);return}
  const label=atlasElement('label','Find a candidate in this family',section),search=atlasElement('input',undefined,section);search.type='search';search.placeholder='Accession, annotation or orthogroup';search.setAttribute('aria-label',label.textContent);
  const select=atlasElement('select',undefined,section);select.size=6;select.setAttribute('aria-label','Candidate profiles for '+family);
- const detail=atlasElement('div',undefined,section);
+ const detail=atlasElement('div',undefined,section);detail.id='atlas-profile-detail';
  function refresh(){const query=search.value.trim().toLowerCase();select.replaceChildren();for(const p of records.filter(p=>[p.sequence_id,p.candidate_annotation,p.species,p.orthogroup].join(' ').toLowerCase().includes(query))){const option=atlasElement('option',p.sequence_id+' · '+p.species+' · '+p.grade,select);option.value=p.sequence_id}if(records.some(p=>p.sequence_id===atlasCandidateId)&&[...select.options].some(o=>o.value===atlasCandidateId))select.value=atlasCandidateId;else select.selectedIndex=-1}
- search.oninput=refresh;select.onchange=()=>{atlasCandidateId=select.value;atlasRenderProfile(detail,atlasCandidateId)};refresh();
+ search.oninput=refresh;select.onchange=()=>{atlasCandidateId=select.value;atlasRenderProfile(detail,atlasCandidateId);atlasHighlightConnections()};refresh();
  if(!records.some(p=>p.sequence_id===atlasCandidateId))atlasCandidateId=[...records].sort((a,b)=>(a.grade||'Z').localeCompare(b.grade||'Z')||a.sequence_id.localeCompare(b.sequence_id))[0].sequence_id;
  select.value=atlasCandidateId;atlasRenderProfile(detail,atlasCandidateId);
  const caption=atlasElement('p','Showing '+atlasCandidateId+'. Choose any candidate above to compare its profile.',section);caption.style.fontWeight='700';
@@ -142,12 +145,30 @@ function atlasHighlightConnections(){if(!current.family)return;
  atlasElement('p',result.unreachable?'Target '+target+' is not connected under the selected network filters.':target?result.path.join(' ↔ '):result.nodes.size+' families · '+result.edges.size+' relationships · '+(mode==='component'?'connected component':mode+'-step neighborhood'),info);
  atlasElement('small','Paths follow the displayed family associations and active evidence filters.',info)}
  const status=document.getElementById('atlas-profile-status');if(status)status.textContent=current.family+' · '+result.nodes.size+' connected families · candidate profiles open in the side panel';
+ atlasPublishContext();
 }
+
+window.atlasCandidateContext=function(){if(!current.family)return null;
+ const candidate=window.atlasSelectedCandidate?.(),mode=document.getElementById('atlas-path-scope')?.value||'2',target=document.getElementById('atlas-path-target')?.value||'';
+ const highlighted=atlasConnectedPath(current.family,activeEdges,mode,target),filters=settings();
+ return {node:current.family,title:current.family,candidate:candidate?.sequence_id||'',candidate_annotation:candidate?.candidate_annotation||'',orthogroup:candidate?.orthogroup||'',species:candidate?.species||filters.species,module:'all',
+  profile:candidate?atlasCandidateEvidence(candidate.sequence_id):null,profile_html:document.getElementById('atlas-profile-detail')?.innerHTML||'',
+  candidates:atlasFamilyRecords(current.family).map(p=>({id:p.sequence_id,annotation:p.candidate_annotation,species:p.species,grade:p.grade})),
+  highlighted_path:{root:current.family,mode,target,nodes:[...highlighted.nodes],edges:activeEdges.filter(e=>highlighted.edges.has(e.id)),route:highlighted.path,unreachable:highlighted.unreachable},network_filters:filters};
+};
+function atlasPublishContext(force=false){const context=window.atlasCandidateContext();if(!context){if(atlasLastContextKey||force){atlasLastContextKey='';window.dispatchEvent(new CustomEvent('atlas-candidate-context',{detail:{cleared:true}}))}return;}
+ const key=JSON.stringify([context.node,context.candidate,context.highlighted_path.mode,context.highlighted_path.target,context.highlighted_path.nodes,context.highlighted_path.edges.map(e=>e.id),context.network_filters]);
+ if(!force&&key===atlasLastContextKey)return;atlasLastContextKey=key;
+ window.dispatchEvent(new CustomEvent('atlas-candidate-context',{detail:context}));
+}
+window.atlasPublishContext=atlasPublishContext;
+
+function atlasActivateNodes(){document.querySelectorAll('[data-family]').forEach(group=>{const family=group.getAttribute('data-family');group.setAttribute('role','button');group.setAttribute('tabindex','0');group.setAttribute('aria-label',family+': open linked candidates and connected paths');group.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();setNode(family)}}})}
 const atlasPathDraw=draw;
 draw=function(){atlasPathDraw();
  if(!current.family&&!current.edge)document.body.classList?.remove('atlas-side-open');
  else {const panel=document.getElementById('sidebar');document.body.classList?.add('atlas-side-open');if(panel&&!panel.querySelector('button.atlas-panel-close')){const button=atlasElement('button','Close side panel');button.className='atlas-panel-close';button.onclick=()=>document.body.classList?.remove('atlas-side-open');panel.prepend(button)}}
- atlasHighlightConnections()};
+ atlasActivateNodes();atlasHighlightConnections();if(!current.family)atlasPublishContext()};
 
 const atlasProfileNodeDetails=nodeDetails;
 nodeDetails=function(family){atlasProfileNodeDetails(family);atlasFamilyProfiles(family)};
@@ -179,6 +200,7 @@ function atlasLocateFromSearch(){const query=atlasGlobalSearch.value.trim();if(a
  if(matches.length===1)window.atlasSelectCandidate(matches[0].sequence_id);else atlasStatus.textContent=matches.length+' matching candidates. Choose a protein accession from the suggestions.'}
 const atlasHeader=document.querySelector('header');if(atlasHeader)atlasHeader.after(atlasBar);else document.body.prepend(atlasBar);
 atlasLocate.onclick=atlasLocateFromSearch;atlasGlobalSearch.onchange=()=>{if(atlasProfileIndex.has(atlasGlobalSearch.value.trim()))atlasLocateFromSearch()};atlasGlobalSearch.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();atlasLocateFromSearch()}});
+atlasActivateNodes();
 if(atlasProfileConfig.focus_candidate)window.atlasSelectCandidate(atlasProfileConfig.focus_candidate);
 </script>
 '''

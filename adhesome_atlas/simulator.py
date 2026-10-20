@@ -44,15 +44,17 @@ def simulator_html(path,adhesome):
     html=path.read_text(encoding='utf-8')
     inventory=json.dumps(supported_inventory(adhesome),ensure_ascii=False).replace('<','\\u003c')
     html=html.replace(INVENTORY_MARKER,'const atlasInventory = '+inventory+';')
+    html=re.sub(r'speciesLabels=\{.*?\}(?=,pairs=)',lambda _: 'speciesLabels='+json.dumps({'pan':'Pan-schistosome',**SPECIES}),html,count=1)
     # The simulator retains its documented conceptual defaults. Reference row counts
     # and interaction types are not affinities or recruitment probabilities.
     html=html.replace(TOPOLOGY_MARKER,'const atlasTopology = {};')
+    html=html.replace('...p,...AdhesionMatrix.defaults,grid:p.grid','...p,...AdhesionMatrix.defaults,...(scenario?.path_controls||{}),grid:p.grid')
     options="<option value='pan'>Pan-schistosome</option>"+''.join("<option value='"+key+"'>"+escape(name)+"</option>" for key,name in SPECIES.items())
     html=re.sub(r"(<select id=['\"]species['\"]>).*?(</select>)",lambda m:m[1]+options+m[2],html,count=1,flags=re.S)
     source=path.parent.parent/'orthology/adhesome_candidates_list/direct_orthologues.tsv'
     if source.exists():
         refs=sorted(pd.read_csv(source,sep='\t',usecols=['reference_species']).reference_species.dropna().unique())
-        html=re.sub(r"(<select id=['\"]referenceSpecies['\"]>).*?(</select>)",lambda m:m[1]+''.join('<option>'+escape(name)+'</option>' for name in refs)+m[2],html,count=1,flags=re.S)
+        html=re.sub(r"(<select id=['\"]referenceSpecies['\"]>).*?(</select>)",lambda m:m[1]+''.join('<option'+(' selected' if name=='Homo sapiens' else '')+'>'+escape(name)+'</option>' for name in refs)+m[2],html,count=1,flags=re.S)
     html=html.replace('Mapped STRING + explicit fallbacks','Conceptual baseline weights')
     html=html.replace('STRING confidence supplies editable topology weights','Editable conceptual assumptions supply topology weights')
     html=html.replace('No mapped association','No binding-weight measurement in the current library')
@@ -60,4 +62,5 @@ def simulator_html(path,adhesome):
     html=html.replace('mapped intracellular associations use the integrin β family','the intracellular interface represents the integrin β tail')
     species_map=json.dumps({**{name:key for key,name in SPECIES.items()},'S. haematobium':'sh','S. japonicum':'sj','S. mansoni':'sm'})
     html=html.replace("value.species==='S. haematobium'?'sh':value.species==='S. japonicum'?'sj':value.species==='S. mansoni'||value.node==='vkr1'?'sm':'pan'","("+species_map+")[value.species]||(value.node==='vkr1'?'sm':'pan')")
+    html=html.replace("$('referenceSpecies').value='H. sapiens'","$('referenceSpecies').value='Homo sapiens'")
     return html
