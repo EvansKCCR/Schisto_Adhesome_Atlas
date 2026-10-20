@@ -2,6 +2,7 @@
 
 import json
 import math
+from design_system import network_style
 
 
 def vector_network_html(nodes, edges, title, *, label_mode='hidden'):
@@ -50,7 +51,7 @@ svg{display:block;width:100%;height:clamp(360px,62vh,600px);min-width:0;touch-ac
 .detail strong{color:#000000}.detail span{display:inline-block;margin-right:16px}
 .legend{padding:8px 14px;background:#fff;font-size:14px;color:#000000}.legend span{display:inline-flex;gap:5px;align-items:center;margin:4px 12px 4px 0}.legend i{width:11px;height:11px;border:1px solid #777;border-radius:50%;display:inline-block}
 :fullscreen{background:white;overflow:auto}:fullscreen svg{height:calc(100vh - 250px)}@media(max-width:680px){.bar{gap:7px}.bar strong{width:100%}.bar button,.bar select{font-size:13px}}
-</style></head><body>
+</style>__ATLAS_STYLE__</head><body>
 <div class="bar"><strong id="heading"></strong><label for="names">Node names</label>
 <select id="names"><option value="hidden">Hidden</option><option value="outside">Outside nodes</option><option value="center">Centered in nodes</option></select>
 <label for="labelContent">Label content</label><select id="labelContent"><option value="name">Protein / group names</option><option value="annotation">Candidate annotation</option><option value="both">Names + annotation</option></select>
@@ -118,4 +119,11 @@ for(const edge of data.edges)if(edge.category)categories.set('Edge: '+edge.categ
 for(const [category,color] of categories){const chip=document.createElement('span'),swatch=document.createElement('i');swatch.style.backgroundColor=color||'#08743f';chip.appendChild(swatch);chip.appendChild(document.createTextNode(category));legend.appendChild(chip)}
 document.getElementById('reset').onclick=()=>{for(const n of data.nodes){Object.assign(n,original.get(n.id));nodeGroups.get(n.id).setAttribute('transform',`translate(${n.x},${n.y})`)}for(const records of incident.values())for(const record of records)updateEdge(record)};
 document.getElementById('export').onclick=()=>{const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');clone.setAttribute('width','2400');clone.setAttribute('height','1440');clone.setAttribute('font-family','Arial, sans-serif');const blob=new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'});const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='schistosome_network.svg';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)};
-</script></body></html>'''.replace('__PAYLOAD__', payload)
+</script></body></html>'''.replace('__ATLAS_STYLE__',network_style()+'''<style>
+.bar{background:white;border-top:0;border-bottom:1px solid #dce5df;padding:14px 16px;gap:10px}
+.bar strong{color:#153f2e;font-size:16px;letter-spacing:-.025em}.bar label{color:#42604e;font-size:13px}
+.hint{background:#f1f6f2;color:#314c3d;font-size:13px;line-height:1.6;padding:11px 16px}
+.stage{border-color:#dce5df}.detail{padding:15px 18px;border-top:1px solid #dce5df;background:#fbfdfb;font-size:14px}
+.legend{color:#314c3d;background:white;border-top:1px solid #e2eae5;padding:12px 18px}
+input[type=range]{accent-color:#0a624d}button,select{font-size:13px}
+</style>''').replace('__PAYLOAD__', payload)

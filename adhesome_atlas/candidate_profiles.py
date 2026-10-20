@@ -3,6 +3,7 @@ from html import escape
 import json
 import re
 from urllib.parse import urlencode,urlsplit,urlunsplit
+from design_system import network_style
 
 PROFILE_FIELDS=['sequence_id','species','family','candidate_annotation','grade','audit_classification',
  'assignment_confidence','family_support_level','family_decision','annotation_resolution',
@@ -88,7 +89,7 @@ def candidate_map_html(html,payload,*,app_url='',focus_candidate=''):
     block=START+_STYLE+_SCRIPT.replace('__PROFILES__',json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')).replace('__CONFIG__',json.dumps(config,ensure_ascii=False).replace('<','\\u003c'))+END
     return html.replace('</body>',block+'</body>',1)
 
-_STYLE=r'''
+_STYLE=network_style()+r'''
 <style>
 .atlas-profiles-bar{padding:12px 20px;background:#fffbe6;color:#000;border-block:1px solid #d1b13b;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .atlas-profiles-bar input{flex:1;min-width:240px;padding:9px;font-size:15px;border:1px solid #08743f;border-radius:6px;color:#000;background:white}
@@ -104,6 +105,40 @@ _STYLE=r'''
 .atlas-panel-close{display:none}
 @media(min-width:760px){main{grid-template-columns:minmax(0,1fr) minmax(300px,370px)!important}.sidebar{position:sticky;top:12px;max-height:calc(100vh - 24px)!important;min-height:0!important;overflow:auto!important}#network{min-height:420px!important}}
 @media(max-width:759px){.sidebar{position:fixed!important;right:0;top:0;width:min(94vw,430px);height:100vh;max-height:100vh!important;min-height:0!important;z-index:10000;box-shadow:-5px 0 24px #0005;transform:translateX(110%);transition:transform .16s ease}.atlas-side-open .sidebar{transform:translateX(0)}.atlas-panel-close{display:inline-block!important;margin-bottom:8px}.atlas-profiles-bar input{min-width:180px}}
+</style>
+<style>
+header{padding:15px 20px;background:linear-gradient(110deg,#073f35,#205d4a);border:0}
+header h1{font-size:21px;letter-spacing:-.03em}header p{font-size:12px}
+main{padding:12px;gap:12px}.paper{border:1px solid var(--atlas-line);border-radius:14px;box-shadow:none}
+.controlbar{padding:12px 16px;gap:12px;background:#fbfdfb;border:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.controlbar .ctrl{font-size:10px;letter-spacing:.07em;color:var(--atlas-muted)}.controlbar select,.controlbar input{width:100%;max-width:none}
+.controlbar .toggles{grid-column:1/-1;padding:0}.controlbar .toggles label{font-size:13px}
+.atlas-profiles-bar{padding:11px 16px;gap:9px;background:#fff;border-color:var(--atlas-line);font-size:13px}
+.atlas-profiles-bar label{color:var(--atlas-muted);font-weight:650}.atlas-profiles-bar input{min-width:180px;min-height:36px;font-size:14px;border-color:#bdcec5}
+.atlas-profiles-bar button{background:var(--atlas-deep);color:#fff;border-color:var(--atlas-deep);font-size:13px}
+.atlas-profiles-bar select{max-width:190px;padding:7px;font-size:13px}
+#atlas-profile-status{width:100%;font-size:12px;color:var(--atlas-muted)}
+.atlas-profiles-bar input[type=range]{flex:none;min-width:70px;width:80px;accent-color:var(--atlas-green)}
+.topstats{padding:9px 13px;gap:8px;border-color:var(--atlas-line)}.metric{background:#f1f6f3;padding:8px 11px;border-radius:9px;min-width:100px}
+.metric span{font-size:11px;color:#405b4e}.metric b{font-size:21px;letter-spacing:-.03em;color:#143d2e}.metric small{font-size:10px;color:#526760}
+.graphheader{padding:11px 14px}.graphheader strong{font-size:14px}.graphheader .help{font-size:12px;line-height:1.5}
+.btn{font-size:12px;min-height:32px;border-color:var(--atlas-line);border-radius:7px}.btn.major{background:var(--atlas-deep)}
+#svgWrap{background:#fff;border-color:var(--atlas-line)}#network{height:clamp(520px,72vh,860px);background:white}
+.legend{gap:11px;font-size:12px;line-height:1.5;color:#405b4e;padding:12px 14px}
+.sidebar{padding:16px;background:#fff;border-color:var(--atlas-line)}.sidebar h2{font-size:20px;color:var(--atlas-deep);letter-spacing:-.03em}
+.atlas-profile{border:0;border-radius:0;padding:0;margin:8px 0 20px;font:14px var(--atlas-font)}
+.atlas-profile h3{font-size:18px;line-height:1.35;color:#10281d}.atlas-profile p{line-height:1.5}.atlas-profile label{font-size:12px;font-weight:700;color:var(--atlas-muted);display:block;margin-top:14px}
+.atlas-profile select,.atlas-profile input{border:1px solid #c6d7cc;border-radius:8px;font-size:13px;padding:9px;margin:6px 0}
+.atlas-profile select[size]{min-height:145px}.atlas-profile select option{padding:6px 8px}.atlas-profile select option:checked{background:#e6f1e9;color:#113c2b}
+.atlas-profile table{font-size:13px;line-height:1.5;border-collapse:collapse}.atlas-profile td,.atlas-profile th{border:0;border-bottom:1px solid #e4ebe6;padding:9px 7px}.atlas-profile th{width:38%;background:#f7faf8;font-weight:600}
+.atlas-profile details{border-top:1px solid var(--atlas-line);margin-top:14px;padding-top:4px}.atlas-profile summary{font-size:14px;padding:12px 0;color:var(--atlas-deep)}
+.atlas-profile .atlas-actions button{background:#eaf3ed;border:1px solid #c5dacc;border-radius:8px;font-size:12px;color:#173e2d}
+.atlas-connected-info{background:#f1f6f2;border:0;border-left:3px solid #297652;border-radius:0 9px 9px 0;padding:12px;font-size:13px}
+.atlas-connected-info p{margin:8px 0}.atlas-connected-info small{color:#4a6355;font-size:12px}
+#atlas-family-counts{font-size:13px;color:var(--atlas-muted);padding-bottom:12px;border-bottom:1px solid var(--atlas-line)}
+.atlas-filter-drawer{background:#fbfdfb;border-bottom:1px solid var(--atlas-line)}.atlas-filter-drawer>summary{font-size:13px;font-weight:650;color:var(--atlas-deep);padding:12px 16px;cursor:pointer;list-style-position:inside}
+.atlas-evidence-drawer{background:white;border-top:1px solid var(--atlas-line)}.atlas-evidence-drawer>summary{padding:12px 16px;color:var(--atlas-deep);font-size:13px;font-weight:650;cursor:pointer}
+@media(max-width:1000px){.atlas-profiles-bar select{max-width:155px}.controlbar{grid-template-columns:repeat(2,minmax(0,1fr))}.atlas-profiles-bar{padding:10px}.atlas-profiles-bar input{min-width:155px}}
 </style>
 ''' 
 
@@ -132,7 +167,8 @@ function atlasProfileDownload(id){const profile=atlasCandidateEvidence(id);if(!p
  const blob=new Blob([JSON.stringify(profile,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=id+'_candidate_profile.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
 }
 function atlasRenderProfile(parent,id){parent.replaceChildren();const record=atlasProfileIndex.get(id);if(!record)return;
- atlasElement('h3',record.candidate_annotation,parent);atlasElement('p',record.sequence_id+' · '+record.species,parent);
+ const heading=atlasElement('div',undefined,parent);heading.className='atlas-profile-heading';atlasElement('small','Candidate evidence dossier',heading);const grade=atlasElement('span','Grade '+record.grade,heading);grade.className='atlas-grade';grade.setAttribute('data-grade',record.grade);
+ atlasElement('h3',record.candidate_annotation,parent);const accession=atlasElement('p',record.sequence_id+' · '+record.species,parent);accession.className='atlas-profile-id';
  const actions=atlasElement('div',undefined,parent);actions.className='atlas-actions';const url=atlasDossierURL(id);
  if(url){const link=atlasElement('a','Open complete Protein dossier ↗',actions);link.href=url;link.target='_blank';link.rel='noopener'}
  const button=atlasElement('button','Download candidate profile · JSON',actions);button.setAttribute('data-atlas-profile-download','true');button.onclick=()=>atlasProfileDownload(id);
@@ -202,9 +238,20 @@ function atlasPublishContext(force=false){const context=window.atlasCandidateCon
 }
 window.atlasPublishContext=atlasPublishContext;
 
-function atlasActivateNodes(){document.querySelectorAll('[data-family]').forEach(group=>{const family=group.getAttribute('data-family');group.setAttribute('role','button');group.setAttribute('tabindex','0');group.setAttribute('aria-label',family+': open linked candidates and connected paths');group.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();setNode(family)}}})}
+function atlasActivateNodes(){document.querySelectorAll('[data-family]').forEach(group=>{const family=group.getAttribute('data-family');group.setAttribute('role','button');group.setAttribute('tabindex','0');group.setAttribute('aria-pressed',String(current.family===family));group.setAttribute('aria-label',family+': open linked candidates and connected paths');group.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();setNode(family)}}});atlasFitNodeLabels()}
+function atlasFitNodeLabels(){const size=Number(document.getElementById('atlas-node-font')?.value||15);
+ document.querySelectorAll('[data-family]').forEach(group=>{const rect=group.querySelector('rect'),texts=group.querySelectorAll('text'),label=texts[0];if(!rect||!label)return;
+ const x=Number(rect.getAttribute('x'))+11,y=Number(rect.getAttribute('y')),width=Number(rect.getAttribute('width'))-22;const full=group.getAttribute('data-family');
+ label.textContent=full;label.setAttribute('font-size',size);label.setAttribute('fill','#000000');
+ const lines=[];let line='';for(const token of full.match(/[^_\s]+[_\s]*/g)||[full]){label.textContent=line+token;if(line&&label.getComputedTextLength()>width){lines.push(line);line=token}else line+=token}if(line)lines.push(line);
+ label.replaceChildren();lines.forEach((text,index)=>{const span=document.createElementNS(SVGNS,'tspan');span.setAttribute('x',x);span.setAttribute('y',y+(lines.length>1?16:21)+index*(size+1));span.textContent=text;label.appendChild(span)});
+ if(texts[1]){texts[1].setAttribute('fill','#000000');texts[1].setAttribute('font-size','11');texts[1].setAttribute('y',y+Number(rect.getAttribute('height'))-9)}
+ })
+}
 const atlasPathDraw=draw;
-draw=function(){atlasPathDraw();
+let atlasReadingView=true;
+function atlasReadLabels(){const canvas=document.getElementById('network');if(!canvas)return;const box=canvas.getBoundingClientRect();if(!box.width||!box.height)return;const width=Math.min(extent.w,Math.max(800,box.width*1.25));zoom={x:0,y:0,w:width,h:width*box.height/box.width};applyView()}
+draw=function(){const resetView=needsFit;atlasPathDraw();if(resetView&&atlasReadingView)atlasReadLabels();
  if(!current.family&&!current.edge)document.body.classList?.remove('atlas-side-open');
  else {const panel=document.getElementById('sidebar');document.body.classList?.add('atlas-side-open');if(panel&&!panel.querySelector('button.atlas-panel-close')){const button=atlasElement('button','Close side panel');button.className='atlas-panel-close';button.onclick=()=>document.body.classList?.remove('atlas-side-open');panel.prepend(button)}}
  atlasActivateNodes();atlasHighlightConnections();if(!current.family)atlasPublishContext()};
@@ -230,9 +277,11 @@ window.atlasSelectCandidate=function(id,locate=true){const record=atlasProfileIn
 const atlasBar=atlasElement('section');atlasBar.className='atlas-profiles-bar';
 const atlasGlobalLabel=atlasElement('label','Locate a candidate',atlasBar);atlasGlobalLabel.htmlFor='atlas-profile-search';
 const atlasGlobalSearch=atlasElement('input',undefined,atlasBar);atlasGlobalSearch.id='atlas-profile-search';atlasGlobalSearch.setAttribute('list','atlas-profile-options');atlasGlobalSearch.placeholder='Protein ID, annotation, family or orthogroup';
+atlasGlobalSearch.setAttribute('aria-label','Locate a candidate by protein ID, annotation, family or orthogroup');
 const atlasOptions=atlasElement('datalist',undefined,atlasBar);atlasOptions.id='atlas-profile-options';
 for(const p of atlasProfileIndex.values()){const option=atlasElement('option',undefined,atlasOptions);option.value=p.sequence_id;option.label=[p.candidate_annotation,p.species,p.family,p.orthogroup].join(' · ')}
 const atlasLocate=atlasElement('button','Locate protein',atlasBar);const atlasStatus=atlasElement('span','Select an identifier to highlight its family and open the candidate profile.',atlasBar);atlasStatus.id='atlas-profile-status';atlasStatus.setAttribute('role','status');
+const atlasFontLabel=atlasElement('label','Node labels',atlasBar);atlasFontLabel.htmlFor='atlas-node-font';const atlasNodeFont=atlasElement('input',undefined,atlasBar);atlasNodeFont.type='range';atlasNodeFont.id='atlas-node-font';atlasNodeFont.min='12';atlasNodeFont.max='18';atlasNodeFont.value='15';atlasNodeFont.setAttribute('aria-label','Network node label size');atlasNodeFont.oninput=atlasFitNodeLabels;
 
 const atlasPathLabel=atlasElement('label','Connected path',atlasBar);atlasPathLabel.htmlFor='atlas-path-scope';
 const atlasPathScope=atlasElement('select',undefined,atlasBar);atlasPathScope.id='atlas-path-scope';
@@ -247,6 +296,8 @@ function atlasLocateFromSearch(){const query=atlasGlobalSearch.value.trim();if(a
 const atlasHeader=document.querySelector('header');if(atlasHeader)atlasHeader.after(atlasBar);else document.body.prepend(atlasBar);
 atlasLocate.onclick=atlasLocateFromSearch;atlasGlobalSearch.onchange=()=>{if(atlasProfileIndex.has(atlasGlobalSearch.value.trim()))atlasLocateFromSearch()};atlasGlobalSearch.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();atlasLocateFromSearch()}});
 atlasActivateNodes();
+const atlasFitButton=document.getElementById('reset'),atlasToolButtons=document.querySelector('.toolbuttons');if(atlasFitButton&&atlasToolButtons){atlasFitButton.textContent='Fit all';atlasFitButton.onclick=()=>{atlasReadingView=false;fitView()};const read=atlasElement('button','Read labels',atlasToolButtons);read.className='btn';read.title='Readable labels: drag the canvas to pan. Fit all shows the complete network.';read.onclick=()=>{atlasReadingView=true;atlasReadLabels()};atlasReadLabels()}
+window.addEventListener('resize',()=>{if(atlasReadingView)atlasReadLabels()});
 if(atlasProfileConfig.focus_candidate)window.atlasSelectCandidate(atlasProfileConfig.focus_candidate);
 </script>
 '''

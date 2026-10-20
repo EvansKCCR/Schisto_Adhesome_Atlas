@@ -6,7 +6,7 @@ import json
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-from atlas_styles import apply_style
+from atlas_styles import apply_style,introduction_hero
 from data import ROOT,load,fingerprint,source_files,fasta_export
 from figure_exports import plotly_chart,figure_download_settings
 from curated_network import consensus_panel
@@ -68,9 +68,10 @@ def motif_view(sites,key='motifs'):
     table(sites);download(sites,key+'_sites.csv')
 
 with st.sidebar:
-    st.markdown('## 🧬 Schisto-Adhesome Atlas')
-    st.caption('COMPARATIVE · INTEGRIN · ADHESOME')
+    st.markdown('<div class="atlas-sidebar-brand"><span class="atlas-sidebar-symbol" aria-hidden="true">αβ</span><div><strong>Schisto-Adhesome<br>Atlas</strong><small>Scientific discovery workspace</small></div></div>',unsafe_allow_html=True)
     page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'],key='atlas_page')
+    st.divider()
+    st.caption('REFINE THE CATALOGUE')
     species=st.multiselect('Species',sorted(all_candidates.species.unique()),default=sorted(all_candidates.species.unique()))
     families=st.multiselect('Protein families',sorted(all_candidates.family.unique()))
     classification=st.selectbox('Classification',['All','Supported','Provisional'])
@@ -85,15 +86,22 @@ if query:selected=selected[selected.fillna('').astype(str).apply(lambda s:s.str.
 
 if page=='Introduction':
     identity_banner()
-    st.markdown('<div class="hero"><div class="eyebrow">COMPARATIVE ADHESION BIOLOGY</div><h1>Schisto-Adhesome Atlas</h1><p>Explore the protein families, evolutionary relationships and interaction hypotheses of the schistosome integrin adhesome.</p></div>',unsafe_allow_html=True)
-    st.subheader('About the Schisto-Adhesome Atlas')
-    st.write('The Schisto-Adhesome Atlas is an interactive platform for exploring adhesion-associated proteins across medically important Schistosoma species. It integrates protein annotations, orthology, phylogeny, conserved domains and motif exploration to reveal evolutionary relationships, parasite-specific features and potential functional interaction modules. By connecting comparative bioinformatics with experimental prioritization, the Atlas supports the discovery of candidate drug targets, vaccine antigens and biomarkers for schistosomiasis research.')
-    for col,label,value in zip(st.columns(4),['Candidates','Species','Families','Orthogroups'],[len(all_candidates),all_candidates.species.nunique(),all_candidates.family.nunique(),all_candidates.loc[all_candidates.orthogroup.ne(''),'orthogroup'].nunique()]):col.metric(label,value)
-    st.subheader('Explore the interactive adhesome hypothesis')
+    introduction_hero(all_candidates)
     labels=all_candidates.set_index('sequence_id').candidate_annotation.to_dict()
     choices=['']+sorted(all_candidates.sequence_id)
-    focus=st.selectbox('Locate a candidate on the map',choices,key='map_candidate',
-        format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
+    entry_columns=st.columns([1,1,.85])
+    for column,(title,filename) in zip(entry_columns[:2],[
+        ('Read more: Schistosome adhesome interactor','README_schistosome_adhesome_interactive.md'),
+        ('Read more: Schistosome adhesome simulator','README_adhesome_hypothesis_simulator.md'),
+    ]):
+        with column.expander(title,expanded=False):
+            readme=ROOT/filename
+            if readme.exists():st.markdown(readme.read_text(encoding='utf-8'))
+            else:st.info('To be updated when additional information is available.')
+    with entry_columns[2].expander('Locate a candidate by accession',expanded=False):
+        focus=st.selectbox('Locate a candidate on the map',choices,key='map_candidate',
+            format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
+    st.markdown('<span id="hypothesis-workspace"></span>',unsafe_allow_html=True)
     network_dir=ROOT/'adhesome_network'
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
     if path:
@@ -103,7 +111,7 @@ if page=='Introduction':
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')
         sim=ROOT/SIMULATOR_FILE
         if sim.exists():html=linked_explorer_html(html,simulator_html(sim,all_candidates))
-        st.iframe(html,height=1050)
+        st.iframe(html,height=980)
         st.download_button('Download interactive map and linked simulator',html,'Schisto_Adhesome_interactive.html','text/html')
         st.caption('Click any node to explore its linked candidates, then simulate the selected candidate and highlighted path. The profile remains visible beside the simulation; the search box is optional. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
     else:st.info('No interactive map is present in the current network library.')

@@ -6,6 +6,7 @@ import pandas as pd
 from pathlib import Path
 import streamlit as st
 import re
+from design_system import network_style
 
 
 SIMULATOR_FILE = 'adhesome_network/schistosome_integrin_adhesome_hypothesis_simulator.html'
@@ -63,4 +64,11 @@ def simulator_html(path,adhesome):
     species_map=json.dumps({**{name:key for key,name in SPECIES.items()},'S. haematobium':'sh','S. japonicum':'sj','S. mansoni':'sm'})
     html=html.replace("value.species==='S. haematobium'?'sh':value.species==='S. japonicum'?'sj':value.species==='S. mansoni'||value.node==='vkr1'?'sm':'pan'","("+species_map+")[value.species]||(value.node==='vkr1'?'sm':'pan')")
     html=html.replace("$('referenceSpecies').value='H. sapiens'","$('referenceSpecies').value='Homo sapiens'")
-    return html
+    return html.replace('</head>',network_style()+'''<style>
+body{background:#f1f6f2;padding:14px;font-family:var(--atlas-font)}.app{max-width:none}
+header,.panel,details{border:1px solid #dce5df;border-radius:14px;box-shadow:none}
+header{border-top:3px solid #1b6248;padding:20px}h1{font-size:23px;letter-spacing:-.035em}h2{font-size:19px;letter-spacing:-.025em}
+.muted{line-height:1.6}.note,#linkedContext{background:#f8f5e9;border-color:#d6c58e;border-radius:10px}
+.primary{background:#e7f1e9}.zoneCard,.moduleCard{border-color:#d5e2d9;border-radius:10px}
+.metrics span{background:#eaf3ed}.reference{border-top-color:#b66459}button{border-width:1px}
+</style></head>''',1)
