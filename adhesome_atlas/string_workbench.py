@@ -1,5 +1,6 @@
 """Candidate selection, STRING API queries and session-scoped TSV topology."""
 import hashlib
+from decimal import Decimal
 import io
 import json
 from pathlib import Path
@@ -19,6 +20,13 @@ from vector_network import vector_network_html
 from topological_clustering import clustering_panel
 
 TAXA = {'Shae': 6185, 'Sjap': 6182, 'Sman': 6183}
+
+
+def mapping_table(frame):
+    shown=frame.copy()
+    if 'E-value' in shown:shown['E-value']=pd.to_numeric(shown['E-value'],errors='coerce')
+    st.dataframe(shown,hide_index=True,width='stretch',column_config={
+        'E-value':st.column_config.NumberColumn('E-value',format='scientific')})
 
 
 def candidate_inventory(candidates, code, local_mapping):
@@ -260,13 +268,15 @@ def string_panel(candidates,sequences=None):
         if mapping and mapping['signature'] == signature:
             st.success(f'{len(mapping["resolved"])} proteins mapped; {len(mapping["unresolved"])} unresolved.')
             with st.expander('Resolved STRING protein mapping', expanded=True):
-                st.dataframe(pd.DataFrame(tsv_rows(mapping['raw'], ['queryItem', 'stringId'])), width='stretch', hide_index=True)
+                mapping_table(pd.DataFrame(tsv_rows(mapping['raw'], ['queryItem', 'stringId'])))
             if mapping['unresolved']:
                 st.dataframe(pd.DataFrame([{'query':query,'status':mapping['status_by_query'].get(query,'Unresolved')} for query in mapping['unresolved']]),hide_index=True,width='stretch')
             if mapping.get('sequence_hits'):
                 with st.expander('Sequence alignments · selected and alternative STRING representatives'):
-                    st.dataframe(pd.DataFrame(mapping['sequence_hits']),hide_index=True,width='stretch')
-                    st.download_button('Download all sequence alignment hits · TSV',pd.DataFrame(mapping['sequence_hits']).to_csv(sep='\t',index=False),'string_sequence_hits.tsv','text/tab-separated-values')
+                    hits=pd.DataFrame(mapping['sequence_hits'])
+                    mapping_table(hits)
+                    export_hits=hits.copy();export_hits['E-value']=export_hits['E-value'].map(lambda value:'' if pd.isna(value) or value=='' else format(Decimal(str(value)),'e'))
+                    st.download_button('Download all sequence alignment hits · TSV',export_hits.to_csv(sep='\t',index=False),'string_sequence_hits.tsv','text/tab-separated-values')
             st.download_button('Download STRING mapping provenance',json.dumps(mapping['log'],indent=2),'string_mapping_run.json','application/json')
             st.download_button('Download resolved STRING mapping · TSV', mapping['raw'], 'string_mapping.tsv', 'text/tab-separated-values', key='string_mapping_download')
             if mapping['resolved']:
