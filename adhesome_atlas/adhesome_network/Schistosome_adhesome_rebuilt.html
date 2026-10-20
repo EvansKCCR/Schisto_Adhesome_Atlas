@@ -126,9 +126,32 @@ $('sidebar').innerHTML=`<h2>${escapeHtml(e.a)} ↔ ${escapeHtml(e.b)}</h2><span 
 function setNode(id){current={family:id,edge:null};draw()}
 function setEdge(id){current={family:null,edge:id};draw()}
 let panning=null;
-$('network').addEventListener('pointerdown',e=>{if(e.button!==0)return;panning={clientX:e.clientX,clientY:e.clientY,x:zoom.x,y:zoom.y,moved:false};$('network').setPointerCapture(e.pointerId)});
-$('network').addEventListener('pointermove',e=>{if(!panning)return;let dx=e.clientX-panning.clientX,dy=e.clientY-panning.clientY;panning.moved=panning.moved||Math.abs(dx)>5||Math.abs(dy)>5;zoom.x=panning.x-dx*(zoom.w/$('network').getBoundingClientRect().width);zoom.y=panning.y-dy*(zoom.h/$('network').getBoundingClientRect().height);applyView()});
-$('network').addEventListener('pointerup',e=>{if(!panning)return;const moved=panning.moved;panning=null;if(moved)return;const fam=e.target.closest('[data-family]'),edge=e.target.closest('[data-edge-id]');if(fam){setNode(fam.getAttribute('data-family'))}else if(edge){setEdge(edge.getAttribute('data-edge-id'))}else{current={family:null,edge:null};draw()}});
+$('network').addEventListener('pointerdown',e=>{
+ if(e.button!==0||panning)return;
+ const family=e.target.closest('[data-family]'),edge=e.target.closest('[data-edge-id]');
+ panning={pointerId:e.pointerId,clientX:e.clientX,clientY:e.clientY,x:zoom.x,y:zoom.y,moved:false,
+  family:family?.getAttribute('data-family')||null,edge:edge?.getAttribute('data-edge-id')||null};
+ $('network').setPointerCapture(e.pointerId);
+});
+$('network').addEventListener('pointermove',e=>{
+ if(!panning||e.pointerId!==panning.pointerId)return;
+ const dx=e.clientX-panning.clientX,dy=e.clientY-panning.clientY;
+ panning.moved=panning.moved||Math.abs(dx)>5||Math.abs(dy)>5;
+ if(!panning.moved)return;
+ zoom.x=panning.x-dx*(zoom.w/$('network').getBoundingClientRect().width);
+ zoom.y=panning.y-dy*(zoom.h/$('network').getBoundingClientRect().height);applyView();
+});
+$('network').addEventListener('pointerup',e=>{
+ if(!panning||e.pointerId!==panning.pointerId)return;
+ const hit=panning;panning=null;
+ if($('network').hasPointerCapture(e.pointerId))$('network').releasePointerCapture(e.pointerId);
+ if(hit.moved||Math.abs(e.clientX-hit.clientX)>5||Math.abs(e.clientY-hit.clientY)>5)return;
+ if(hit.family)setNode(hit.family);else if(hit.edge)setEdge(hit.edge);
+ else{current={family:null,edge:null};draw()}
+});
+for(const type of ['pointercancel','lostpointercapture'])$('network').addEventListener(type,e=>{
+ if(panning?.pointerId===e.pointerId)panning=null;
+});
 $('network').addEventListener('wheel',e=>{e.preventDefault();modifyZoom(e.deltaY>0?1.12:.89)},{passive:false});
 $('edgeRows').addEventListener('click',e=>{const t=e.target.closest('tr[data-edge-row]');if(t)setEdge(t.dataset.edgeRow)});
 for(const id of ['species','grade','scope','pairs','human','sm'])$(id).addEventListener('change',()=>{current={family:null,edge:null};needsFit=true;draw()});
@@ -190,28 +213,30 @@ function atlasRenderProfile(parent,id){parent.replaceChildren();const record=atl
  atlasElement('small','Profile sources: '+Object.values(atlasProfiles.sources).join(' · '),parent)
 }
 function atlasFamilyRecords(family){const o=settings();return [...atlasProfileIndex.values()].filter(p=>p.family===family&&(o.species==='all'||p.species===o.species)&&(o.grade==='all'||o.grade==='AB'&&['A','B'].includes(p.grade)||o.grade==='A'&&p.grade==='A'))}
-function atlasFamilyProfiles(family){const panel=document.getElementById('sidebar');if(!panel)return;const records=atlasFamilyRecords(family);
+function atlasGradeCounts(records){return Object.fromEntries(['A','B','C'].map(grade=>[grade,records.filter(p=>p.grade===grade).length]))}
+function atlasFamilyProfiles(family){const panel=document.getElementById('sidebar');if(!panel)return;const records=atlasFamilyRecords(family),grades=atlasGradeCounts(records);
  const headings=[...panel.querySelectorAll('h3')],old=headings.find(h=>h.textContent==='Candidate protein accessions');if(old){while(old.nextSibling)old.nextSibling.remove();old.remove()}
  const partnerIds=[...new Set(activeEdges.filter(e=>e.a===family||e.b===family).map(e=>e.a===family?e.b:e.a))];
- if(partnerIds.length){const partners=atlasElement('div',undefined,panel);partners.className='atlas-profile';atlasElement('label','Explore a potential linked partner family',partners);const partner=atlasElement('select',undefined,partners);partner.setAttribute('aria-label','Linked partner families');atlasElement('option','Select a partner family',partner).value='';for(const id of partnerIds.sort())atlasElement('option',id,partner).value=id;partner.onchange=()=>{if(partner.value){atlasCandidateId='';setNode(partner.value)}}}
+ if(partnerIds.length){const partners=atlasElement('div',undefined,panel);partners.className='atlas-profile';atlasElement('label','Explore a potential linked partner family',partners);const partner=atlasElement('select',undefined,partners);partner.setAttribute('aria-label','Linked partner families');atlasElement('option','Select a partner family',partner).value='';for(const id of partnerIds.sort())atlasElement('option',id,partner).value=id;partner.onchange=()=>{if(partner.value)setNode(partner.value)}}
  const section=atlasElement('section',undefined,panel);section.className='atlas-profile';atlasElement('h3','Explore candidate profiles ('+records.length+')',section);
- if(!records.length){atlasElement('p','No candidate profiles in this selection.',section);return}
- const label=atlasElement('label','Find a candidate in this family',section),search=atlasElement('input',undefined,section);search.type='search';search.placeholder='Accession, annotation or orthogroup';search.setAttribute('aria-label',label.textContent);
- const select=atlasElement('select',undefined,section);select.size=6;select.setAttribute('aria-label','Candidate profiles for '+family);
- const detail=atlasElement('div',undefined,section);detail.id='atlas-profile-detail';
- function refresh(){const query=search.value.trim().toLowerCase();select.replaceChildren();for(const p of records.filter(p=>[p.sequence_id,p.candidate_annotation,p.species,p.orthogroup].join(' ').toLowerCase().includes(query))){const option=atlasElement('option',p.sequence_id+' · '+p.species+' · '+p.grade,select);option.value=p.sequence_id}if(records.some(p=>p.sequence_id===atlasCandidateId)&&[...select.options].some(o=>o.value===atlasCandidateId))select.value=atlasCandidateId;else select.selectedIndex=-1}
- search.oninput=refresh;select.onchange=()=>{atlasCandidateId=select.value;atlasRenderProfile(detail,atlasCandidateId);atlasHighlightConnections()};refresh();
- if(!records.some(p=>p.sequence_id===atlasCandidateId))atlasCandidateId=[...records].sort((a,b)=>(a.grade||'Z').localeCompare(b.grade||'Z')||a.sequence_id.localeCompare(b.sequence_id))[0].sequence_id;
- select.value=atlasCandidateId;atlasRenderProfile(detail,atlasCandidateId);
- const caption=atlasElement('p','Showing '+atlasCandidateId+'. Choose any candidate above to compare its profile.',section);caption.style.fontWeight='700';
+ const counts=atlasElement('p',records.length+' candidates · A = '+grades.A+' · B = '+grades.B+' · C = '+grades.C,section);counts.id='atlas-family-counts';
  const pathInfo=atlasElement('div',undefined,section);pathInfo.id='atlas-connected-info';pathInfo.className='atlas-connected-info';section.prepend(pathInfo);
  panel.prepend(section);panel.scrollTop=0;
  const close=atlasElement('button','Close candidate panel',section);close.className='atlas-panel-close';close.onclick=()=>document.body.classList?.remove('atlas-side-open');section.prepend(close);
  panel.setAttribute('aria-label','Candidate profiles and connected network paths');document.body.classList?.add('atlas-side-open');
+ if(!records.length){atlasCandidateId='';atlasElement('p','No candidate profiles are associated with '+family+' under the selected species and confidence filters. No additional information present in the current library.',section);atlasHighlightConnections();return}
+ const label=atlasElement('label','Find a candidate in this family',section),search=atlasElement('input',undefined,section);search.type='search';search.placeholder='Accession, annotation or orthogroup';search.setAttribute('aria-label',label.textContent);
+ const select=atlasElement('select',undefined,section);select.size=6;select.setAttribute('aria-label','Candidate profiles for '+family);
+ const detail=atlasElement('div',undefined,section);detail.id='atlas-profile-detail';
+ function refresh(){const query=search.value.trim().toLowerCase();select.replaceChildren();for(const p of records.filter(p=>[p.sequence_id,p.candidate_annotation,p.species,p.orthogroup].join(' ').toLowerCase().includes(query))){const option=atlasElement('option',p.sequence_id+' · '+p.species+' · '+p.grade,select);option.value=p.sequence_id}if(records.some(p=>p.sequence_id===atlasCandidateId)&&[...select.options].some(o=>o.value===atlasCandidateId))select.value=atlasCandidateId;else select.selectedIndex=-1}
+ search.oninput=refresh;select.onchange=()=>setNode(family,select.value);refresh();
+ if(!records.some(p=>p.sequence_id===atlasCandidateId))atlasCandidateId=[...records].sort((a,b)=>(a.grade||'Z').localeCompare(b.grade||'Z')||a.sequence_id.localeCompare(b.sequence_id))[0].sequence_id;
+ select.value=atlasCandidateId;atlasRenderProfile(detail,atlasCandidateId);
+ const caption=atlasElement('p','Showing '+atlasCandidateId+'. All '+records.length+' candidates are available in the list above.',section);caption.style.fontWeight='700';
  atlasHighlightConnections()
 }
 
-function atlasConnectedPath(start,edges,mode='2',target=''){
+function atlasConnectedPath(start,edges,mode='component',target=''){
  const adjacency=new Map();for(const e of edges){if(!adjacency.has(e.a))adjacency.set(e.a,[]);if(!adjacency.has(e.b))adjacency.set(e.b,[]);adjacency.get(e.a).push({node:e.b,edge:e.id});adjacency.get(e.b).push({node:e.a,edge:e.id})}
  const distance=new Map([[start,0]]),parents=new Map(),queue=[start],limit=target||mode==='component'?Infinity:Number(mode);
  for(let i=0;i<queue.length;i++){const node=queue[i];if(distance.get(node)>=limit)continue;const links=[...(adjacency.get(node)||[])].sort((a,b)=>a.node.localeCompare(b.node)||String(a.edge).localeCompare(String(b.edge)));for(const link of links){if(distance.has(link.node))continue;distance.set(link.node,distance.get(node)+1);parents.set(link.node,{node,edge:link.edge});queue.push(link.node)}}
@@ -220,23 +245,24 @@ function atlasConnectedPath(start,edges,mode='2',target=''){
 }
 window.atlasConnectedPath=atlasConnectedPath;
 function atlasHighlightConnections(){if(!current.family)return;
- const mode=document.getElementById('atlas-path-scope')?.value||'2',target=document.getElementById('atlas-path-target')?.value||'';
+ const mode=document.getElementById('atlas-path-scope')?.value||'component',target=document.getElementById('atlas-path-target')?.value||'';
  const result=atlasConnectedPath(current.family,activeEdges,mode,target);
  document.querySelectorAll('[data-edge-id]').forEach(path=>{const included=result.edges.has(path.getAttribute('data-edge-id'));path.setAttribute('opacity',included?'1':'.045');if(included){path.setAttribute('stroke','#08743f');path.setAttribute('stroke-width','4')}});
  document.querySelectorAll('[data-family]').forEach(group=>{const id=group.getAttribute('data-family');group.setAttribute('opacity',result.nodes.has(id)?'1':'.25');if(result.nodes.has(id)){const rect=group.querySelector('rect');if(rect){rect.setAttribute('stroke',id===current.family?'#b91c1c':'#08743f');rect.setAttribute('stroke-width',id===current.family?'4':'3')}}});
  const info=document.getElementById('atlas-connected-info');if(info){info.replaceChildren();atlasElement('strong','Connected path from '+current.family,info);
- atlasElement('p',result.unreachable?'Target '+target+' is not connected under the selected network filters.':target?result.path.join(' ↔ '):result.nodes.size+' families · '+result.edges.size+' relationships · '+(mode==='component'?'connected component':mode+'-step neighborhood'),info);
- atlasElement('small','Paths follow the displayed family associations and active evidence filters.',info)}
+ atlasElement('p',result.unreachable?'Target '+target+' is not connected under the selected network filters.':!result.edges.size?'No recorded connections for '+current.family+' in the active topology.':target?result.path.join(' ↔ '):result.nodes.size+' families · '+result.edges.size+' relationships · '+(mode==='component'?'connected component':mode+'-step neighborhood'),info);
+ atlasElement('small','Paths follow recorded, undirected family associations and active evidence filters; they do not assign a causal direction.',info)}
  const status=document.getElementById('atlas-profile-status');if(status)status.textContent=current.family+' · '+result.nodes.size+' connected families · candidate profiles open in the side panel';
  atlasPublishContext();
 }
 
 window.atlasCandidateContext=function(){if(!current.family)return null;
- const candidate=window.atlasSelectedCandidate?.(),mode=document.getElementById('atlas-path-scope')?.value||'2',target=document.getElementById('atlas-path-target')?.value||'';
+ const candidate=window.atlasSelectedCandidate?.(),mode=document.getElementById('atlas-path-scope')?.value||'component',target=document.getElementById('atlas-path-target')?.value||'';
  const highlighted=atlasConnectedPath(current.family,activeEdges,mode,target),filters=settings();
  return {node:current.family,title:current.family,candidate:candidate?.sequence_id||'',candidate_annotation:candidate?.candidate_annotation||'',orthogroup:candidate?.orthogroup||'',species:candidate?.species||filters.species,module:'all',
   profile:candidate?atlasCandidateEvidence(candidate.sequence_id):null,profile_html:document.getElementById('atlas-profile-detail')?.innerHTML||'',
   candidates:atlasFamilyRecords(current.family).map(p=>({id:p.sequence_id,annotation:p.candidate_annotation,species:p.species,grade:p.grade})),
+  candidate_counts:atlasGradeCounts(atlasFamilyRecords(current.family)),
   highlighted_path:{root:current.family,mode,target,nodes:[...highlighted.nodes],edges:activeEdges.filter(e=>highlighted.edges.has(e.id)),route:highlighted.path,unreachable:highlighted.unreachable},network_filters:filters};
 };
 function atlasPublishContext(force=false){const context=window.atlasCandidateContext();if(!context){if(atlasLastContextKey||force){atlasLastContextKey='';window.dispatchEvent(new CustomEvent('atlas-candidate-context',{detail:{cleared:true}}))}return;}
@@ -256,10 +282,17 @@ draw=function(){atlasPathDraw();
 const atlasProfileNodeDetails=nodeDetails;
 nodeDetails=function(family){atlasProfileNodeDetails(family);atlasFamilyProfiles(family)};
 window.atlasSelectedCandidate=()=>{const record=atlasProfileIndex.get(atlasCandidateId);return record&&current.family===record.family&&atlasFamilyRecords(record.family).some(p=>p.sequence_id===record.sequence_id)?record:null};
+// One selection transaction for pointer, keyboard, partner and candidate controls.
+function atlasSelectNode(family,candidateId=''){
+ const records=atlasFamilyRecords(family),requested=candidateId||atlasCandidateId;
+ atlasCandidateId=records.some(p=>p.sequence_id===requested)?requested:([ ...records ].sort((a,b)=>(a.grade||'Z').localeCompare(b.grade||'Z')||a.sequence_id.localeCompare(b.sequence_id))[0]?.sequence_id||'');
+ current={family,edge:null};draw();return current.family===family;
+}
+setNode=atlasSelectNode;window.atlasSelectNode=atlasSelectNode;
 window.atlasSelectCandidate=function(id,locate=true){const record=atlasProfileIndex.get(id);if(!record)return false;
  if(!DATA.families.some(f=>f.id===record.family)){document.getElementById('atlas-profile-status').textContent='Candidate family is not represented on this map: '+record.family;return false}
- atlasCandidateId=id;if(locate){document.getElementById('species').value=record.species;document.getElementById('grade').value='all';document.getElementById('scope').value='all';document.getElementById('search').value=''}
- setNode(record.family);const search=document.getElementById('atlas-profile-search');if(search)search.value=id;
+ if(locate){document.getElementById('species').value=record.species;document.getElementById('grade').value='all';document.getElementById('scope').value='all';document.getElementById('search').value=''}
+ setNode(record.family,id);const search=document.getElementById('atlas-profile-search');if(search)search.value=id;
  document.getElementById('atlas-profile-status').textContent=record.sequence_id+' · '+record.family+' · '+record.orthogroup;
  if(locate){const element=[...document.querySelectorAll('[data-family]')].find(e=>e.getAttribute('data-family')===record.family);if(element&&typeof element.getBBox==='function'){const b=element.getBBox();zoom={x:Math.max(0,b.x-420),y:Math.max(0,b.y-240),w:1100,h:720};applyView()}}
  return true
@@ -273,10 +306,10 @@ const atlasLocate=atlasElement('button','Locate protein',atlasBar);const atlasSt
 
 const atlasPathLabel=atlasElement('label','Connected path',atlasBar);atlasPathLabel.htmlFor='atlas-path-scope';
 const atlasPathScope=atlasElement('select',undefined,atlasBar);atlasPathScope.id='atlas-path-scope';
-for(const [value,label] of [['1','Direct partners'],['2','2-step neighborhood'],['component','Connected component']]){const option=atlasElement('option',label,atlasPathScope);option.value=value}atlasPathScope.value='2';atlasPathScope.onchange=()=>draw();
+for(const [value,label] of [['1','Direct partners'],['2','2-step neighborhood'],['component','Connected component']]){const option=atlasElement('option',label,atlasPathScope);option.value=value}atlasPathScope.value='component';atlasPathScope.onchange=()=>draw();
 const atlasPathTargetLabel=atlasElement('label','Shortest path to',atlasBar);atlasPathTargetLabel.htmlFor='atlas-path-target';
 const atlasPathTarget=atlasElement('select',undefined,atlasBar);atlasPathTarget.id='atlas-path-target';atlasElement('option','Choose a target family (optional)',atlasPathTarget).value='';
-for(const family of DATA.families){const option=atlasElement('option',family.id,atlasPathTarget);option.value=family.id}atlasPathTarget.onchange=()=>draw();
+for(const id of new Set([...DATA.families.map(f=>f.id),...(DATA.special||[]).flatMap(e=>[e.a,e.b])])){const option=atlasElement('option',id,atlasPathTarget);option.value=id}atlasPathTarget.onchange=()=>draw();
 
 function atlasLocateFromSearch(){const query=atlasGlobalSearch.value.trim();if(atlasProfileIndex.has(query)){window.atlasSelectCandidate(query);return}
  const matches=[...atlasProfileIndex.values()].filter(p=>[p.sequence_id,p.candidate_annotation,p.species,p.family,p.orthogroup].join(' ').toLowerCase().includes(query.toLowerCase()));
