@@ -1,0 +1,113 @@
+{
+  "pipeline_version": "1.0",
+  "versions": {
+    "mafft": "v7.526 (2024/Apr/26)\n",
+    "trimal": "\ntrimAl v1.5.rev0 build[2024-05-27]\n\n",
+    "iqtree": "IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Feb 12 2025\nDeveloped by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor, Heiko Schmidt,\nDominik Schrempf, Michael Woodhams, Ly Trong Nhan, Thomas Wong\n\n"
+  },
+  "commands": [
+    [
+      "/home/cegrib/anaconda3/envs/integrin/bin/mafft",
+      "--amino",
+      "--thread",
+      "4",
+      "--threadit",
+      "0",
+      "--localpair",
+      "--maxiterate",
+      "1000",
+      "/home/cegrib/Desktop/integrin/vscode/phylogeny_initial/OG0000253/members.faa"
+    ],
+    [
+      "/home/cegrib/anaconda3/envs/integrin/bin/trimal",
+      "-in",
+      "/home/cegrib/Desktop/integrin/vscode/phylogeny_initial/OG0000253/inference/trimal_input.faa",
+      "-out",
+      "/home/cegrib/Desktop/integrin/vscode/phylogeny_initial/OG0000253/inference/trimmed_aliases.faa",
+      "-automated1"
+    ],
+    [
+      "/home/cegrib/anaconda3/envs/integrin/bin/iqtree2",
+      "-s",
+      "/home/cegrib/Desktop/integrin/vscode/phylogeny_initial/OG0000253/inference/trimmed.faa",
+      "-st",
+      "AA",
+      "-m",
+      "MFP",
+      "-B",
+      "1000",
+      "--alrt",
+      "1000",
+      "-bnni",
+      "-seed",
+      "20260920",
+      "-T",
+      "4",
+      "-keep-ident",
+      "--prefix",
+      "/home/cegrib/Desktop/integrin/vscode/phylogeny_initial/OG0000253/inference/gene_tree"
+    ]
+  ],
+  "input_hashes": {
+    "duplication_evidence.tsv": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+    "tips.tsv": "e5d7a48d3b087b902c8c2d4f4ff75a398718eb42b709a92dfdd03f1f0ffdd9d0",
+    "duplication_status.json": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+    "members.faa": "573272ca20d026f982682fadcf98040395613c43a3b7dfa3201488acbce81c28",
+    "orthology_edges.tsv": "ef67d627be7eed5cdca75f047a550a9fd46a33992a62ac52c776e07c848a5b57"
+  },
+  "started_utc": "2026-10-19T23:59:50.625874+00:00",
+  "status": "complete",
+  "settings": {
+    "project": "phylogeny_initial",
+    "hog": null,
+    "outgroup": [],
+    "threads": 4,
+    "workers": 6,
+    "iqtree_threads": 4,
+    "retry_failed": false,
+    "resume": false,
+    "allow_partial": true,
+    "seed": 20260920,
+    "aligner": "linsi",
+    "min_sites": 50,
+    "max_gap": 0.9,
+    "mafft": "mafft",
+    "trimal": "trimal",
+    "iqtree": "iqtree2"
+  },
+  "pid": 5707,
+  "reused_stages": [],
+  "active_stage": "iqtree",
+  "last_stderr_log": "phylogeny_initial/OG0000253/inference/command_3.stderr.log",
+  "checkpoints": {
+    "aligned.faa": "6d6a0014f7be9c9e16011a0ea33f215cf87fcb63baa42d8a1da31664a91b17a5",
+    "trimmed.faa": "2c8a033b03b43006f5ff7fdc770165934ef1dc35732f260090744c719ae42076"
+  },
+  "outputs": {
+    "gene_tree.mldist": "01020837a0862ef21e29410628d97f0f61e0a41bac209e321397b204301e739c",
+    "gene_tree.contree": "9610dc5fbc03afdfd2d54803c1d0e9950f786db2dac6f2b89e6b7d031a5aa82a",
+    "alignment_qc.json": "32966f6ec4a1bf8b3c900e9030ab4119fecf00dc0752c02c5b8d1d72aec182b4",
+    "command_2.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "command_2.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trimal_input.faa": "29fa0f0f8cc8ea780a357fac866843dfdac78de31bd4427ea77e9df5ed1a3e94",
+    "trimal_identifiers.tsv": "c81a067165b77fd2b06f798d7515e4ae4f6271c73122c1c226113769aece00d4",
+    "command_3.stdout.log": "c1e6cafecbd10cbc77073a066664763dd9a24f6b908a0498a230077b8c51362a",
+    "branch_evidence.tsv": "9a4ce888551949b3e35592ba588d0180be6f5ca6819bd69965336dcec3645150",
+    "gene_tree.iqtree": "7cdc1a73a9eea0ca125bd2d1a51f71dc8d7c4ff7b4792ae9d91db584010f4c03",
+    "sequence_qc.tsv": "d1f53dbb37d6797a1cbe6a02d6840c99fbba817d8cebe1cb7c242d086914b4b5",
+    "trimmed_aliases.faa": "09b7cb68843306d019062b6883a499530ecbf088a0c4d5eaa81d9eb92f8a1d24",
+    "aligned.faa": "6d6a0014f7be9c9e16011a0ea33f215cf87fcb63baa42d8a1da31664a91b17a5",
+    "gene_tree.ckp.gz": "d601b483b40a7e4e14f234d191c0fbe980502a089620c085163fd79255facdc9",
+    "trimmed.faa": "2c8a033b03b43006f5ff7fdc770165934ef1dc35732f260090744c719ae42076",
+    "trimmed.sequence_qc.tsv": "d1f53dbb37d6797a1cbe6a02d6840c99fbba817d8cebe1cb7c242d086914b4b5",
+    "command_1.stderr.log": "191653578836dfdacdcec67e8f5b771a50103388d54f756431031a40c2d3d534",
+    "gene_tree.bionj": "ce352473dcfa07f94707073f65c7964663eece8dcb94526adf06ef850ae91397",
+    "gene_tree.splits.nex": "04d0632f4f3638c6a71a39ca8b3d9a7afb92ae6c1710506b7a91e16263fec672",
+    "command_3.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gene_tree.model.gz": "ddaccb2d8fba7d79be3f2df3742656f613f7de0ffdcbf67c4bef1ee2777a2375",
+    "aligned.sequence_qc.tsv": "bcce026312c7499413a7434293038e0be1959f59332114f6b4c6d937f4b901e7",
+    "gene_tree.treefile": "55e4d0a2ee022b057adc70af75fce293f1d69a5e3f3410de9b1e24ada16d50fe",
+    "gene_tree.log": "c1e6cafecbd10cbc77073a066664763dd9a24f6b908a0498a230077b8c51362a",
+    "gene_tree.ufboot": "6af7d3b7a1910ab66f2d652c6527e3effec6f6d899d4c96450172a1187226f4a"
+  }
+}
