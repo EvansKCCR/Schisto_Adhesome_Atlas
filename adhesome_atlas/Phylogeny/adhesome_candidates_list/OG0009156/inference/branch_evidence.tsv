@@ -1,0 +1,8 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	79.8/93	8	Fhepatica,Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda	Fhepatica__FhHiC23_g5033,Sbovis__SBOV2_29050,Scura__SCUR1_38850,Shae__MS3_00001825,Sinter__SINT2_37400,Sjap__EWB00_009541,Sman__Smp_165070,Srhoda__SRDH2_38820	7		unrooted split; no ancestry or duplication timing assigned
+B0003	99.1/100	7	Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda	Sbovis__SBOV2_29050,Scura__SCUR1_38850,Shae__MS3_00001825,Sinter__SINT2_37400,Sjap__EWB00_009541,Sman__Smp_165070,Srhoda__SRDH2_38820	0		unrooted split; no ancestry or duplication timing assigned
+B0004	70.2/71	6	Sbovis,Scura,Shae,Sinter,Sman,Srhoda	Sbovis__SBOV2_29050,Scura__SCUR1_38850,Shae__MS3_00001825,Sinter__SINT2_37400,Sman__Smp_165070,Srhoda__SRDH2_38820	0		unrooted split; no ancestry or duplication timing assigned
+B0005	90.5/89	4	Sbovis,Scura,Shae,Sinter	Sbovis__SBOV2_29050,Scura__SCUR1_38850,Shae__MS3_00001825,Sinter__SINT2_37400	0		unrooted split; no ancestry or duplication timing assigned
+B0006	0/91	3	Sbovis,Scura,Shae	Sbovis__SBOV2_29050,Scura__SCUR1_38850,Shae__MS3_00001825	0		unrooted split; no ancestry or duplication timing assigned
+B0007	0/37	2	Sbovis,Scura	Sbovis__SBOV2_29050,Scura__SCUR1_38850	0		unrooted split; no ancestry or duplication timing assigned
+B0008	76.6/99	2	Sman,Srhoda	Sman__Smp_165070,Srhoda__SRDH2_38820	0		unrooted split; no ancestry or duplication timing assigned

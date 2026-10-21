@@ -1,0 +1,11 @@
+sequence_id	species	length	candidate	family	source_groups
+Bench_Caenorhabditis_elegans_WBcel235_pep_all__WBGene00006826.1	Bench_Caenorhabditis_elegans_WBcel235_pep_all	348	0		OG0009156
+Fhepatica__FhHiC23_g5033	Fhepatica	337	0		OG0009156
+Sbovis__SBOV2_29050	Sbovis	354	1		OG0009156
+Scura__SCUR1_38850	Scura	354	1		OG0009156
+Shae__MS3_00001825	Shae	354	1		OG0009156
+Sinter__SINT2_37400	Sinter	354	1		OG0009156
+Sjap__EWB00_009541	Sjap	354	1		OG0009156
+Sman__Smp_165070	Sman	354	1		OG0009156
+Srhoda__SRDH2_38820	Srhoda	354	1		OG0009156
+Taenia__TsM_000502200	Taenia	359	0		OG0009156
