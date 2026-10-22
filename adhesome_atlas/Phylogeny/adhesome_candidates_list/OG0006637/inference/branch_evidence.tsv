@@ -1,0 +1,17 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	8.9/54	11	Fhepatica,Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda,Taenia	Fhepatica__FhHiC23_g638,Fhepatica__FhHiC23_g639,Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570,Sjap__EWB00_003639,Sman__Smp_245490,Srhoda__SRDH2_46710,Taenia__TsM_000382700,Taenia__TsM_000988700	15		unrooted split; no ancestry or duplication timing assigned
+B0003	100/100	10	Fhepatica,Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda,Taenia	Fhepatica__FhHiC23_g638,Fhepatica__FhHiC23_g639,Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570,Sjap__EWB00_003639,Sman__Smp_245490,Srhoda__SRDH2_46710,Taenia__TsM_000382700	15		unrooted split; no ancestry or duplication timing assigned
+B0004	98.7/94	9	Fhepatica,Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda	Fhepatica__FhHiC23_g638,Fhepatica__FhHiC23_g639,Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570,Sjap__EWB00_003639,Sman__Smp_245490,Srhoda__SRDH2_46710	10		unrooted split; no ancestry or duplication timing assigned
+B0005	0/49	8	Fhepatica,Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda	Fhepatica__FhHiC23_g638,Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570,Sjap__EWB00_003639,Sman__Smp_245490,Srhoda__SRDH2_46710	5		unrooted split; no ancestry or duplication timing assigned
+B0006	100/100	7	Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda	Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570,Sjap__EWB00_003639,Sman__Smp_245490,Srhoda__SRDH2_46710	0		unrooted split; no ancestry or duplication timing assigned
+B0007	97.2/96	6	Sbovis,Scura,Shae,Sinter,Sman,Srhoda	Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570,Sman__Smp_245490,Srhoda__SRDH2_46710	0		unrooted split; no ancestry or duplication timing assigned
+B0008	100/100	4	Sbovis,Scura,Shae,Sinter	Sbovis__SBOV2_45200,Scura__SCUR1_45980,Shae__MS3_00006013,Sinter__SINT2_44570	0		unrooted split; no ancestry or duplication timing assigned
+B0009	99.6/100	2	Sbovis,Scura	Sbovis__SBOV2_45200,Scura__SCUR1_45980	0		unrooted split; no ancestry or duplication timing assigned
+B0010	51.5/75	2	Shae,Sinter	Shae__MS3_00006013,Sinter__SINT2_44570	0		unrooted split; no ancestry or duplication timing assigned
+B0011	100/100	2	Sman,Srhoda	Sman__Smp_245490,Srhoda__SRDH2_46710	0		unrooted split; no ancestry or duplication timing assigned
+B0012	100/100	7	Sbovis,Scura,Shae,Sinter,Sjap,Sman,Srhoda	Sbovis__SBOV2_28730,Scura__SCUR1_39190,Shae__MS3_00001856,Sinter__SINT2_37720,Sjap__EWB00_006209,Sman__Smp_170280,Srhoda__SRDH2_39180	0		unrooted split; no ancestry or duplication timing assigned
+B0013	97.1/93	6	Sbovis,Scura,Shae,Sinter,Sman,Srhoda	Sbovis__SBOV2_28730,Scura__SCUR1_39190,Shae__MS3_00001856,Sinter__SINT2_37720,Sman__Smp_170280,Srhoda__SRDH2_39180	0		unrooted split; no ancestry or duplication timing assigned
+B0014	99.9/99	4	Sbovis,Scura,Shae,Sinter	Sbovis__SBOV2_28730,Scura__SCUR1_39190,Shae__MS3_00001856,Sinter__SINT2_37720	0		unrooted split; no ancestry or duplication timing assigned
+B0015	75.3/52	3	Scura,Shae,Sinter	Scura__SCUR1_39190,Shae__MS3_00001856,Sinter__SINT2_37720	0		unrooted split; no ancestry or duplication timing assigned
+B0016	48.3/45	2	Scura,Shae	Scura__SCUR1_39190,Shae__MS3_00001856	0		unrooted split; no ancestry or duplication timing assigned
+B0017	99.9/100	2	Sman,Srhoda	Sman__Smp_170280,Srhoda__SRDH2_39180	0		unrooted split; no ancestry or duplication timing assigned
