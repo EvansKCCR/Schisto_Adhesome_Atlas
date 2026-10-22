@@ -9,7 +9,14 @@ def orthology_panel(candidates):
     st.header('Orthology')
     folders=sorted(p.parent for p in (ROOT/'orthology').rglob('candidate_report.tsv'))
     if not folders: st.info('No orthology report is present in the current library.');return
-    folder=st.selectbox('Orthology collection',folders,format_func=lambda p:p.name)
+    route_group=st.session_state.pop('orthology_route_group',None)
+    if route_group:
+        for folder in folders:
+            hog_file=folder/'candidate_HOGs.tsv'
+            if hog_file.exists() and route_group in set(pd.read_csv(hog_file,sep='\t',usecols=['Orthogroup']).Orthogroup):
+                st.session_state['orthology_collection']=folder;break
+        st.session_state.pop('orthology_species',None)
+    folder=st.selectbox('Orthology collection',folders,format_func=lambda p:p.name,key='orthology_collection')
     signature=tuple((p.name,p.stat().st_mtime_ns,p.stat().st_size) for p in folder.glob('*') if p.is_file())
     @st.cache_data(show_spinner=False)
     def read(folder,signature):
@@ -22,12 +29,13 @@ def orthology_panel(candidates):
     refs=sorted(direct.reference_species.unique())
     st.caption(f'{candidates.species.nunique()} candidate species; {len(refs)} reference taxa in the active direct-orthologue report. Reference names and copy counts follow the report headers. Orthogroup IDs belong to this run; no historical groups are merged.')
     a,b=st.columns(2)
-    species=a.multiselect('Orthology species',sorted(report.species.unique()),default=sorted(report.species.unique()))
-    families=b.multiselect('Orthology families',sorted(report.family.unique()))
-    query=st.text_input('Find a candidate, orthogroup or reference protein')
+    species=a.multiselect('Orthology species',sorted(report.species.unique()),default=sorted(report.species.unique()),key='orthology_species')
+    families=b.multiselect('Orthology families',sorted(report.family.unique()),key='orthology_families')
+    query=st.text_input('Find a candidate, orthogroup or reference protein',key='orthology_query')
     selected=report[report.species.isin(species)]
     if families:selected=selected[selected.family.isin(families)]
     if query:selected=selected[selected.astype(str).apply(lambda col:col.str.contains(query,case=False,regex=False)).any(axis=1)]
+    if selected.empty:st.info('No candidate assignments match this orthogroup or the selected orthology filters in the current library.')
     groups=hogs[hogs.Orthogroup.isin(set(selected.Orthogroup)-{''})]
     direct=direct[direct.candidate_id.isin(selected.candidate_id)]
     for col,label,value in zip(st.columns(4),['Candidates','Orthogroups','Reference taxa','Relationship records'],[selected.candidate_id.nunique(),groups.Orthogroup.nunique(),direct.reference_species.nunique(),len(direct)]): col.metric(label,value)

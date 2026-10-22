@@ -20,6 +20,7 @@ from simulator import simulator_html,SIMULATOR_FILE
 from feedback import feedback_panel
 from branding import identity_banner,creator_credit
 from candidate_profiles import profile_payload,candidate_map_html,atlas_url
+from research_priorities import apply_target_route,research_priorities_panel
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…')
@@ -28,14 +29,7 @@ cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(
 all_candidates=cohorts['Adhesome candidates']
 requested_protein=st.query_params.get('protein','')
 requested_view=st.query_params.get('view','')
-route=(requested_view,requested_protein)
-if st.session_state.get('atlas_route')!=route:
-    st.session_state['atlas_route']=route
-    if requested_view in {'Introduction','Protein dossier'}:
-        st.session_state['atlas_page']=requested_view
-    if requested_protein in set(all_candidates.sequence_id):
-        st.session_state['map_candidate']=requested_protein
-        st.session_state['dossier_protein']=requested_protein
+apply_target_route(all_candidates,st.query_params,st.session_state)
 app_url=st.context.url or ''
 
 @st.cache_data(show_spinner='Connecting candidate evidence profiles…')
@@ -76,10 +70,10 @@ with st.sidebar:
     page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'],key='atlas_page')
     st.divider()
     st.caption('REFINE THE CATALOGUE')
-    species=st.multiselect('Species',sorted(all_candidates.species.unique()),default=sorted(all_candidates.species.unique()))
-    families=st.multiselect('Protein families',sorted(all_candidates.family.unique()))
-    classification=st.selectbox('Classification',['All','Supported','Provisional'])
-    query=st.text_input('Search annotations')
+    species=st.multiselect('Species',sorted(all_candidates.species.unique()),default=sorted(all_candidates.species.unique()),key='catalogue_species')
+    families=st.multiselect('Protein families',sorted(all_candidates.family.unique()),key='catalogue_families')
+    classification=st.selectbox('Classification',['All','Supported','Provisional'],key='catalogue_classification')
+    query=st.text_input('Search annotations',key='catalogue_query')
     figure_download_settings()
     if st.button('Reload source files'):st.cache_data.clear();st.rerun()
     st.caption(f'{len(all_candidates):,} candidates · {all_candidates.species.nunique()} species · {all_candidates.family.nunique()} families')
@@ -105,6 +99,10 @@ if page=='Introduction':
     with entry_columns[2].expander('Locate a candidate by accession',expanded=False):
         focus=st.selectbox('Locate a candidate on the map',choices,key='map_candidate',
             format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
+    @st.fragment
+    def research_entry():
+        research_priorities_panel(all_candidates,app_url,ROOT/'Target_prioritization.md')
+    research_entry()
     st.markdown('<span id="hypothesis-workspace"></span>',unsafe_allow_html=True)
     network_dir=ROOT/'adhesome_network'
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
@@ -125,7 +123,10 @@ if page=='Introduction':
 elif page=='Components':
     st.header('Components')
     st.caption('Choose a section below. Species, family and classification filters remain in the sidebar.')
-    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'])
+    requested_family=st.query_params.get('family','')
+    if requested_view=='Components' and requested_family and requested_family not in set(all_candidates.family):
+        st.info('The requested family is unavailable in the current catalogue: '+requested_family)
+    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],key='component_section')
     if view in ['Summary statistics','Summary graphs','Comparative lab']:
         counts=selected.groupby(['species','family']).sequence_id.nunique().reset_index(name='Proteins')
         if view=='Summary statistics':table(selected.groupby(['species','grade','assignment_confidence']).size().reset_index(name='Candidates'))
