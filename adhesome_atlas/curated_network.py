@@ -2,14 +2,13 @@
 import hashlib
 import json
 from itertools import product
-import networkx as nx
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 from data import ROOT
 from figure_exports import plotly_chart
 from reconstruction import topology,network_matrices
-from vector_network import vector_network_html
+from consensus_view import build_view_model,consensus_network_html,layout_table,layout_signature
 from topological_clustering import clustering_panel
 
 NET=ROOT/'adhesome_network'
@@ -66,17 +65,16 @@ def consensus_panel(candidates):
     for col,label,value in zip(st.columns(4),['Orthogroups','Candidate proteins','Projected pairs','Communities'],[len(nodes),members[members.orthogroup.isin(nodes.identifier)].sequence_id.nunique(),graph.number_of_edges(),metrics.community.nunique()]): col.metric(label,value)
     section=st.selectbox('Network analysis section',['Interactive network','Centrality & matrices','Topological clustering','Evidence & downloads'])
     if section=='Interactive network':
-        color=st.selectbox('Consensus node colors',['Family','layer','community'])
-        categories=sorted(metrics[color].astype(str).unique());palette=px.colors.qualitative.Dark24
-        colors={v:palette[i%len(palette)] for i,v in enumerate(categories)}
-        limit=st.slider('Maximum nodes drawn',25,500,200,25)
-        visible=metrics.sort_values(['degree','identifier'],ascending=[False,True]).head(limit)
-        ids=set(visible.identifier);sub=graph.subgraph(ids)
-        positions=nx.spring_layout(sub,seed=20) if len(sub)<=300 else nx.circular_layout(sub)
-        vnodes=[dict(id=r.identifier,label=r.identifier,annotation=r.Family,x=float(positions[r.identifier][0]),y=float(positions[r.identifier][1]),radius=12+min(15,r.degree),color=colors[str(getattr(r,color))],category=str(getattr(r,color)),detail={'Families':r.Family,'Candidate count':r.member_count,'Species':r.species,'Grades':r.grades}) for r in visible.itertuples()]
-        vedges=[dict(source=a,target=b,detail={'Evidence':'Metazoan reference projection'}) for a,b in sub.edges()]
-        st.iframe(vector_network_html(vnodes,vedges,'Orthogroup consensus adhesome',label_mode='centered'),height=950)
-        st.caption(f'Drawing {len(visible)} of {len(metrics)} filtered orthogroups, ordered by degree. Centrality, clustering and downloads use the full filtered graph. Drag nodes, adjust label size, center names and export SVG in the viewer.')
+        @st.cache_data(show_spinner='Organizing annotation-informed network regions…',max_entries=8)
+        def presentation(metrics,edges,members,rules_signature):return build_view_model(metrics,edges,members)
+        model=presentation(metrics,edges,members,layout_signature())
+        html=consensus_network_html(model,st.context.url or '')
+        st.iframe(html,height=1200)
+        st.caption(f'All {len(metrics):,} filtered orthogroups and {graph.number_of_edges():,} original projected pairs are retained. Layout, module focus and local hiding affect presentation only. Select a node for its complete filtered candidate membership, prediction evidence and recorded neighbors. Read labels, zoom or search for detailed exploration; overview labels suppress collisions.')
+        a,b,c=st.columns(3)
+        a.download_button('Download interactive consensus HTML',html,'orthogroup_consensus_interactive.html','text/html')
+        b.download_button('Download spatial annotation & coordinates',layout_table(model).to_csv(index=False),'orthogroup_spatial_layouts.csv','text/csv')
+        c.download_button('Download layout annotation rules',json.dumps({'rule_version':model['rule_version'],'graph_sha256':model['graph_sha256'],'rules':model['rules']},indent=2),'orthogroup_layout_rules.json','application/json')
     if section=='Centrality & matrices':
         st.caption('Unweighted undirected topology of the filtered projected graph. Reference evidence row counts are not binding affinities. Closeness uses the disconnected-graph correction; betweenness measures shortest-path brokerage. Centrality supports prioritization and does not establish essentiality.')
         st.dataframe(metrics.sort_values('betweenness',ascending=False),hide_index=True,width='stretch')
