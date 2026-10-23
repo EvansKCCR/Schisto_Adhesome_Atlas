@@ -1,10 +1,8 @@
-# Computational Discovery and Prioritisation of Schistosome Adhesion Protein Candidates 
+# Exploratory Schisto-adhesome atlas 
 
 ## Overview
 
-This repository contains the datasets, analysis workflows, and custom scripts developed for a PhD thesis investigating the molecular networks underlying adhesion signalling in *Schistosoma* species. The project integrates proteome-scale domain discovery, orthology inference, phylogenetic analysis, motif annotation, membrane topology prediction, network analysis, and evidence-based target prioritisation.
-
-The repository supports the generation of an interactive adhesome atlas that consolidates standardized protein identifiers, species distributions, orthology relationships, domain architectures, conserved motifs, membrane topology, functional modules, phylogenetic classifications, network positions, evidence levels, and prioritisation scores.
+This repository supports the generation of an interactive adhesome atlas that employs deterministic multi-evidence integration, graph-theoretical network reconstruction, mechanistic simulation and exploratory multi-criteria prioritization of schistosome adhesion protein candidates.
 
 ## Repository Contents
 
