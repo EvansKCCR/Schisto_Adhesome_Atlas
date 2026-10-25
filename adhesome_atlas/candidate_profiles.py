@@ -2,6 +2,8 @@
 from html import escape
 import json
 import re
+from pathlib import Path
+import pandas as pd
 from urllib.parse import urlencode,urlsplit,urlunsplit
 from design_system import network_style
 
@@ -12,7 +14,7 @@ PROFILE_FIELDS=['sequence_id','species','family','candidate_annotation','grade',
  'orthology_score_0_3','motif_score_0_2','localization_score_0_1','total_score_0_10',
  'orthology_reference_species_count','Orthology_direct_reference_count','Orthology_reference_support',
  'Orthology_benchmark_status','Orthology_benchmark_weight','family_specific_CDD_support',
- 'identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses','source']
+ 'identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses','stage1_family_hypothesis','source']
 DOMAIN_FIELDS=['accession','short_name','start','end','evalue','bitscore','interpretation']
 MOTIF_FIELDS=['motif_function','start','end','representative_peptide','source_ELM_classes',
  'reassessed_context_tier','context_explanation','topology','overlapping_domains']
@@ -62,7 +64,7 @@ def atlas_url(base,view,protein):
 def _records(frame,fields):
     return json.loads(frame.reindex(columns=fields).to_json(orient='values'))
 
-def profile_payload(candidates,books,motifs):
+def profile_payload(candidates,books,motifs,root=None):
     """Keep exact IDs and original evidence; encode table headings only once."""
     candidates=candidates.drop_duplicates('sequence_id')
     ids=set(candidates.sequence_id)
@@ -70,7 +72,9 @@ def profile_payload(candidates,books,motifs):
         frame=frame[frame[key].isin(ids)]
         return {'fields':fields,'rows':{str(identifier):_records(group,fields) for identifier,group in frame.groupby(key,sort=False)}}
     domains=books['files/NCBI_CDD.xlsx']['NCBI_CDD_selected_hits'].drop_duplicates(['sequence_id','accession','start','end'])
-    direct=books['files/Direct_orthologues.xlsx']['Direct_orthologues']
+    base=Path(root) if root is not None else Path(__file__).resolve().parent
+    reports=sorted((base/'orthology').rglob('direct_orthologues.tsv'))
+    direct=pd.concat([pd.read_csv(p,sep='\t',dtype=str).fillna('') for p in reports],ignore_index=True).drop_duplicates() if reports else books['files/Direct_orthologues.xlsx']['Direct_orthologues']
     return {'fields':PROFILE_FIELDS,'candidates':_records(candidates,PROFILE_FIELDS),
       'domains':grouped(domains,'sequence_id',DOMAIN_FIELDS),
       'motifs':grouped(motifs,'sequence_id',MOTIF_FIELDS),
@@ -78,7 +82,7 @@ def profile_payload(candidates,books,motifs):
       'sources':{'candidates':'files/adhesome_candidates_list.xlsx / Audited_family_assignment',
        'domains':'files/NCBI_CDD.xlsx / NCBI_CDD_selected_hits',
        'motifs':'files/Motif_annotations.xlsx / Motif_annotations',
-       'orthology':'files/Direct_orthologues.xlsx / Direct_orthologues',
+       'orthology':' | '.join(p.relative_to(base).as_posix() for p in reports) if reports else 'files/Direct_orthologues.xlsx / Direct_orthologues',
        'topology':'files/Topology_predictions.xlsx / Topology_predictions'}}
 
 def candidate_map_html(html,payload,*,app_url='',focus_candidate=''):
@@ -151,7 +155,7 @@ let atlasCandidateId='';
 let atlasLastContextKey='';
 function atlasElement(tag,text,parent){const e=document.createElement(tag);if(text!==undefined)e.textContent=String(text??'');if(parent)parent.appendChild(e);return e}
 function atlasTextValue(value){return value===null||value===undefined||value===''?'No additional information present in the current library':String(value)}
-function atlasLabel(key){return ({sequence_id:'Protein accession',candidate_annotation:'Protein annotation',architecture:'Pfam architecture',orthogroup:'Orthogroup',orthology_scope:'Evolutionary scope','DeepLoc_2.1':'Localization',DeepTMHMM:'Transmembrane topology','SignalP.v6.0':'Signal peptide',total_score_0_10:'Integrated evidence score (0–10)',domain_score_0_4:'Domain score (0–4)',orthology_score_0_3:'Benchmark-adjusted orthology score (0–3)',motif_score_0_2:'Motif score (0–2)',localization_score_0_1:'Localization score (0–1)'})[key]||key.replaceAll('_',' ')}
+function atlasLabel(key){return ({stage1_family_hypothesis:'Stage-1 hypothesis (not family membership)',sequence_id:'Protein accession',candidate_annotation:'Protein annotation',architecture:'Pfam architecture',orthogroup:'Orthogroup',orthology_scope:'Evolutionary scope','DeepLoc_2.1':'Localization',DeepTMHMM:'Transmembrane topology','SignalP.v6.0':'Signal peptide',total_score_0_10:'Integrated evidence score (0–10)',domain_score_0_4:'Domain score (0–4)',orthology_score_0_3:'Benchmark-adjusted orthology score (0–3)',motif_score_0_2:'Motif score (0–2)',localization_score_0_1:'Localization score (0–1)'})[key]||key.replaceAll('_',' ')}
 function atlasKeyValues(parent,record,fields){const table=atlasElement('table',undefined,parent);for(const key of fields){const row=atlasElement('tr',undefined,table);atlasElement('th',atlasLabel(key),row);atlasElement('td',atlasTextValue(record[key]),row)}}
 function atlasEvidenceTable(parent,section,id,title){const details=atlasElement('details',undefined,parent);const rows=section.rows[id]||[];atlasElement('summary',title+' ('+rows.length+')',details);
  if(!rows.length){atlasElement('p','No additional information present in the current library. To be updated when additional information is available.',details);return}
@@ -174,18 +178,18 @@ function atlasRenderProfile(parent,id){parent.replaceChildren();const record=atl
  const button=atlasElement('button','Download candidate profile · JSON',actions);button.setAttribute('data-atlas-profile-download','true');button.onclick=()=>atlasProfileDownload(id);
  atlasKeyValues(parent,record,['family','grade','audit_classification','assignment_confidence','family_decision','annotation_resolution','length','orthogroup','orthology_scope']);
  const architecture=atlasElement('details',undefined,parent);architecture.open=true;atlasElement('summary','Architecture & localization',architecture);atlasKeyValues(architecture,record,['architecture','NCBI_CDD_architecture','DeepLoc_2.1','DeepTMHMM','SignalP.v6.0']);
- const evidence=atlasElement('details',undefined,parent);atlasElement('summary','Integrated evidence & family decision',evidence);atlasKeyValues(evidence,record,['total_score_0_10','domain_score_0_4','orthology_raw_score_0_3','orthology_score_0_3','motif_score_0_2','localization_score_0_1','Orthology_benchmark_status','Orthology_benchmark_weight','Orthology_reference_support','identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses']);
+ const evidence=atlasElement('details',undefined,parent);atlasElement('summary','Integrated evidence & family decision',evidence);atlasKeyValues(evidence,record,['total_score_0_10','domain_score_0_4','orthology_raw_score_0_3','orthology_score_0_3','motif_score_0_2','localization_score_0_1','Orthology_benchmark_status','Orthology_benchmark_weight','Orthology_reference_support','identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses','stage1_family_hypothesis']);
  atlasEvidenceTable(parent,atlasProfiles.domains,id,'CDD domain hits');atlasEvidenceTable(parent,atlasProfiles.motifs,id,'Motif context evidence');atlasEvidenceTable(parent,atlasProfiles.orthology,id,'Reference orthologues');
  atlasElement('small','Profile sources: '+Object.values(atlasProfiles.sources).join(' · '),parent)
 }
-function atlasFamilyRecords(family){const o=settings();return [...atlasProfileIndex.values()].filter(p=>p.family===family&&(o.species==='all'||p.species===o.species)&&(o.grade==='all'||o.grade==='AB'&&['A','B'].includes(p.grade)||o.grade==='A'&&p.grade==='A'))}
-function atlasGradeCounts(records){return Object.fromEntries(['A','B','C'].map(grade=>[grade,records.filter(p=>p.grade===grade).length]))}
+function atlasFamilyRecords(family){const o=settings();return [...atlasProfileIndex.values()].filter(p=>p.family===family&&(o.species==='all'||p.species===o.species)&&(o.grade==='all'||o.grade==='AB'&&['A','B'].includes(p.grade)||p.grade===o.grade))}
+function atlasGradeCounts(records){return Object.fromEntries(['A','B','C','D'].map(grade=>[grade,records.filter(p=>p.grade===grade).length]))}
 function atlasFamilyProfiles(family){const panel=document.getElementById('sidebar');if(!panel)return;const records=atlasFamilyRecords(family),grades=atlasGradeCounts(records);
  const headings=[...panel.querySelectorAll('h3')],old=headings.find(h=>h.textContent==='Candidate protein accessions');if(old){while(old.nextSibling)old.nextSibling.remove();old.remove()}
  const partnerIds=[...new Set(activeEdges.filter(e=>e.a===family||e.b===family).map(e=>e.a===family?e.b:e.a))];
  if(partnerIds.length){const partners=atlasElement('div',undefined,panel);partners.className='atlas-profile';atlasElement('label','Explore a potential linked partner family',partners);const partner=atlasElement('select',undefined,partners);partner.setAttribute('aria-label','Linked partner families');atlasElement('option','Select a partner family',partner).value='';for(const id of partnerIds.sort())atlasElement('option',id,partner).value=id;partner.onchange=()=>{if(partner.value)setNode(partner.value)}}
  const section=atlasElement('section',undefined,panel);section.className='atlas-profile';atlasElement('h3','Explore candidate profiles ('+records.length+')',section);
- const counts=atlasElement('p',records.length+' candidates · A = '+grades.A+' · B = '+grades.B+' · C = '+grades.C,section);counts.id='atlas-family-counts';
+ const counts=atlasElement('p',records.length+' candidates · A = '+grades.A+' · B = '+grades.B+' · C = '+grades.C+' · D = '+grades.D+' (unassigned)',section);counts.id='atlas-family-counts';
  const pathInfo=atlasElement('div',undefined,section);pathInfo.id='atlas-connected-info';pathInfo.className='atlas-connected-info';section.prepend(pathInfo);
  panel.prepend(section);panel.scrollTop=0;
  const close=atlasElement('button','Close candidate panel',section);close.className='atlas-panel-close';close.onclick=()=>document.body.classList?.remove('atlas-side-open');section.prepend(close);

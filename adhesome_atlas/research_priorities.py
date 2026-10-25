@@ -74,11 +74,16 @@ def load_brief(path):
     for spec,chunk in zip(FEATURES,chunks):
         count_line=next(line[2:] for line in chunk.splitlines() if line.startswith('- ') and 'supported' in line)
         if spec['key']=='integrins':
-            found=re.search(r'(\d+) supported integrin α, (\w+) supported integrin β, (\w+) unassigned integrin α',count_line)
-            if not found:raise ValueError('Cannot read integrin α/β classifications in the priority brief.')
-            metrics=[dict(label='Integrin α · supported',count=_number(found[1]),families=('integrin_alpha',),classification='Supported'),
-                     dict(label='Integrin β · supported',count=_number(found[2]),families=('integrin_beta',),classification='Supported'),
-                     dict(label='Integrin α · unassigned',count=_number(found[3]),families=('integrin_alpha',),classification='Unassigned')]
+            clauses=re.findall(r'(\w+)\s+(supported|provisional|unassigned|unresolved)\s+integrin\s+(alpha|beta|α|β)',count_line,re.I)
+            if not clauses:raise ValueError('Cannot read integrin α/β classifications in the priority brief.')
+            metrics=[]
+            for count,status,subunit in clauses:
+                status='Unassigned' if status.lower() in {'unassigned','unresolved'} else status.capitalize()
+                subunit='α' if subunit.lower() in {'α','alpha'} else 'β'
+                metric=dict(label=f'Integrin {subunit}'+(' hypothesis' if status=='Unassigned' else '')+' · '+status.lower(),
+                    count=_number(count),families=('integrin_alpha' if subunit=='α' else 'integrin_beta',),classification=status)
+                if status=='Unassigned':metric['hypothesis_field']='stage1_family_hypothesis'
+                metrics.append(metric)
             assignments=_tabular(chunk,'Protein ID')
         else:
             found=re.search(r'(\d+) supported candidates across (\w+) orthogroups',count_line)
@@ -172,7 +177,10 @@ def rich_text(text,candidates,base):
 
 
 def metric_comparison(metric,candidates):
-    selected=candidates[candidates.family.isin(metric['families']) & candidates.audit_classification.eq(metric['classification'])]
+    family_scope=candidates.family.isin(metric['families'])
+    if metric.get('hypothesis_field') in candidates:
+        family_scope=family_scope|candidates[metric['hypothesis_field']].isin(metric['families'])
+    selected=candidates[family_scope & candidates.audit_classification.eq(metric['classification'])]
     live=selected.loc[selected.orthogroup.ne(''),'orthogroup'].nunique() if metric.get('orthogroups') else selected.sequence_id.nunique()
     return dict(label=metric['label'],brief=metric['count'],live=int(live),matches=metric['count']==live)
 
@@ -190,7 +198,7 @@ def feature_card(feature,candidates,base):
     metrics=''
     for metric in feature['metrics']:
         comparison=metric_comparison(metric,candidates)
-        badge='provisional' if metric['classification']=='Provisional' else 'supported'
+        badge=metric['classification'].lower()
         diff=f'<span class="research-difference">Catalogue: {comparison["live"]:,} · differs from brief</span>' if not comparison['matches'] else ''
         metrics+=f'<div class="research-metric {badge}"><strong>{metric["count"]:,}</strong><span>{escape(metric["label"])}</span>{diff}</div>'
     evidence=''.join('<p>'+rich_text(p,candidates,base)+'</p>' for p in feature['evidence'])
@@ -215,7 +223,7 @@ def research_priorities_panel(candidates,base,source):
     except (ValueError,StopIteration) as error:
         st.warning('The research-priority brief needs a format update: '+str(error));return
     st.markdown('<section class="research-intro"><div class="atlas-section-kicker">Comparative evidence → testable research</div><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+escape(OVERVIEW)+'</p></section>',unsafe_allow_html=True)
-    st.markdown('<div class="research-legend"><span class="research-tag supported">Supported computational annotation · A/B</span><span class="research-tag provisional">Provisional assignment · C</span><span class="research-tag published">Published experimental evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
+    st.markdown('<div class="research-legend"><span class="research-tag supported">Supported computational annotation · A/B</span><span class="research-tag provisional">Provisional assignment · C</span><span class="research-tag unassigned">Unassigned · D</span><span class="research-tag published">Published experimental evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
     st.caption('Family assignments support computational prioritization. Published findings apply to the named proteins or antigens; candidate-family membership does not establish vaccine efficacy, drug activity or biological essentiality. Counts below cover the complete catalogue, independently of sidebar filters.')
     checks=comparisons(brief,candidates)
     differences=[r for r in checks if not r['matches']]
@@ -254,7 +262,7 @@ def research_priorities_panel(candidates,base,source):
             items.append(f'<article class="research-step"><span class="research-step-number">{i:02}</span><div><div class="research-card-label">{escape(row["Development objective"])}</div><h4>{target}</h4><p>{escape(row["First decisive experiment or analysis"])}</p><span class="research-tag proposed">Proposed investigation</span></div></article>')
         st.markdown('<div class="research-roadmap">'+''.join(items)+'</div>',unsafe_allow_html=True)
     with st.expander('Research references & count reconciliation'):
-        st.caption('Scientific content: Target_prioritization.md. Brief counts are preserved; live counts use unique protein IDs and the Atlas A/B = Supported, C = Provisional classification. Orthogroup counts use supported members only.')
+        st.caption('Scientific content: Target_prioritization.md. Brief counts are preserved; live counts use unique protein IDs and A/B = Supported, C = Provisional, D = Unassigned. Unassigned integrin hypotheses are counted from the recorded stage-1 hypothesis without assigning family membership. Orthogroup counts use supported members only.')
         for ref in brief['references']:st.markdown(f'[{ref["label"]}]({ref["url"]})')
         st.dataframe(pd.DataFrame(checks).rename(columns={'category':'Research category','label':'Measure','brief':'Research brief','live':'Live catalogue','matches':'Counts agree'}),hide_index=True,width='stretch')
         st.download_button('Download research-priority brief',source.read_text(encoding='utf-8-sig'),source.name,'text/markdown')

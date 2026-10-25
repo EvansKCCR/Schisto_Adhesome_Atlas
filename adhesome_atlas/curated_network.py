@@ -10,11 +10,12 @@ from figure_exports import plotly_chart
 from reconstruction import topology,network_matrices
 from consensus_view import build_view_model,consensus_network_html,layout_table,layout_signature
 from topological_clustering import clustering_panel
+from library_refresh import reference_family_edges
 
 NET=ROOT/'adhesome_network'
 
 def build_consensus(candidates,reference=None):
-    reference=pd.read_csv(NET/'Schistosome_human_reference_family_edges.csv').fillna('') if reference is None else reference.copy()
+    reference=reference_family_edges(ROOT) if reference is None else reference.copy()
     members=candidates[candidates.orthogroup.str.fullmatch(r'OG\d+',na=False)].copy()
     join=lambda values:' | '.join(sorted(set(values.dropna().astype(str))-{''}))
     nodes=members.groupby('orthogroup').agg(Family=('family',join),species=('species',join),
@@ -40,11 +41,13 @@ def consensus_panel(candidates):
     st.subheader('Orthogroup consensus adhesome network')
     st.write('Curated metazoan adhesome interactions are projected through the family crosswalk onto orthogroups in the active catalogue. Each edge retains its reference symbols, interaction types, effects, sources and PMIDs. An edge describes a family-supported orthogroup relationship; it does not resolve individual parasite binding partners.')
     a,b=st.columns(2)
-    grades=a.multiselect('Network candidate grades',['A','B','C'],default=['A','B','C'])
+    grades=a.multiselect('Network candidate grades',['A','B','C','D'],default=['A','B','C','D'],help='A/B supported; C provisional; D unassigned. D records are retained as unassigned and do not acquire a family through reference transfer.')
     species=b.multiselect('Network species',sorted(candidates.species.unique()),default=sorted(candidates.species.unique()))
     selected=candidates[candidates.grade.isin(grades)&candidates.species.isin(species)]
     families=st.multiselect('Network families',sorted(selected.family.unique()))
     if families: selected=selected[selected.family.isin(families)]
+    missing_groups=int((~selected.orthogroup.str.fullmatch(r'OG\d+',na=False)).sum())
+    if missing_groups:st.caption(f'{missing_groups:,} selected catalogue records have no assigned orthogroup. They remain available in Components and Protein dossier; no artificial orthogroup nodes are created.')
     signature=tuple((p.name,p.stat().st_mtime_ns,p.stat().st_size) for p in NET.glob('*.csv'))
     @st.cache_data(show_spinner=False,max_entries=8)
     def cached_projection(rows,signature): return build_consensus(rows)

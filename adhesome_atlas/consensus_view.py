@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 
 import networkx as nx
+import numpy as np
 import pandas as pd
 
 from candidate_profiles import PROFILE_FIELDS
@@ -116,7 +117,29 @@ def _functional_layout(nodes,graph,lookup,module_colors):
 
 def _free_layout(graph,lookup):
     """Seeded force initialization followed by collision-free nearest-grid placement."""
-    raw=nx.spring_layout(graph,seed=20,iterations=120,weight=None,k=1.7/math.sqrt(max(1,len(graph))))
+    if len(graph)<500:
+        raw=nx.spring_layout(graph,seed=20,iterations=120,weight=None,k=1.7/math.sqrt(max(1,len(graph))))
+    else:
+        # NetworkX automatically requires SciPy at 500 nodes. Keep the existing
+        # NumPy-only deployment usable as the inventory grows; forces use original
+        # edges only, with blockwise repulsion to bound intermediate memory.
+        identifiers=sorted(graph);index={node:i for i,node in enumerate(identifiers)}
+        points=np.random.default_rng(20).random((len(identifiers),2));k=1.7/math.sqrt(len(graph));temperature=.12
+        pairs=np.array([(index[a],index[b]) for a,b in graph.edges],dtype=int).reshape(-1,2)
+        for _ in range(60):
+            displacement=np.zeros_like(points)
+            for start in range(0,len(points),128):
+                delta=points[start:start+128,None,:]-points[None,:,:]
+                distance=np.maximum(np.linalg.norm(delta,axis=2),.02)
+                displacement[start:start+128]=(delta*(k*k/(distance*distance))[:,:,None]).sum(axis=1)
+            if len(pairs):
+                delta=points[pairs[:,0]]-points[pairs[:,1]]
+                force=delta*(np.linalg.norm(delta,axis=1)/k)[:,None]
+                np.add.at(displacement,pairs[:,0],-force);np.add.at(displacement,pairs[:,1],force)
+            norm=np.maximum(np.linalg.norm(displacement,axis=1),1e-8)
+            points+=displacement/norm[:,None]*np.minimum(norm,temperature)[:,None];temperature*=.95
+        points-=points.mean(axis=0);points/=max(float(np.abs(points).max()),1e-8)
+        raw=dict(zip(identifiers,points))
     columns=max(1,math.ceil(math.sqrt(len(graph)*1.6)));rows=math.ceil(len(graph)/columns)
     cells={(x,y) for y in range(rows) for x in range(columns)};positions={}
     xs=[float(p[0]) for p in raw.values()];ys=[float(p[1]) for p in raw.values()]
@@ -162,7 +185,7 @@ def build_view_model(metrics,edges,members):
         node=dict(id=row['identifier'],label=row['identifier'],short_label='…'+row['identifier'][4:],
             family=row['Family'],families=sorted(set(group.family)),modules=functional,primary_module=module,
             compartment=region,compartment_label=REGION_LABELS[region],location_votes=dict(sorted(votes.items())),
-            predicted_localizations=dict(sorted(predicted.items())),grades={k:int(grades[k]) for k in ('A','B','C')},
+            predicted_localizations=dict(sorted(predicted.items())),grades={k:int(grades[k]) for k in ('A','B','C','D')},
             member_ids=sorted(set(group.sequence_id)),member_count=int(group.sequence_id.nunique()),
             species=sorted(set(group.species)),community=int(row['community']),degree=int(row['degree']),
             betweenness=float(row['betweenness']),closeness=float(row['closeness']),
@@ -200,7 +223,7 @@ def consensus_network_html(model,app_url=''):
 
 def layout_signature():
     """Invalidate saved presentation coordinates when any annotation/layout rule changes."""
-    return hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    return hashlib.sha256(Path(__file__).read_bytes()+json.dumps(PROFILE_FIELDS).encode()).hexdigest()
 
 
 def layout_table(model):

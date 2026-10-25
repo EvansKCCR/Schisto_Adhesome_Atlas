@@ -78,6 +78,7 @@ iframe{max-width:100%;border-radius:16px}
 .research-tag{display:inline-block;border:1px solid transparent;border-radius:30px;padding:5px 9px;font-size:11px;font-weight:750;line-height:1.4}
 .research-tag.supported{background:var(--atlas-a-bg);color:var(--atlas-a);border-color:#c5dfd2}
 .research-tag.provisional{background:var(--atlas-c-bg);color:var(--atlas-c);border-color:#e9cad6}
+.research-tag.unassigned{background:#e9eef0;color:#394e58;border-color:#cbd5da}
 .research-tag.published{background:#edf0fb;color:#334a87;border-color:#d2dbf1}
 .research-tag.proposed{background:#fff5dc;color:#795718;border-color:#e9d69d}
 .research-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:8px 0 14px;align-items:start}
@@ -91,6 +92,7 @@ iframe{max-width:100%;border-radius:16px}
 .research-metric{flex:1;min-width:90px}
 .research-metric strong{font-size:2.15rem;line-height:1;font-variant-numeric:tabular-nums;color:var(--atlas-deep);display:block;letter-spacing:-.04em}
 .research-metric.provisional strong{color:var(--atlas-c)}
+.research-metric.unassigned strong{color:#394e58}
 .research-metric>span{font-size:11px;line-height:1.4;display:block;margin-top:6px;color:var(--atlas-muted);font-weight:650}
 [data-testid="stAppViewContainer"] .research-objective{font-size:.92rem;font-weight:650;line-height:1.45;min-height:2.7rem;margin:0 0 12px}
 .research-card-label{font-size:10px;color:var(--atlas-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:750;margin:14px 0 7px}
@@ -139,7 +141,7 @@ def apply_style():
 
 def introduction_hero(candidates):
     from html import escape
-    stats=[('Candidates',len(candidates)),('Species',candidates.species.nunique()),('Families',candidates.family.nunique()),('Orthogroups',candidates.loc[candidates.orthogroup.ne(''),'orthogroup'].nunique())]
+    stats=[('Candidates',len(candidates)),('Species',candidates.species.nunique()),('Family labels',candidates.family.nunique()),('Orthogroups',candidates.loc[candidates.orthogroup.ne(''),'orthogroup'].nunique())]
     cards=''.join(f'<div class="atlas-hero-stat"><strong>{value:,}</strong><span>{escape(label)}</span></div>' for label,value in stats)
     st.markdown('''<section class="atlas-hero" aria-label="About the Schisto-Adhesome Atlas">
 <div><div class="eyebrow">Comparative adhesion biology · GHID–KCCR</div><h1>Schisto-Adhesome Atlas</h1>

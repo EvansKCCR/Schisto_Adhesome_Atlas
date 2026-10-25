@@ -4,6 +4,8 @@ from decimal import Decimal
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import json
+import time
+from zipfile import BadZipFile
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -21,18 +23,33 @@ from feedback import feedback_panel
 from branding import identity_banner,creator_credit
 from candidate_profiles import profile_payload,candidate_map_html,atlas_url
 from research_priorities import apply_target_route,research_priorities_panel
+from library_refresh import refresh_family_html
+from source_watch import reconcile_selections,watch_sources
 apply_style()
 
-@st.cache_data(show_spinner='Reading current annotation library…')
+@st.cache_data(show_spinner='Reading current annotation library…',max_entries=3)
 def cached_data(signature):return load()
-cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(fingerprint())
+loaded_signature=fingerprint()
+try:
+    cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(loaded_signature)
+except (OSError,ValueError,KeyError,BadZipFile) as error:
+    st.warning('Waiting for a complete, readable source library: '+str(error))
+    retry_at=st.session_state.setdefault('atlas_source_retry_at',time.monotonic()+30)
+    @st.fragment(run_every='30s')
+    def retry_sources():
+        if time.monotonic()>=retry_at:
+            st.session_state.pop('atlas_source_retry_at',None);st.rerun()
+        st.caption('Finish saving or uploading the source files. The Atlas will retry automatically in 30 seconds.')
+    retry_sources();st.stop()
+st.session_state.pop('atlas_source_retry_at',None)
 all_candidates=cohorts['Adhesome candidates']
+reconcile_selections(st.session_state,all_candidates)
 requested_protein=st.query_params.get('protein','')
 requested_view=st.query_params.get('view','')
 apply_target_route(all_candidates,st.query_params,st.session_state)
 app_url=st.context.url or ''
 
-@st.cache_data(show_spinner='Connecting candidate evidence profiles…')
+@st.cache_data(show_spinner='Connecting candidate evidence profiles…',max_entries=3)
 def cached_profiles(signature,_candidates,_books,_motifs):
     return profile_payload(_candidates,_books,_motifs)
 
@@ -72,11 +89,13 @@ with st.sidebar:
     st.caption('REFINE THE CATALOGUE')
     species=st.multiselect('Species',sorted(all_candidates.species.unique()),default=sorted(all_candidates.species.unique()),key='catalogue_species')
     families=st.multiselect('Protein families',sorted(all_candidates.family.unique()),key='catalogue_families')
-    classification=st.selectbox('Classification',['All','Supported','Provisional'],key='catalogue_classification')
+    classification=st.selectbox('Classification',['All','Supported','Provisional','Unassigned'],key='catalogue_classification')
     query=st.text_input('Search annotations',key='catalogue_query')
     figure_download_settings()
     if st.button('Reload source files'):st.cache_data.clear();st.rerun()
-    st.caption(f'{len(all_candidates):,} candidates · {all_candidates.species.nunique()} species · {all_candidates.family.nunique()} families')
+    watch_sources(loaded_signature)
+    if all_candidates.attrs.get('library_storage_error'):st.caption('Derived files are refreshed in memory; disk mirrors could not be saved on this host.')
+    st.caption(f'{len(all_candidates):,} candidates · {all_candidates.species.nunique()} species · {all_candidates.family.nunique()} family labels')
 selected=all_candidates[all_candidates.species.isin(species)].copy()
 if families:selected=selected[selected.family.isin(families)]
 if classification!='All':selected=selected[selected.audit_classification.eq(classification)]
@@ -107,7 +126,7 @@ if page=='Introduction':
     network_dir=ROOT/'adhesome_network'
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
     if path:
-        html=path.read_text(encoding='utf-8').replace('previously supplied model','adhesome model in the library')
+        html=refresh_family_html(path.read_text(encoding='utf-8'),all_candidates,ROOT).replace('previously supplied model','adhesome model in the library')
         profiles=cached_profiles(fingerprint(),all_candidates,books,motifs)
         html=candidate_map_html(html,profiles,app_url=app_url,focus_candidate=focus)
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')

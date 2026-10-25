@@ -1,18 +1,23 @@
-"""Read-only adapters for the current multi-species atlas library."""
+"""Read primary annotations and refresh derived multi-species Atlas inventories."""
 from pathlib import Path
 import re
 import pandas as pd
+from library_refresh import DERIVED_FILES,module_annotations,refresh_derived
 ROOT=Path(__file__).resolve().parent
 SPECIES={'Sbovis':'Schistosoma bovis','Scura':'Schistosoma curassoni','Shae':'Schistosoma haematobium','Sinter':'Schistosoma intercalatum','Sjap':'Schistosoma japonicum','Sman':'Schistosoma mansoni','Srhoda':'Schistosoma rodhaini'}
 
 def source_files():
     folders=['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny']
     library=[p for folder in folders for p in (ROOT/folder).rglob('*') if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() not in {'.pyc','.tmp'}]
-    documents=[p for p in ROOT.iterdir() if p.is_file() and p.suffix.lower() in {'.md','.jpeg','.png','.pptx'}]
+    documents=[p for p in ROOT.iterdir() if p.is_file() and p.suffix.lower() in {'.md','.jpeg','.png','.pptx','.html'}]
     return sorted(library+documents)
 
-def fingerprint():
-    return tuple((p.relative_to(ROOT).as_posix(),p.stat().st_mtime_ns,p.stat().st_size) for p in source_files())
+def fingerprint(root=None):
+    base=Path(root) if root is not None else ROOT
+    files=source_files() if base==ROOT else [p for folder in ['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny'] for p in (base/folder).rglob('*') if p.is_file()]+[p for p in base.glob('*.md')]
+    # Generated mirrors cannot trigger a self-refresh cycle; primary inputs still do.
+    return tuple((p.relative_to(base).as_posix(),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted(files)
+        if not (p.parent.name=='adhesome_network' and p.name in DERIVED_FILES) and not p.name.startswith('~$') and p.suffix.lower() not in {'.tmp','.pyc'})
 
 def fasta(path):
     records={};key=None
@@ -38,8 +43,7 @@ def load():
     df['source']='files/adhesome_candidates_list.xlsx / Audited_family_assignment'
     df['family_assignment_basis']=df.family_decision
     df['assignment_interpretation']=df.protein_name.fillna(df.family)
-    inventory=pd.read_csv(ROOT/'adhesome_network/Schistosome_adhesome_family_inventory.csv').fillna('')
-    df['module']=df.family.map(inventory.set_index('family').visual_group).fillna('Other family context')
+    df['module']=df.family.map(module_annotations(ROOT)).fillna('Unassigned / unresolved families')
     motifs=books['files/Motif_annotations.xlsx']['Motif_annotations'].copy()
     motifs['motif_id']=motifs.motif_function
     motifs['motif_name']=motifs.motif_function
@@ -50,6 +54,9 @@ def load():
     motifs['functional_hypothesis']=motifs.context_explanation
     motifs['source']='files/Motif_annotations.xlsx / Motif_annotations'
     df['motif_context_evidence']=df.sequence_id.map(motifs.groupby('sequence_id').reassessed_context_tier.agg(lambda x:' | '.join(sorted(set(x.dropna()))))).fillna('No additional motif information present in the current library')
+    derived=refresh_derived(df,ROOT)
+    df.attrs['library_refresh']=derived['provenance']
+    df.attrs['library_storage_error']=derived['storage_error']
     sequences={};members=[];conflicts=[]
     for p in (ROOT/'family_specific_candidate_fasta').rglob('*'):
         if p.suffix.lower() not in {'.fasta','.faa','.fa'}: continue

@@ -34,14 +34,14 @@ These orthogroups includes two relevant S. mansoni proteins:
 
 ## **Target 3 — Integrin α/β receptors**
 
-- 17 supported integrin α, seven supported integrin β, nine unresolved integrin α
+- 17 supported integrin α, seven supported integrin β, nine unassigned integrin α
 - Key orthogroups: OG0000253, OG0000076, OG0000719, OG0006637
 - Three S. mansoni candidates deserve particular consideration:
 
 Protein ID	Assignment	Main justification
 Smp_089700	Supported integrin β	Previously characterized Smβ-Int1
 Smp_126140	Supported integrin α	Complete supporting family architecture
-Smp_170280	Provisional divergent integrin α	Previously cloned Smα-Int2
+Smp_170280	Unassigned integrin α hypothesis	Previously cloned Smα-Int2
 
 Smβ-Int1 has previously been linked experimentally to schistosome reproductive biology, with RNA interference causing abnormalities in oocyte development. The divergent integrin α proteins have also been cloned and characterized in earlier research (Beckmann)[https://doi.org/10.1371/journal.pone.0052519]. They represents promising functional and reproductive-biology targets. 
 

@@ -23,6 +23,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,su
 .atlas-grade[data-grade=A]{background:var(--atlas-a-bg);color:var(--atlas-a)}
 .atlas-grade[data-grade=B]{background:var(--atlas-b-bg);color:var(--atlas-b)}
 .atlas-grade[data-grade=C]{background:var(--atlas-c-bg);color:var(--atlas-c)}
+.atlas-grade[data-grade=D]{background:#e9eef0;color:#394e58}
 .atlas-profile-id{font-family:ui-monospace,Consolas,monospace;font-size:13px;overflow-wrap:anywhere}
 .atlas-profile-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
 .atlas-profile-heading small{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:750;color:var(--atlas-muted)}
