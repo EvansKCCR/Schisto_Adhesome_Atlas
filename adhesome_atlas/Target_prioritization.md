@@ -34,7 +34,7 @@ These orthogroups includes two relevant S. mansoni proteins:
 
 ## **Target 3 — Integrin α/β receptors**
 
-- 17 supported integrin α, seven supported integrin β
+- 17 supported integrin α, seven supported integrin β, nine unresolved integrin α
 - Key orthogroups: OG0000253, OG0000076, OG0000719, OG0006637
 - Three S. mansoni candidates deserve particular consideration:
 
