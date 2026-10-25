@@ -74,11 +74,11 @@ def load_brief(path):
     for spec,chunk in zip(FEATURES,chunks):
         count_line=next(line[2:] for line in chunk.splitlines() if line.startswith('- ') and 'supported' in line)
         if spec['key']=='integrins':
-            found=re.search(r'(\d+) supported integrin α, (\w+) supported integrin β, (\w+) provisional integrin α',count_line)
+            found=re.search(r'(\d+) supported integrin α, (\w+) supported integrin β, (\w+) unassigned integrin α',count_line)
             if not found:raise ValueError('Cannot read integrin α/β classifications in the priority brief.')
             metrics=[dict(label='Integrin α · supported',count=_number(found[1]),families=('integrin_alpha',),classification='Supported'),
                      dict(label='Integrin β · supported',count=_number(found[2]),families=('integrin_beta',),classification='Supported'),
-                     dict(label='Integrin α · provisional',count=_number(found[3]),families=('integrin_alpha',),classification='Provisional')]
+                     dict(label='Integrin α · unassigned',count=_number(found[3]),families=('integrin_alpha',),classification='Unassigned')]
             assignments=_tabular(chunk,'Protein ID')
         else:
             found=re.search(r'(\d+) supported candidates across (\w+) orthogroups',count_line)
