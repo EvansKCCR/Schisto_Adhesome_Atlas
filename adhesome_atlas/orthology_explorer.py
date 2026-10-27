@@ -7,6 +7,31 @@ from figure_exports import plotly_chart
 
 def orthology_panel(candidates):
     st.header('Orthology')
+    from orthogroup_dashboard import statistics_panel,cached_statistics,reset_filters,PREFIX
+    from orthogroup_statistics import FILES,signature
+    statistics_folder=ROOT/'orthology'
+    available=(statistics_folder/FILES['all']).exists()
+    route_group=st.session_state.get('orthology_route_group')
+    if route_group:
+        open_statistics=False
+        if available and st.query_params.get('workspace','')!='references':
+            try:
+                master,_,_=cached_statistics(statistics_folder,signature(statistics_folder))
+                open_statistics=route_group in set(master.Orthogroup)
+            except (OSError,ValueError):pass
+        if open_statistics:
+            reset_filters();st.session_state[PREFIX+'focus']=route_group
+            st.session_state['orthology_workspace']='Orthogroup Statistics & Explorer'
+            st.session_state.pop('orthology_route_group',None)
+        else:st.session_state['orthology_workspace']='Candidate & reference orthologues'
+    options=['Orthogroup Statistics & Explorer','Candidate & reference orthologues']
+    workspace=st.selectbox('Orthology workspace',options,index=0 if available else 1,key='orthology_workspace')
+    if workspace==options[0]:statistics_panel(candidates,statistics_folder)
+    else:candidate_reports_panel(candidates)
+
+
+def candidate_reports_panel(candidates):
+    st.subheader('Candidate & reference orthologues')
     folders=sorted(p.parent for p in (ROOT/'orthology').rglob('candidate_report.tsv'))
     if not folders: st.info('No orthology report is present in the current library.');return
     route_group=st.session_state.pop('orthology_route_group',None)

@@ -205,7 +205,9 @@ def phylogeny_panel(candidates=None):
         og=folder.name
         families=sorted(set(candidates.loc[candidates.orthogroup.eq(og),'family'])) if candidates is not None else []
         info.append({'folder':folder,'orthogroup':og,'families':' | '.join(families)})
-    query=st.text_input('Find a tree, orthogroup or protein family')
+    route_group=st.session_state.pop('phylogeny_route_group',None)
+    if route_group:st.session_state['phylogeny_query']=route_group
+    query=st.text_input('Find a tree, orthogroup or protein family',key='phylogeny_query')
     filtered=[]
     for record in info:
         tips_path=companion_path(record['folder'],'tips.tsv')

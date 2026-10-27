@@ -127,10 +127,10 @@ def target_url(base,view,**selection):
 def apply_target_route(candidates,params,state):
     """Apply a deep link once, before creating sidebar or destination widgets."""
     view,protein,family,group=(params.get(k,'') for k in ('view','protein','family','orthogroup'))
-    route=(view,protein,family,group)
+    route=(view,protein,family,group,params.get('workspace',''))
     if state.get('atlas_route')==route:return
     state['atlas_route']=route
-    if view in {'Introduction','Protein dossier','Components','Orthology'}:state['atlas_page']=view
+    if view in {'Introduction','Protein dossier','Components','Orthology','Phylogeny'}:state['atlas_page']=view
     if protein in set(candidates.sequence_id):
         state['map_candidate']=protein;state['dossier_protein']=protein
     if view=='Components' and family in set(candidates.family):
@@ -142,6 +142,7 @@ def apply_target_route(candidates,params,state):
         state['orthology_query']=group
         state['orthology_families']=[]
         state['orthology_route_group']=group
+    if view=='Phylogeny' and group:state['phylogeny_route_group']=group
 
 
 def _link(label,url,kind='target',title=''):
