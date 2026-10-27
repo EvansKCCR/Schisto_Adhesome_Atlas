@@ -1,0 +1,52 @@
+Orthogroup	Copy profile	Supported family identity	Supported copies	Total candidates	Species with supported identity	Classification	Specific supported	Broad supported	Supported grade A	Supported grade B	S. mansoni copies	S. japonicum copies	S. haematobium copies	S. bovis copies	S. curassoni copies	S. intercalatum copies	S. rodhaini copies	S. mansoni supported	S. japonicum supported	S. haematobium supported	S. bovis supported	S. curassoni supported	S. intercalatum supported	S. rodhaini supported
+OG0000048	1:1	MMP-like	4	7	4	Partial supported identity	4	0	4	0	1	1	1	1	1	1	1	0	0	1	1	1	1	0
+OG0000076	1:1	integrin alpha	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000106	1:1	myosin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000245	1:1	zyxin ajuba-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000253	1:1	integrin beta	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000290	1:1	tetraspanin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000335	1:1	coronin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000580	1:1	vinculin	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000671	1:1	laminin-like	7	7	7	Complete supported identity	0	7	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000686	1:1	Tec family	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000718	1:1	myosin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000719	1:1	integrin alpha	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000722	1:1	cytohesin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000876	1:1	Rho GTPase-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001049	1:1	Shc	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001110	1:1	Ras GTPase-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001153	1:1	paxillin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001159	1:1	AKT-like	6	7	6	Partial supported identity	6	0	6	0	1	1	1	1	1	1	1	1	0	1	1	1	1	1
+OG0001529	1:1	PTEN-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001615	1:1	laminin-like	7	7	7	Complete supported identity	0	7	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001760	1:1	PPP2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001896	1:1	calreticulin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001975	1:1	FAK	6	7	6	Partial supported identity	6	0	6	0	1	1	1	1	1	1	1	1	0	1	1	1	1	1
+OG0002078	1:1	ARF GTPase-like	6	7	6	Partial supported identity	6	0	6	0	1	1	1	1	1	1	1	1	1	1	1	1	1	0
+OG0002112	1:1	arp3-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002127	1:1	Nck	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002221	1:1	cofilin	1	7	1	Partial supported identity	1	0	1	0	1	1	1	1	1	1	1	0	0	0	0	1	0	0
+OG0002375	1:1	PKC-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002556	1:1	SYK	1	7	1	Partial supported identity	1	0	1	0	1	1	1	1	1	1	1	0	0	0	0	0	0	1
+OG0002704	1:1	arp4-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002753	1:1	laminin-like	7	7	7	Complete supported identity	0	7	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003628	1:1	HSP70-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003646	1:1	dynamin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003677	1:1	arp2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003686	1:1	vinculin	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003875	1:1	HSP70-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004053	1:1	HSP70-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004699	1:1	PKA-like	4	7	4	Partial supported identity	4	0	4	0	1	1	1	1	1	1	1	1	0	0	1	0	1	1
+OG0004715	1:1	PPP2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004716	1:1	PPP2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004928	1:1	arp6-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0005082	1:1	arp10-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0006377	1:1	calpain-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0006646	1:1	tetraspanin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0008492	1:1	calpain-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009122	1:1	tubulin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009134	1:1	PAK-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009147	1:1	alpha actinin	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009156	1:1	PINCH-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009857	1:1	collagen-like	6	7	6	Partial supported identity	0	6	6	0	1	1	1	1	1	1	1	1	1	1	1	1	0	1
+OG0009923	1:1	PINCH-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1

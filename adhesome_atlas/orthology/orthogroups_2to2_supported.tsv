@@ -1,0 +1,13 @@
+Orthogroup	Copy profile	Supported family identity	Supported copies	Total candidates	Species with supported identity	Classification	Specific supported	Broad supported	Supported grade A	Supported grade B	S. mansoni copies	S. japonicum copies	S. haematobium copies	S. bovis copies	S. curassoni copies	S. intercalatum copies	S. rodhaini copies	S. mansoni supported	S. japonicum supported	S. haematobium supported	S. bovis supported	S. curassoni supported	S. intercalatum supported	S. rodhaini supported
+OG0000148	2:2	calpain-like	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000219	2:2	collagen-like	14	14	7	Complete supported identity	0	14	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000629	2:2	KCNH-like	12	14	6	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	2	0	2	2	2	2	2
+OG0000631	2:2	Grb2	12	14	7	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	2	1	2	1	2	2	2
+OG0000692	2:2	dynamin-like	12	14	6	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	2	0	2	2	2	2	2
+OG0000801	2:2	filamin	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000881	2:2	KCNH-like	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000925	2:2	laminin-like	14	14	7	Complete supported identity	0	14	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0001037	2:2	talin	11	14	7	Partial supported identity	11	0	11	0	2	2	2	2	2	2	2	2	2	1	1	2	2	1
+OG0001297	2:2	MAPK-like	10	14	7	Partial supported identity	10	0	10	0	2	2	2	2	2	2	2	2	2	1	1	1	1	2
+OG0001355	2:2	Abl family	12	14	7	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	1	2	2	2	2	2	1
+OG0002862	2:2	ARPC2-like	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2

@@ -1,0 +1,299 @@
+Orthogroup	Copy profile	Supported family identity	Supported copies	Total candidates	Species with supported identity	Classification	Specific supported	Broad supported	Supported grade A	Supported grade B	S. mansoni copies	S. japonicum copies	S. haematobium copies	S. bovis copies	S. curassoni copies	S. intercalatum copies	S. rodhaini copies	S. mansoni supported	S. japonicum supported	S. haematobium supported	S. bovis supported	S. curassoni supported	S. intercalatum supported	S. rodhaini supported
+OG0000006	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000048	1:1	MMP-like	4	7	4	Partial supported identity	4	0	4	0	1	1	1	1	1	1	1	0	0	1	1	1	1	0
+OG0000054	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000076	1:1	integrin alpha	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000106	1:1	myosin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000216	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000242	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000245	1:1	zyxin ajuba-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000246	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000253	1:1	integrin beta	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000263	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000290	1:1	tetraspanin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000294	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000334	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000335	1:1	coronin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000393	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000397	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000454	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000468	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000471	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000539	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000544	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000569	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000574	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000580	1:1	vinculin	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000586	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000601	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000627	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000628	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000630	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000659	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000668	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000671	1:1	laminin-like	7	7	7	Complete supported identity	0	7	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000686	1:1	Tec family	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000689	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000715	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000716	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000718	1:1	myosin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000719	1:1	integrin alpha	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000720	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000722	1:1	cytohesin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000753	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000788	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000810	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000811	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000839	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000865	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000876	1:1	Rho GTPase-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0000979	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001016	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001032	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001049	1:1	Shc	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001052	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001088	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001109	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001110	1:1	Ras GTPase-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001118	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001153	1:1	paxillin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001159	1:1	AKT-like	6	7	6	Partial supported identity	6	0	6	0	1	1	1	1	1	1	1	1	0	1	1	1	1	1
+OG0001182	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001205	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001206	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001252	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001270	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001284	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001288	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001292	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001294	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001309	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001369	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001413	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001444	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001456	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001472	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001473	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001474	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001529	1:1	PTEN-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001546	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001552	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001560	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001588	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001589	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001610	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001615	1:1	laminin-like	7	7	7	Complete supported identity	0	7	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001629	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001655	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001658	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001659	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001667	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001673	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001687	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001693	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001753	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001760	1:1	PPP2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001763	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001797	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001811	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001828	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001865	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001896	1:1	calreticulin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0001901	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001906	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001910	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001932	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001964	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0001975	1:1	FAK	6	7	6	Partial supported identity	6	0	6	0	1	1	1	1	1	1	1	1	0	1	1	1	1	1
+OG0002075	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002078	1:1	ARF GTPase-like	6	7	6	Partial supported identity	6	0	6	0	1	1	1	1	1	1	1	1	1	1	1	1	1	0
+OG0002084	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002089	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002112	1:1	arp3-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002119	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002127	1:1	Nck	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002201	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002214	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002221	1:1	cofilin	1	7	1	Partial supported identity	1	0	1	0	1	1	1	1	1	1	1	0	0	0	0	1	0	0
+OG0002266	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002337	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002363	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002365	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002371	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002372	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002375	1:1	PKC-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002412	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002414	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002436	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002480	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002486	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002514	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002550	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002556	1:1	SYK	1	7	1	Partial supported identity	1	0	1	0	1	1	1	1	1	1	1	0	0	0	0	0	0	1
+OG0002560	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002562	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002564	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002639	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002658	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002702	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002704	1:1	arp4-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002739	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002743	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002753	1:1	laminin-like	7	7	7	Complete supported identity	0	7	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0002766	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002771	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002778	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002803	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002892	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002917	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002926	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002927	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002928	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002962	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002965	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0002994	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003105	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003110	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003227	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003240	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003252	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003410	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003415	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003416	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003491	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003628	1:1	HSP70-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003629	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003646	1:1	dynamin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003647	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003677	1:1	arp2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003686	1:1	vinculin	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003733	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003763	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003826	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0003875	1:1	HSP70-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0003948	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004053	1:1	HSP70-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004089	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004100	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004168	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004227	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004255	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004287	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004334	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004338	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004359	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004421	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004678	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004679	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004699	1:1	PKA-like	4	7	4	Partial supported identity	4	0	4	0	1	1	1	1	1	1	1	1	0	0	1	0	1	1
+OG0004715	1:1	PPP2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004716	1:1	PPP2-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0004718	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004829	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004843	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004849	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004856	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004903	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0004928	1:1	arp6-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0005082	1:1	arp10-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0005206	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005309	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005315	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005316	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005327	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005329	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005335	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005372	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005634	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005736	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0005829	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006003	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006004	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006012	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006049	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006176	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006310	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006346	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006377	1:1	calpain-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0006431	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006501	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006646	1:1	tetraspanin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0006647	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006651	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0006932	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0007431	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0007465	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0007495	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0007731	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0007752	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0008065	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0008492	1:1	calpain-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0008499	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009008	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009054	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009057	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009109	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009122	1:1	tubulin-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009123	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009130	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009134	1:1	PAK-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009146	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009147	1:1	alpha actinin	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009156	1:1	PINCH-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009857	1:1	collagen-like	6	7	6	Partial supported identity	0	6	6	0	1	1	1	1	1	1	1	1	1	1	1	1	0	1
+OG0009880	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009881	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0009923	1:1	PINCH-like	7	7	7	Complete supported identity	7	0	7	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OG0009954	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010579	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010633	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010669	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010730	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010768	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010813	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010817	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010862	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010877	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010937	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010948	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0010990	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011006	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011014	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011479	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011558	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011562	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011693	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011779	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0011849	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0012401	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0012494	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0012527	1:1		0	7	0	No supported identity	0	0	0	0	1	1	1	1	1	1	1	0	0	0	0	0	0	0
+OG0000148	2:2	calpain-like	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000219	2:2	collagen-like	14	14	7	Complete supported identity	0	14	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000340	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0000629	2:2	KCNH-like	12	14	6	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	2	0	2	2	2	2	2
+OG0000631	2:2	Grb2	12	14	7	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	2	1	2	1	2	2	2
+OG0000692	2:2	dynamin-like	12	14	6	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	2	0	2	2	2	2	2
+OG0000723	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0000801	2:2	filamin	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000880	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0000881	2:2	KCNH-like	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000925	2:2	laminin-like	14	14	7	Complete supported identity	0	14	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0000956	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001028	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001037	2:2	talin	11	14	7	Partial supported identity	11	0	11	0	2	2	2	2	2	2	2	2	2	1	1	2	2	1
+OG0001117	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001184	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001297	2:2	MAPK-like	10	14	7	Partial supported identity	10	0	10	0	2	2	2	2	2	2	2	2	2	1	1	1	1	2
+OG0001355	2:2	Abl family	12	14	7	Partial supported identity	12	0	12	0	2	2	2	2	2	2	2	1	2	2	2	2	2	1
+OG0001364	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001365	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001450	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001512	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001525	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001754	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0001803	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0002202	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0002862	2:2	ARPC2-like	14	14	7	Complete supported identity	14	0	14	0	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+OG0003235	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
+OG0006680	2:2		0	14	0	No supported identity	0	0	0	0	2	2	2	2	2	2	2	0	0	0	0	0	0	0
