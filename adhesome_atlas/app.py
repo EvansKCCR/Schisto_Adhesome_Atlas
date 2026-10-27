@@ -10,7 +10,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from atlas_styles import apply_style,introduction_hero
-from data import ROOT,load,fingerprint,source_files,fasta_export
+from data import ROOT,SCHEMA_VERSION,load,fingerprint,source_files,fasta_export,family_audit_table,annotate_motif_sites
 from figure_exports import plotly_chart,figure_download_settings
 from curated_network import consensus_panel
 from orthology_explorer import orthology_panel
@@ -28,10 +28,10 @@ from source_watch import reconcile_selections,watch_sources
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…',max_entries=3)
-def cached_data(signature):return load()
+def cached_data(signature,schema_version):return load()
 loaded_signature=fingerprint()
 try:
-    cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(loaded_signature)
+    cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(loaded_signature,SCHEMA_VERSION)
 except (OSError,ValueError,KeyError,BadZipFile) as error:
     st.warning('Waiting for a complete, readable source library: '+str(error))
     retry_at=st.session_state.setdefault('atlas_source_retry_at',time.monotonic()+30)
@@ -68,8 +68,9 @@ def download(frame,name,label='Download table CSV'):
 
 def motif_view(sites,key='motifs'):
     st.subheader('Motif context evidence')
-    annotation=all_candidates[['sequence_id','family','species','candidate_annotation']]
-    sites=sites.merge(annotation,on='sequence_id',how='left',validate='many_to_one')
+    sites=annotate_motif_sites(sites,all_candidates)
+    repeated=sites.attrs['motif_annotation_summary']['repeated_protein_ids']
+    if repeated:st.caption(f'{len(repeated)} protein ID(s) have multiple catalogue records. Distinct annotation labels are combined here; each motif site is retained once.')
     a,b=st.columns(2)
     names=a.multiselect('Motif function',sorted(sites.motif_function.dropna().unique()),key=key+'_function')
     tiers=b.multiselect('Motif context tier',sorted(sites.reassessed_context_tier.dropna().unique()),key=key+'_tier')
@@ -127,7 +128,7 @@ if page=='Introduction':
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
     if path:
         html=refresh_family_html(path.read_text(encoding='utf-8'),all_candidates,ROOT).replace('previously supplied model','adhesome model in the library')
-        profiles=cached_profiles(fingerprint(),all_candidates,books,motifs)
+        profiles=cached_profiles((fingerprint(),SCHEMA_VERSION),all_candidates,books,motifs)
         html=candidate_map_html(html,profiles,app_url=app_url,focus_candidate=focus)
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')
         sim=ROOT/SIMULATOR_FILE
@@ -162,7 +163,9 @@ elif page=='Components':
         ranked=selected.sort_values(metric,ascending=False).reset_index(drop=True);ranked.insert(0,'rank',range(1,len(ranked)+1))
         table(ranked);download(ranked,'candidate_prioritization.csv')
     elif view=='Family assignment audit':
-        table(selected[['sequence_id','species','family','protein_name','grade','assignment_confidence','family_support_level','annotation_resolution','family_decision','identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses']]);download(selected,'family_assignment_audit.csv')
+        audit,missing=family_audit_table(selected)
+        if missing:st.caption('No additional information present in the current library for: '+', '.join(missing)+'.')
+        table(audit);download(selected,'family_assignment_audit.csv')
     else:table(selected);download(selected,'candidate_catalogue.csv')
 
 elif page=='Interactions':

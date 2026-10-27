@@ -4,7 +4,58 @@ import re
 import pandas as pd
 from library_refresh import DERIVED_FILES,module_annotations,refresh_derived
 ROOT=Path(__file__).resolve().parent
+SCHEMA_VERSION='atlas-data-2'
 SPECIES={'Sbovis':'Schistosoma bovis','Scura':'Schistosoma curassoni','Shae':'Schistosoma haematobium','Sinter':'Schistosoma intercalatum','Sjap':'Schistosoma japonicum','Sman':'Schistosoma mansoni','Srhoda':'Schistosoma rodhaini'}
+
+AUDIT_COLUMNS=['sequence_id','species','family','protein_name','grade','assignment_confidence',
+    'family_support_level','annotation_resolution','family_decision','identity_rule',
+    'identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses',
+    'stage1_family_hypothesis']
+
+
+def normalize_audit_columns(frame):
+    """Expose canonical audit headers while retaining original columns and values."""
+    result=frame.copy()
+    for canonical in AUDIT_COLUMNS:
+        aliases=[column for column in frame.columns if column!=canonical and
+            re.sub(r'[\s_]+','_',str(column).strip()).casefold()==canonical.casefold()]
+        for alias in aliases:
+            if canonical not in result:result[canonical]=frame[alias]
+            else:
+                missing=result[canonical].isna() | result[canonical].astype(str).str.strip().eq('')
+                result[canonical]=result[canonical].where(~missing,frame[alias])
+    return result
+
+
+def family_audit_table(frame):
+    normalized=normalize_audit_columns(frame)
+    available=[column for column in AUDIT_COLUMNS if column in normalized]
+    missing=[column for column in AUDIT_COLUMNS if column not in normalized]
+    return normalized.loc[:,available].copy(),missing
+
+def annotate_motif_sites(sites,candidates):
+    """Attach every distinct label per protein without expanding or dropping motif rows."""
+    fields=['family','species','candidate_annotation']
+    def labels(values):
+        return ' | '.join(dict.fromkeys(str(value) for value in values
+            if pd.notna(value) and str(value).strip()))
+    grouped=candidates.groupby('sequence_id',sort=False)
+    annotation=grouped[fields].agg(labels).reset_index()
+    # Retain original motif columns if a future motif library has its own annotations.
+    used=set(sites.columns);renames={}
+    for field in fields:
+        target=field
+        while target in used:target='catalogue_'+target
+        renames[field]=target;used.add(target)
+    annotation=annotation.rename(columns=renames)
+    result=sites.merge(annotation,on='sequence_id',how='left',validate='many_to_one',sort=False)
+    counts=grouped.size()
+    repeated=counts[(counts>1)&counts.index.isin(sites.sequence_id)]
+    result.attrs['motif_annotation_summary']={
+        'repeated_protein_ids':repeated.index.tolist(),
+        'catalogue_records_for_repeated_ids':int(repeated.sum())}
+    return result
+
 
 def source_files():
     folders=['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny']
@@ -28,7 +79,7 @@ def fasta(path):
 
 def load():
     books={p.relative_to(ROOT).as_posix():pd.read_excel(p,sheet_name=None) for p in (ROOT/'files').glob('*.xlsx') if not p.name.startswith('~$')}
-    df=books['files/adhesome_candidates_list.xlsx']['Audited_family_assignment'].copy()
+    df=normalize_audit_columns(books['files/adhesome_candidates_list.xlsx']['Audited_family_assignment'])
     df['sequence_id']=df.protein_id.astype(str)
     df['species']=df.Specie
     df['family']=df.putative_audited_family.fillna('Unassigned')
