@@ -2,6 +2,7 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from zipfile import BadZipFile
 from data import ROOT
 from figure_exports import plotly_chart
 
@@ -9,16 +10,28 @@ def orthology_panel(candidates):
     st.header('Orthology')
     from orthogroup_dashboard import statistics_panel,cached_statistics,reset_filters,PREFIX
     from orthogroup_statistics import FILES,signature
+    from orthogroup_variation import WORKBOOK,REPORT_VARIATION,REPORT_EXACT,load_variation
     statistics_folder=ROOT/'orthology'
-    available=(statistics_folder/FILES['all']).exists()
+    available=(statistics_folder/FILES['all']).exists() or (statistics_folder/WORKBOOK).exists()
     route_group=st.session_state.get('orthology_route_group')
     if route_group:
         open_statistics=False
         if available and st.query_params.get('workspace','')!='references':
-            try:
-                master,_,_=cached_statistics(statistics_folder,signature(statistics_folder))
-                open_statistics=route_group in set(master.Orthogroup)
-            except (OSError,ValueError):pass
+            if (statistics_folder/WORKBOOK).exists():
+                try:
+                    master,_,_,_=load_variation(statistics_folder)
+                    if route_group in set(master.Orthogroup):
+                        open_statistics=True;st.session_state['og_statistics_report']=REPORT_VARIATION
+                        st.session_state['og_variation_focus']=route_group
+                        for name in ['species','families','coverage']:st.session_state['og_variation_'+name]=[]
+                        st.session_state['og_variation_scope']='All orthogroups';st.session_state['og_variation_query']=''
+                except (OSError,ValueError,BadZipFile):pass
+            if not open_statistics:
+                try:
+                    master,_,_=cached_statistics(statistics_folder,signature(statistics_folder))
+                    open_statistics=route_group in set(master.Orthogroup)
+                    if open_statistics:st.session_state['og_statistics_report']=REPORT_EXACT
+                except (OSError,ValueError):pass
         if open_statistics:
             reset_filters();st.session_state[PREFIX+'focus']=route_group
             st.session_state['orthology_workspace']='Orthogroup Statistics & Explorer'

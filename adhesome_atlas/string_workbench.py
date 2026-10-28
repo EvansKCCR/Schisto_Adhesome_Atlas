@@ -6,18 +6,14 @@ import json
 from pathlib import Path
 import re
 import time
-import networkx as nx
 import pandas as pd
-import plotly.express as px
 import streamlit as st
 from data import SPECIES
 from family_merges import atlas_group
 from figure_exports import plotly_chart
 from networks import mapping_export
-from reconstruction import topology, network_matrices
 from string_fetch import BASE, api_url, api_request, parameters, network_parameters, mapping_ids, tsv_rows, resolve_proteins
-from vector_network import vector_network_html
-from topological_clustering import clustering_panel
+from string_analysis import register_network
 
 TAXA = {'Shae': 6185, 'Sjap': 6182, 'Sman': 6183}
 
@@ -100,89 +96,16 @@ def annotations_for_nodes(identifiers, candidates, local_mapping, plan, api_mapp
         matched = source[source.sequence_id.isin(seqs)]
         join = lambda column: ' | '.join(sorted({str(v) for v in matched[column].dropna() if str(v)})) if column in matched else ''
         rows.append({'identifier': sid, 'sequence_id': ' | '.join(sorted(seqs)),
-                     'Family': join('reviewed_family') or 'Unmapped', 'orthogroup': join('orthogroup'),
+                     'Family': join('reviewed_family') or join('family') or 'Unmapped', 'orthogroup': join('orthogroup'),
                      'candidate_annotation': join('candidate_annotation'), 'species': SPECIES[code],
                      'mapping_status': 'Many candidates share STRING representative' if len(seqs) > 1 else 'Mapped candidate' if seqs else 'Additional / unmapped STRING protein',
                      'layer': 'Unresolved'})
     return pd.DataFrame(rows, columns=['identifier', 'sequence_id', 'Family', 'orthogroup', 'candidate_annotation', 'species', 'mapping_status', 'layer'])
 
 
-def analysis_panel(state, candidates, key='string_import_'):
-    code = state['code']
-    key += hashlib.sha256((code + state['raw'] + json.dumps(sorted(set(state.get('resolved', {}).values())))).encode()).hexdigest()[:12] + '_'
-    taxon = state.get('taxon',TAXA[code])
-    st.markdown('### Imported STRING network · topology and communities')
-    st.caption('Source: ' + state['source'] + ' · ' + SPECIES[code] + ' · ' + state.get('network_type', 'User-declared network type') + '. This workspace is retained in the current session; original library exports remain unchanged.')
-    a, b, c = st.columns(3)
-    threshold = a.slider('Imported minimum combined score', 0.0, 1.0, 0.4, 0.01, key=key+'threshold')
-    hide = b.checkbox('Hide unconnected imported nodes', value=False, key=key+'isolates')
-    color_by = c.selectbox('Imported node colors', ['Family', 'orthogroup', 'community'], key=key+'color')
-    edges = state['edges']
-    ids = set(edges.node1_string_id) | set(edges.node2_string_id) | set(state.get('resolved', {}).values())
-    nodes = annotations_for_nodes(ids, candidates, mapping_export(code), state['plan'], state.get('resolved', {}), code,taxon)
-    labels = dict(zip(edges.node1_string_id, edges.node1)) | dict(zip(edges.node2_string_id, edges.node2))
-    nodes['node'] = nodes.identifier.map(labels).fillna(nodes.identifier)
-    families = st.multiselect('Filter imported families', sorted(nodes.Family.unique()), key=key+'families')
-    if families:
-        nodes = nodes[nodes.Family.isin(families)]
-    focus = st.selectbox('Imported protein neighborhood', ['All proteins'] + sorted(nodes.identifier), key=key+'focus')
-    edges = edges[edges.combined_score.ge(threshold) & edges.node1_string_id.isin(nodes.identifier) & edges.node2_string_id.isin(nodes.identifier)].copy()
-    if focus != 'All proteins':
-        neighborhood = {focus} | set(edges.loc[edges.node1_string_id.eq(focus), 'node2_string_id']) | set(edges.loc[edges.node2_string_id.eq(focus), 'node1_string_id'])
-        nodes = nodes[nodes.identifier.isin(neighborhood)]
-        edges = edges[edges.node1_string_id.isin(neighborhood) & edges.node2_string_id.isin(neighborhood)]
-    if hide:
-        connected = set(edges.node1_string_id) | set(edges.node2_string_id)
-        nodes = nodes[nodes.identifier.isin(connected)]
-    if nodes.empty:
-        st.info('No nodes remain. Lower the score, show unconnected nodes, or fetch/import a network with resolved proteins.')
-        return
-    metrics, graph = topology(nodes, edges)
-    for column, label, value in zip(st.columns(4), ['Proteins', 'Unique pairs', 'Components', 'Communities'], [len(metrics), graph.number_of_edges(), nx.number_connected_components(graph), metrics.community.nunique()]):
-        column.metric(label, value)
-    display=st.selectbox('Imported network section',['Interactive network','Centrality & clusters','Interactions & mapping','Matrices','Query provenance'],key=key+'section')
-    positions = nx.spring_layout(graph, seed=23, weight=None)
-    colors = {category: px.colors.qualitative.Alphabet[i % 26] for i, category in enumerate(sorted(metrics[color_by].astype(str).unique()))}
-    vector_nodes = [{'id': row.identifier, 'label': row.node, 'annotation': row.candidate_annotation,
-        'x': float(positions[row.identifier][0]), 'y': float(positions[row.identifier][1]),
-        'radius': 9 + row.degree ** .5 * 2, 'color': colors[str(getattr(row, color_by))], 'category': str(getattr(row, color_by)),
-        'detail': {'Family': row.Family, 'Orthogroup': row.orthogroup, 'Candidate IDs': row.sequence_id,
-                   'Mapping': row.mapping_status, 'Degree': int(row.degree), 'Betweenness': row.betweenness,
-                   'Closeness': row.closeness, 'Clustering coefficient': row.clustering_coefficient, 'Community': int(row.community)}} for row in metrics.itertuples()]
-    vector_edges = [{'source': row.node1_string_id, 'target': row.node2_string_id, 'width': 1 + 2 * row.combined_score} for row in edges.itertuples()]
-    if display=='Interactive network':
-        st.iframe(vector_network_html(vector_nodes, vector_edges, SPECIES[code] + ' · queried / imported STRING', label_mode='center'), height=950)
-
-    if display=='Centrality & clusters':
-        st.caption('Unweighted undirected topology is recalculated after filtering. Betweenness is normalized; closeness uses the disconnected-graph correction. Communities use greedy modularity; local clustering and k-core describe neighborhood structure. STRING confidence filters edges and is not a path length.')
-        st.dataframe(metrics, width='stretch', hide_index=True)
-        st.download_button('Download imported centrality and clusters', metrics.to_csv(index=False), 'string_imported_topology.csv', key=key+'metrics')
-        plotly_chart(px.scatter(metrics, x='closeness', y='betweenness', color=metrics.community.astype(str), size=metrics.degree.clip(lower=1), hover_name='node', hover_data=['degree', 'Family', 'orthogroup', 'clustering_coefficient'], title='Imported network · closeness and betweenness'), width='stretch', key=key+'centrality')
-        summary = metrics.groupby('community').agg(proteins=('identifier', 'size'), mean_clustering=('clustering_coefficient', 'mean'), mean_degree=('degree', 'mean')).reset_index()
-        st.dataframe(summary, width='stretch', hide_index=True)
-        clustering_panel(graph, metrics, key + 'clustering', SPECIES[code] + ' · imported STRING')
-    if display=='Interactions & mapping':
-        st.dataframe(edges, width='stretch', hide_index=True)
-        st.download_button('Download filtered STRING interactions · TSV', edges.to_csv(sep='\t', index=False), 'string_imported_filtered.tsv', 'text/tab-separated-values', key=key+'edges')
-        st.caption('Shared STRING representatives retain all mapped candidate IDs; no paralogue is chosen automatically. Additional neighbors remain visible with their mapping status.')
-        st.dataframe(metrics[['identifier', 'node', 'sequence_id', 'Family', 'orthogroup', 'mapping_status']], width='stretch', hide_index=True)
-    if display=='Matrices':
-        ordered = metrics.sort_values(['degree', 'identifier'], ascending=[False, True]).identifier.tolist()
-        chosen = st.multiselect('Matrix proteins (maximum 60)', ordered, default=ordered[:min(20,len(ordered))], max_selections=60, key=key+'matrix')
-        chosen = [identifier for identifier in chosen if identifier in graph]
-        if chosen:
-            distances, adjacency = network_matrices(graph, chosen)
-            st.caption('Distances use paths through the entire displayed network; unreachable pairs are blank. Adjacency contains direct edges among the selected proteins.')
-            plotly_chart(px.imshow(distances, aspect='auto', color_continuous_scale='YlGn', title='Shortest-path distance matrix'), width='stretch', key=key+'distance_plot')
-            st.download_button('Download shortest-path matrix', distances.to_csv(), 'string_distance_matrix.csv', key=key+'distances')
-            st.download_button('Download adjacency matrix', adjacency.to_csv(), 'string_adjacency_matrix.csv', key=key+'adjacency')
-    if display=='Query provenance':
-        st.json(state.get('provenance', {}))
-        st.download_button('Download STRING query provenance', json.dumps(state.get('provenance', {}), indent=2), 'string_query_run.json', 'application/json', key=key+'provenance')
-        st.download_button('Download original STRING response · TSV', state['raw'], 'string_network_original.tsv', 'text/tab-separated-values', key=key+'raw')
-    if st.button('Clear imported STRING workspace', key=key+'clear'):
-        st.session_state.pop('atlas_string_network', None)
-        st.rerun()
+def analysis_panel(state,candidates,key='string_import_'):
+    from string_analysis_view import analysis_panel as render
+    render(state,candidates,key)
 
 
 def string_panel(candidates,sequences=None):
@@ -192,7 +115,10 @@ def string_panel(candidates,sequences=None):
     code = st.selectbox('STRING query species', list(SPECIES), format_func=SPECIES.get, key='string_query_species')
     TAXA[code]=int(st.number_input('STRING species taxon ID',min_value=0,value=TAXA.get(code,0),step=1,help='Enter the NCBI taxon ID recognized by STRING for this species. Coverage depends on the STRING release. No cross-species substitution is made.'))
     if not TAXA[code]:
-        st.info('Enter a STRING taxon ID to prepare queries or import a species network.'); return
+        st.info('Enter a STRING taxon ID to prepare queries or import a species network.')
+        from string_analysis_view import saved_networks_panel
+        saved_networks_panel(candidates)
+        return
     inventory = candidate_inventory(candidates, code, mapping_export(code))
     classifications = st.multiselect('Query candidate classification', sorted(inventory.audit_classification.dropna().unique()), default=[name for name in ['Supported','Provisional'] if name in set(inventory.audit_classification)], key='string_query_classification')
     inventory = inventory[inventory.audit_classification.isin(classifications)]
@@ -294,47 +220,50 @@ def string_panel(candidates,sequences=None):
                         with st.spinner('Fetching the STRING association TSV…'):
                             raw, log = api_request('network', params)
                             edges = parse_network(raw, TAXA[code])
-                        st.session_state['atlas_string_network'] = {'code': code,'taxon':TAXA[code], 'source': 'STRING 12.5 API', 'network_type': network_type,
+                        network_state = {'code': code,'taxon':TAXA[code], 'source': 'STRING 12.5 API', 'network_type': network_type,
                             'edges': edges, 'raw': raw, 'resolved': mapping['resolved'], 'plan': plan,
                             'provenance': {'config': config, 'mapping_request': mapping['log'], 'network_request': log, 'unresolved': mapping['unresolved'],
                                 'resolved_mapping':mapping['resolved'],'mapping_status':mapping['status_by_query'],'sequence_hits':mapping.get('sequence_hits',[])}}
+                        register_network(st.session_state,network_state)
                     except Exception as error:
                         st.error('STRING network fetch failed: ' + str(error))
     else:
         st.info('Select one or more families or orthogroups to create a STRING query. Existing TSVs can also be imported below.')
     with st.expander('Import a STRING TSV from your computer', expanded=not identifiers):
-        uploaded = st.file_uploader('STRING network TSV', type=['tsv', 'txt'], key='string_network_upload')
+        uploads = st.file_uploader('STRING network TSV', type=['tsv', 'txt'], accept_multiple_files=True, key='string_network_upload')
         mapping_upload = st.file_uploader('STRING mapping TSV (optional)', type=['tsv', 'txt'], key='string_mapping_upload')
         scale = st.selectbox('Uploaded combined-score scale', [1, 1000], format_func=lambda x: '0–1 (API and website exports)' if x==1 else '0–1000', key='string_upload_scale')
         declared = st.selectbox('Uploaded network type', ['functional', 'physical'], key='string_upload_type')
-        st.caption('The selected species applies to the upload. API and website export schemas are accepted. Duplicate/reversed pairs retain the largest score; self-links are removed.')
-        if st.button('Import TSV for topology analysis', disabled=uploaded is None, key='string_upload_import'):
-            try:
-                raw = uploaded.getvalue().decode('utf-8-sig')
-                edges = parse_network(raw, TAXA[code], scale)
-                resolved = {}
-                import_plan = plan
-                if mapping_upload:
-                    mapping_text = mapping_upload.getvalue().decode('utf-8-sig')
-                    source_rows = tsv_rows(mapping_text, ['queryItem', 'stringId'])
-                    queries = [row['queryItem'] for row in source_rows]
-                    resolved, unresolved = mapping_ids(mapping_text, queries, TAXA[code])
-                    # Join uploaded query IDs exactly to candidate IDs or current query aliases.
-                    import_plan = candidate_inventory(candidates, code, mapping_export(code)).copy()
-                    query_alias = {query: sid for query, sid in resolved.items()}
-                    for record in import_plan.to_dict('records'):
-                        seq = record['sequence_id']
-                        for alias in [seq, seq.split('__')[-1], record['query_id']]:
-                            if alias in query_alias:
-                                resolved[record['query_id']] = query_alias[alias]
-                st.session_state['atlas_string_network'] = {'code': code,'taxon':TAXA[code], 'source': uploaded.name, 'network_type': declared,
-                    'edges': edges, 'raw': raw, 'resolved': resolved, 'plan': import_plan,
-                    'provenance': {'source_file': uploaded.name, 'sha256': hashlib.sha256(uploaded.getvalue()).hexdigest(),
-                                   'taxon': TAXA[code], 'score_scale': scale, 'mapping_file': mapping_upload.name if mapping_upload else '',
-                                   'network_type': declared, 'string_version': 'Not recorded in TSV header'}}
-            except Exception as error:
-                st.error('Unable to import STRING TSV: ' + str(error))
+        st.caption('Select one or more network files. All files in this batch use the selected species and score scale; import other species as a separate batch. Every valid network is saved independently. API and website export schemas are accepted. Duplicate/reversed pairs retain the largest score; self-links are removed.')
+        if st.button('Import TSV for topology analysis', disabled=not uploads, key='string_upload_import'):
+            for uploaded in uploads:
+                try:
+                    raw = uploaded.getvalue().decode('utf-8-sig')
+                    edges = parse_network(raw, TAXA[code], scale)
+                    resolved = {}
+                    import_plan = plan
+                    if mapping_upload:
+                        mapping_text = mapping_upload.getvalue().decode('utf-8-sig')
+                        source_rows = tsv_rows(mapping_text, ['queryItem', 'stringId'])
+                        queries = [row['queryItem'] for row in source_rows]
+                        resolved, unresolved = mapping_ids(mapping_text, queries, TAXA[code])
+                        # Join uploaded query IDs exactly to candidate IDs or current query aliases.
+                        import_plan = candidate_inventory(candidates, code, mapping_export(code)).copy()
+                        query_alias = {query: sid for query, sid in resolved.items()}
+                        for record in import_plan.to_dict('records'):
+                            seq = record['sequence_id']
+                            for alias in [seq, seq.split('__')[-1], record['query_id']]:
+                                if alias in query_alias:
+                                    resolved[record['query_id']] = query_alias[alias]
+                    network_state = {'code': code,'taxon':TAXA[code], 'source': uploaded.name, 'network_type': declared,
+                        'edges': edges, 'raw': raw, 'resolved': resolved, 'plan': import_plan,
+                        'provenance': {'source_file': uploaded.name, 'sha256': hashlib.sha256(uploaded.getvalue()).hexdigest(),
+                                       'taxon': TAXA[code], 'score_scale': scale, 'mapping_file': mapping_upload.name if mapping_upload else '',
+                                       'network_type': declared, 'string_version': 'Not recorded in TSV header'}}
+                    register_network(st.session_state,network_state)
+                    st.success('Imported '+uploaded.name+' · '+str(len(edges))+' unique associations')
+                except Exception as error:
+                    st.error('Unable to import '+uploaded.name+': ' + str(error))
     st.markdown('[STRING API documentation](https://string-db.org/help/api/) · [STRING 12.5](https://version-12-5.string-db.org/)')
-    state = st.session_state.get('atlas_string_network')
-    if state:
-        analysis_panel(state, candidates)
+    from string_analysis_view import saved_networks_panel
+    saved_networks_panel(candidates)

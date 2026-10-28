@@ -98,10 +98,16 @@ def _detail(group,candidates,app_url,tree_ids):
 
 def statistics_panel(candidates,folder=None):
     folder=Path(folder) if folder is not None else ROOT/'orthology'
+    from orthogroup_variation import WORKBOOK,REPORT_VARIATION,REPORT_EXACT,variation_panel
+    st.subheader('Orthogroup Statistics & Explorer')
+    options=([REPORT_VARIATION] if (folder/WORKBOOK).exists() else [])+[REPORT_EXACT]
+    if st.session_state.get('og_statistics_report') not in options:st.session_state.pop('og_statistics_report',None)
+    report=st.selectbox('Orthogroup report',options,key='og_statistics_report')
+    if report==REPORT_VARIATION:
+        variation_panel(candidates,folder);return
     try:master,sources,checks=cached_statistics(folder,signature(folder))
     except (OSError,ValueError,pd.errors.ParserError) as error:
         st.info('Orthogroup statistics are awaiting complete, readable TSV files: '+str(error));return
-    st.subheader('Orthogroup Statistics & Explorer')
     st.caption('Exact copy-profile catalogue. Summary fields follow the complete TSV; the supported 1:1 and 2:2 files define focused subsets. Copy-profile similarity alone does not establish orthology or paralogy.')
     st.button('Reset orthogroup filters',on_click=reset_filters,key=PREFIX+'reset')
     choices={'species':SPECIES,'families':sorted(set(master['Supported family identity'])-{''}),

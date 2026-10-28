@@ -168,7 +168,7 @@ def cluster_network(graph, method, **parameters):
     return members, summary, diagnostics
 
 
-def clustering_panel(graph, nodes, key, title='Network'):
+def clustering_panel(graph, nodes, key, title='Network', *, enabled=False):
     """Shared explorer for reconstructed, orthogroup and imported STRING graphs."""
     import streamlit as st
     import plotly.express as px
@@ -176,7 +176,7 @@ def clustering_panel(graph, nodes, key, title='Network'):
     from vector_network import vector_network_html
 
     st.markdown('#### Topological clustering algorithms')
-    if not st.checkbox('Explore clustering algorithms', key=key + '_enabled'):
+    if not enabled and not st.checkbox('Explore clustering algorithms', key=key + '_enabled'):
         st.caption('Compare MCODE dense complexes, MCL random-walk communities and greedy modularity on the current filtered network.')
         return
     graph = clean_graph(graph)
@@ -203,8 +203,9 @@ def clustering_panel(graph, nodes, key, title='Network'):
     else:
         parameters['resolution'] = st.slider('Modularity resolution', .2, 3., 1., .1, key=key + '_resolution')
         st.caption('Greedy modularity partitions the whole graph. Higher resolution favors smaller communities.')
-    if len(graph) > (400 if method == 'MCL' else 1200):
-        st.info(f'{method} is available for up to {400 if method == "MCL" else 1200} displayed nodes. Use the network family, species or neighborhood filters first.')
+    limit={'MCL':400,'MCODE':1200,'Greedy modularity':5000}[method]
+    if len(graph) > limit:
+        st.info(f'{method} is available for up to {limit} displayed nodes. Use the network family, species or neighborhood filters first.')
         return
 
     @st.cache_data(show_spinner=False, max_entries=32)
