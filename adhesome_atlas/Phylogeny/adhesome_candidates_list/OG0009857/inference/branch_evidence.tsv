@@ -1,0 +1,8 @@
+branch_id	support_label	tip_count	species	tip_ids	direct_orthology_edges_within	exact_duplication_rows	interpretation
+B0002	49.9/51	8	Sbovis,Scura,Shae,Sinter,Sman,Srhoda	Sbovis__SBOV2_91550,Scura__SCUR1_91160,Scura__SCUR1_91730,Shae__MS3_00009432,Sinter__SINT2_90950,Sinter__SINT2_90970,Sman__Smp_175630,Srhoda__SRDH2_96340	0		unrooted split; no ancestry or duplication timing assigned
+B0003	98.8/92	6	Sbovis,Scura,Shae,Sinter	Sbovis__SBOV2_91550,Scura__SCUR1_91160,Scura__SCUR1_91730,Shae__MS3_00009432,Sinter__SINT2_90950,Sinter__SINT2_90970	0		unrooted split; no ancestry or duplication timing assigned
+B0004	79.3/38	5	Scura,Shae,Sinter	Scura__SCUR1_91160,Scura__SCUR1_91730,Shae__MS3_00009432,Sinter__SINT2_90950,Sinter__SINT2_90970	0		unrooted split; no ancestry or duplication timing assigned
+B0005	77.5/39	3	Scura,Sinter	Scura__SCUR1_91160,Scura__SCUR1_91730,Sinter__SINT2_90950	0		unrooted split; no ancestry or duplication timing assigned
+B0006	89.2/83	2	Scura,Sinter	Scura__SCUR1_91730,Sinter__SINT2_90950	0		unrooted split; no ancestry or duplication timing assigned
+B0007	96.6/48	2	Shae,Sinter	Shae__MS3_00009432,Sinter__SINT2_90970	0		unrooted split; no ancestry or duplication timing assigned
+B0008	99.9/98	2	Sman,Srhoda	Sman__Smp_175630,Srhoda__SRDH2_96340	0		unrooted split; no ancestry or duplication timing assigned
