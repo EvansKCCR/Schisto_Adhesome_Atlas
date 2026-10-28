@@ -58,14 +58,14 @@ def annotate_motif_sites(sites,candidates):
 
 
 def source_files():
-    folders=['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny']
+    folders=['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny','family_phylogeny']
     library=[p for folder in folders for p in (ROOT/folder).rglob('*') if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() not in {'.pyc','.tmp'}]
     documents=[p for p in ROOT.iterdir() if p.is_file() and p.suffix.lower() in {'.md','.jpeg','.png','.pptx','.html'}]
     return sorted(library+documents)
 
 def fingerprint(root=None):
     base=Path(root) if root is not None else ROOT
-    files=source_files() if base==ROOT else [p for folder in ['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny'] for p in (base/folder).rglob('*') if p.is_file()]+[p for p in base.glob('*.md')]
+    files=source_files() if base==ROOT else [p for folder in ['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny','family_phylogeny'] for p in (base/folder).rglob('*') if p.is_file()]+[p for p in base.glob('*.md')]
     # Generated mirrors cannot trigger a self-refresh cycle; primary inputs still do.
     return tuple((p.relative_to(base).as_posix(),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted(files)
         if not (p.parent.name=='adhesome_network' and p.name in DERIVED_FILES) and not p.name.startswith('~$') and p.suffix.lower() not in {'.tmp','.pyc'})

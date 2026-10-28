@@ -31,6 +31,16 @@ FAMILY_JOINS = {
     'Kindlin': ('kindlin',), 'Talin': ('talin',), 'Vinculin': ('vinculin',),
     'Collagen-/laminin-like': ('collagen_like', 'laminin_like'),
 }
+# Explicit display joins for the two catalogue naming versions. No source family
+# assignments are renamed, inferred or combined with a different biological family.
+FAMILY_ALIASES = {
+    'tetraspanin_like': ('tetraspanin_like','tetraspanin-like'),
+    'calpain_like': ('calpain_like','calpain-like'),
+    'integrin_alpha': ('integrin_alpha','integrin alpha'),
+    'integrin_beta': ('integrin_beta','integrin beta'),
+    'collagen_like': ('collagen_like','collagen-like'),
+    'laminin_like': ('laminin_like','laminin-like'),
+}
 CHALLENGES = {
     'Src-family kinases': 'Establish host-kinase selectivity.',
     'FAK': 'Resolve ambiguous FAK-like assignments and adhesion-associated signaling.',
@@ -159,8 +169,17 @@ def protein_links(identifier,candidates,base):
 
 
 def family_links(families,candidates,base,labels=None):
-    return ' '.join(_link((labels or {}).get(f,f.replace('_',' ')),target_url(base,'Components',family=f),'family','Open family candidate catalogue')
-        if f in set(candidates.family) else f'<span class="research-unavailable">{escape(f)} · unavailable</span>' for f in families)
+    links=[]
+    for family in families:
+        available=available_families((family,),candidates)
+        links.extend(_link((labels or {}).get(family,name.replace('_',' ')),target_url(base,'Components',family=name),'family','Open family candidate catalogue') for name in available)
+        if not available:links.append(f'<span class="research-unavailable">{escape(family)} · unavailable</span>')
+    return ' '.join(links)
+
+
+def available_families(families,candidates):
+    available=set(candidates.family)
+    return list(dict.fromkeys(alias for family in families for alias in FAMILY_ALIASES.get(family,(family,)) if alias in available))
 
 
 def rich_text(text,candidates,base):
@@ -178,9 +197,10 @@ def rich_text(text,candidates,base):
 
 
 def metric_comparison(metric,candidates):
-    family_scope=candidates.family.isin(metric['families'])
+    aliases={alias for family in metric['families'] for alias in FAMILY_ALIASES.get(family,(family,))}
+    family_scope=candidates.family.isin(aliases)
     if metric.get('hypothesis_field') in candidates:
-        family_scope=family_scope|candidates[metric['hypothesis_field']].isin(metric['families'])
+        family_scope=family_scope|candidates[metric['hypothesis_field']].isin(aliases)
     selected=candidates[family_scope & candidates.audit_classification.eq(metric['classification'])]
     live=selected.loc[selected.orthogroup.ne(''),'orthogroup'].nunique() if metric.get('orthogroups') else selected.sequence_id.nunique()
     return dict(label=metric['label'],brief=metric['count'],live=int(live),matches=metric['count']==live)
@@ -262,8 +282,9 @@ def research_priorities_panel(candidates,base,source):
             if i==len(brief['roadmap']):target=family_links(('FAK','ILK','talin','kindlin'),candidates,base)
             items.append(f'<article class="research-step"><span class="research-step-number">{i:02}</span><div><div class="research-card-label">{escape(row["Development objective"])}</div><h4>{target}</h4><p>{escape(row["First decisive experiment or analysis"])}</p><span class="research-tag proposed">Proposed investigation</span></div></article>')
         st.markdown('<div class="research-roadmap">'+''.join(items)+'</div>',unsafe_allow_html=True)
-    with st.expander('Research references & count reconciliation'):
+    with st.expander('Research references'+(' & count mismatches' if differences else '')):
         st.caption('Scientific content: Target_prioritization.md. Brief counts are preserved; live counts use unique protein IDs and A/B = Supported, C = Provisional, D = Unassigned. Unassigned integrin hypotheses are counted from the recorded stage-1 hypothesis without assigning family membership. Orthogroup counts use supported members only.')
         for ref in brief['references']:st.markdown(f'[{ref["label"]}]({ref["url"]})')
-        st.dataframe(pd.DataFrame(checks).rename(columns={'category':'Research category','label':'Measure','brief':'Research brief','live':'Live catalogue','matches':'Counts agree'}),hide_index=True,width='stretch')
+        if differences:
+            st.dataframe(pd.DataFrame(differences).drop(columns='matches').rename(columns={'category':'Research category','label':'Measure','brief':'Research brief','live':'Live catalogue'}),hide_index=True,width='stretch')
         st.download_button('Download research-priority brief',source.read_text(encoding='utf-8-sig'),source.name,'text/markdown')
