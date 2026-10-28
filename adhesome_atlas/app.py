@@ -178,7 +178,7 @@ elif page=='Interactions':
 elif page=='Orthology':orthology_panel(all_candidates)
 elif page=='Phylogeny':
     @st.fragment(run_every='30s')
-    def live_phylogeny():phylogeny_panel(all_candidates)
+    def live_phylogeny():phylogeny_panel(all_candidates,app_url)
     live_phylogeny()
 
 elif page=='Motif explorer':motif_view(motifs[motifs.sequence_id.isin(selected.sequence_id)])
