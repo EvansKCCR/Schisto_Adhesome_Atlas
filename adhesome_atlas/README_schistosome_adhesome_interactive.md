@@ -1,59 +1,69 @@
 # Interactive schistosome adhesome map
 
-The atlas uses the current seven-species candidate workbook for its tables and consensus projections. The self-contained map remains the evidence snapshot authored in its HTML and companion CSVs. In future updates, the map will still be embedded in the candidate inventory and companion CSVs synchronized with the workbook. Human-reference edges describe family-level hypotheses; the S. mansoni experimental complex context retains its own evidence labels.
+The atlas is built from the current seven-species candidate workbook and provides an interactive view of predicted schistosome adhesome relationships. The map is a snapshot of the evidence available at the time of export, while future releases will remain synchronized with the candidate workbook and supporting CSV files. Family-level interactions are presented as hypotheses, with **S. mansoni** experimental evidence clearly distinguished.
 
-The hypothesis download in Introduction packages the map and linked simulator as a standalone HTML file. Orthogroup network data, centrality, memberships, projection references and input hashes download from Interactions. Network SVG buttons retain the interactive layout.
+Users can download the hypothesis map as a standalone HTML file, along with associated network data, centrality metrics, memberships, and projection references. Interactive SVG network layouts are preserved in exported files.
 
+## Candidate Profiles and Protein Dossiers
 
-## Candidate profiles and dossier links
+The atlas contains profiles for all 4359 candidate adhesome-associated hypothesis. Candidates can be searched by accession or annotation, and selecting a protein highlights its family node and displays a detailed profile.
 
-The standalone HTML embeds profiles for all 2,664 current candidates. Search by accession or annotation in **Locate a candidate**. Selecting a protein displays its family node and opens its profile. Clicking a family shows a searchable list of every candidate matching the native species/grade filters, rather than only 26 rows. Potential linked partner families can be explored from the same panel.
+Each profile includes:
 
-Profiles show annotation confidence, grade, family decision, orthogroup, Pfam/CDD architecture, localization/topology, the separate evidence scores, positional motifs, domain hits and reference orthologues. Each profile downloads as JSON with exact source identifiers. The atlas builds these profiles from the current workbooks at runtime using `candidate_profiles.py`; the embedded standalone file is a snapshot. The hypothesis download includes the latest profiles.
+Annotation confidence and grade
+Family assignment and orthogroup
+Pfam/CDD domain architecture
+Localization and topology predictions
+Evidence scores
+Motifs and domain hits
+Reference orthologues
 
-**Open complete Protein dossier** opens the selected accession in the atlas. The dossier also provides **Locate this candidate on the interactive hypothesis**. Deep links use `?view=Protein+dossier&protein=<accession>` or `?view=Introduction&protein=<accession>`. Hosted links are included in exports created from the atlas; a standalone local HTML still contains the evidence profile without requiring a running server.
+Profiles can be downloaded as JSON files with full source identifiers. Each candidate also has a dedicated protein dossier that links directly between the dossier view and its position on the interactive map.
 
-The selected candidate accession, annotation, species and orthogroup are passed into its linked simulation context. The map continues to represent family-level relationships.
+## Network Navigation and Path Exploration
 
+Clicking a family node highlights its connected network and opens a matching candidate profile. Users can explore:
 
-## Node clicks: connected paths and profiles
+Direct partners
+Two-step neighborhoods
+Entire connected components
+Shortest paths between selected families
 
-Clicking a family node now highlights its connected network and immediately opens a matching candidate profile at the top of the side panel. The initial selection uses grade then accession ordering; the complete filtered candidate list remains selectable. Existing exact candidate selections are retained when compatible with the clicked node and filters.
+Path highlighting is based on displayed family-level associations and evidence filters. It does not imply direct candidate-level interactions or causality.
 
-**Connected path** chooses direct partners, a two-step neighborhood, or the connected component (default). **Shortest path to** highlights one deterministic shortest route to a selected family or recorded context node. Paths use the currently displayed, undirected family associations and evidence filters; causal downstream direction is not inferred. An unreachable target is reported explicitly. Profiles stay linked to the selected family; path highlighting does not assign interactions to individual candidate proteins.
+## Integrated Simulation Workspace
 
-At typical desktop widths the profile panel remains beside the map. Narrow screens open a closable right-hand panel, rather than placing the profile below the graph. JSON profile downloads, complete dossier links and candidate-aware simulator links remain available.
+Selected candidates are linked directly to downstream simulation tools. Candidate information, orthogroup membership, evidence filters, and highlighted paths are automatically transferred into simulation views.
 
+Users can:
 
-## Persistent candidate–path simulation workspace
+Switch between candidates within the same family
+Update simulations as paths change
+Launch candidate-specific simulations
+Export simulation outputs, including path information, filters, assumptions, and random seeds
 
-Nodes are clickable and keyboard-accessible buttons. Clicking a node opens its linked candidates directly; **Locate a candidate** is optional. The map sends the exact selected accession, species, orthogroup, full profile, active evidence filters and highlighted path to the linked viewer. A dedicated candidate panel remains visible in **Adhesome map**, **Downstream simulation** and **Map + simulation** views. The mobile layout keeps it in a separate lower pane.
+Optional pathway-coupling rules apply biologically motivated module requirements (for example, FAK/Src and ILK-PINCH-Nck complexes) when generating hypothetical downstream outcomes.
 
-Choose another protein in **Candidates linked to this node**, or change the path on the map: the profile and active simulation update together. **Simulate candidate and path** starts the scenario. The selected route or neighborhood stays visible in the profile panel. Profile JSON downloads include its highlighted path and filters. Simulator exports retain the selected candidate record, source names, path edges, filters, path gate assumptions and seed.
+## Interface and Data Integrity
 
-**Use highlighted path for downstream coupling** applies explicit module gates. FAK/Src requires both families; the bridge requires ILK, PINCH and Nck. Other functional projections use their displayed module participants. VKR1 remains restricted to S. mansoni context. These gates select hypothetical downstream readouts; they do not alter binding weights from reference row counts. The same-seed baseline keeps the same path gates, separating the candidate mechanism proxy from the path scope. Disable the checkbox to retain the path as annotation only.
+The atlas supports mouse, touch, and keyboard navigation. Candidate selection, node highlighting, profiles, and network paths remain synchronized across views.
 
-## Pointer-selection repair and browser validation
+Family panels display all matching candidates together with grade distributions (A/B/C). Nodes without candidate proteins display a clear empty-state message. Non-selected network elements remain visible but are visually de-emphasized.
 
-The SVG captures the pointer during panning. Selection now records the original family/edge at pointer-down, before capture retargets pointer-up to the SVG. A completed click uses that recorded target; dragging pans without changing selection. Pointer cancellation and lost capture clear the pending gesture. Pointer clicks, keyboard activation, linked-partner browsing and candidate selectors all use `atlasSelectNode` to synchronize the active node, candidate, highlights and profile context.
+For example, the current dataset contains 76 collagen-like proteins across seven species (75 grade A and 1 grade C). No curated collagen interaction is currently present in the network topology, so collagen nodes appear without recorded connections.
 
-Both profile panels show the complete filtered family list and its A/B/C totals. Context nodes without candidates show an explicit empty state and clear the previous profile. Unrelated nodes and edges remain visible but dimmed. The repair is reapplied idempotently by `candidate_map_html`, including during standalone HTML generation.
+## User Experience
 
-In the present dataset, `collagen_like` has 76 records across seven species (A=75, B=0, C=1). Selecting *S. mansoni* gives 11 records, all A. No collagen-family edge is recorded in the curated topology, so selection highlights collagen itself and reports **No recorded connections in the active topology**. No ligand–receptor connection is generated to fill this gap.
+The atlas uses a clean scientific design with scalable labels and adjustable display settings. Users can zoom, pan, resize labels, filter networks, and expand reference interaction tables.
 
-Run the browser regression suite from this directory:
+Protein dossiers summarize:
 
-```bash
-python -X utf8 test_candidate_profiles.py --browser
-python -X utf8 test_linked_context.py
-```
+Family membership
+Candidate counts and grade distributions
+Accessions and orthogroups
+Highlighted network paths
+Supporting evidence
 
-The browser suite requires Node.js, Playwright and Chromium (or Google Chrome on Windows). Set `ATLAS_TEST_CHROME` to an installed browser executable if needed. These are development-test dependencies; the standalone visualization requires only a browser. `node test_node_interactivity.cjs` tests the existing standalone map directly. The Python wrapper also generates and tests the combined map/simulator download in a temporary file.
+Detailed domain, motif, orthology, and family-assignment sections remain available when needed.
 
-Real Chromium pointer events cover all 64 families across six network levels plus SmVKR1, every collagen profile in the 11-member *S. mansoni* set, seven-species and confidence filters, exact candidate/grade sets, topology-derived highlighting and dimming, direct/two-step/component/shortest paths, disconnected targets, keyboard/partner selection, zoom/pan/search, SVG export, mobile panel handling and persistent simulator profiles. HTTP requests are blocked and must remain absent. API-only tests do not substitute for these pointer-event checks.
-
-## Discovery workspace presentation
-
-The map uses a shared evergreen, neutral and warm-gold design system with black scientific labels. The default **Read labels** view maintains a readable display scale; drag to pan to additional families and layers. **Fit all** restores an overview of the complete graph. The **Node labels** slider adjusts typography without changing the graph. In the linked workspace, label and path controls are under **Path & display**; species, confidence, network-scope and reference-edge controls remain under **Network filters**. The reference interaction table is expandable below the canvas.
-
-The candidate dossier shows the selected family, complete candidate count and A/B/C totals, an accession selector, the highlighted path and structured evidence. Grade badges repeat the annotation text. Detailed domain, motif, orthology and family-decision sections remain expandable; the selected profile stays visible during simulation. **Full screen** expands the linked workspace when the browser permits it. Institutional logos, source evidence and acknowledgments are retained. No externally hosted fonts, JavaScript packages or images are needed by exported HTML.
+The entire platform, including exported HTML files, runs without external fonts, JavaScript libraries, or online dependencies, ensuring portability and long-term accessibility.
