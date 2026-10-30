@@ -1,0 +1,409 @@
+IQ-TREE 2.4.0 built Feb 12 2025
+
+Input file name: /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/independent_family_phylogeny/results/proteome_panels_only/shp_ptpn6_11_like/trimmed.fasta
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 20261028
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 39 sequences with 542 amino-acid sites
+Number of constant sites: 60 (= 11.0701% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 60 (= 11.0701% of all sites)
+Number of parsimony informative sites: 361
+Number of distinct site patterns: 531
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: JTT+G4
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+JTT+G4           -12576.028   25300.055 +    0.639   25323.824 +    0.685   25617.905 +    0.797
+JTTDCMut+G4      -12577.574   25303.148 +    0.136   25326.917 +    0.146   25620.998 +     0.17
+JTT+I+G4         -12576.311   25302.622 +    0.177   25327.086 +    0.134   25624.767 -   0.0258
+JTTDCMut+I+G4    -12577.634   25305.269 -   0.0472   25329.732 -   0.0357   25627.414 -  0.00687
+Q.insect+G4      -12610.644   25369.288 - 5.92e-16   25393.057 - 6.33e-16   25687.138 - 7.38e-16
+Q.insect+I+G4    -12610.803   25371.605 - 1.86e-16   25396.069 -  1.4e-16   25693.750 -  2.7e-17
+Q.mammal+G4      -12622.382   25392.765 - 4.72e-21   25416.534 - 5.06e-21   25710.615 - 5.89e-21
+Q.mammal+I+G4    -12622.551   25395.102 - 1.47e-21   25419.566 - 1.11e-21   25717.247 - 2.14e-22
+Q.pfam+G4        -12629.259   25406.518 - 4.87e-24   25430.287 - 5.21e-24   25724.368 - 6.07e-24
+VT+G4            -12630.393   25408.787 - 1.57e-24   25432.555 - 1.68e-24   25726.636 - 1.95e-24
+Q.pfam+I+G4      -12629.476   25408.953 - 1.44e-24   25433.416 - 1.09e-24   25731.098 -  2.1e-25
+VT+I+G4          -12630.435   25410.870 - 5.53e-25   25435.333 - 4.18e-25   25733.015 - 8.05e-26
+LG+G4            -12641.698   25431.396 - 1.93e-29   25455.165 - 2.07e-29   25749.246 - 2.41e-29
+JTT+F+G4         -12582.549   25351.099 - 5.27e-12   25390.125 - 2.74e-15   25750.558 - 1.25e-29
+WAG+G4           -12643.457   25434.915 - 3.32e-30   25458.684 - 3.56e-30   25752.765 - 4.14e-30
+JTTDCMut+F+G4    -12584.519   25355.038 - 7.35e-13   25394.064 - 3.83e-16   25754.497 - 1.74e-30
+LG+I+G4          -12642.266   25434.532 - 4.02e-30   25458.996 - 3.04e-30   25756.677 - 5.86e-31
+JTT+F+I+G4       -12582.839   25353.678 - 1.45e-12   25393.633 - 4.75e-16   25757.433 - 4.01e-31
+Q.insect+F+G4    -12586.953   25359.907 - 6.45e-14   25398.933 - 3.35e-17   25759.366 - 1.53e-31
+WAG+I+G4         -12643.817   25437.634 - 8.53e-31   25462.098 - 6.45e-31   25759.779 - 1.24e-31
+JTTDCMut+F+I+G4  -12584.584   25357.168 - 2.53e-13   25397.123 - 8.29e-17   25760.923 - 7.01e-32
+LG+R3            -12639.209   25432.418 - 1.16e-29   25458.306 - 4.29e-30   25763.154 -  2.3e-32
+Q.insect+F+I+G4  -12587.108   25362.216 - 2.03e-14   25402.171 - 6.65e-18   25765.971 - 5.62e-33
+LG+I+R3          -12638.625   25433.250 - 7.64e-30   25459.868 - 1.97e-30   25768.281 - 1.77e-33
+LG+R4            -12638.849   25435.697 - 2.25e-30   25463.057 - 3.99e-31   25775.023 - 6.08e-35
+LG+I+R4          -12638.447   25436.894 - 1.24e-30   25465.006 - 1.51e-31   25780.515 -  3.9e-36
+Q.plant+G4       -12658.156   25464.312 - 1.37e-36   25488.081 - 1.47e-36   25782.162 - 1.71e-36
+Q.plant+I+G4     -12658.247   25466.495 - 4.61e-37   25490.958 - 3.49e-37   25788.640 - 6.72e-38
+LG+I+R2          -12656.774   25465.547 - 7.41e-37   25490.717 - 3.94e-37   25791.987 - 1.26e-38
+LG+R2            -12666.080   25482.159 - 1.83e-40   25506.623 - 1.38e-40   25804.304 - 2.66e-41
+Q.pfam+F+G4      -12611.848   25409.696 - 9.95e-25   25448.722 - 5.18e-28   25809.155 - 2.36e-42
+Q.yeast+F+G4     -12612.642   25411.285 - 4.49e-25   25450.312 - 2.34e-28   25810.745 - 1.06e-42
+Q.pfam+F+I+G4    -12612.062   25412.124 - 2.95e-25   25452.079 - 9.66e-29   25815.879 - 8.17e-44
+Q.yeast+F+I+G4   -12612.735   25413.470 - 1.51e-25   25453.425 - 4.93e-29   25817.225 - 4.17e-44
+Q.yeast+G4       -12682.737   25513.475 -  2.9e-47   25537.243 -  3.1e-47   25831.324 - 3.62e-47
+Q.yeast+I+G4     -12682.836   25515.672 - 9.67e-48   25540.135 - 7.31e-48   25837.817 - 1.41e-48
+LG+F+G4          -12627.194   25440.387 - 2.15e-31   25479.414 - 1.12e-34   25839.847 -  5.1e-49
+VT+F+G4          -12630.346   25446.693 -  9.2e-33   25485.719 - 4.79e-36   25846.152 - 2.18e-50
+LG+F+I+G4        -12627.735   25443.470 - 4.61e-32   25483.425 - 1.51e-35   25847.225 - 1.28e-50
+VT+F+I+G4        -12630.386   25448.771 - 3.26e-33   25488.726 - 1.06e-36   25852.526 -    9e-52
+Q.mammal+F+G4    -12636.198   25458.396 - 2.65e-35   25497.423 - 1.38e-38   25857.856 - 6.27e-53
+Q.mammal+F+I+G4  -12636.368   25460.735 - 8.21e-36   25500.691 - 2.69e-39   25864.491 - 2.27e-54
+Q.bird+G4        -12699.763   25547.526 - 1.17e-54   25571.295 - 1.25e-54   25865.376 - 1.46e-54
+Q.plant+F+G4     -12641.314   25468.629 - 1.59e-37   25507.656 - 8.26e-41   25868.089 - 3.76e-55
+Q.bird+I+G4      -12699.901   25549.803 - 3.75e-55   25574.266 - 2.83e-55   25871.948 - 5.46e-56
+Q.plant+F+I+G4   -12641.404   25470.808 - 5.34e-38   25510.764 - 1.75e-41   25874.563 - 1.48e-56
+WAG+F+G4         -12651.583   25489.166 - 5.51e-42   25528.193 - 2.87e-45   25888.626 -  1.3e-59
+WAG+F+I+G4       -12651.917   25491.834 - 1.45e-42   25531.789 - 4.75e-46   25895.589 - 4.01e-61
+rtREV+G4         -12716.355   25580.711 - 7.28e-62   25604.479 - 7.79e-62   25898.560 - 9.08e-62
+rtREV+I+G4       -12716.481   25582.962 - 2.36e-62   25607.425 - 1.79e-62   25905.107 - 3.44e-63
+cpREV+G4         -12735.024   25618.048 - 5.68e-70   25641.817 - 6.08e-70   25935.898 - 7.09e-70
+PMB+G4           -12737.646   25623.292 - 4.13e-71   25647.061 - 4.42e-71   25941.142 - 5.15e-71
+cpREV+I+G4       -12735.232   25620.464 -  1.7e-70   25644.928 - 1.28e-70   25942.609 - 2.47e-71
+rtREV+F+G4       -12679.765   25545.531 - 3.17e-54   25584.557 - 1.65e-57   25944.990 - 7.52e-72
+PMB+I+G4         -12737.679   25625.358 - 1.47e-71   25649.822 - 1.11e-71   25947.503 - 2.14e-72
+rtREV+F+I+G4     -12679.957   25547.915 - 9.63e-55   25587.870 - 3.15e-58   25951.670 - 2.66e-73
+Blosum62+G4      -12770.497   25688.994 - 2.23e-85   25712.763 - 2.39e-85   26006.844 - 2.78e-85
+Q.bird+F+G4      -12712.385   25610.770 - 2.16e-68   25649.797 - 1.13e-71   26010.230 - 5.12e-86
+Blosum62+I+G4    -12770.517   25691.034 - 8.05e-86   25715.497 - 6.09e-86   26013.179 - 1.17e-86
+Q.bird+F+I+G4    -12712.537   25613.073 - 6.84e-69   25653.028 - 2.24e-72   26016.828 - 1.89e-87
+Dayhoff+G4       -12790.469   25728.938 - 4.73e-94   25752.707 - 5.07e-94   26046.788 -  5.9e-94
+DCMut+G4         -12791.175   25730.351 - 2.34e-94   25754.119 -  2.5e-94   26048.200 - 2.91e-94
+Dayhoff+I+G4     -12790.499   25730.999 - 1.69e-94   25755.462 - 1.28e-94   26053.144 - 2.46e-95
+DCMut+I+G4       -12791.228   25732.455 - 8.15e-95   25756.919 - 6.17e-95   26054.600 - 1.19e-95
+cpREV+F+G4       -12753.643   25693.287 - 2.61e-86   25732.314 - 1.36e-89   26092.747 - 6.18e-104
+mtInv+F+G4       -12755.648   25697.297 - 3.52e-87   25736.323 - 1.83e-90   26096.756 - 8.33e-105
+cpREV+F+I+G4     -12753.857   25695.713 - 7.76e-87   25735.669 - 2.54e-90   26099.468 - 2.15e-105
+mtInv+F+I+G4     -12755.680   25699.359 - 1.25e-87   25739.314 -  4.1e-91   26103.114 - 3.47e-106
+PMB+F+G4         -12761.865   25709.730 - 7.02e-90   25748.756 - 3.65e-93   26109.189 - 1.66e-107
+PMB+F+I+G4       -12761.901   25711.801 - 2.49e-90   25751.756 - 8.15e-94   26115.556 - 6.89e-109
+Dayhoff+F+G4     -12766.067   25718.135 - 1.05e-91   25757.161 - 5.46e-95   26117.594 - 2.49e-109
+DCMut+F+G4       -12766.519   25719.039 - 6.68e-92   25758.066 - 3.48e-95   26118.499 - 1.58e-109
+Dayhoff+F+I+G4   -12766.103   25720.206 - 3.73e-92   25760.161 - 1.22e-95   26123.961 - 1.03e-110
+DCMut+F+I+G4     -12766.580   25721.161 - 2.31e-92   25761.116 - 7.56e-96   26124.916 - 6.39e-111
+Blosum62+F+G4    -12777.218   25740.436 - 1.51e-96   25779.463 - 7.85e-100   26139.896 - 3.57e-114
+HIVb+G4          -12837.626   25823.252 - 1.57e-114   25847.020 - 1.68e-114   26141.101 - 1.95e-114
+Blosum62+F+I+G4  -12777.240   25742.481 - 5.42e-97   25782.436 - 1.77e-100   26146.236 - 1.5e-115
+HIVb+I+G4        -12837.893   25825.786 - 4.41e-115   25850.249 - 3.34e-115   26147.931 - 6.43e-116
+FLU+G4           -12849.130   25846.260 - 1.58e-119   25870.029 - 1.69e-119   26164.110 - 1.97e-119
+FLU+I+G4         -12849.473   25848.947 - 4.13e-120   25873.410 - 3.12e-120   26171.092 - 6.01e-121
+mtMet+F+G4       -12805.439   25796.877 - 8.36e-109   25835.904 - 4.35e-112   26196.337 - 1.98e-126
+mtMet+F+I+G4     -12805.473   25798.946 - 2.97e-109   25838.901 - 9.72e-113   26202.701 - 8.22e-128
+HIVb+F+G4        -12839.330   25864.660 - 1.6e-123   25903.686 - 8.32e-127   26264.119 - 3.78e-141
+HIVb+F+I+G4      -12839.604   25867.209 - 4.47e-124   25907.164 - 1.46e-127   26270.964 - 1.24e-142
+FLU+F+G4         -12848.520   25883.040 - 1.63e-127   25922.067 - 8.48e-131   26282.500 - 3.86e-145
+FLU+F+I+G4       -12848.788   25885.576 - 4.59e-128   25925.531 - 1.5e-131   26289.331 - 1.27e-146
+LG+I             -12931.318   26010.636 - 3.2e-155   26034.405 - 3.43e-155   26328.485 - 3.99e-155
+mtREV+F+G4       -12874.893   25935.785 - 5.74e-139   25974.812 - 2.99e-142   26335.245 - 1.36e-156
+mtREV+F+I+G4     -12874.924   25937.848 - 2.05e-139   25977.803 - 6.69e-143   26341.603 - 5.66e-158
+mtZOA+F+G4       -12890.664   25967.327 - 8.12e-146   26006.354 - 4.23e-149   26366.787 - 1.92e-163
+mtZOA+F+I+G4     -12890.700   25969.400 - 2.88e-146   26009.356 - 9.42e-150   26373.155 - 7.96e-165
+LG               -13026.523   26199.047 - 3.91e-196   26222.132 - 5.89e-196   26512.601 - 4.18e-195
+mtVer+F+G4       -12994.321   26174.642 - 7.79e-191   26213.668 - 4.06e-194   26574.101 - 1.85e-208
+mtVer+F+I+G4     -12994.356   26176.711 - 2.77e-191   26216.667 - 9.06e-195   26580.466 - 7.66e-210
+FLAVI+G4         -13087.319   26322.637 - 5.69e-223   26346.406 - 6.09e-223   26640.487 - 7.09e-223
+FLAVI+I+G4       -13087.449   26324.897 - 1.84e-223   26349.361 - 1.39e-223   26647.042 - 2.68e-224
+FLAVI+F+G4       -13074.800   26335.600 - 8.71e-226   26374.626 - 4.53e-229   26735.059 - 2.06e-243
+FLAVI+F+I+G4     -13075.059   26338.119 - 2.47e-226   26378.074 - 8.09e-230   26741.874 - 6.84e-245
+mtART+F+G4       -13127.413   26440.825 - 1.23e-248   26479.852 - 6.41e-252   26840.285 - 2.92e-266
+mtART+F+I+G4     -13127.437   26442.874 - 4.42e-249   26482.829 - 1.45e-252   26846.629 - 1.22e-267
+mtZOA+G4         -13220.217   26588.434 - 1.09e-280   26612.203 - 1.17e-280   26906.284 - 1.36e-280
+HIVw+F+G4        -13163.171   26512.342 - 3.64e-264   26551.369 - 1.89e-267   26911.802 - 8.62e-282
+mtZOA+I+G4       -13220.189   26590.379 - 4.13e-281   26614.842 - 3.12e-281   26912.524 - 6.01e-282
+HIVw+F+I+G4      -13163.239   26514.479 - 1.25e-264   26554.434 - 4.09e-268   26918.234 - 3.46e-283
+mtMAM+F+G4       -13177.638   26541.277 - 1.9e-270   26580.303 - 9.87e-274   26940.736 - 4.49e-288
+mtMAM+F+I+G4     -13177.636   26543.271 -   7e-271   26583.227 - 2.29e-274   26947.026 - 1.93e-289
+mtMet+G4         -13251.035   26650.070 - 4.51e-294   26673.838 - 4.82e-294   26967.919 - 5.62e-294
+mtMet+I+G4       -13251.021   26652.042 - 1.68e-294   26676.505 - 1.27e-294   26974.186 - 2.45e-295
+HIVw+G4          -13286.854   26721.708 - 1.25e-309   26745.477 - 1.34e-309   27039.558 - 1.56e-309
+HIVw+I+G4        -13286.897   26723.795 - 4.41e-310   26748.259 - 3.34e-310   27045.940 - 6.42e-311
+mtREV+G4         -13290.803   26729.606 - 2.41e-311   26753.375 - 2.58e-311   27047.456 - 3.01e-311
+mtREV+I+G4       -13290.789   26731.579 -   9e-312   26756.042 - 6.81e-312   27053.724 - 1.31e-312
+mtVer+G4         -13350.912   26849.823 -        0   26873.592 -        0   27167.673 -        0
+mtInv+G4         -13352.879   26853.758 -        0   26877.527 -        0   27171.608 -        0
+mtVer+I+G4       -13350.839   26851.678 -        0   26876.141 -        0   27173.823 -        0
+mtInv+I+G4       -13352.888   26855.776 -        0   26880.239 -        0   27177.921 -        0
+mtART+G4         -13597.207   27342.414 -        0   27366.183 -        0   27660.263 -        0
+mtART+I+G4       -13597.131   27344.261 -        0   27368.725 -        0   27666.406 -        0
+mtMAM+G4         -13603.574   27355.148 -        0   27378.917 -        0   27672.998 -        0
+mtMAM+I+G4       -13601.640   27353.280 -        0   27377.744 -        0   27675.425 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: JTT+G4
+
+State frequencies: (model)
+
+Model of rate heterogeneity: Gamma with 4 categories
+Gamma shape alpha: 1.1498
+
+ Category  Relative_rate  Proportion
+  1         0.1658         0.2500
+  2         0.5176         0.2500
+  3         1.0210         0.2500
+  4         2.2956         0.2500
+Relative rates are computed as MEAN of the portion of the Gamma distribution falling in the category.
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -12575.6997 (s.e. 314.7972)
+Unconstrained log-likelihood (without tree): -3394.2829
+Number of free parameters (#branches + #model parameters): 74
+Akaike information criterion (AIC) score: 25299.3993
+Corrected Akaike information criterion (AICc) score: 25323.1681
+Bayesian information criterion (BIC) score: 25617.2490
+
+Total tree length (sum of branch lengths): 6.7329
+Sum of internal branch lengths: 2.5568 (37.9754% of tree length)
+
+WARNING: 5 near-zero internal branches (<0.0018) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000013074' is drawn at root
+Numbers in parentheses are  ultrafast bootstrap support (%)
+
++--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000013074
+|
+|                                        +--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000043746
+|                                     +--| (99)
+|                                     |  |     +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000391592
+|                                     |  |  +--| (98)
+|                                     |  |  |  +**Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000050501
+|                                     |  +--| (92)
+|                                     |     |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000004377
+|                                     |     +--| (100)
+|                                     |        +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000059867
+|                                  +--| (100)
+|                                  |  +--Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000022637
+|                              +---| (100)
+|                              |   +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000073072
+|                  +-----------| (100)
+|                  |           |     +-----Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148161
+|                  |           +-----| (100)
+|                  |                 +------Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000010854
+|               +--| (95)
+|               |  |        +**Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000046950
+|               |  |     +--| (99)
+|               |  |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132966
+|               |  |  +--| (100)
+|               |  |  |  +--Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000013813
+|               |  +--| (100)
+|               |     |   +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000062318
+|               |     +---| (100)
+|               |         +------------Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000020528
+|        +------| (100)
+|        |      |     +---------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000007616
+|        |      |  +--| (85)
+|        |      |  |  |                    +---Fhepatica__FhHiC23_g5883
+|        |      |  |  |               +----| (100)
+|        |      |  |  |               |    |      +**Scura__SCUR1_28350
+|        |      |  |  |               |    |   +--| (89)
+|        |      |  |  |               |    |   |  +**Shae__MS3_00005553
+|        |      |  |  |               |    +---| (86)
+|        |      |  |  |               |        |     +---------------Sjap__EWB00_009457
+|        |      |  |  |               |        |  +--| (53)
+|        |      |  |  |               |        |  |  +**Sjap__EWB00_010024
+|        |      |  |  |               |        +--| (40)
+|        |      |  |  |               |           |  +**Sman__Smp_035390
+|        |      |  |  |               |           +**| (75)
+|        |      |  |  |               |              +**Srhoda__SRDH2_28650
+|        |      |  |  +---------------| (100)
+|        |      |  |                  |   +----------------Taenia__TsM_000766900
+|        |      |  |                  +---| (99)
+|        |      |  |                      +--------Taenia__TsM_000859900
+|        |      +--| (98)
+|        |         +------------------------------Bench_Drosophila_melanogaster_BDGP6_28_pep_all__FBpp0070363
+|     +--| (93)
+|     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000153169
+|  +--| (85)
+|  |  +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000007692
++--| (95)
+|  +--Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000003804
+|
+|     +**Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000489597
+|  +**| (49)
+|  |  |     +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000061336
+|  |  |  +**| (22)
+|  |  |  |  |     +-----Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000067174
+|  |  |  |  |  +--| (88)
+|  |  |  |  |  |  +----Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000074763
+|  |  |  |  +--| (57)
+|  |  |  |     +---Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000092364
+|  |  +**| (23)
+|  |     |  +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000073224
+|  |     +**| (44)
+|  |        +---Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000077211
++--| (93)
+   |  +**Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000058757
+   +--| (97)
+      +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000041842
+
+Tree in newick format:
+
+(Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000013074:0.0021419400,(((((((((Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000043746:0.0880903363,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000391592:0.0224726638,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000050501:0.0000026498)98:0.0211526982,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000004377:0.0064088451,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000059867:0.0034224606)100:0.0343737815)92:0.0055977998)99:0.0381087484,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000022637:0.0412393468)100:0.0976888356,Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000073072:0.0697666996)100:0.1263503770,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148161:0.1698368250,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000010854:0.2023838238)100:0.1699024958)100:0.3320439220,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000046950:0.0000010000,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132966:0.0296023903)99:0.0287535446,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000013813:0.0904749295)100:0.0951816940,(Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000062318:0.0049096800,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000020528:0.3510802811)100:0.1169129825)100:0.0799285831)95:0.0923604862,((Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000007616:0.2927641815,((Fhepatica__FhHiC23_g5883:0.1112968449,((Scura__SCUR1_28350:0.0000010000,Shae__MS3_00005553:0.0000010000)89:0.0022235619,((Sjap__EWB00_009457:0.4382480294,Sjap__EWB00_010024:0.0000021443)53:0.0691334904,(Sman__Smp_035390:0.0000010000,Srhoda__SRDH2_28650:0.0000010000)75:0.0000021325)40:0.0130954935)86:0.1235855071)100:0.1480369042,(Taenia__TsM_000766900:0.4699395960,Taenia__TsM_000859900:0.2607309053)99:0.1116238069)100:0.4381050758)85:0.0644971072,Bench_Drosophila_melanogaster_BDGP6_28_pep_all__FBpp0070363:0.8579597387)98:0.0907519918)100:0.1898073372,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000153169:0.0433384075)93:0.0240339103,Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000007692:0.0077794446)85:0.0034142801,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000003804:0.0283905303)95:0.0060398903,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000489597:0.0000010000,((Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000061336:0.0019172853,((Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000067174:0.1858647833,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000074763:0.1488085550)88:0.0199245411,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000092364:0.1179177884)57:0.0067929882)22:0.0000010000,(Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000073224:0.0139859380,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000077211:0.1092174326)44:0.0000022967)23:0.0000010000)49:0.0000010000,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000058757:0.0000010000,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000041842:0.0038343565)97:0.0057713301)93:0.0038738578);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -12575.709010
+Robinson-Foulds distance between ML tree and consensus tree: 0
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000013074
+|
+|                                        +--Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000043746
+|                                     +--| (99)
+|                                     |  |     +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000391592
+|                                     |  |  +--| (98)
+|                                     |  |  |  +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000050501
+|                                     |  +--| (92)
+|                                     |     |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000004377
+|                                     |     +--| (100)
+|                                     |        +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000059867
+|                                  +--| (100)
+|                                  |  +--Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000022637
+|                              +---| (100)
+|                              |   +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000073072
+|                  +-----------| (100)
+|                  |           |     +-----Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148161
+|                  |           +-----| (100)
+|                  |                 +------Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000010854
+|               +--| (95)
+|               |  |        +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000046950
+|               |  |     +--| (99)
+|               |  |     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132966
+|               |  |  +--| (100)
+|               |  |  |  +--Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000013813
+|               |  +--| (100)
+|               |     |   +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000062318
+|               |     +---| (100)
+|               |         +------------Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000020528
+|        +------| (100)
+|        |      |     +---------Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000007616
+|        |      |  +--| (85)
+|        |      |  |  |                    +---Fhepatica__FhHiC23_g5883
+|        |      |  |  |               +----| (100)
+|        |      |  |  |               |    |         +**Scura__SCUR1_28350
+|        |      |  |  |               |    |      +--|
+|        |      |  |  |               |    |      |  +**Sinter__SINT2_27150
+|        |      |  |  |               |    |   +--| (89)
+|        |      |  |  |               |    |   |  +--Shae__MS3_00005553
+|        |      |  |  |               |    +---| (86)
+|        |      |  |  |               |        |     +---------------Sjap__EWB00_009457
+|        |      |  |  |               |        |  +--| (53)
+|        |      |  |  |               |        |  |  +--Sjap__EWB00_010024
+|        |      |  |  |               |        +--| (40)
+|        |      |  |  |               |           |  +--Sman__Smp_035390
+|        |      |  |  |               |           +--| (75)
+|        |      |  |  |               |              +--Srhoda__SRDH2_28650
+|        |      |  |  +---------------| (100)
+|        |      |  |                  |   +----------------Taenia__TsM_000766900
+|        |      |  |                  +---| (99)
+|        |      |  |                      +--------Taenia__TsM_000859900
+|        |      +--| (98)
+|        |         +------------------------------Bench_Drosophila_melanogaster_BDGP6_28_pep_all__FBpp0070363
+|     +--| (93)
+|     |  +--Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000153169
+|  +--| (85)
+|  |  +--Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000007692
++--| (95)
+|  +--Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000003804
+|
+|     +--Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000489597
+|  +--| (49)
+|  |  |     +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000061336
+|  |  |  +--| (22)
+|  |  |  |  |     +-----Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000067174
+|  |  |  |  |  +--| (88)
+|  |  |  |  |  |  +----Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000074763
+|  |  |  |  +--| (57)
+|  |  |  |     +---Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000092364
+|  |  +--| (23)
+|  |     |  +--Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000073224
+|  |     +--| (44)
+|  |        +---Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000077211
++--| (93)
+   |  +--Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000058757
+   +--| (97)
+      +--Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000041842
+
+
+Consensus tree in newick format: 
+
+(Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000013074:0.0021406122,(((((((((Bench_Canis_familiaris_CanFam3_1_pep_all__ENSCAFP00000043746:0.0880784644,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000391592:0.0224679527,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000050501:0.0000027669)98:0.0211488140,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000004377:0.0064074932,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000059867:0.0034222242)100:0.0343687757)92:0.0055964782)99:0.0381031995,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000022637:0.0412342834)100:0.0976773161,Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000073072:0.0697543030)100:0.1263398494,(Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000148161:0.1698158708,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000010854:0.2023516368)100:0.1698716069)100:0.3319770838,(((Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000046950:0.0000028041,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000132966:0.0295977077)99:0.0287536378,Bench_Tetraodon_nigroviridis_TETRAODON8_pep_all__ENSTNIP00000013813:0.0904539722)100:0.0951875534,(Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000062318:0.0050017373,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000020528:0.3509270880)100:0.1166521001)100:0.0799663131)95:0.0923007395,((Bench_Ciona_intestinalis_KH_pep_all__ENSCINP00000007616:0.2928118055,((Fhepatica__FhHiC23_g5883:0.1112734224,(((Scura__SCUR1_28350:0.0000000000,Sinter__SINT2_27150:0.0000000000):0.0000028041,Shae__MS3_00005553:0.0000028041)89:0.0022370749,((Sjap__EWB00_009457:0.4381496762,Sjap__EWB00_010024:0.0000020480)53:0.0691180316,(Sman__Smp_035390:0.0000028041,Srhoda__SRDH2_28650:0.0000028041)75:0.0000028285)40:0.0130610918)86:0.1235506054)100:0.1480595988,(Taenia__TsM_000766900:0.4698476200,Taenia__TsM_000859900:0.2606811494)99:0.1115781605)100:0.4380167589)85:0.0644222833,Bench_Drosophila_melanogaster_BDGP6_28_pep_all__FBpp0070363:0.8577490421)98:0.0907569346)100:0.1897948256,Bench_Danio_rerio_GRCz11_pep_all__ENSDARP00000153169:0.0433378661)93:0.0240274346,Bench_Gallus_gallus_GRCg6a_pep_all__ENSGALP00000007692:0.0077785489)85:0.0034135852,Bench_Monodelphis_domestica_ASM229v1_pep_all__ENSMODP00000003804:0.0283872907)95:0.0060390574,((Bench_Homo_sapiens_GRCh38_pep_all__ENSP00000489597:0.0000028041,((Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000061336:0.0019171295,((Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000067174:0.1858438629,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000074763:0.1487919245)88:0.0199233932,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000092364:0.1179044060)57:0.0067915797)22:0.0000028041,(Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000073224:0.0131128581,Bench_Pan_troglodytes_Pan_tro_3_0_pep_all__ENSPTRP00000077211:0.1092051319)44:0.0008724729)23:0.0000028041)49:0.0000028041,(Bench_Mus_musculus_GRCm38_pep_all__ENSMUSP00000058757:0.0000028041,Bench_Rattus_norvegicus_Rnor_6_0_pep_all__ENSRNOP00000041842:0.0038338759)97:0.0057699891)93:0.0038732110);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/independent_family_phylogeny/results/proteome_panels_only/shp_ptpn6_11_like/tree.treefile -m "JTT+G4{1.14975}" --length 542
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/independent_family_phylogeny/results/proteome_panels_only/shp_ptpn6_11_like/trimmed.fasta --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/eaasa/Desktop/Evans_PHD_Thesis/Integrin_analysis/independent_family_phylogeny/results/proteome_panels_only/shp_ptpn6_11_like/trimmed.fasta --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Fri Oct 30 14:07:14 2026
+Total CPU time used: 1210.652199 seconds (0h:20m:10s)
+Total wall-clock time used: 608.7677747 seconds (0h:10m:8s)
+
