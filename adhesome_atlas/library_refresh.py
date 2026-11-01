@@ -12,7 +12,7 @@ import tempfile
 
 import pandas as pd
 
-VERSION='library-refresh-1'
+VERSION='library-refresh-2'
 EDGE_FILE='Schistosome_human_reference_family_edges.csv'
 INVENTORY_FILE='Schistosome_adhesome_family_inventory.csv'
 MEMBERS_FILE='Schistosome_adhesome_candidate_node_members.csv'
@@ -21,6 +21,28 @@ DERIVED_FILES={EDGE_FILE,INVENTORY_FILE,MEMBERS_FILE}
 UNRESOLVED='Unassigned / unresolved families'
 EDGE_COLUMNS=['family_A','family_B','human_reference_pairs','original_rows','human_symbol_pairs',
     'interaction_types','effects','PMIDs','data_sources','evidence_interpretation']
+
+
+def family_key(value):
+    """Formatting-only join key; retain every original scientific family label."""
+    if pd.isna(value): return ''
+    return re.sub(r'[\W_]+',' ',str(value).casefold()).strip()
+
+
+def family_index(labels):
+    result=defaultdict(list)
+    for label in sorted(set(labels)):
+        key=family_key(label)
+        if key: result[key].append(label)
+    return result
+
+
+def align_family_annotations(annotations,families):
+    """Join unambiguous formatting variants without guessing biological synonyms."""
+    grouped=defaultdict(set)
+    for family,value in annotations.items():grouped[family_key(family)].add(value)
+    return {family:next(iter(grouped[family_key(family)])) for family in families
+        if len(grouped[family_key(family)])==1}
 
 
 def _csv(data):
@@ -79,7 +101,7 @@ def reference_family_edges(root):
     return edges.copy(deep=True)
 
 
-def module_annotations(root):
+def module_annotations(root,families=None):
     net=Path(root)/'adhesome_network';path=net/MODULE_FILE
     # Backwards-compatible first launch; the separate editable mapping avoids a
     # circular dependency between regenerated inventory counts and module annotations.
@@ -88,7 +110,8 @@ def module_annotations(root):
     annotations=pd.read_csv(path,dtype=str).fillna('')
     _required(annotations,['family','visual_group'],path.name)
     if annotations.family.duplicated().any():raise ValueError('Module annotations contain duplicate family keys.')
-    return dict(zip(annotations.family,annotations.visual_group))
+    result=dict(zip(annotations.family,annotations.visual_group))
+    return result if families is None else align_family_annotations(result,families)
 
 
 def _write_changed(path,body):
@@ -110,12 +133,12 @@ def refresh_derived(candidates,root,persist=True):
     root=Path(root);net=root/'adhesome_network'
     raw_bytes=(net/'interactions.csv').read_bytes();cross_bytes=(net/'Schistosome_human_gene_family_crosswalk.csv').read_bytes()
     edges,diagnostics=_cached_reference(raw_bytes,cross_bytes)
-    crosswalk=_csv(cross_bytes);groups=module_annotations(root);species=sorted(candidates.species.unique());inventory=[]
-    symbol_map=crosswalk.groupby('candidate_family').human_symbol.agg(lambda s:';'.join(sorted(set(s)))).to_dict()
+    crosswalk=_csv(cross_bytes);groups=module_annotations(root,candidates.family);species=sorted(candidates.species.unique());inventory=[]
+    symbol_map=crosswalk.assign(family_key=crosswalk.candidate_family.map(family_key)).groupby('family_key').human_symbol.agg(lambda s:';'.join(sorted(set(s)))).to_dict()
     for family,group in candidates.groupby('family',sort=True):
         row=dict(family=family,visual_group=groups.get(family) or UNRESOLVED,total=group.sequence_id.nunique(),
             **{'grade_'+grade:group.loc[group.grade.eq(grade),'sequence_id'].nunique() for grade in ['A','B','C','D']},
-            human_mapping_symbols=symbol_map.get(family,''))
+            human_mapping_symbols=symbol_map.get(family_key(family),''))
         row.update({name:group.loc[group.species.eq(name),'sequence_id'].nunique() for name in species});inventory.append(row)
     inventory=pd.DataFrame(inventory)
     members=candidates[['species','sequence_id','family','grade','assignment_confidence','family_decision','architecture']].rename(
@@ -146,6 +169,7 @@ def refresh_family_html(html,candidates,root):
     """Refresh only data/grade adapters; keep authored controls, special evidence and styling."""
     start,end,old=_data_span(html);snapshot=refresh_derived(candidates,root,persist=False)
     inventory=snapshot['inventory'];reference=snapshot['reference'];active=set(candidates.family)
+    aliases=family_index(active)
     families=[]
     for row in inventory.to_dict('records'):
         group=candidates[candidates.family.eq(row['family'])]
@@ -160,16 +184,21 @@ def refresh_family_html(html,candidates,root):
     frame=candidates.reindex(columns=list(field_map.values())).rename(columns={v:k for k,v in field_map.items()})
     records=json.loads(frame.to_json(orient='records'));edges=[]
     for row in reference.to_dict('records'):
-        if row['family_A'] not in active or row['family_B'] not in active:continue
         pairs=row['human_symbol_pairs'].split('; ')
-        edges.append(dict(id=row['family_A']+'::'+row['family_B'],a=row['family_A'],b=row['family_B'],kind='human_reference_transfer',
-            raw=int(row['original_rows']),human_pairs=int(row['human_reference_pairs']),example_pairs=pairs[:8],pairlist=pairs,
-            pmids=[s for s in row['PMIDs'].split('; ') if s],sources=[s for s in row['data_sources'].split('; ') if s],
-            types=json.loads(row['interaction_types']),effects=json.loads(row['effects'])))
+        for left,right in product(aliases.get(family_key(row['family_A']),[]),aliases.get(family_key(row['family_B']),[])):
+            if family_key(left)==family_key(right):continue
+            edges.append(dict(id=left+'::'+right,a=left,b=right,kind='human_reference_transfer',
+                reference_family_A=row['family_A'],reference_family_B=row['family_B'],
+                raw=int(row['original_rows']),human_pairs=int(row['human_reference_pairs']),example_pairs=pairs[:8],pairlist=pairs,
+                pmids=[s for s in row['PMIDs'].split('; ') if s],sources=[s for s in row['data_sources'].split('; ') if s],
+                types=json.loads(row['interaction_types']),effects=json.loads(row['effects'])))
     by_id=candidates.set_index('sequence_id').family.to_dict();special=[]
     for edge in old.get('special',[]):
         named=[by_id.get(identifier) for identifier in edge.get('ids',[])]
-        if named and all(identifier in by_id for identifier in edge['ids']) and edge['a'] in named and (edge['b']=='SmVKR1' or edge['b'] in named):special.append(edge)
+        if not named or not all(identifier in by_id for identifier in edge['ids']):continue
+        left=next((family for family in named if family_key(family)==family_key(edge['a'])),None)
+        right='SmVKR1' if edge['b']=='SmVKR1' else next((family for family in named if family_key(family)==family_key(edge['b'])),None)
+        if left and right:special.append({**edge,'a':left,'b':right})
     zones=list(dict.fromkeys([z for z in old.get('zones',[]) if z in set(inventory.visual_group)]+list(inventory.visual_group)))
     model={**old,'meta':{**old.get('meta',{}),**snapshot['provenance'],'proteins':len(candidates),'families':len(families),
         'human_original_rows':snapshot['provenance']['reference_rows'],'human_mapped_rows':snapshot['provenance']['mapped_rows'],
@@ -179,7 +208,7 @@ def refresh_family_html(html,candidates,root):
         'candidate_sha256':snapshot['provenance']['inputs']['files/adhesome_candidates_list.xlsx'],
         'interactions_sha256':snapshot['provenance']['inputs']['adhesome_network/interactions.csv']},
         'families':families,'candidates':records,'edges':edges,'special':special,'zones':zones,
-        'core':[f for f in old.get('core',[]) if f in active]}
+        'core':sorted({label for family in old.get('core',[]) for label in aliases.get(family_key(family),[])})}
     html=html[:start]+json.dumps(model,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+html[end:]
     return _dynamic_family_controls(html)
 

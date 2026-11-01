@@ -11,6 +11,7 @@ import pandas as pd
 
 from candidate_profiles import PROFILE_FIELDS
 from design_system import network_style
+from library_refresh import family_key
 
 REGIONS = [
     ('extracellular','Extracellular environment','#3e7b69','#edf6f1'),
@@ -26,6 +27,8 @@ PROXIMAL={'talin','kindlin','ILK','PINCH_like'}
 CYTOSKELETAL={'vinculin','alpha_actinin','filamin','PDLIM_family','actin','actin_conventional',
     'cofilin','profilin','coronin_like','spectrin_like','tubulin_like','arp1_like','arp2_like',
     'arp3_like','arp10_like','zyxin_like','zyxin_ajuba_like'}
+PROXIMAL_KEYS={family_key(family) for family in PROXIMAL}
+CYTOSKELETAL_KEYS={family_key(family) for family in CYTOSKELETAL}
 DISCLAIMER=('Network organization represents a comparative, annotation-informed adhesome hypothesis. '
     'Spatial placement and transferred interactions do not establish experimentally validated protein '
     'localization or physical interactions in schistosomes.')
@@ -38,6 +41,7 @@ RULES = [
     'An orthogroup receives a resolved region only when every filtered member yields the same resolved region. Grades are preserved independently and are not interaction confidence scores.',
     'Circle radius = 12 + 4 × log2(1 + unique candidate count), in layout units. Label controls never change the quantitative circle radius.',
     'Layout coordinates, region assignments and neighborhoods are presentation metadata only. Communities are the existing greedy-modularity topology result, not annotated biological modules.',
+    'Family joins ignore case and punctuation/spacing only. Projected edges require A/B/C assigned family candidates in a shared species; D/unassigned proteins retain their original node membership without transferring an edge.',
 ]
 
 
@@ -53,9 +57,9 @@ def member_region(row):
     if locations[0]=='Extracellular':return 'extracellular'
     if locations[0]=='Cell membrane':return 'membrane'
     if locations[0]!='Cytoplasm':return 'unresolved'
-    family=_clean(row.get('family',''));module=_clean(row.get('module',''))
-    if family in PROXIMAL:return 'proximal'
-    if family in CYTOSKELETAL:return 'cytoskeleton'
+    family=family_key(row.get('family',''));module=_clean(row.get('module',''))
+    if family in PROXIMAL_KEYS:return 'proximal'
+    if family in CYTOSKELETAL_KEYS:return 'cytoskeleton'
     if module in {'Kinase & phosphatase signalling','Adaptors & small GTPases'}:return 'signaling'
     return 'unresolved'
 
@@ -202,15 +206,16 @@ def build_view_model(metrics,edges,members):
             for identifier in component:lookup[identifier]['module_component']=f'M{index:02}-C{ci:03}'
     cellular=_band_layout([(key,label,[n['id'] for n in nodes if n['compartment']==key],color,fill) for key,label,color,fill in REGIONS],lookup,graph)
     # Every evidence row remains accessible on the corresponding unique pair.
-    evidence_columns=[c for c in edges if c not in {'source_candidates','target_candidates'}]
-    evidence=json.loads(edges[evidence_columns].to_json(orient='records'))
+    # Preserve exact supporting IDs: a mixed-family orthogroup does not imply
+    # that all its proteins support every incident reference relationship.
+    evidence=json.loads(edges.to_json(orient='records'))
     pair_rows={}
     for i,row in enumerate(evidence):pair_rows.setdefault(tuple(sorted((row['node1_string_id'],row['node2_string_id']))),[]).append(i)
     visual_edges=[dict(id='::'.join(pair),source=pair[0],target=pair[1],evidence_rows=indices) for pair,indices in sorted(pair_rows.items())]
     return dict(nodes=nodes,edges=visual_edges,evidence=evidence,candidates=by_protein,
         layouts=dict(cellular=cellular,functional=_functional_layout(nodes,graph,lookup,module_colors),community=_community_layout(nodes,graph,lookup),free=_free_layout(graph,lookup)),
         module_colors=module_colors,regions=[dict(id=k,label=l,color=c,fill=f) for k,l,c,f in REGIONS],
-        rules=RULES,disclaimer=DISCLAIMER,rule_version='consensus-spatial-1',
+        rules=RULES,disclaimer=DISCLAIMER,rule_version='consensus-spatial-2',
         graph_sha256=hashlib.sha256(json.dumps(dict(nodes=sorted(graph),edges=sorted(sorted(pair) for pair in graph.edges)),sort_keys=True).encode()).hexdigest(),
         totals=dict(nodes=len(nodes),pairs=graph.number_of_edges(),evidence_rows=len(edges),candidates=len(by_protein)))
 
