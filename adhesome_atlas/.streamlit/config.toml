@@ -1,9 +1,9 @@
 [theme]
 base = "light"
-primaryColor = "#0a624d"
-backgroundColor = "#f3f6f4"
-secondaryBackgroundColor = "#eef3ef"
-textColor = "#13251f"
+primaryColor = "#146b4e"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f5f4"
+textColor = "#111111"
 font = "sans serif"
 
 [server]
@@ -12,4 +12,3 @@ address = "127.0.0.1"
 
 [browser]
 gatherUsageStats = false
-
