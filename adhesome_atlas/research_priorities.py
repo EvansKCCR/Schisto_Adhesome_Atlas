@@ -279,7 +279,7 @@ def feature_card(feature,candidates,base):
     evidence=''.join('<p>'+rich_text(p,candidates,base)+'</p>' for p in feature['evidence'])
     for row in feature['assignments']:
         evidence+='<p>'+rich_text(' · '.join(row.values()),candidates,base)+'</p>'
-    return (f'<article class="research-card" aria-label="{escape(feature["label"])}"><div class="research-card-kicker">Research priority · {escape(feature["key"])}</div>'
+    return (f'<article class="research-card" aria-label="{escape(feature["label"])}">'
         f'<h3>{escape(feature["label"])}</h3><div class="research-metrics">{metrics}</div>'
         f'<p class="research-objective">{escape(feature["objective"])}</p>'
         f'<div class="research-card-label">Explore families</div><div class="research-links">{family_links(feature["families"],candidates,base)}</div>'
@@ -297,7 +297,7 @@ def research_priorities_panel(candidates,base,source):
     try:brief=load_brief(source)
     except (ValueError,StopIteration) as error:
         st.warning('The research-priority brief needs a format update: '+str(error));return
-    st.markdown('<section class="research-intro"><div class="atlas-section-kicker">Comparative evidence → testable research</div><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+rich_text(brief.get('overview',OVERVIEW),candidates,base)+'</p></section>',unsafe_allow_html=True)
+    st.markdown('<section class="research-intro"><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+rich_text(brief.get('overview',OVERVIEW),candidates,base)+'</p></section>',unsafe_allow_html=True)
     st.markdown('<div class="research-legend"><span class="research-tag supported">Supported computational annotation · A/B</span><span class="research-tag provisional">Provisional assignment · C</span><span class="research-tag unassigned">Unassigned · D</span><span class="research-tag published">Published experimental evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
     st.caption('Family assignments support computational prioritization. Published findings apply to the named proteins or antigens; candidate-family membership does not establish vaccine efficacy, drug activity or biological essentiality. Counts below cover the complete catalogue, independently of sidebar filters.')
     checks=comparisons(brief,candidates)

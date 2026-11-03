@@ -84,7 +84,7 @@ def motif_view(sites,key='motifs'):
     table(sites);download(sites,key+'_sites.csv')
 
 with st.sidebar:
-    st.markdown('<div class="atlas-sidebar-brand"><span class="atlas-sidebar-symbol" aria-hidden="true">αβ</span><div><strong>Schisto-Adhesome<br>Atlas</strong><small>Scientific discovery workspace</small></div></div>',unsafe_allow_html=True)
+    st.markdown('<div class="atlas-sidebar-brand"><span class="atlas-sidebar-symbol" aria-hidden="true">αβ</span><div><strong>Schisto-Adhesome<br>Atlas</strong></div></div>',unsafe_allow_html=True)
     page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'],key='atlas_page')
     st.divider()
     st.caption('REFINE THE CATALOGUE')
