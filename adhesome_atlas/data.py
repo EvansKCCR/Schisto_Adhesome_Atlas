@@ -1,5 +1,6 @@
 """Read primary annotations and refresh derived multi-species Atlas inventories."""
 from pathlib import Path
+import hashlib
 import re
 import pandas as pd
 from library_refresh import DERIVED_FILES,module_annotations,refresh_derived
@@ -67,8 +68,17 @@ def fingerprint(root=None):
     base=Path(root) if root is not None else ROOT
     files=source_files() if base==ROOT else [p for folder in ['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny','family_phylogeny'] for p in (base/folder).rglob('*') if p.is_file()]+[p for p in base.glob('*.md')]
     # Generated mirrors cannot trigger a self-refresh cycle; primary inputs still do.
-    return tuple((p.relative_to(base).as_posix(),p.stat().st_mtime_ns,p.stat().st_size) for p in sorted(files)
-        if not (p.parent.name=='adhesome_network' and p.name in DERIVED_FILES) and not p.name.startswith('~$') and p.suffix.lower() not in {'.tmp','.pyc'})
+    signature=[]
+    for path in sorted(files):
+        if (path.parent.name=='adhesome_network' and path.name in DERIVED_FILES) or path.name.startswith('~$') or path.suffix.lower() in {'.tmp','.pyc'}:continue
+        try:stat=path.stat()
+        except FileNotFoundError:continue  # An atomic save may temporarily replace a file.
+        name=path.relative_to(base).as_posix();digest=''
+        if name=='files/adhesome_candidates_list.xlsx':
+            try:digest=hashlib.sha256(path.read_bytes()).hexdigest()
+            except OSError:digest='pending-save'  # The loader's retry state handles locked files.
+        signature.append((name,stat.st_mtime_ns,stat.st_size,digest))
+    return tuple(signature)
 
 def fasta(path):
     records={};key=None

@@ -88,15 +88,19 @@ with st.sidebar:
     page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'],key='atlas_page')
     st.divider()
     st.caption('REFINE THE CATALOGUE')
-    species=st.multiselect('Species',sorted(all_candidates.species.unique()),default=sorted(all_candidates.species.unique()),key='catalogue_species')
+    species_options=sorted(all_candidates.species.unique())
+    st.session_state.setdefault('catalogue_species',species_options)
+    species=st.multiselect('Species',species_options,key='catalogue_species')
     families=st.multiselect('Protein families',sorted(all_candidates.family.unique()),key='catalogue_families')
     classification=st.selectbox('Classification',['All','Supported','Provisional','Unassigned'],key='catalogue_classification')
     query=st.text_input('Search annotations',key='catalogue_query')
     figure_download_settings()
+    auto_refresh=st.toggle('Automatically update inventory',value=True,key='atlas_auto_refresh',
+        help='Checks deployed source files every 30 seconds, including candidate workbook content changes. Updates inventory, counts, profiles and derived networks. Turn off to pause background checks; opening/reloading the Atlas still reads current files.')
     if st.button('Reload source files'):st.cache_data.clear();st.rerun()
-    watch_sources(loaded_signature)
+    watch_sources(loaded_signature,enabled=auto_refresh)
     if all_candidates.attrs.get('library_storage_error'):st.caption('Derived files are refreshed in memory; disk mirrors could not be saved on this host.')
-    st.caption(f'{len(all_candidates):,} candidates · {all_candidates.species.nunique()} species · {all_candidates.family.nunique()} family labels')
+    st.caption(f'{len(all_candidates):,} assignment records · {all_candidates.sequence_id.nunique():,} proteins · {all_candidates.species.nunique()} species · {all_candidates.family.nunique()} family labels')
 selected=all_candidates[all_candidates.species.isin(species)].copy()
 if families:selected=selected[selected.family.isin(families)]
 if classification!='All':selected=selected[selected.audit_classification.eq(classification)]

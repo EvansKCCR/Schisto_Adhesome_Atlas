@@ -7,6 +7,7 @@ from pathlib import Path
 import streamlit as st
 import re
 from design_system import network_style
+from library_refresh import family_key
 
 
 SIMULATOR_FILE = 'adhesome_network/schistosome_integrin_adhesome_hypothesis_simulator.html'
@@ -32,8 +33,9 @@ def supported_inventory(adhesome):
     inventory = {}
     for code, species in [('pan', None), *SPECIES.items()]:
         subset = retained if species is None else retained[retained.species.eq(species)]
+        families=subset.reviewed_family.map(family_key)
         inventory[code] = {
-            family: int(subset[subset.reviewed_family.eq(family)].sequence_id.nunique())
+            family: int(subset[families.eq(family_key(family))].sequence_id.nunique())
             for family in FAMILIES
         }
     return inventory

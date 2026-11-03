@@ -12,7 +12,7 @@ import tempfile
 
 import pandas as pd
 
-VERSION='library-refresh-2'
+VERSION='library-refresh-3'
 EDGE_FILE='Schistosome_human_reference_family_edges.csv'
 INVENTORY_FILE='Schistosome_adhesome_family_inventory.csv'
 MEMBERS_FILE='Schistosome_adhesome_candidate_node_members.csv'
@@ -136,7 +136,8 @@ def refresh_derived(candidates,root,persist=True):
     crosswalk=_csv(cross_bytes);groups=module_annotations(root,candidates.family);species=sorted(candidates.species.unique());inventory=[]
     symbol_map=crosswalk.assign(family_key=crosswalk.candidate_family.map(family_key)).groupby('family_key').human_symbol.agg(lambda s:';'.join(sorted(set(s)))).to_dict()
     for family,group in candidates.groupby('family',sort=True):
-        row=dict(family=family,visual_group=groups.get(family) or UNRESOLVED,total=group.sequence_id.nunique(),
+        row=dict(family=family,visual_group=groups.get(family) or UNRESOLVED,
+            assignment_records=len(group),total=group.sequence_id.nunique(),
             **{'grade_'+grade:group.loc[group.grade.eq(grade),'sequence_id'].nunique() for grade in ['A','B','C','D']},
             human_mapping_symbols=symbol_map.get(family_key(family),''))
         row.update({name:group.loc[group.species.eq(name),'sequence_id'].nunique() for name in species});inventory.append(row)
@@ -146,8 +147,9 @@ def refresh_derived(candidates,root,persist=True):
     primary=[root/'files/adhesome_candidates_list.xlsx',net/'interactions.csv',net/'Schistosome_human_gene_family_crosswalk.csv']
     if (net/MODULE_FILE).exists():primary.append(net/MODULE_FILE)
     provenance=dict(version=VERSION,inputs={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in primary},
-        candidates=int(candidates.sequence_id.nunique()),families=len(inventory),species=species,
-        grade_counts={g:int(candidates.grade.eq(g).sum()) for g in ['A','B','C','D']},**diagnostics)
+        assignment_records=len(candidates),candidates=int(candidates.sequence_id.nunique()),families=len(inventory),species=species,
+        grade_counts={g:int(candidates.grade.eq(g).sum()) for g in ['A','B','C','D']},
+        unique_grade_counts={g:int(candidates.loc[candidates.grade.eq(g),'sequence_id'].nunique()) for g in ['A','B','C','D']},**diagnostics)
     outputs={EDGE_FILE:edges,INVENTORY_FILE:inventory,MEMBERS_FILE:members}
     storage_error=''
     if persist:

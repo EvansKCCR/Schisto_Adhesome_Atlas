@@ -14,16 +14,17 @@ def reconcile_selections(state,candidates):
     state['atlas_option_snapshot']=options
 
 
-def watch_sources(loaded_signature):
+def watch_sources(loaded_signature,enabled=True):
     import hashlib
     import json
     import streamlit as st
     from data import fingerprint
 
-    @st.fragment(run_every='30s')
+    @st.fragment(run_every='30s' if enabled else None)
     def monitor():
-        if fingerprint()!=loaded_signature:
+        if enabled and fingerprint()!=loaded_signature:
             st.rerun()  # Full app refresh, including cached catalogue/profile inputs.
         version=hashlib.sha256(json.dumps(loaded_signature).encode()).hexdigest()[:16]
-        st.markdown('<span id="atlas-source-status" data-source-version="'+version+'" style="font-size:12px;color:#526760">Automatic source refresh · checks every 30 seconds</span>',unsafe_allow_html=True)
+        label='Automatic inventory update · checks every 30 seconds' if enabled else 'Automatic inventory update paused · use Reload source files'
+        st.markdown('<span id="atlas-source-status" data-source-version="'+version+'" data-auto-refresh="'+str(enabled).lower()+'" style="font-size:13px;color:var(--atlas-muted,#454c48)">'+label+'</span>',unsafe_allow_html=True)
     monitor()
