@@ -52,19 +52,62 @@ CHALLENGES = {
 }
 
 
-def _tabular(text, first_header):
-    """Read the brief's tab-separated scientific tables, without altering their cells."""
-    lines=text.splitlines()
-    start=next((i for i,line in enumerate(lines) if line.startswith(first_header+'\t')),None)
-    if start is None:
-        raise ValueError('Missing research-priority table: '+first_header)
-    headers=lines[start].split('\t');rows=[]
-    for line in lines[start+1:]:
-        if not line.strip() or '\t' not in line:break
-        values=line.split('\t')
-        if len(values)!=len(headers):raise ValueError('Incomplete research-priority table row: '+line)
+TABLE_HEADERS={
+    'Candidate or orthogroup':('Candidate or orthogroup','Development objective','First decisive experiment or analysis'),
+    'Protein ID':('Protein ID','Assignment','Main justification'),
+    'Candidate family':('Candidate family','Supported proteins','Representative S. mansoni IDs','Priority and rationale'),
+    'Evaluation criterion':('Evaluation criterion','Vaccine/antibody candidate','Small-molecule drug candidate'),
+}
+CITATION_PATTERN=r'\[([^\]\n]+)\]\((https://doi\.org/[^\s)]+)\)|\(([^()\n]+)\)\[(https://doi\.org/[^\]\s]+)\]'
+
+
+def _plain_cells(line,first_header):
+    """Recognize explicit ID/classification and prose boundaries in plain-text tables.
+
+    Ambiguous rows fail rather than silently shifting scientific content between
+    columns. Tabs and Markdown pipes support arbitrary prose without these rules.
+    """
+    patterns={
+        'Candidate or orthogroup':r'^((?:OG\d+(?:/OG\d+)*\s+\S+)|(?:.+?\([^)]*(?:Smp_|OG)\d+[^)]*\))|(?:.+?\brepresentatives))\s+(.+?\b(?:discovery|target|mechanism|characterization|validation|investigation|evaluation))\s+(.+)$',
+        'Protein ID':r'^(\S+)\s+((?:Supported|Provisional|Unassigned|Unresolved)\s+integrin\s+(?:alpha|beta|α|β)(?:\s+hypothesis)?)\s+(.+)$',
+        'Candidate family':r'^(.+?)\s+(\d+.*?)\s+(Smp_\d+(?:\s*,\s*Smp_\d+)*)\s+(.+)$',
+    }
+    if first_header=='Evaluation criterion':
+        starts=list(re.finditer(r'(?<!\S)[A-Z][a-z]{2,}[\w/-]*',line))
+        if len(starts)==3 and starts[0].start()==0:
+            return [line[starts[i].start():starts[i+1].start()].strip() for i in range(2)]+[line[starts[2].start():]]
+    else:
+        match=re.fullmatch(patterns[first_header],line,re.I)
+        if match:return list(match.groups())
+    raise ValueError('Ambiguous '+first_header+' table row; use tabs or Markdown pipes: '+line)
+
+
+def _table_block(text, first_header):
+    """Read tab, Markdown-pipe and recognizable space-separated source tables."""
+    lines=text.splitlines();headers=TABLE_HEADERS[first_header]
+    normalized=lambda value:' '.join(value.replace('|',' ').split())
+    start=next((i for i,line in enumerate(lines) if normalized(line)==normalized(' '.join(headers))),None)
+    if start is None:raise ValueError('Missing research-priority table: '+first_header)
+    rows=[];end=start+1
+    for index in range(start+1,len(lines)):
+        line=lines[index].strip()
+        if not line:break
+        end=index+1
+        if re.fullmatch(r'[|:\-\s]+',line):continue
+        if '\t' in line:values=[v.strip() for v in line.split('\t')]
+        elif line.startswith('|') and line.endswith('|'):values=[v.strip() for v in line[1:-1].split('|')]
+        else:
+            values=re.split(r'\s{2,}',line)
+            if len(values)!=len(headers):values=_plain_cells(' '.join(line.split()),first_header)
+        if len(values)!=len(headers) or any(not value for value in values):
+            raise ValueError('Incomplete research-priority table row: '+line)
         rows.append(dict(zip(headers,values)))
-    return rows
+    if not rows:raise ValueError('Empty research-priority table: '+first_header)
+    return rows,start,end
+
+
+def _tabular(text,first_header):
+    return _table_block(text,first_header)[0]
 
 
 def _number(value):
@@ -76,10 +119,11 @@ def _number(value):
 
 def load_brief(path):
     text=Path(path).read_text(encoding='utf-8-sig')
-    chunks=re.split(r'^##\s+\*\*Target\s+\d+[^\n]*\n',text,flags=re.M)[1:]
+    sections=re.split(r'^##\s+\*\*Target\s+\d+[^\n]*\n',text,flags=re.M)
+    prefix=sections[0];chunks=sections[1:]
     if len(chunks)!=3:raise ValueError('Expected three featured Target headings in Target_prioritization.md.')
     # The third section ends where the additional-family table begins.
-    chunks[-1]=chunks[-1].split('2. **Additional candidates')[0]
+    chunks[-1]=re.split(r'^(?:\d+[.)]\s+|#{1,6}\s*)\**Additional candidates\b',chunks[-1],flags=re.M|re.I)[0]
     features=[]
     for spec,chunk in zip(FEATURES,chunks):
         count_line=next(line[2:] for line in chunk.splitlines() if line.startswith('- ') and 'supported' in line)
@@ -94,18 +138,18 @@ def load_brief(path):
                     count=_number(count),families=('integrin_alpha' if subunit=='α' else 'integrin_beta',),classification=status)
                 if status=='Unassigned':metric['hypothesis_field']='stage1_family_hypothesis'
                 metrics.append(metric)
-            assignments=_tabular(chunk,'Protein ID')
+            assignments,table_start,table_end=_table_block(chunk,'Protein ID')
         else:
             found=re.search(r'(\d+) supported candidates across (\w+) orthogroups',count_line)
             if not found:raise ValueError('Cannot read candidate/orthogroup counts in the priority brief.')
             group_count=_number(found[2])
             metrics=[dict(label='Supported candidates',count=int(found[1]),families=spec['families'],classification='Supported'),
                      dict(label='Supported orthogroups',count=group_count,families=spec['families'],classification='Supported',orthogroups=True)]
-            assignments=[]
+            assignments=[];table_start=table_end=-1
         # Retain the scientific prose and every reference, including the named calpain bullets.
         evidence=[]
-        for line in chunk.splitlines():
-            if not line.strip() or '\t' in line or line.removeprefix('- ')==count_line or line.startswith('- Key orthogroups:') or line.startswith('- Representative') or line.startswith('- Three S. mansoni'):continue
+        for index,line in enumerate(chunk.splitlines()):
+            if table_start<=index<table_end or not line.strip() or line.removeprefix('- ')==count_line or line.startswith('- Key orthogroups:') or line.startswith('- Representative') or re.match(r'- (?:Two|Three) S\. mansoni',line):continue
             evidence.append(line.removeprefix('- '))
         features.append({**spec,'metrics':metrics,'count_text':count_line,
             'orthogroups':list(dict.fromkeys(re.findall(r'OG\d{7}',chunk))),
@@ -117,10 +161,18 @@ def load_brief(path):
         row['count']=int(re.search(r'\d+',row['Supported proteins'])[0])
         row['challenge']=CHALLENGES.get(row['Candidate family'],'No additional information present in the current library.')
     references=[]
-    for label,url in re.findall(r'\(([^()]+)\)\[(https://doi\.org/[^\]]+)\]',text):
+    for match in re.finditer(CITATION_PATTERN,text):
+        label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
         if url not in [r['url'] for r in references]:references.append(dict(label=label,url=url))
+    roadmap_rows=_tabular(text,'Candidate or orthogroup');roadmap=[];seen=set()
+    for row in roadmap_rows:
+        identity=tuple(' '.join(value.split()) for value in row.values())
+        if identity not in seen:roadmap.append(row);seen.add(identity)
+    intro=prefix.split('Candidate or orthogroup')[0]
+    overview=' '.join(line.strip() for line in intro.splitlines() if line.strip().strip('|') and not line.startswith('#') and not re.match(r'\d+[.)]\s',line))
     return dict(features=features,additional=additional,framework=_tabular(text,'Evaluation criterion'),
-                roadmap=_tabular(text,'Candidate or orthogroup'),references=references)
+                roadmap=roadmap,references=references,overview=overview or OVERVIEW,
+                repeated_roadmap_rows=len(roadmap_rows)-len(roadmap))
 
 
 def protein_matches(candidates,identifier):
@@ -184,11 +236,13 @@ def available_families(families,candidates):
 
 def rich_text(text,candidates,base):
     """Safe inline links to exact records, orthogroups and the brief's original DOIs."""
-    pattern=r'\(([^()]+)\)\[(https://doi\.org/[^\]]+)\]|OG\d{7}|Smp_\d+'
+    pattern=CITATION_PATTERN+r'|OG\d{7}|Smp_\d+'
     parts=[];end=0;groups=set(candidates.orthogroup)
     for match in re.finditer(pattern,text):
         parts.append(escape(text[end:match.start()]))
-        if match[1]:parts.append(f'<a href="{escape(match[2],quote=True)}" target="_blank" rel="noopener noreferrer">{escape(match[1])} ↗</a>')
+        if match[1] or match[3]:
+            label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
+            parts.append(f'<a href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)} ↗</a>')
         elif match[0].startswith('Smp_'):parts.append(protein_links(match[0],candidates,base))
         elif match[0] in groups:parts.append(_link(match[0],target_url(base,'Orthology',orthogroup=match[0]),'orthogroup','Open orthogroup assignments and members'))
         else:parts.append(f'<span class="research-unavailable">{escape(match[0])} · unavailable</span>')
@@ -243,7 +297,7 @@ def research_priorities_panel(candidates,base,source):
     try:brief=load_brief(source)
     except (ValueError,StopIteration) as error:
         st.warning('The research-priority brief needs a format update: '+str(error));return
-    st.markdown('<section class="research-intro"><div class="atlas-section-kicker">Comparative evidence → testable research</div><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+escape(OVERVIEW)+'</p></section>',unsafe_allow_html=True)
+    st.markdown('<section class="research-intro"><div class="atlas-section-kicker">Comparative evidence → testable research</div><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+rich_text(brief.get('overview',OVERVIEW),candidates,base)+'</p></section>',unsafe_allow_html=True)
     st.markdown('<div class="research-legend"><span class="research-tag supported">Supported computational annotation · A/B</span><span class="research-tag provisional">Provisional assignment · C</span><span class="research-tag unassigned">Unassigned · D</span><span class="research-tag published">Published experimental evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
     st.caption('Family assignments support computational prioritization. Published findings apply to the named proteins or antigens; candidate-family membership does not establish vaccine efficacy, drug activity or biological essentiality. Counts below cover the complete catalogue, independently of sidebar filters.')
     checks=comparisons(brief,candidates)
@@ -276,10 +330,14 @@ def research_priorities_panel(candidates,base,source):
     with roadmap:
         st.markdown('#### From Computational Candidates to Experimental Validation')
         st.caption('Proposed first investigations from the research brief. These steps are a research plan, not completed experimental results.')
+        if brief.get('repeated_roadmap_rows'):st.caption(f'{brief["repeated_roadmap_rows"]} repeated roadmap entry displayed once; the complete original brief is available for download.')
         items=[]
         for i,row in enumerate(brief['roadmap'],1):
             target=rich_text(row['Candidate or orthogroup'],candidates,base)
-            if i==len(brief['roadmap']):target=family_links(('FAK','ILK','talin','kindlin'),candidates,base)
+            name=row['Candidate or orthogroup']
+            if name.endswith(' representatives'):
+                families=tuple(name.removesuffix(' representatives').split('/'))
+                if all(available_families((family,),candidates) for family in families):target=family_links(families,candidates,base)+' representatives'
             items.append(f'<article class="research-step"><span class="research-step-number">{i:02}</span><div><div class="research-card-label">{escape(row["Development objective"])}</div><h4>{target}</h4><p>{escape(row["First decisive experiment or analysis"])}</p><span class="research-tag proposed">Proposed investigation</span></div></article>')
         st.markdown('<div class="research-roadmap">'+''.join(items)+'</div>',unsafe_allow_html=True)
     with st.expander('Research references'+(' & count mismatches' if differences else '')):
