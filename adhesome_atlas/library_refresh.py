@@ -12,13 +12,13 @@ import tempfile
 
 import pandas as pd
 
-VERSION='library-refresh-3'
+VERSION='library-refresh-4'
 EDGE_FILE='Schistosome_human_reference_family_edges.csv'
 INVENTORY_FILE='Schistosome_adhesome_family_inventory.csv'
 MEMBERS_FILE='Schistosome_adhesome_candidate_node_members.csv'
 MODULE_FILE='family_module_annotations.csv'
 DERIVED_FILES={EDGE_FILE,INVENTORY_FILE,MEMBERS_FILE}
-UNRESOLVED='Unassigned / unresolved families'
+UNRESOLVED='Unassigned/unresolved'
 EDGE_COLUMNS=['family_A','family_B','human_reference_pairs','original_rows','human_symbol_pairs',
     'interaction_types','effects','PMIDs','data_sources','evidence_interpretation']
 
@@ -102,6 +102,7 @@ def reference_family_edges(root):
 
 
 def module_annotations(root,families=None):
+    from functional_categories import reference_mapping
     net=Path(root)/'adhesome_network';path=net/MODULE_FILE
     # Backwards-compatible first launch; the separate editable mapping avoids a
     # circular dependency between regenerated inventory counts and module annotations.
@@ -111,6 +112,12 @@ def module_annotations(root,families=None):
     _required(annotations,['family','visual_group'],path.name)
     if annotations.family.duplicated().any():raise ValueError('Module annotations contain duplicate family keys.')
     result=dict(zip(annotations.family,annotations.visual_group))
+    # Function-first reference takes precedence over historical display categories.
+    reference=reference_mapping(root)
+    result={family:reference.get(family_key(family),module) for family,module in result.items()}
+    if families is not None:
+        for family in families:
+            if family_key(family) in reference:result[family]=reference[family_key(family)]
     return result if families is None else align_family_annotations(result,families)
 
 
@@ -130,14 +137,18 @@ def _write_changed(path,body):
 
 def refresh_derived(candidates,root,persist=True):
     """One coherent in-memory snapshot; disk mirrors are optional on read-only hosts."""
+    from functional_categories import supported_mask,SUMMARY_FILE
     root=Path(root);net=root/'adhesome_network'
     raw_bytes=(net/'interactions.csv').read_bytes();cross_bytes=(net/'Schistosome_human_gene_family_crosswalk.csv').read_bytes()
     edges,diagnostics=_cached_reference(raw_bytes,cross_bytes)
     crosswalk=_csv(cross_bytes);groups=module_annotations(root,candidates.family);species=sorted(candidates.species.unique());inventory=[]
     symbol_map=crosswalk.assign(family_key=crosswalk.candidate_family.map(family_key)).groupby('family_key').human_symbol.agg(lambda s:';'.join(sorted(set(s)))).to_dict()
     for family,group in candidates.groupby('family',sort=True):
-        row=dict(family=family,visual_group=groups.get(family) or UNRESOLVED,
+        supported=group[supported_mask(group)]
+        row=dict(family=family,visual_group=(groups.get(family) or UNRESOLVED) if len(supported) else UNRESOLVED,
             assignment_records=len(group),total=group.sequence_id.nunique(),
+            supported_proteins=supported.sequence_id.nunique(),
+            unsupported_proteins=group.loc[~supported_mask(group),'sequence_id'].nunique(),
             **{'grade_'+grade:group.loc[group.grade.eq(grade),'sequence_id'].nunique() for grade in ['A','B','C','D']},
             human_mapping_symbols=symbol_map.get(family_key(family),''))
         row.update({name:group.loc[group.species.eq(name),'sequence_id'].nunique() for name in species});inventory.append(row)
@@ -146,6 +157,7 @@ def refresh_derived(candidates,root,persist=True):
         columns={'sequence_id':'protein_id','family':'putative_audited_family','architecture':'Pfam_architecture'})
     primary=[root/'files/adhesome_candidates_list.xlsx',net/'interactions.csv',net/'Schistosome_human_gene_family_crosswalk.csv']
     if (net/MODULE_FILE).exists():primary.append(net/MODULE_FILE)
+    if (root/SUMMARY_FILE).exists():primary.append(root/SUMMARY_FILE)
     provenance=dict(version=VERSION,inputs={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in primary},
         assignment_records=len(candidates),candidates=int(candidates.sequence_id.nunique()),families=len(inventory),species=species,
         grade_counts={g:int(candidates.grade.eq(g).sum()) for g in ['A','B','C','D']},
@@ -169,27 +181,36 @@ def _data_span(html):
 
 def refresh_family_html(html,candidates,root):
     """Refresh only data/grade adapters; keep authored controls, special evidence and styling."""
+    from functional_categories import CATEGORIES,supported_mask
     start,end,old=_data_span(html);snapshot=refresh_derived(candidates,root,persist=False)
     inventory=snapshot['inventory'];reference=snapshot['reference'];active=set(candidates.family)
     aliases=family_index(active)
     families=[]
     for row in inventory.to_dict('records'):
-        group=candidates[candidates.family.eq(row['family'])]
+        group=candidates[candidates.family.eq(row['family'])].drop_duplicates('sequence_id')
         families.append(dict(id=row['family'],zone=row['visual_group'],n=int(row['total']),
+            supported_n=int(row['supported_proteins']),unsupported_n=int(row['unsupported_proteins']),
             counts={s:int(group.species.eq(s).sum()) for s in sorted(candidates.species.unique())},
             grade_by_species={s:{g:int((sub.grade==g).sum()) for g in ['A','B','C','D']} for s,sub in group.groupby('species')},
             grades={g:int(group.grade.eq(g).sum()) for g in ['A','B','C','D']},strong=int(group.grade.isin(['A','B']).sum()),
             human_symbols=[s for s in row['human_mapping_symbols'].split(';') if s]))
     field_map={'s':'species','id':'sequence_id','f':'family','c':'assignment_confidence','g':'grade','support':'family_support_level',
         'decision':'family_decision','name':'candidate_annotation','pfam':'architecture','cdd':'NCBI_CDD_architecture',
-        'hog':'orthogroup','orthostat':'orthology_scope','local':'DeepLoc_2.1','motif':'MotifPrediction_distinct_site_count'}
+        'hog':'orthogroup','orthostat':'orthology_scope','local':'DeepLoc_2.1','module':'module','motif':'MotifPrediction_distinct_site_count'}
     frame=candidates.reindex(columns=list(field_map.values())).rename(columns={v:k for k,v in field_map.items()})
     records=json.loads(frame.to_json(orient='records'));edges=[]
+    supported_by_family={family:group for family,group in candidates[supported_mask(candidates)].groupby('family')}
     for row in reference.to_dict('records'):
         pairs=row['human_symbol_pairs'].split('; ')
         for left,right in product(aliases.get(family_key(row['family_A']),[]),aliases.get(family_key(row['family_B']),[])):
             if family_key(left)==family_key(right):continue
+            if left not in supported_by_family or right not in supported_by_family:continue
+            source=supported_by_family[left];target=supported_by_family[right]
+            shared=sorted(set(source.species)&set(target.species))
+            if not shared:continue
             edges.append(dict(id=left+'::'+right,a=left,b=right,kind='human_reference_transfer',
+                shared_species=shared,source_candidates=sorted(set(source.loc[source.species.isin(shared),'sequence_id'])),
+                target_candidates=sorted(set(target.loc[target.species.isin(shared),'sequence_id'])),
                 reference_family_A=row['family_A'],reference_family_B=row['family_B'],
                 raw=int(row['original_rows']),human_pairs=int(row['human_reference_pairs']),example_pairs=pairs[:8],pairlist=pairs,
                 pmids=[s for s in row['PMIDs'].split('; ') if s],sources=[s for s in row['data_sources'].split('; ') if s],
@@ -201,7 +222,8 @@ def refresh_family_html(html,candidates,root):
         left=next((family for family in named if family_key(family)==family_key(edge['a'])),None)
         right='SmVKR1' if edge['b']=='SmVKR1' else next((family for family in named if family_key(family)==family_key(edge['b'])),None)
         if left and right:special.append({**edge,'a':left,'b':right})
-    zones=list(dict.fromkeys([z for z in old.get('zones',[]) if z in set(inventory.visual_group)]+list(inventory.visual_group)))
+    zones=[z for z in CATEGORIES if z in set(inventory.visual_group)]
+    zones+=sorted(set(inventory.visual_group)-set(zones))
     model={**old,'meta':{**old.get('meta',{}),**snapshot['provenance'],'proteins':len(candidates),'families':len(families),
         'human_original_rows':snapshot['provenance']['reference_rows'],'human_mapped_rows':snapshot['provenance']['mapped_rows'],
         'human_interfamily_edges':len(edges),'human_intrfamily_groups':snapshot['provenance']['intrafamily_groups'],
@@ -210,12 +232,14 @@ def refresh_family_html(html,candidates,root):
         'candidate_sha256':snapshot['provenance']['inputs']['files/adhesome_candidates_list.xlsx'],
         'interactions_sha256':snapshot['provenance']['inputs']['adhesome_network/interactions.csv']},
         'families':families,'candidates':records,'edges':edges,'special':special,'zones':zones,
-        'core':sorted({label for family in old.get('core',[]) for label in aliases.get(family_key(family),[])})}
+        'core':sorted({label for family in old.get('core',[]) for label in aliases.get(family_key(family),[])}|
+            set(inventory.loc[inventory.visual_group.eq('Membrane-actin clutch'),'family']))}
     html=html[:start]+json.dumps(model,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+html[end:]
     return _dynamic_family_controls(html)
 
 
 def _dynamic_family_controls(html):
+    html=html.replace('All A / B / C</option>','All A / B / C / D</option>')
     html=re.sub(r'const ZONECOLORS=\[[^\]]*\];',"const ZONECOLORS=['#16724e','#166b84','#956415','#8a4050','#6650a7','#526b86','#64746d','#536c80','#79664f'];",html,count=1)
     html=html.replace("['All seven species',...DATA.meta.species]","['All '+DATA.meta.species.length+' species',...DATA.meta.species]")
     html=html.replace('extent={w:1568,h:Math.max','extent={w:8+zones.length*260,h:Math.max')

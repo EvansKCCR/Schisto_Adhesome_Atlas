@@ -7,7 +7,7 @@ import pandas as pd
 from urllib.parse import urlencode,urlsplit,urlunsplit
 from design_system import network_style
 
-PROFILE_FIELDS=['sequence_id','species','family','candidate_annotation','grade','audit_classification',
+PROFILE_FIELDS=['sequence_id','species','family','module','module_basis','candidate_annotation','grade','audit_classification',
  'assignment_confidence','family_support_level','family_decision','annotation_resolution',
  'protein_name_scope','length','orthogroup','orthology_scope','architecture','NCBI_CDD_architecture',
  'DeepLoc_2.1','DeepTMHMM','SignalP.v6.0','domain_score_0_4','orthology_raw_score_0_3',
@@ -176,7 +176,7 @@ function atlasRenderProfile(parent,id){parent.replaceChildren();const record=atl
  const actions=atlasElement('div',undefined,parent);actions.className='atlas-actions';const url=atlasDossierURL(id);
  if(url){const link=atlasElement('a','Open complete Protein dossier ↗',actions);link.href=url;link.target='_blank';link.rel='noopener'}
  const button=atlasElement('button','Download candidate profile · JSON',actions);button.setAttribute('data-atlas-profile-download','true');button.onclick=()=>atlasProfileDownload(id);
- atlasKeyValues(parent,record,['family','grade','audit_classification','assignment_confidence','family_decision','annotation_resolution','length','orthogroup','orthology_scope']);
+ atlasKeyValues(parent,record,['family','module','module_basis','grade','audit_classification','family_support_level','assignment_confidence','family_decision','annotation_resolution','length','orthogroup','orthology_scope']);
  const architecture=atlasElement('details',undefined,parent);architecture.open=true;atlasElement('summary','Architecture & localization',architecture);atlasKeyValues(architecture,record,['architecture','NCBI_CDD_architecture','DeepLoc_2.1','DeepTMHMM','SignalP.v6.0']);
  const evidence=atlasElement('details',undefined,parent);atlasElement('summary','Integrated evidence & family decision',evidence);atlasKeyValues(evidence,record,['total_score_0_10','domain_score_0_4','orthology_raw_score_0_3','orthology_score_0_3','motif_score_0_2','localization_score_0_1','Orthology_benchmark_status','Orthology_benchmark_weight','Orthology_reference_support','identity_rule','identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses','stage1_family_hypothesis']);
  atlasEvidenceTable(parent,atlasProfiles.domains,id,'CDD domain hits');atlasEvidenceTable(parent,atlasProfiles.motifs,id,'Motif context evidence');atlasEvidenceTable(parent,atlasProfiles.orthology,id,'Reference orthologues');

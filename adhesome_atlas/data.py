@@ -5,7 +5,7 @@ import re
 import pandas as pd
 from library_refresh import DERIVED_FILES,module_annotations,refresh_derived
 ROOT=Path(__file__).resolve().parent
-SCHEMA_VERSION='atlas-data-3'
+SCHEMA_VERSION='atlas-data-4'
 SPECIES={'Sbovis':'Schistosoma bovis','Scura':'Schistosoma curassoni','Shae':'Schistosoma haematobium','Sinter':'Schistosoma intercalatum','Sjap':'Schistosoma japonicum','Sman':'Schistosoma mansoni','Srhoda':'Schistosoma rodhaini'}
 
 AUDIT_COLUMNS=['sequence_id','species','family','protein_name','grade','assignment_confidence',
@@ -104,7 +104,10 @@ def load():
     df['source']='files/adhesome_candidates_list.xlsx / Audited_family_assignment'
     df['family_assignment_basis']=df.family_decision
     df['assignment_interpretation']=df.protein_name.fillna(df.family)
-    df['module']=df.family.map(module_annotations(ROOT,df.family)).fillna('Unassigned / unresolved families')
+    from functional_categories import assign_modules
+    df['module']=assign_modules(df,module_annotations(ROOT,df.family))
+    df['module_basis']='Supported family functional category; localization predictions retained independently'
+    df.loc[df.module.eq('Unassigned/unresolved'),'module_basis']='No supported family-category assignment'
     motifs=books['files/Motif_annotations.xlsx']['Motif_annotations'].copy()
     motifs['motif_id']=motifs.motif_function
     motifs['motif_name']=motifs.motif_function

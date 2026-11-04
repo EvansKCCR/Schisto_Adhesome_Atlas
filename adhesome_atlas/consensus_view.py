@@ -12,14 +12,15 @@ import pandas as pd
 from candidate_profiles import PROFILE_FIELDS
 from design_system import network_style
 from library_refresh import family_key
+from functional_categories import supported_mask
 
 REGIONS = [
     ('extracellular','Extracellular environment','#3e7b69','#edf6f1'),
-    ('membrane','Plasma membrane & receptors','#316b9a','#edf4fa'),
+    ('membrane','Membranes & receptors','#316b9a','#edf4fa'),
     ('proximal','Membrane-proximal adhesome','#a27221','#fcf5e7'),
     ('signaling','Intracellular signaling','#77519c','#f4eff9'),
-    ('cytoskeleton','Actin / cytoskeletal context','#b75b41','#fcf0eb'),
-    ('unresolved','Unresolved / Multiple Localizations','#64746d','#f0f3f1'),
+    ('cytoskeleton','Actin & regulator context','#b75b41','#fcf0eb'),
+    ('unresolved','Unassigned / mixed functional context','#64746d','#f0f3f1'),
 ]
 REGION_LABELS={key:label for key,label,_,_ in REGIONS}
 PALETTE=['#327566','#316b9a','#94651a','#7950a0','#af573f','#546f39','#8a526b','#3e7d87','#6d6754','#5270a4','#985f23','#607a62']
@@ -33,15 +34,14 @@ DISCLAIMER=('Network organization represents a comparative, annotation-informed 
     'Spatial placement and transferred interactions do not establish experimentally validated protein '
     'localization or physical interactions in schistosomes.')
 RULES = [
-    'Functional annotations retain all module labels from the active family inventory. Different annotated modules are not collapsed into a new biological assignment.',
+    'Functional categories follow the functional-localization summary workbook and specific/broad supported family identities in the active catalogue. Original families, grades and predictions are preserved.',
     'Functional neighborhoods are connected components within each primary annotated module, using the existing undirected projected edges. Isolated orthogroups remain isolated neighborhoods.',
-    'A singleton DeepLoc Extracellular prediction maps to the extracellular region; singleton Cell membrane maps to the membrane region.',
-    'For singleton Cytoplasm predictions, annotated talin/kindlin/ILK/PINCH families define membrane-proximal context; annotated cytoskeletal families define cytoskeletal context; inventory kinase/phosphatase or adaptor/GTPase modules define signaling context.',
-    'Missing, multiple, other-organelle or conflicting member predictions, and cytoplasmic families lacking one of those functional contexts, remain in Unresolved / Multiple Localizations. All member-level predictions remain visible.',
-    'An orthogroup receives a resolved region only when every filtered member yields the same resolved region. Grades are preserved independently and are not interaction confidence scores.',
+    'Conceptual regions are function-first: extracellular, receptors, membrane-actin clutch, signaling (kinases/phosphatases and adaptors/GTPases), and actin/regulators. These are molecular roles, not measured subcellular localizations.',
+    'DeepLoc, transmembrane and signal-peptide predictions are retained separately, including conflicting or multiple predictions. Peripheral membrane proteins do not require a transmembrane segment for clutch placement.',
+    'An orthogroup has a resolved conceptual region when its supported family assignments agree on that region. Unsupported members remain in the complete profiles and counts without overriding the supported functional context. Mixed supported contexts stay unassigned/mixed.',
     'Circle radius = 12 + 4 × log2(1 + unique candidate count), in layout units. Label controls never change the quantitative circle radius.',
     'Layout coordinates, region assignments and neighborhoods are presentation metadata only. Communities are the existing greedy-modularity topology result, not annotated biological modules.',
-    'Family joins ignore case and punctuation/spacing only. Projected edges require A/B/C assigned family candidates in a shared species; D/unassigned proteins retain their original node membership without transferring an edge.',
+    'Family joins ignore case and punctuation/spacing only. Projected edges require specific or broad supported family identities in a shared species. Unsupported identities retain original node membership without transferring an edge.',
 ]
 
 
@@ -50,7 +50,17 @@ def _clean(value):
 
 
 def member_region(row):
-    """Strict prediction agreement; a family role alone is never localization evidence."""
+    """Conceptual functional placement, independent of localization prediction."""
+    module=_clean(row.get('module',''))
+    if 'family_support_level' in row and family_key(row['family_support_level']) not in {'specific supported','broad supported'}:
+        return 'unresolved'
+    regions={'Extracellular':'extracellular','Membrane and receptors':'membrane',
+        'Membrane-actin clutch':'proximal','Kinase and phosphatase':'signaling',
+        'Adaptors and small GTPases':'signaling','Actin and regulator':'cytoskeleton',
+        'Unassigned/unresolved':'unresolved'}
+    if module in regions:return regions[module]
+    # Historical imports without the new functional mapping retain their original
+    # conservative prediction-based presentation.
     prediction=_clean(row.get('DeepLoc_2.1',''))
     locations=[v.strip() for v in prediction.split('|') if v.strip()]
     if len(locations)!=1:return 'unresolved'
@@ -180,9 +190,11 @@ def build_view_model(metrics,edges,members):
     nodes=[]
     for row in metrics.sort_values('identifier').to_dict('records'):
         group=members[members.orthogroup.eq(row['identifier'])].drop_duplicates('sequence_id')
-        functional=sorted({_clean(v) for v in group.module if _clean(v) and _clean(v)!='Other family context'})
+        supported=group[supported_mask(group)]
+        context=supported if len(supported) else group
+        functional=sorted({_clean(v) for v in context.module if _clean(v) and _clean(v)!='Other family context'})
         module=functional[0] if len(functional)==1 else 'Multiple / unresolved functional annotations'
-        votes=Counter(member_region(m) for m in group.to_dict('records'))
+        votes=Counter(member_region(m) for m in context.to_dict('records'))
         region=next(iter(votes)) if len(votes)==1 else 'unresolved'
         predicted=Counter(_clean(v) or 'Not recorded' for v in group.get('DeepLoc_2.1',pd.Series('',index=group.index)))
         grades=Counter(group.grade)
@@ -191,6 +203,7 @@ def build_view_model(metrics,edges,members):
             compartment=region,compartment_label=REGION_LABELS[region],location_votes=dict(sorted(votes.items())),
             predicted_localizations=dict(sorted(predicted.items())),grades={k:int(grades[k]) for k in ('A','B','C','D')},
             member_ids=sorted(set(group.sequence_id)),member_count=int(group.sequence_id.nunique()),
+            supported_member_count=len(supported),unsupported_member_count=len(group)-len(supported),
             species=sorted(set(group.species)),community=int(row['community']),degree=int(row['degree']),
             betweenness=float(row['betweenness']),closeness=float(row['closeness']),
             radius=12+4*math.log2(1+group.sequence_id.nunique()))
@@ -215,7 +228,7 @@ def build_view_model(metrics,edges,members):
     return dict(nodes=nodes,edges=visual_edges,evidence=evidence,candidates=by_protein,
         layouts=dict(cellular=cellular,functional=_functional_layout(nodes,graph,lookup,module_colors),community=_community_layout(nodes,graph,lookup),free=_free_layout(graph,lookup)),
         module_colors=module_colors,regions=[dict(id=k,label=l,color=c,fill=f) for k,l,c,f in REGIONS],
-        rules=RULES,disclaimer=DISCLAIMER,rule_version='consensus-spatial-2',
+        rules=RULES,disclaimer=DISCLAIMER,rule_version='consensus-spatial-3',
         graph_sha256=hashlib.sha256(json.dumps(dict(nodes=sorted(graph),edges=sorted(sorted(pair) for pair in graph.edges)),sort_keys=True).encode()).hexdigest(),
         totals=dict(nodes=len(nodes),pairs=graph.number_of_edges(),evidence_rows=len(edges),candidates=len(by_protein)))
 

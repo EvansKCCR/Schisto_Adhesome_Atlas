@@ -25,6 +25,7 @@ from candidate_profiles import profile_payload,candidate_map_html,atlas_url
 from research_priorities import apply_target_route,research_priorities_panel
 from library_refresh import refresh_family_html
 from source_watch import reconcile_selections,watch_sources
+from functional_categories_view import functional_category_panel
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…',max_entries=3)
@@ -150,8 +151,9 @@ elif page=='Components':
     requested_family=st.query_params.get('family','')
     if requested_view=='Components' and requested_family and requested_family not in set(all_candidates.family):
         st.info('The requested family is unavailable in the current catalogue: '+requested_family)
-    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],key='component_section')
-    if view in ['Summary statistics','Summary graphs','Comparative lab']:
+    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Supported families by functional category','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],key='component_section')
+    if view=='Supported families by functional category':functional_category_panel(selected)
+    elif view in ['Summary statistics','Summary graphs','Comparative lab']:
         counts=selected.groupby(['species','family']).sequence_id.nunique().reset_index(name='Proteins')
         if view=='Summary statistics':table(selected.groupby(['species','grade','assignment_confidence']).size().reset_index(name='Candidates'))
         elif view=='Summary graphs':

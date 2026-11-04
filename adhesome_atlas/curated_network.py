@@ -13,7 +13,7 @@ from topological_clustering import clustering_panel
 from library_refresh import reference_family_edges,family_key
 
 NET=ROOT/'adhesome_network'
-PROJECTION_VERSION='consensus-projection-2'
+PROJECTION_VERSION='consensus-projection-3'
 
 def build_consensus(candidates,reference=None):
     reference=reference_family_edges(ROOT) if reference is None else reference.copy()
@@ -24,8 +24,9 @@ def build_consensus(candidates,reference=None):
       member_ids=('sequence_id',join),annotation=('candidate_annotation',join),layer=('module',join),
       grades=('grade',join)).reset_index().rename(columns={'orthogroup':'identifier'})
     nodes['node']=nodes.identifier
-    # D/unassigned proteins remain node members, but cannot transfer an edge.
-    eligible=members[members.grade.isin(['A','B','C'])].copy()
+    # Keep all node members; transfer family edges only through supported identities.
+    from functional_categories import supported_mask
+    eligible=members[supported_mask(members)].copy()
     eligible['_family_key']=eligible.family.map(family_key)
     eligible=eligible[~eligible._family_key.isin(['','unassigned','unresolved','unknown'])]
     membership={(key,group):frame for (key,group),frame in eligible.groupby(['_family_key','orthogroup'])}
@@ -56,9 +57,9 @@ def build_consensus(candidates,reference=None):
 
 def consensus_panel(candidates):
     st.subheader('Orthogroup consensus adhesome network')
-    st.write('Curated metazoan adhesome interactions are projected through the family crosswalk onto orthogroups in the active catalogue. Formatting variants in family names are matched without changing catalogue assignments. Edges require A/B/C family-assigned candidates at both ends in at least one shared species. Each edge retains its supporting candidate IDs, shared species, original reference families, symbols, interaction types, effects, sources and PMIDs.')
+    st.write('Curated metazoan adhesome interactions are projected through the family crosswalk onto orthogroups in the active catalogue. Edges require specific or broad supported family identities at both ends in at least one shared species. All candidate memberships and original grades remain available. Each edge retains its supporting candidate IDs, shared species, reference families, symbols, interaction types, effects, sources and PMIDs.')
     a,b=st.columns(2)
-    grades=a.multiselect('Network candidate grades',['A','B','C','D'],default=['A','B','C','D'],help='A/B supported; C provisional; D unassigned. D records are retained as unassigned and do not acquire a family through reference transfer.')
+    grades=a.multiselect('Network candidate grades',['A','B','C','D'],default=['A','B','C','D'],help='Grades are independent of family identity support. All selected profiles remain visible; only specific/broad supported family identities transfer reference edges.')
     species=b.multiselect('Network species',sorted(candidates.species.unique()),default=sorted(candidates.species.unique()))
     selected=candidates[candidates.grade.isin(grades)&candidates.species.isin(species)]
     families=st.multiselect('Network families',sorted(selected.family.unique()))
