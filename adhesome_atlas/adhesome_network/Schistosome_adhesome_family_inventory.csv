@@ -1,77 +1,77 @@
-family,visual_group,assignment_records,total,grade_A,grade_B,grade_C,grade_D,human_mapping_symbols,Schistosoma bovis,Schistosoma curassoni,Schistosoma haematobium,Schistosoma intercalatum,Schistosoma japonicum,Schistosoma mansoni,Schistosoma rodhaini
-ADAM-like,Extracellular interface,6,6,6,0,0,0,ADAM12,1,1,0,1,1,1,1
-ADF cofilin,Unassigned / unresolved families,11,11,11,0,0,0,,1,2,1,1,2,2,2
-AKT-like,Kinase & phosphatase signalling,6,6,6,0,0,0,AKT1,1,1,1,1,0,1,1
-ARF GTPase-like,Adaptors & small GTPases,12,12,12,0,0,0,ARF1,2,2,2,2,1,2,1
-ARPC2-like,Unassigned / unresolved families,14,14,14,0,0,0,,2,2,2,2,2,2,2
-ASAP AGAP-like,Unassigned / unresolved families,3,3,3,0,0,0,,1,1,0,1,0,0,0
-Abl family,Kinase & phosphatase signalling,19,19,19,0,0,0,ABL1,3,3,3,3,3,2,2
-FAK,Kinase & phosphatase signalling,6,6,6,0,0,0,PTK2;PTK2B,1,1,1,1,0,1,1
-Fes Fps-like,Kinase & phosphatase signalling,8,7,7,0,0,0,,1,1,1,1,1,1,1
-Grb2,Adaptors & small GTPases,13,13,12,0,1,0,GRB2,2,2,2,2,1,2,2
-HSP70-like,Actin & other regulators,44,44,44,0,0,0,HSPA2,6,5,10,4,3,10,6
-ILK,Membrane–actin clutch,8,8,8,0,0,0,ILK,2,1,1,1,1,1,1
-INSR-like,Unassigned / unresolved families,6,6,6,0,0,0,,1,0,1,1,1,1,1
-KCNH-like,Membrane & receptors,37,37,37,0,0,0,KCNH2,6,5,5,6,4,5,6
-Lam EGF-like,Unassigned / unresolved families,7,7,0,0,0,7,,1,1,1,1,1,1,1
-Lam G EGF-like,Unassigned / unresolved families,7,7,0,0,0,7,,1,1,1,1,1,1,1
-MAPK-like,Kinase & phosphatase signalling,16,16,16,0,0,0,MAPK1;MAPK8,2,2,1,2,3,3,3
-MMP-like,Unassigned / unresolved families,4,4,4,0,0,0,,1,1,1,1,0,0,0
-NDEL1-like,Unassigned / unresolved families,6,6,0,0,0,6,,0,1,1,1,1,1,1
-Nck,Adaptors & small GTPases,7,7,7,0,0,0,NCK2,1,1,1,1,1,1,1
-PABP-like,Actin & other regulators,1,1,1,0,0,0,PABPC1,0,0,0,0,1,0,0
-PAK-like,Kinase & phosphatase signalling,9,9,9,0,0,0,PAK1,1,1,1,1,1,2,2
-PDPK1-like,Unassigned / unresolved families,6,6,6,0,0,0,,1,1,0,1,1,1,1
-PINCH-like,Membrane–actin clutch,14,14,14,0,0,0,LIMS1;LIMS2,2,2,2,2,2,2,2
-PIP5K-like,Kinase & phosphatase signalling,14,14,14,0,0,0,PIP5K1C,2,2,2,1,2,2,3
-PKA-like,Kinase & phosphatase signalling,16,16,16,0,0,0,PRKACA,2,2,2,3,1,3,3
-PKC-like,Kinase & phosphatase signalling,20,20,20,0,0,0,PRKCA,3,3,3,3,2,3,3
-PPP2-like,Kinase & phosphatase signalling,21,21,21,0,0,0,PPP2CA,3,3,3,3,3,3,3
-PRKD-like,Kinase & phosphatase signalling,1,1,1,0,0,0,,0,0,0,0,1,0,0
-PTEN-like,Kinase & phosphatase signalling,7,7,7,0,0,0,PTEN,1,1,1,1,1,1,1
-Parvin_like,Unassigned / unresolved families,16,16,14,0,0,2,,2,2,3,3,2,2,2
-RACK1-like,Unassigned / unresolved families,7,7,7,0,0,0,,1,1,1,1,1,1,1
-RAPGEF-like,Unassigned / unresolved families,5,5,5,0,0,0,,1,0,0,1,1,1,1
-Ras GTPase-like,Adaptors & small GTPases,7,7,7,0,0,0,HRAS,1,1,1,1,1,1,1
-Rho GTPase-like,Adaptors & small GTPases,25,25,15,10,0,0,RAC1;RHOA;RHOU,4,2,4,4,3,4,4
-RhoGEF-like,Adaptors & small GTPases,7,7,7,0,0,0,ARHGEF12;ARHGEF2;ARHGEF6;ARHGEF7;TIAM1;TRIO;VAV1;VAV2;VAV3,1,1,1,1,1,1,1
-SHP PTPN6 11-like,Kinase & phosphatase signalling,6,6,6,0,0,0,PTPN11;PTPN6,0,1,1,1,1,1,1
-SPTLC-like,Unassigned / unresolved families,7,7,7,0,0,0,,1,1,1,1,1,1,1
-SYK,Kinase & phosphatase signalling,1,1,1,0,0,0,SYK,0,0,0,0,0,0,1
-Shc,Adaptors & small GTPases,7,7,7,0,0,0,SHC1,1,1,1,1,1,1,1
-Src,Kinase & phosphatase signalling,30,30,30,0,0,0,FYN;LYN;SRC,4,5,4,3,4,5,5
-Tec family,Kinase & phosphatase signalling,7,7,7,0,0,0,,1,1,1,1,1,1,1
-actin,Actin & other regulators,15,15,15,0,0,0,,5,2,1,3,2,1,1
-actin conventional,Actin & other regulators,51,51,50,1,0,0,ACTB,10,8,9,3,6,8,7
-alpha actinin,Membrane–actin clutch,15,15,14,0,1,0,ACTN1,3,2,2,2,2,2,2
-arp1-like,Actin & other regulators,7,7,7,0,0,0,,1,1,1,1,1,1,1
-arp10-like,Actin & other regulators,7,7,7,0,0,0,,1,1,1,1,1,1,1
-arp2-like,Actin & other regulators,7,7,7,0,0,0,,1,1,1,1,1,1,1
-arp3-like,Actin & other regulators,7,7,7,0,0,0,,1,1,1,1,1,1,1
-arp4-like,Actin & other regulators,7,7,7,0,0,0,,1,1,1,1,1,1,1
-arp6-like,Actin & other regulators,7,7,7,0,0,0,,1,1,1,1,1,1,1
-arp8-like,Actin & other regulators,2,2,2,0,0,0,,0,0,0,0,0,1,1
-calpain-like,Actin & other regulators,41,41,41,0,0,0,CAPN1;CAPN2,6,6,5,6,6,6,6
-calreticulin-like,Unassigned / unresolved families,7,7,7,0,0,0,,1,1,1,1,1,1,1
-cofilin,Actin & other regulators,11,11,11,0,0,0,CFL1,1,4,1,2,0,1,2
-collagen-like,Extracellular interface,75,75,75,0,0,0,,11,11,10,9,12,11,11
-coronin-like,Actin & other regulators,7,7,7,0,0,0,CORO1B;CORO2A,1,1,1,1,1,1,1
-cytohesin-like,Adaptors & small GTPases,7,7,7,0,0,0,CYTH2,1,1,1,1,1,1,1
-discoidin-domain-containing,Unassigned / unresolved families,7,7,0,0,0,7,,1,1,1,1,1,1,1
-dynamin-like,Unassigned / unresolved families,19,19,19,0,0,0,,3,3,3,3,1,3,3
-filamin,Membrane–actin clutch,14,14,14,0,0,0,FLNA,2,2,2,2,2,2,2
-integrin alpha,Membrane & receptors,17,17,17,0,0,0,ITGA1;ITGA10;ITGA11;ITGA2;ITGA3;ITGA4;ITGA5;ITGA6;ITGA7;ITGA8;ITGA9;ITGAD;ITGAE;ITGAL;ITGAM;ITGAV;ITGAX,3,2,3,2,3,2,2
-integrin beta,Membrane & receptors,7,7,7,0,0,0,ITGB1;ITGB2;ITGB3;ITGB4;ITGB5;ITGB6;ITGB7;ITGB8,1,1,1,1,1,1,1
-kindlin,Membrane–actin clutch,14,14,14,0,0,0,FERMT2,2,2,2,2,2,2,2
-laminin-like,Extracellular interface,35,35,35,0,0,0,,5,5,5,5,5,5,5
-myosin-like,Unassigned / unresolved families,14,14,14,0,0,0,,2,2,2,2,2,2,2
-paxillin-like,Membrane–actin clutch,7,7,7,0,0,0,LPXN;PXN,1,1,1,1,1,1,1
-profilin,Actin & other regulators,4,4,0,4,0,0,PFN1,1,1,0,0,0,1,1
-somatomedin B-TSP1-like,Unassigned / unresolved families,7,7,0,0,0,7,,1,1,1,1,1,1,1
-spectrin-like,Actin & other regulators,7,7,7,0,0,0,,1,2,1,0,1,1,1
-talin,Membrane–actin clutch,11,11,11,0,0,0,TLN1,1,2,1,2,2,2,1
-tetraspanin-like,Membrane & receptors,159,159,159,0,0,0,CD151;TSPAN1,24,20,20,23,18,28,26
-tubulin-like,Actin & other regulators,34,34,28,6,0,0,TUBA1B,5,5,3,5,6,5,5
-unassigned,Unassigned / unresolved families,3237,3236,0,0,0,3236,,464,467,456,459,458,468,464
-vinculin,Membrane–actin clutch,14,14,14,0,0,0,VCL,2,2,2,2,2,2,2
-zyxin ajuba-like,Adaptors & small GTPases,7,7,7,0,0,0,JUB,1,1,1,1,1,1,1
+family,visual_group,assignment_records,total,supported_proteins,unsupported_proteins,grade_A,grade_B,grade_C,grade_D,human_mapping_symbols,Schistosoma bovis,Schistosoma curassoni,Schistosoma haematobium,Schistosoma intercalatum,Schistosoma japonicum,Schistosoma mansoni,Schistosoma rodhaini
+ADAM-like,Membrane and receptors,6,6,6,0,6,0,0,0,ADAM12,1,1,0,1,1,1,1
+ADF cofilin,Actin and regulator,11,11,11,0,11,0,0,0,,1,2,1,1,2,2,2
+AKT-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,AKT1,1,1,1,1,0,1,1
+ARF GTPase-like,Adaptors and small GTPases,12,12,12,0,12,0,0,0,ARF1,2,2,2,2,1,2,1
+ARPC2-like,Actin and regulator,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2
+ASAP AGAP-like,Adaptors and small GTPases,3,3,3,0,3,0,0,0,,1,1,0,1,0,0,0
+Abl family,Kinase and phosphatase,19,19,12,7,19,0,0,0,ABL1,3,3,3,3,3,2,2
+FAK,Kinase and phosphatase,6,6,6,0,6,0,0,0,PTK2;PTK2B,1,1,1,1,0,1,1
+Fes Fps-like,Kinase and phosphatase,8,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+Grb2,Adaptors and small GTPases,13,13,12,1,12,0,1,0,GRB2,2,2,2,2,1,2,2
+HSP70-like,Actin and regulator,44,44,44,0,44,0,0,0,HSPA2,6,5,10,4,3,10,6
+ILK,Membrane-actin clutch,8,8,8,0,8,0,0,0,ILK,2,1,1,1,1,1,1
+INSR-like,Membrane and receptors,6,6,6,0,6,0,0,0,,1,0,1,1,1,1,1
+KCNH-like,Membrane and receptors,37,37,37,0,37,0,0,0,KCNH2,6,5,5,6,4,5,6
+Lam EGF-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1
+Lam G EGF-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1
+MAPK-like,Kinase and phosphatase,16,16,16,0,16,0,0,0,MAPK1;MAPK8,2,2,1,2,3,3,3
+MMP-like,Extracellular,4,4,4,0,4,0,0,0,,1,1,1,1,0,0,0
+NDEL1-like,Unassigned/unresolved,6,6,0,6,0,0,0,6,,0,1,1,1,1,1,1
+Nck,Adaptors and small GTPases,7,7,7,0,7,0,0,0,NCK2,1,1,1,1,1,1,1
+PABP-like,Actin and regulator,1,1,1,0,1,0,0,0,PABPC1,0,0,0,0,1,0,0
+PAK-like,Kinase and phosphatase,9,9,9,0,9,0,0,0,PAK1,1,1,1,1,1,2,2
+PDPK1-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,,1,1,0,1,1,1,1
+PINCH-like,Membrane-actin clutch,14,14,14,0,14,0,0,0,LIMS1;LIMS2,2,2,2,2,2,2,2
+PIP5K-like,Kinase and phosphatase,14,14,14,0,14,0,0,0,PIP5K1C,2,2,2,1,2,2,3
+PKA-like,Kinase and phosphatase,16,16,16,0,16,0,0,0,PRKACA,2,2,2,3,1,3,3
+PKC-like,Kinase and phosphatase,20,20,20,0,20,0,0,0,PRKCA,3,3,3,3,2,3,3
+PPP2-like,Kinase and phosphatase,21,21,21,0,21,0,0,0,PPP2CA,3,3,3,3,3,3,3
+PRKD-like,Kinase and phosphatase,1,1,1,0,1,0,0,0,,0,0,0,0,1,0,0
+PTEN-like,Kinase and phosphatase,7,7,7,0,7,0,0,0,PTEN,1,1,1,1,1,1,1
+Parvin_like,Membrane-actin clutch,16,16,14,2,14,0,0,2,PARVA;PARVB,2,2,3,3,2,2,2
+RACK1-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+RAPGEF-like,Adaptors and small GTPases,5,5,5,0,5,0,0,0,,1,0,0,1,1,1,1
+Ras GTPase-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,HRAS,1,1,1,1,1,1,1
+Rho GTPase-like,Adaptors and small GTPases,25,25,25,0,15,10,0,0,RAC1;RHOA;RHOU,4,2,4,4,3,4,4
+RhoGEF-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,ARHGEF12;ARHGEF2;ARHGEF6;ARHGEF7;TIAM1;TRIO;VAV1;VAV2;VAV3,1,1,1,1,1,1,1
+SHP PTPN6 11-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,PTPN11;PTPN6,0,1,1,1,1,1,1
+SPTLC-like,Membrane and receptors,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+SYK,Kinase and phosphatase,1,1,1,0,1,0,0,0,SYK,0,0,0,0,0,0,1
+Shc,Adaptors and small GTPases,7,7,7,0,7,0,0,0,SHC1,1,1,1,1,1,1,1
+Src,Kinase and phosphatase,30,30,30,0,30,0,0,0,FYN;LYN;SRC,4,5,4,3,4,5,5
+Tec family,Kinase and phosphatase,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+actin,Actin and regulator,15,15,15,0,15,0,0,0,,5,2,1,3,2,1,1
+actin conventional,Actin and regulator,51,51,51,0,50,1,0,0,ACTB,10,8,9,3,6,8,7
+alpha actinin,Membrane-actin clutch,15,15,14,1,14,0,1,0,ACTN1,3,2,2,2,2,2,2
+arp1-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+arp10-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+arp2-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+arp3-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+arp4-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+arp6-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+arp8-like,Actin and regulator,2,2,2,0,2,0,0,0,,0,0,0,0,0,1,1
+calpain-like,Actin and regulator,41,41,41,0,41,0,0,0,CAPN1;CAPN2,6,6,5,6,6,6,6
+calreticulin-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1
+cofilin,Actin and regulator,11,11,11,0,11,0,0,0,CFL1,1,4,1,2,0,1,2
+collagen-like,Extracellular,75,75,75,0,75,0,0,0,,11,11,10,9,12,11,11
+coronin-like,Actin and regulator,7,7,7,0,7,0,0,0,CORO1B;CORO2A,1,1,1,1,1,1,1
+cytohesin-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,CYTH2,1,1,1,1,1,1,1
+discoidin-domain-containing,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1
+dynamin-like,Adaptors and small GTPases,19,19,19,0,19,0,0,0,,3,3,3,3,1,3,3
+filamin,Membrane-actin clutch,14,14,14,0,14,0,0,0,FLNA,2,2,2,2,2,2,2
+integrin alpha,Membrane and receptors,17,17,17,0,17,0,0,0,ITGA1;ITGA10;ITGA11;ITGA2;ITGA3;ITGA4;ITGA5;ITGA6;ITGA7;ITGA8;ITGA9;ITGAD;ITGAE;ITGAL;ITGAM;ITGAV;ITGAX,3,2,3,2,3,2,2
+integrin beta,Membrane and receptors,7,7,7,0,7,0,0,0,ITGB1;ITGB2;ITGB3;ITGB4;ITGB5;ITGB6;ITGB7;ITGB8,1,1,1,1,1,1,1
+kindlin,Membrane-actin clutch,14,14,14,0,14,0,0,0,FERMT2,2,2,2,2,2,2,2
+laminin-like,Extracellular,35,35,35,0,35,0,0,0,,5,5,5,5,5,5,5
+myosin-like,Actin and regulator,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2
+paxillin-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,LPXN;PXN,1,1,1,1,1,1,1
+profilin,Actin and regulator,4,4,4,0,0,4,0,0,PFN1,1,1,0,0,0,1,1
+somatomedin B-TSP1-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1
+spectrin-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,,1,2,1,0,1,1,1
+talin,Membrane-actin clutch,11,11,11,0,11,0,0,0,TLN1,1,2,1,2,2,2,1
+tetraspanin-like,Membrane and receptors,159,159,159,0,159,0,0,0,CD151;TSPAN1,24,20,20,23,18,28,26
+tubulin-like,Actin and regulator,34,34,34,0,28,6,0,0,TUBA1B,5,5,3,5,6,5,5
+unassigned,Unassigned/unresolved,3237,3236,0,3236,0,0,0,3236,,464,467,456,459,458,468,464
+vinculin,Membrane-actin clutch,14,14,14,0,14,0,0,0,VCL,2,2,2,2,2,2,2
+zyxin ajuba-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,JUB,1,1,1,1,1,1,1

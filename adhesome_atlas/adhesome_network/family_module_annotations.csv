@@ -1,0 +1,78 @@
+family,visual_group
+collagen_like,Extracellular
+laminin_like,Extracellular
+fibronectin_like,Extracellular
+vitronectin_like,Extracellular
+ADAM_like,Membrane and receptors
+integrin_alpha,Membrane and receptors
+integrin_beta,Membrane and receptors
+tetraspanin_like,Membrane and receptors
+KCNH_like,Membrane and receptors
+talin,Membrane-actin clutch
+kindlin,Membrane-actin clutch
+vinculin,Membrane-actin clutch
+ILK,Membrane-actin clutch
+PINCH_like,Membrane-actin clutch
+filamin,Membrane-actin clutch
+alpha_actinin,Membrane-actin clutch
+paxillin_like,Membrane-actin clutch
+PDLIM_family,Membrane-actin clutch
+FAK,Kinase and phosphatase
+Src,Kinase and phosphatase
+Src_Csk_like,Kinase and phosphatase
+Syk,Kinase and phosphatase
+Abl_family,Kinase and phosphatase
+Tec_family,Kinase and phosphatase
+Fes_Fps_like,Kinase and phosphatase
+AKT_like,Kinase and phosphatase
+MAPK_like,Kinase and phosphatase
+PAK_like,Kinase and phosphatase
+PKA_like,Kinase and phosphatase
+PKC_like,Kinase and phosphatase
+PRKD_like,Kinase and phosphatase
+PTP_PEST,Kinase and phosphatase
+SHP_PTPN6_11_like,Kinase and phosphatase
+PTEN_like,Kinase and phosphatase
+PPP2_like,Kinase and phosphatase
+PIP5K_like,Kinase and phosphatase
+Grb2,Adaptors and small GTPases
+Shc,Adaptors and small GTPases
+Nck,Adaptors and small GTPases
+Crk,Adaptors and small GTPases
+Ras_GTPase_like,Adaptors and small GTPases
+Rho_GTPase_like,Adaptors and small GTPases
+RhoGEF_like,Adaptors and small GTPases
+ARF_GTPase_like,Adaptors and small GTPases
+cytohesin_like,Adaptors and small GTPases
+zyxin_like,Adaptors and small GTPases
+zyxin_ajuba_like,Membrane-actin clutch
+actin_conventional,Actin and regulator
+actin,Actin and regulator
+cofilin,Actin and regulator
+profilin,Actin and regulator
+coronin_like,Actin and regulator
+tubulin_like,Actin and regulator
+spectrin_like,Membrane-actin clutch
+calpain_like,Actin and regulator
+HSP70_like,Actin and regulator
+PABP_like,Actin and regulator
+arp1_like,Actin and regulator
+arp2_like,Actin and regulator
+arp3_like,Actin and regulator
+arp4_like,Actin and regulator
+arp6_like,Actin and regulator
+arp8_like,Actin and regulator
+arp10_like,Actin and regulator
+MMP-like,Extracellular
+SPTLC-like,Membrane and receptors
+INSR-like,Membrane and receptors
+Parvin_like,Membrane-actin clutch
+PDPK1-like,Kinase and phosphatase
+dynamin-like,Adaptors and small GTPases
+RACK1-like,Adaptors and small GTPases
+RAPGEF-like,Adaptors and small GTPases
+ASAP AGAP-like,Adaptors and small GTPases
+ARPC2-like,Actin and regulator
+myosin-like,Actin and regulator
+ADF cofilin,Actin and regulator
+calreticulin-like,Actin and regulator

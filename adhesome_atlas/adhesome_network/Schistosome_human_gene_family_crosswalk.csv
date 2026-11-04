@@ -1,4 +1,4 @@
-﻿human_symbol,candidate_family,mapping_scope
+human_symbol,candidate_family,mapping_scope
 ABL1,Abl_family,"Curated family-level functional correspondence, not an asserted ortholog or experimental interaction"
 ACTB,actin_conventional,"Curated family-level functional correspondence, not an asserted ortholog or experimental interaction"
 ACTN1,alpha_actinin,"Curated family-level functional correspondence, not an asserted ortholog or experimental interaction"
@@ -93,3 +93,5 @@ VAV2,RhoGEF_like,"Curated family-level functional correspondence, not an asserte
 VAV3,RhoGEF_like,"Curated family-level functional correspondence, not an asserted ortholog or experimental interaction"
 VCL,vinculin,"Curated family-level functional correspondence, not an asserted ortholog or experimental interaction"
 ZYX,zyxin_like,"Curated family-level functional correspondence, not an asserted ortholog or experimental interaction"
+PARVA,Parvin_like,Direct parvin-family homology to PARVA/PARVB; metazoan reference interactions projected as schistosome hypotheses
+PARVB,Parvin_like,Direct parvin-family homology to PARVA/PARVB; metazoan reference interactions projected as schistosome hypotheses
