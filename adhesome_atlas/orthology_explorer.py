@@ -62,7 +62,8 @@ def candidate_reports_panel(candidates):
     report,hogs,direct=read(folder,signature)
     annotations=candidates.drop_duplicates('sequence_id').set_index('sequence_id')
     report=report[report.candidate_id.isin(annotations.index)].copy()
-    for field in ['family','species','candidate_annotation','grade','assignment_confidence']:
+    for field in ['family','species','candidate_annotation','grade','assignment_confidence','reclassification_family','reclassification_evidence_tier','reclassification_rationale','reclassification_alignment']:
+        if field not in annotations:continue
         report[field]=report.candidate_id.map(annotations[field])
     refs=sorted(direct.reference_species.unique())
     st.caption(f'{candidates.species.nunique()} candidate species; {len(refs)} reference taxa in the active direct-orthologue report. Reference names and copy counts follow the report headers. Orthogroup IDs belong to this run; no historical groups are merged.')

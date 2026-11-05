@@ -45,6 +45,12 @@ for family,node in {'integrin_alpha':'inta','integrin_beta':'intb','PINCH_like':
 for family,node in {'actin_conventional':'actin','zyxin_ajuba_like':'zyxin','SmVKR1':'vkr1'}.items():
     NODE_SCENARIOS[family]=NODE_SCENARIOS[node]
 
+# Explicit recovered-family labels reuse the existing conceptual family proxy.
+# Broad FERM/CH/SH3 classes and orthogroup-only hints acquire no mechanism alias.
+for family,node in {'Talin-like':'talin','Filamin-like':'filamin','α-actinin-like':'actinin',
+                    'GRB2-like adaptor':'grb2'}.items():
+    NODE_SCENARIOS[family]=NODE_SCENARIOS[node]
+
 _MAP_BRIDGE = r'''
 <style>
 body.atlas-linked-profile main{grid-template-columns:minmax(0,1fr)!important;padding:0;gap:0}

@@ -25,6 +25,8 @@ from candidate_profiles import profile_payload,candidate_map_html,atlas_url
 from research_priorities import apply_target_route,research_priorities_panel
 from library_refresh import refresh_family_html
 from source_watch import reconcile_selections,watch_sources
+from reclassification import FILE as RECLASS_FILE,SHEET as RECLASS_SHEET,MAP_LABEL,classification_view
+from reclassification_view import reclassification_panel,map_url
 from functional_categories_view import functional_category_panel
 apply_style()
 
@@ -110,7 +112,7 @@ if query:selected=selected[selected.fillna('').astype(str).apply(lambda s:s.str.
 if page=='Introduction':
     identity_banner()
     introduction_hero(all_candidates)
-    labels=all_candidates.set_index('sequence_id').candidate_annotation.to_dict()
+    labels=all_candidates.set_index('sequence_id').display_annotation.to_dict()
     choices=['']+sorted(all_candidates.sequence_id)
     entry_columns=st.columns([1,1,.85])
     for column,(title,filename) in zip(entry_columns[:2],[
@@ -130,10 +132,14 @@ if page=='Introduction':
     research_entry()
     st.markdown('<span id="hypothesis-workspace"></span>',unsafe_allow_html=True)
     network_dir=ROOT/'adhesome_network'
+    basis=st.selectbox('Hypothesis map grouping',['Catalogue families',MAP_LABEL],key='atlas_map_basis',
+        help='The Pfam–CDD view groups recovered family and domain hypotheses by their classification. Original catalogue grades/support remain explicit; domain classes do not create reference interactions.')
+    map_candidates=classification_view(all_candidates) if basis==MAP_LABEL else all_candidates
+    if basis==MAP_LABEL:st.caption('Pfam–CDD A/B/C classes provide browsing groups and functional context. Their evidence tiers are separate from catalogue grades. Reference edges still use supported catalogue identities in shared species.')
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
     if path:
-        html=refresh_family_html(path.read_text(encoding='utf-8'),all_candidates,ROOT).replace('previously supplied model','adhesome model in the library')
-        profiles=cached_profiles((fingerprint(),SCHEMA_VERSION),all_candidates,books,motifs)
+        html=refresh_family_html(path.read_text(encoding='utf-8'),map_candidates,ROOT).replace('previously supplied model','adhesome model in the library')
+        profiles=cached_profiles((fingerprint(),SCHEMA_VERSION,basis),map_candidates,books,motifs)
         html=candidate_map_html(html,profiles,app_url=app_url,focus_candidate=focus)
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')
         sim=ROOT/SIMULATOR_FILE
@@ -151,11 +157,15 @@ elif page=='Components':
     requested_family=st.query_params.get('family','')
     if requested_view=='Components' and requested_family and requested_family not in set(all_candidates.family):
         st.info('The requested family is unavailable in the current catalogue: '+requested_family)
-    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Supported families by functional category','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],key='component_section')
-    if view=='Supported families by functional category':functional_category_panel(selected)
+    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Supported families by functional category','Pfam–CDD family reclassification','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],key='component_section')
+    if view=='Pfam–CDD family reclassification':reclassification_panel(selected,books.get(RECLASS_FILE,{}).get(RECLASS_SHEET),app_url,library_candidates=all_candidates)
+    elif view=='Supported families by functional category':functional_category_panel(selected)
     elif view in ['Summary statistics','Summary graphs','Comparative lab']:
         counts=selected.groupby(['species','family']).sequence_id.nunique().reset_index(name='Proteins')
-        if view=='Summary statistics':table(selected.groupby(['species','grade','assignment_confidence']).size().reset_index(name='Candidates'))
+        if view=='Summary statistics':
+            table(selected.groupby(['species','grade','assignment_confidence']).size().reset_index(name='Candidates'))
+            counts=selected.drop_duplicates('sequence_id').reclassification_tier.value_counts()
+            st.caption('Local Pfam–CDD reclassification: '+', '.join(t+' = '+str(int(counts.get(t,0))) for t in ['A','B','C','D'])+'. Explore family hypotheses and complete evidence in the Pfam–CDD family reclassification section.')
         elif view=='Summary graphs':
             if len(counts):plotly_chart(px.bar(counts,x='family',y='Proteins',color='species'),width='stretch')
             if len(selected):plotly_chart(px.treemap(selected.groupby(['module','family']).size().reset_index(name='Proteins'),path=['module','family'],values='Proteins',color='module'),width='stretch')
@@ -165,8 +175,13 @@ elif page=='Components':
             download(matrix.reset_index(),'family_species_counts.csv')
     elif view=='Candidate prioritization':
         st.write('Rank candidates using the current audited evidence scores. Orthology benchmark weights and family confidence are retained. Scores are separate from reference-network centrality; domain architecture, topology and motif context remain explicit supporting evidence.')
-        metric=st.selectbox('Rank by',['total_score_0_10','domain_score_0_4','orthology_score_0_3','motif_score_0_2','localization_score_0_1'])
-        ranked=selected.sort_values(metric,ascending=False).reset_index(drop=True);ranked.insert(0,'rank',range(1,len(ranked)+1))
+        metric=st.selectbox('Rank by',['total_score_0_10','domain_score_0_4','orthology_score_0_3','motif_score_0_2','localization_score_0_1','Local Pfam–CDD priority / tier'])
+        if metric=='Local Pfam–CDD priority / tier':
+            from reclassification import priority_order
+            ranked=priority_order(selected)
+            st.caption('Unique proteins ordered by the reported P1–P4 priority, then Pfam–CDD evidence tier. Catalogue scores remain available as separate columns.')
+        else:ranked=selected.sort_values(metric,ascending=False).reset_index(drop=True)
+        ranked.insert(0,'rank',range(1,len(ranked)+1))
         table(ranked);download(ranked,'candidate_prioritization.csv')
     elif view=='Family assignment audit':
         audit,missing=family_audit_table(selected)
@@ -195,14 +210,21 @@ elif page=='Protein dossier':
         dossier_pool=all_candidates if requested_protein in set(all_candidates.sequence_id) else selected
         if st.session_state.get('dossier_protein') not in set(dossier_pool.sequence_id):
             st.session_state['dossier_protein']=sorted(dossier_pool.sequence_id)[0]
-        annotations=dossier_pool.set_index('sequence_id').candidate_annotation.to_dict()
+        annotations=dossier_pool.set_index('sequence_id').display_annotation.to_dict()
         protein=st.selectbox('Protein',sorted(dossier_pool.sequence_id),key='dossier_protein',format_func=lambda p:p+' · '+annotations[p])
         records=dossier_pool[dossier_pool.sequence_id.eq(protein)];row=records.iloc[0]
         st.link_button('Locate this candidate on the interactive hypothesis ↗',atlas_url(app_url,'Introduction',protein))
-        st.subheader(row.candidate_annotation);st.caption(protein+' · '+row.species+' · '+row.family+' · '+row.grade)
+        st.subheader(row.display_annotation);st.caption(protein+' · '+row.species+' · catalogue family: '+row.family+' · catalogue grade '+row.grade)
+        if row.reclassification_tier:
+            st.write('**Local Pfam–CDD:** '+row.reclassification_family+' · '+row.reclassification_evidence_tier)
+            st.write(row.reclassification_rationale)
+            st.caption('Reclassification alignment: '+row.reclassification_alignment+'. Pfam–CDD evidence tier and catalogue grade are independent.')
+            st.link_button('Locate the Pfam–CDD family/class on the map ↗',map_url(app_url,protein))
         tabs=st.tabs(['Overview','Domains','Motif','Topology','Orthology','Sequence & SMART'])
         with tabs[0]:table(records.T.reset_index().rename(columns={'index':'Field',records.index[0]:'Value'}))
         with tabs[1]:
+            if row.reclassification_tier:
+                table(records[['reclassification_family','reclassification_evidence_tier','reclassification_pfam','reclassification_cdd','reclassification_rationale','reclassification_orthogroup_context','reclassification_alignment']])
             domains=books['files/NCBI_CDD.xlsx']['NCBI_CDD_selected_hits'];domains=domains[domains.sequence_id.eq(protein)]
             st.write('Pfam: '+str(row.architecture));st.write('CDD: '+str(row.NCBI_CDD_architecture))
             if len(domains):

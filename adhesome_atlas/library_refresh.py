@@ -12,12 +12,13 @@ import tempfile
 
 import pandas as pd
 
-VERSION='library-refresh-4'
+VERSION='library-refresh-5'
 EDGE_FILE='Schistosome_human_reference_family_edges.csv'
 INVENTORY_FILE='Schistosome_adhesome_family_inventory.csv'
 MEMBERS_FILE='Schistosome_adhesome_candidate_node_members.csv'
 MODULE_FILE='family_module_annotations.csv'
-DERIVED_FILES={EDGE_FILE,INVENTORY_FILE,MEMBERS_FILE}
+from reclassification import FILE as RECLASS_FILE,REPORT as RECLASS_REPORT
+DERIVED_FILES={EDGE_FILE,INVENTORY_FILE,MEMBERS_FILE,RECLASS_REPORT}
 UNRESOLVED='Unassigned/unresolved'
 EDGE_COLUMNS=['family_A','family_B','human_reference_pairs','original_rows','human_symbol_pairs',
     'interaction_types','effects','PMIDs','data_sources','evidence_interpretation']
@@ -152,17 +153,27 @@ def refresh_derived(candidates,root,persist=True):
             **{'grade_'+grade:group.loc[group.grade.eq(grade),'sequence_id'].nunique() for grade in ['A','B','C','D']},
             human_mapping_symbols=symbol_map.get(family_key(family),''))
         row.update({name:group.loc[group.species.eq(name),'sequence_id'].nunique() for name in species});inventory.append(row)
+        if 'reclassification_tier' in group:
+            row.update({'pfam_cdd_'+tier:group.loc[group.reclassification_tier.eq(tier),'sequence_id'].nunique() for tier in ['A','B','C','D']})
     inventory=pd.DataFrame(inventory)
     members=candidates[['species','sequence_id','family','grade','assignment_confidence','family_decision','architecture']].rename(
         columns={'sequence_id':'protein_id','family':'putative_audited_family','architecture':'Pfam_architecture'})
+    from reclassification import PROFILE_FIELDS as RECLASS_FIELDS,reconciliation_table,load_table
+    for field in RECLASS_FIELDS:
+        if field in candidates:members[field]=candidates[field].values
     primary=[root/'files/adhesome_candidates_list.xlsx',net/'interactions.csv',net/'Schistosome_human_gene_family_crosswalk.csv']
     if (net/MODULE_FILE).exists():primary.append(net/MODULE_FILE)
     if (root/SUMMARY_FILE).exists():primary.append(root/SUMMARY_FILE)
+    if (root/RECLASS_FILE).exists():primary.append(root/RECLASS_FILE)
+    if (root/'Target_prioritization.md').exists():primary.append(root/'Target_prioritization.md')
     provenance=dict(version=VERSION,inputs={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in primary},
         assignment_records=len(candidates),candidates=int(candidates.sequence_id.nunique()),families=len(inventory),species=species,
         grade_counts={g:int(candidates.grade.eq(g).sum()) for g in ['A','B','C','D']},
         unique_grade_counts={g:int(candidates.loc[candidates.grade.eq(g),'sequence_id'].nunique()) for g in ['A','B','C','D']},**diagnostics)
     outputs={EDGE_FILE:edges,INVENTORY_FILE:inventory,MEMBERS_FILE:members}
+    if candidates.attrs.get('reclassification'):
+        provenance['reclassification']=candidates.attrs['reclassification']
+        if persist and (root/RECLASS_FILE).exists():outputs[RECLASS_REPORT]=reconciliation_table(candidates,load_table(root))
     storage_error=''
     if persist:
         try:
@@ -184,19 +195,26 @@ def refresh_family_html(html,candidates,root):
     from functional_categories import CATEGORIES,supported_mask
     start,end,old=_data_span(html);snapshot=refresh_derived(candidates,root,persist=False)
     inventory=snapshot['inventory'];reference=snapshot['reference'];active=set(candidates.family)
+    if 'classification_basis' in candidates:
+        for family,group in candidates.groupby('family'):
+            if not group.classification_basis.str.startswith('Pfam–CDD',na=False).any():continue
+            zones=group.module.dropna().unique()
+            inventory.loc[inventory.family.eq(family),'visual_group']=zones[0] if len(zones)==1 else UNRESOLVED
     aliases=family_index(active)
     families=[]
     for row in inventory.to_dict('records'):
         group=candidates[candidates.family.eq(row['family'])].drop_duplicates('sequence_id')
         families.append(dict(id=row['family'],zone=row['visual_group'],n=int(row['total']),
             supported_n=int(row['supported_proteins']),unsupported_n=int(row['unsupported_proteins']),
+            pfam_cdd_tiers={tier:int(group.get('reclassification_tier',pd.Series('',index=group.index)).eq(tier).sum()) for tier in ['A','B','C','D']},
             counts={s:int(group.species.eq(s).sum()) for s in sorted(candidates.species.unique())},
             grade_by_species={s:{g:int((sub.grade==g).sum()) for g in ['A','B','C','D']} for s,sub in group.groupby('species')},
             grades={g:int(group.grade.eq(g).sum()) for g in ['A','B','C','D']},strong=int(group.grade.isin(['A','B']).sum()),
             human_symbols=[s for s in row['human_mapping_symbols'].split(';') if s]))
     field_map={'s':'species','id':'sequence_id','f':'family','c':'assignment_confidence','g':'grade','support':'family_support_level',
         'decision':'family_decision','name':'candidate_annotation','pfam':'architecture','cdd':'NCBI_CDD_architecture',
-        'hog':'orthogroup','orthostat':'orthology_scope','local':'DeepLoc_2.1','module':'module','motif':'MotifPrediction_distinct_site_count'}
+        'hog':'orthogroup','orthostat':'orthology_scope','local':'DeepLoc_2.1','module':'module',
+        'reclassification':'reclassification_family','reclassification_tier':'reclassification_tier','motif':'MotifPrediction_distinct_site_count'}
     frame=candidates.reindex(columns=list(field_map.values())).rename(columns={v:k for k,v in field_map.items()})
     records=json.loads(frame.to_json(orient='records'));edges=[]
     supported_by_family={family:group for family,group in candidates[supported_mask(candidates)].groupby('family')}
@@ -233,9 +251,17 @@ def refresh_family_html(html,candidates,root):
         'interactions_sha256':snapshot['provenance']['inputs']['adhesome_network/interactions.csv']},
         'families':families,'candidates':records,'edges':edges,'special':special,'zones':zones,
         'core':sorted({label for family in old.get('core',[]) for label in aliases.get(family_key(family),[])}|
-            set(inventory.loc[inventory.visual_group.eq('Membrane-actin clutch'),'family']))}
+            set(inventory.loc[inventory.visual_group.eq('Membrane-actin clutch')&inventory.supported_proteins.gt(0),'family']))}
     html=html[:start]+json.dumps(model,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+html[end:]
-    return _dynamic_family_controls(html)
+    return _dynamic_family_controls(_classification_caption(html,candidates))
+
+
+def _classification_caption(html,candidates):
+    html=re.sub(r'<p id="atlas-reclassification-map-note"[^>]*>.*?</p>','',html,flags=re.S)
+    if 'classification_basis' in candidates and candidates.classification_basis.str.startswith('Pfam–CDD',na=False).any():
+        note='<p id="atlas-reclassification-map-note" style="margin:12px 18px;padding:12px;border:1px solid #146b4e;background:#fff;color:#000;font:14px Arial,sans-serif">Pfam–CDD family/domain-class view. Evidence tiers A–D and catalogue grades are separate. Candidate profiles retain original family assignments and support. Reference edges use supported catalogue identities in shared species; new domain classes provide exploration groups and functional context.</p>'
+        html=html.replace('</header>','</header>'+note,1)
+    return html
 
 
 def _dynamic_family_controls(html):
@@ -244,7 +270,7 @@ def _dynamic_family_controls(html):
     html=html.replace("['All seven species',...DATA.meta.species]","['All '+DATA.meta.species.length+' species',...DATA.meta.species]")
     html=html.replace('extent={w:1568,h:Math.max','extent={w:8+zones.length*260,h:Math.max')
     html=re.sub(r'function chooseRows\(f,opts\)\{.*?(?=function countFmt)',
-        "function chooseRows(f,opts){let a=proteinsByFamily[f]||[];if(opts.species!=='all')a=a.filter(r=>r.s===opts.species);if(opts.grade!=='all')a=a.filter(r=>opts.grade==='AB'?['A','B'].includes(r.g):r.g===opts.grade);return a}\n",html,count=1,flags=re.S)
+        "function chooseRows(f,opts){const seen=new Set();let a=(proteinsByFamily[f]||[]).filter(r=>{if(seen.has(r.id))return false;seen.add(r.id);return true});if(opts.species!=='all')a=a.filter(r=>r.s===opts.species);if(opts.grade!=='all')a=a.filter(r=>opts.grade==='AB'?['A','B'].includes(r.g):r.g===opts.grade);return a}\n",html,count=1,flags=re.S)
     html=re.sub(r'function summaryStats\(opts\)\{.*?(?=function selectedEvidenceFilter)',r'''function summaryStats(opts){const all=DATA.candidates.filter(p=>(opts.species==='all'||p.s===opts.species)&&(opts.grade==='all'||opts.grade==='AB'&&['A','B'].includes(p.g)||p.g===opts.grade));
 const counts=['A','B','C','D'].map(g=>all.filter(p=>p.g===g).length).join(' / '),fields=[['Candidates',all.length,'protein records'],['Inventory groups',visibleFamilies.length,'displayed in network'],['Human ref. edges',activeEdges.filter(e=>e.kind==='human_reference_transfer').length,'family-level hypotheses'],['Grades A / B / C / D',counts,'D = unassigned']];
 $('topstats').innerHTML=fields.map(([n,v,tag])=>`<div class="metric"><span>${escapeHtml(n)}</span><b>${escapeHtml(v)}</b><small>${escapeHtml(tag)}</small></div>`).join('')}

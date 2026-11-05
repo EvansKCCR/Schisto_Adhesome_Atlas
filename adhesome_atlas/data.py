@@ -5,7 +5,7 @@ import re
 import pandas as pd
 from library_refresh import DERIVED_FILES,module_annotations,refresh_derived
 ROOT=Path(__file__).resolve().parent
-SCHEMA_VERSION='atlas-data-4'
+SCHEMA_VERSION='atlas-data-5'
 SPECIES={'Sbovis':'Schistosoma bovis','Scura':'Schistosoma curassoni','Shae':'Schistosoma haematobium','Sinter':'Schistosoma intercalatum','Sjap':'Schistosoma japonicum','Sman':'Schistosoma mansoni','Srhoda':'Schistosoma rodhaini'}
 
 AUDIT_COLUMNS=['sequence_id','species','family','protein_name','grade','assignment_confidence',
@@ -74,7 +74,7 @@ def fingerprint(root=None):
         try:stat=path.stat()
         except FileNotFoundError:continue  # An atomic save may temporarily replace a file.
         name=path.relative_to(base).as_posix();digest=''
-        if name=='files/adhesome_candidates_list.xlsx':
+        if name in {'files/adhesome_candidates_list.xlsx','files/adhesome_unassigned_Pfam_CDD_classification.xlsx','Target_prioritization.md'}:
             try:digest=hashlib.sha256(path.read_bytes()).hexdigest()
             except OSError:digest='pending-save'  # The loader's retry state handles locked files.
         signature.append((name,stat.st_mtime_ns,stat.st_size,digest))
@@ -108,6 +108,8 @@ def load():
     df['module']=assign_modules(df,module_annotations(ROOT,df.family))
     df['module_basis']='Supported family functional category; localization predictions retained independently'
     df.loc[df.module.eq('Unassigned/unresolved'),'module_basis']='No supported family-category assignment'
+    from reclassification import FILE as RECLASS_FILE,SHEET as RECLASS_SHEET,reconcile
+    df=reconcile(df,books.get(RECLASS_FILE,{}).get(RECLASS_SHEET))
     motifs=books['files/Motif_annotations.xlsx']['Motif_annotations'].copy()
     motifs['motif_id']=motifs.motif_function
     motifs['motif_name']=motifs.motif_function

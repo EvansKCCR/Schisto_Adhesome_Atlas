@@ -30,6 +30,12 @@ FAMILY_JOINS = {
     'Src-family kinases': ('Src',), 'FAK': ('FAK',), 'ILK': ('ILK',),
     'Kindlin': ('kindlin',), 'Talin': ('talin',), 'Vinculin': ('vinculin',),
     'Collagen-/laminin-like': ('collagen_like', 'laminin_like'),
+    'PINCH-like adaptors':('PINCH_like',),'Parvin-like actin adaptors':('Parvin_like',),
+    'Paxillin-like adaptors':('paxillin_like',),'Nck adaptors':('Nck',),
+    'PAK-like kinases':('PAK_like',),'Rho GTPase-like proteins':('Rho_GTPase_like',),
+    'PKC-like kinases':('PKC_like',),'Alpha-actinin and filamin':('alpha_actinin','filamin'),
+    'ARPC2-like actin nucleation components':('ARPC2_like',),'PIP5K-like lipid kinases':('PIP5K_like',),
+    'ADAM-like membrane metalloproteases':('ADAM_like',),'KCNH-like potassium channels':('KCNH_like',),
 }
 # Explicit display joins for the two catalogue naming versions. No source family
 # assignments are renamed, inferred or combined with a different biological family.
@@ -58,7 +64,7 @@ TABLE_HEADERS={
     'Candidate family':('Candidate family','Supported proteins','Representative S. mansoni IDs','Priority and rationale'),
     'Evaluation criterion':('Evaluation criterion','Vaccine/antibody candidate','Small-molecule drug candidate'),
 }
-CITATION_PATTERN=r'\[([^\]\n]+)\]\((https://doi\.org/[^\s)]+)\)|\(([^()\n]+)\)\[(https://doi\.org/[^\]\s]+)\]'
+CITATION_PATTERN=r'\[([^\]\n]+)\]\((https://(?:doi\.org|pubmed\.ncbi\.nlm\.nih\.gov)/[^\s)]+)\)|\(([^()\n]+)\)\[(https://(?:doi\.org|pubmed\.ncbi\.nlm\.nih\.gov)/[^\]\s]+)\]'
 
 
 def _plain_cells(line,first_header):
@@ -159,7 +165,8 @@ def load_brief(path):
     for row in additional:
         row['families']=FAMILY_JOINS.get(row['Candidate family'],())
         row['count']=int(re.search(r'\d+',row['Supported proteins'])[0])
-        row['challenge']=CHALLENGES.get(row['Candidate family'],'No additional information present in the current library.')
+        row['orthogroups']=tuple(dict.fromkeys(re.findall(r'OG\d{7}',row['Priority and rationale']))) if not row['families'] else ()
+        row['challenge']=CHALLENGES.get(row['Candidate family'],row['Priority and rationale'])
     references=[]
     for match in re.finditer(CITATION_PATTERN,text):
         label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
@@ -170,8 +177,14 @@ def load_brief(path):
         if identity not in seen:roadmap.append(row);seen.add(identity)
     intro=prefix.split('Candidate or orthogroup')[0]
     overview=' '.join(line.strip() for line in intro.splitlines() if line.strip().strip('|') and not line.startswith('#') and not re.match(r'\d+[.)]\s',line))
+    _,_,additional_end=_table_block(text,'Candidate family')
+    tail='\n'.join(text.splitlines()[additional_end:])
+    additional_evidence=re.split(r'^\s*3[.)]\s+\**A practical target-selection framework',tail,flags=re.M|re.I)[0].strip()
+    _,_,framework_end=_table_block(text,'Evaluation criterion')
+    framework_text='\n'.join(text.splitlines()[framework_end:]).strip()
     return dict(features=features,additional=additional,framework=_tabular(text,'Evaluation criterion'),
                 roadmap=roadmap,references=references,overview=overview or OVERVIEW,
+                additional_evidence=additional_evidence,framework_text=framework_text,
                 repeated_roadmap_rows=len(roadmap_rows)-len(roadmap))
 
 
@@ -189,12 +202,15 @@ def target_url(base,view,**selection):
 def apply_target_route(candidates,params,state):
     """Apply a deep link once, before creating sidebar or destination widgets."""
     view,protein,family,group=(params.get(k,'') for k in ('view','protein','family','orthogroup'))
-    route=(view,protein,family,group,params.get('workspace',''))
+    route=(view,protein,family,group,params.get('workspace',''),params.get('classification',''))
     if state.get('atlas_route')==route:return
     state['atlas_route']=route
     if view in {'Introduction','Protein dossier','Components','Orthology','Phylogeny'}:state['atlas_page']=view
     if protein in set(candidates.sequence_id):
         state['map_candidate']=protein;state['dossier_protein']=protein
+    if view=='Introduction' and params.get('classification')=='pfam_cdd':
+        from reclassification import MAP_LABEL
+        state['atlas_map_basis']=MAP_LABEL
     if view=='Components' and family in set(candidates.family):
         state['catalogue_families']=[family]
         state['catalogue_species']=sorted(candidates.species.unique())
@@ -230,32 +246,42 @@ def family_links(families,candidates,base,labels=None):
 
 
 def available_families(families,candidates):
-    available=set(candidates.family)
-    return list(dict.fromkeys(alias for family in families for alias in FAMILY_ALIASES.get(family,(family,)) if alias in available))
+    from library_refresh import family_key
+    wanted={family_key(alias) for family in families for alias in FAMILY_ALIASES.get(family,(family,))}
+    return sorted(name for name in set(candidates.family) if family_key(name) in wanted)
 
 
 def rich_text(text,candidates,base):
     """Safe inline links to exact records, orthogroups and the brief's original DOIs."""
-    pattern=CITATION_PATTERN+r'|OG\d{7}|Smp_\d+'
+    protein_pattern=r'(?:[A-Za-z]+__)?(?:Smp_|MS3_|EWB00_|SBOV2_|SCUR1_|SINT2_|SRDH2_)\d+(?:\.\d+)?'
+    pattern=CITATION_PATTERN+r'|`?(?:OG\d{7}|'+protein_pattern+r')`?'
     parts=[];end=0;groups=set(candidates.orthogroup)
     for match in re.finditer(pattern,text):
         parts.append(escape(text[end:match.start()]))
+        token=match[0].strip('`')
         if match[1] or match[3]:
             label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
             parts.append(f'<a href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)} ↗</a>')
-        elif match[0].startswith('Smp_'):parts.append(protein_links(match[0],candidates,base))
-        elif match[0] in groups:parts.append(_link(match[0],target_url(base,'Orthology',orthogroup=match[0]),'orthogroup','Open orthogroup assignments and members'))
-        else:parts.append(f'<span class="research-unavailable">{escape(match[0])} · unavailable</span>')
+        elif re.fullmatch(protein_pattern,token):parts.append(protein_links(token,candidates,base))
+        elif token in groups:parts.append(_link(token,target_url(base,'Orthology',orthogroup=token),'orthogroup','Open orthogroup assignments and members'))
+        else:parts.append(f'<span class="research-unavailable">{escape(token)} · unavailable</span>')
         end=match.end()
     parts.append(escape(text[end:]));return ''.join(parts)
 
 
 def metric_comparison(metric,candidates):
-    aliases={alias for family in metric['families'] for alias in FAMILY_ALIASES.get(family,(family,))}
+    aliases=set(available_families(metric['families'],candidates))
     family_scope=candidates.family.isin(aliases)
+    if metric.get('group_scope'):family_scope=family_scope|candidates.orthogroup.isin(metric['group_scope'])
     if metric.get('hypothesis_field') in candidates:
-        family_scope=family_scope|candidates[metric['hypothesis_field']].isin(aliases)
-    selected=candidates[family_scope & candidates.audit_classification.eq(metric['classification'])]
+        from library_refresh import family_key
+        wanted={family_key(alias) for family in metric['families'] for alias in FAMILY_ALIASES.get(family,(family,))}
+        family_scope=family_scope|candidates[metric['hypothesis_field']].map(family_key).isin(wanted)
+    if metric['classification']=='Supported':
+        from functional_categories import supported_mask
+        status=supported_mask(candidates)
+    else:status=candidates.audit_classification.eq(metric['classification'])
+    selected=candidates[family_scope & status]
     live=selected.loc[selected.orthogroup.ne(''),'orthogroup'].nunique() if metric.get('orthogroups') else selected.sequence_id.nunique()
     return dict(label=metric['label'],brief=metric['count'],live=int(live),matches=metric['count']==live)
 
@@ -265,7 +291,7 @@ def comparisons(brief,candidates):
     for feature in brief['features']:
         rows.extend(dict(category=feature['label'],**metric_comparison(m,candidates)) for m in feature['metrics'])
     for row in brief['additional']:
-        rows.append(dict(category=row['Candidate family'],**metric_comparison(dict(label='Supported candidates',count=row['count'],families=row['families'],classification='Supported'),candidates)))
+        rows.append(dict(category=row['Candidate family'],**metric_comparison(dict(label='Supported candidates',count=row['count'],families=row['families'],group_scope=row.get('orthogroups',()),classification='Supported'),candidates)))
     return rows
 
 
@@ -316,6 +342,9 @@ def research_priorities_panel(candidates,base,source):
                 cards.append('<article class="research-additional"><h4>'+escape(row['Candidate family'])+'</h4><span class="research-tag supported">'+escape(count_label)+'</span>'+diff+
                     '<p>'+rich_text(row['Priority and rationale'],candidates,base)+'</p><div class="research-card-label">Principal validation challenge</div><p>'+escape(row['challenge'])+'</p><div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+rich_text(row['Representative S. mansoni IDs'],candidates,base)+'</div></article>')
             st.markdown('<div class="research-additional-grid">'+''.join(cards)+'</div>',unsafe_allow_html=True)
+            if brief.get('additional_evidence'):
+                st.markdown('#### Evidence and expanded family priorities')
+                st.markdown(rich_text(brief['additional_evidence'],candidates,base),unsafe_allow_html=True)
     with framework:
         st.markdown('#### Match the evidence to the development objective')
         mode=st.radio('Compare target-development routes',['Side by side','Vaccine / antibody candidates','Small-molecule drug candidates'],horizontal=True,key='research_framework')
@@ -327,6 +356,7 @@ def research_priorities_panel(candidates,base,source):
         rows=''.join('<tr>'+''.join('<th scope="row">'+escape(headings.get(row[c],row[c]))+'</th>' if c==columns[0] else '<td>'+escape(row[c])+'</td>' for c in columns)+'</tr>' for row in brief['framework'])
         st.markdown('<div class="research-matrix"><table><thead><tr>'+header+'</tr></thead><tbody>'+rows+'</tbody></table></div>',unsafe_allow_html=True)
         st.caption('A qualitative decision framework; no new numerical priority score is calculated. The existing Components prioritization analysis remains available.')
+        if brief.get('framework_text'):st.markdown(rich_text(brief['framework_text'],candidates,base),unsafe_allow_html=True)
     with roadmap:
         st.markdown('#### From Computational Candidates to Experimental Validation')
         st.caption('Proposed first investigations from the research brief. These steps are a research plan, not completed experimental results.')

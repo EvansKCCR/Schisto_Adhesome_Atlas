@@ -207,7 +207,9 @@ def build_view_model(metrics,edges,members):
             species=sorted(set(group.species)),community=int(row['community']),degree=int(row['degree']),
             betweenness=float(row['betweenness']),closeness=float(row['closeness']),
             radius=12+4*math.log2(1+group.sequence_id.nunique()))
-        node['search_text']=' '.join([node['id'],node['family']]+node['member_ids']+[str(by_protein[p].get('candidate_annotation','')) for p in node['member_ids']]).lower()
+        node['reclassified_families']=sorted({str(value) for value in group.get('reclassification_family',pd.Series(dtype=str)).dropna() if value})
+        node['pfam_cdd_tiers']={tier:int(group.get('reclassification_tier',pd.Series(dtype=str)).eq(tier).sum()) for tier in ['A','B','C','D']}
+        node['search_text']=' '.join([node['id'],node['family']]+node['reclassified_families']+node['member_ids']+[str(by_protein[p].get('candidate_annotation','')) for p in node['member_ids']]).lower()
         nodes.append(node)
     lookup={n['id']:n for n in nodes}
     modules=sorted({n['primary_module'] for n in nodes})
