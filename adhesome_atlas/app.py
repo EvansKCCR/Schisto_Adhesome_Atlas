@@ -28,6 +28,7 @@ from source_watch import reconcile_selections,watch_sources
 from reclassification import FILE as RECLASS_FILE,SHEET as RECLASS_SHEET,MAP_LABEL,classification_view
 from reclassification_view import reclassification_panel,map_url
 from functional_categories_view import functional_category_panel
+from navigation import PAGES,HYPOTHESIS_PAGE,hypothesis_url
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…',max_entries=3)
@@ -46,6 +47,8 @@ except (OSError,ValueError,KeyError,BadZipFile) as error:
     retry_sources();st.stop()
 st.session_state.pop('atlas_source_retry_at',None)
 all_candidates=cohorts['Adhesome candidates']
+from scientific_text import register_species,install_browser_typography
+if register_species(all_candidates.species.dropna().unique()):install_browser_typography()
 reconcile_selections(st.session_state,all_candidates)
 requested_protein=st.query_params.get('protein','')
 requested_view=st.query_params.get('view','')
@@ -88,7 +91,7 @@ def motif_view(sites,key='motifs'):
 
 with st.sidebar:
     st.markdown('<div class="atlas-sidebar-brand"><span class="atlas-sidebar-symbol" aria-hidden="true">αβ</span><div><strong>Schisto-Adhesome<br>Atlas</strong></div></div>',unsafe_allow_html=True)
-    page=st.radio('Explore',['Introduction','Components','Interactions','Orthology','Phylogeny','Protein dossier','Motif explorer','Comments & feedback','Source Library','Citations'],key='atlas_page')
+    page=st.radio('Explore',PAGES,key='atlas_page')
     st.divider()
     st.caption('REFINE THE CATALOGUE')
     species_options=sorted(all_candidates.species.unique())
@@ -111,11 +114,9 @@ if query:selected=selected[selected.fillna('').astype(str).apply(lambda s:s.str.
 
 if page=='Introduction':
     identity_banner()
-    introduction_hero(all_candidates)
-    labels=all_candidates.set_index('sequence_id').display_annotation.to_dict()
-    choices=['']+sorted(all_candidates.sequence_id)
-    entry_columns=st.columns([1,1,.85])
-    for column,(title,filename) in zip(entry_columns[:2],[
+    introduction_hero(all_candidates,app_url)
+    entry_columns=st.columns(2)
+    for column,(title,filename) in zip(entry_columns,[
         ('Read more: Schistosome adhesome interactor','README_schistosome_adhesome_interactive.md'),
         ('Read more: Schistosome adhesome simulator','README_adhesome_hypothesis_simulator.md'),
     ]):
@@ -123,13 +124,19 @@ if page=='Introduction':
             readme=ROOT/filename
             if readme.exists():st.markdown(readme.read_text(encoding='utf-8'))
             else:st.info('To be updated when additional information is available.')
-    with entry_columns[2].expander('Locate a candidate by accession',expanded=False):
-        focus=st.selectbox('Locate a candidate on the map',choices,key='map_candidate',
-            format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
     @st.fragment
     def research_entry():
         research_priorities_panel(all_candidates,app_url,ROOT/'Target_prioritization.md')
     research_entry()
+
+elif page==HYPOTHESIS_PAGE:
+    st.header('Interactive integrin-adhesome hypothesis')
+    st.caption('Explore candidate families, their recorded connections and evidence profiles, then inspect the linked downstream simulation.')
+    labels=all_candidates.set_index('sequence_id').display_annotation.to_dict()
+    choices=['']+sorted(set(all_candidates.sequence_id))
+    with st.expander('Locate a candidate by accession',expanded=False):
+        focus=st.selectbox('Locate a candidate on the map',choices,key='map_candidate',
+            format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
     st.markdown('<span id="hypothesis-workspace"></span>',unsafe_allow_html=True)
     network_dir=ROOT/'adhesome_network'
     basis=st.selectbox('Hypothesis map grouping',['Catalogue families',MAP_LABEL],key='atlas_map_basis',
@@ -213,7 +220,7 @@ elif page=='Protein dossier':
         annotations=dossier_pool.set_index('sequence_id').display_annotation.to_dict()
         protein=st.selectbox('Protein',sorted(dossier_pool.sequence_id),key='dossier_protein',format_func=lambda p:p+' · '+annotations[p])
         records=dossier_pool[dossier_pool.sequence_id.eq(protein)];row=records.iloc[0]
-        st.link_button('Locate this candidate on the interactive hypothesis ↗',atlas_url(app_url,'Introduction',protein))
+        st.link_button('Locate this candidate on the interactive hypothesis ↗',hypothesis_url(app_url,protein))
         st.subheader(row.display_annotation);st.caption(protein+' · '+row.species+' · catalogue family: '+row.family+' · catalogue grade '+row.grade)
         if row.reclassification_tier:
             st.write('**Local Pfam–CDD:** '+row.reclassification_family+' · '+row.reclassification_evidence_tier)

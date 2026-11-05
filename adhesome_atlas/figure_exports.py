@@ -106,6 +106,44 @@ def legible_figure(fig):
             font(axis.colorbar.title.font, 16)
             if inside_fills:
                 axis.colorscale = [(position, light_label_background(color)) for position, color in (axis.colorscale or default_scale)]
+    scientific_figure(fig)
+    return fig
+
+
+def scientific_figure(fig):
+    """Style display labels and ticks without changing coordinates or identifiers."""
+    from scientific_text import plotly_text,SPECIES_RE
+    def text(value):
+        if isinstance(value,str):return plotly_text(value)
+        if value is not None and hasattr(value,'__iter__'):return [text(v) for v in value]
+        return value
+    axes={}
+    for trace in fig.data:
+        for field in ['name','text','hovertext','hovertemplate','texttemplate']:
+            if field in trace and trace[field] is not None:trace[field]=text(trace[field])
+        for direction in ['x','y']:
+            if direction not in trace or trace[direction] is None:continue
+            values=[v for v in trace[direction] if isinstance(v,str)]
+            if not values:continue
+            name=getattr(trace,direction+'axis',None) or direction
+            key=direction+'axis'+name[1:]
+            axes.setdefault(key,[]).extend(values)
+            if values and all(SPECIES_RE.fullmatch(v) for v in values) and 'hovertemplate' in trace and isinstance(trace.hovertemplate,str):
+                token='%{'+direction+'}'
+                trace.hovertemplate=trace.hovertemplate.replace(token,'<i>'+token+'</i>') if '<i>'+token+'</i>' not in trace.hovertemplate else trace.hovertemplate
+    for key,values in axes.items():
+        axis=fig.layout[key]
+        if axis.ticktext is not None:axis.ticktext=text(axis.ticktext)
+        elif any(plotly_text(v)!=v for v in values):
+            unique=list(dict.fromkeys(values));axis.update(tickmode='array',tickvals=unique,ticktext=[plotly_text(v) for v in unique])
+    if fig.layout.title.text:fig.layout.title.text=text(fig.layout.title.text)
+    for name in fig.layout.to_plotly_json():
+        if re.fullmatch(r'[xy]axis\d*',name):
+            axis=fig.layout[name]
+            if axis.title.text:axis.title.text=text(axis.title.text)
+            if axis.ticktext is not None:axis.ticktext=text(axis.ticktext)
+    for annotation in fig.layout.annotations:
+        if annotation.text:annotation.text=text(annotation.text)
     return fig
 
 

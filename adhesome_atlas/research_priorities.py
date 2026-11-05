@@ -202,13 +202,15 @@ def target_url(base,view,**selection):
 def apply_target_route(candidates,params,state):
     """Apply a deep link once, before creating sidebar or destination widgets."""
     view,protein,family,group=(params.get(k,'') for k in ('view','protein','family','orthogroup'))
+    from navigation import HYPOTHESIS_PAGE,PAGES
+    if view=='Introduction' and (protein or params.get('classification')=='pfam_cdd'):view=HYPOTHESIS_PAGE
     route=(view,protein,family,group,params.get('workspace',''),params.get('classification',''))
     if state.get('atlas_route')==route:return
     state['atlas_route']=route
-    if view in {'Introduction','Protein dossier','Components','Orthology','Phylogeny'}:state['atlas_page']=view
+    if view in PAGES:state['atlas_page']=view
     if protein in set(candidates.sequence_id):
         state['map_candidate']=protein;state['dossier_protein']=protein
-    if view=='Introduction' and params.get('classification')=='pfam_cdd':
+    if view==HYPOTHESIS_PAGE and params.get('classification')=='pfam_cdd':
         from reclassification import MAP_LABEL
         state['atlas_map_basis']=MAP_LABEL
     if view=='Components' and family in set(candidates.family):
@@ -266,7 +268,8 @@ def rich_text(text,candidates,base):
         elif token in groups:parts.append(_link(token,target_url(base,'Orthology',orthogroup=token),'orthogroup','Open orthogroup assignments and members'))
         else:parts.append(f'<span class="research-unavailable">{escape(token)} · unavailable</span>')
         end=match.end()
-    parts.append(escape(text[end:]));return ''.join(parts)
+    from scientific_text import scientific_html
+    parts.append(escape(text[end:]));return scientific_html(''.join(parts))
 
 
 def metric_comparison(metric,candidates):
@@ -310,7 +313,7 @@ def feature_card(feature,candidates,base):
         f'<p class="research-objective">{escape(feature["objective"])}</p>'
         f'<div class="research-card-label">Explore families</div><div class="research-links">{family_links(feature["families"],candidates,base)}</div>'
         f'<div class="research-card-label">Key orthogroups</div><div class="research-links">{rich_text(" · ".join(feature["orthogroups"]),candidates,base)}</div>'
-        f'<div class="research-card-label">Representative proteins · S. mansoni</div><div class="research-links">{rich_text(" · ".join(feature["proteins"]),candidates,base)}</div>'
+        f'<div class="research-card-label">Representative proteins · <em>S. mansoni</em></div><div class="research-links">{rich_text(" · ".join(feature["proteins"]),candidates,base)}</div>'
         f'<div class="research-next"><span>Next investigation</span><p>{escape(feature["next"])}</p></div>'
         f'<details><summary>Evidence & interpretation</summary><div class="research-evidence"><span class="research-tag published">Published evidence / research context</span>{evidence}</div></details></article>')
 

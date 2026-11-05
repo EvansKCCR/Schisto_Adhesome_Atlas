@@ -52,4 +52,5 @@ input[type=checkbox],input[type=radio],input[type=range]{accent-color:var(--atla
 '''
 
 def network_style():
-    return '<style>'+TOKENS_CSS+NETWORK_CSS+'</style>'
+    from scientific_text import owned_assets
+    return '<style>'+TOKENS_CSS+NETWORK_CSS+'</style>'+owned_assets()

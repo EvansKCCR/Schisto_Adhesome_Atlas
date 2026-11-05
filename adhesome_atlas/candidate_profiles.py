@@ -59,6 +59,8 @@ def _repair_pointer_selection(html):
     return re.sub(pattern,lambda _: _POINTER_HANDLERS,html,count=1,flags=re.S)
 
 def atlas_url(base,view,protein):
+    from navigation import HYPOTHESIS_PAGE
+    if view=='Introduction' and protein:view=HYPOTHESIS_PAGE
     parts=urlsplit(base or '')
     return urlunsplit((parts.scheme,parts.netloc,parts.path,urlencode({'view':view,'protein':protein}),''))
 
@@ -91,7 +93,8 @@ def candidate_map_html(html,payload,*,app_url='',focus_candidate=''):
     html=re.sub(re.escape(START)+r'.*?'+re.escape(END),'',html,flags=re.S)
     html=_repair_pointer_selection(html)
     config={'app_url':app_url,'focus_candidate':focus_candidate}
-    block=START+_STYLE+_SCRIPT.replace('__PROFILES__',json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')).replace('__CONFIG__',json.dumps(config,ensure_ascii=False).replace('<','\\u003c'))+END
+    from scientific_text import owned_assets
+    block=START+_STYLE+_SCRIPT.replace('__PROFILES__',json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')).replace('__CONFIG__',json.dumps(config,ensure_ascii=False).replace('<','\\u003c'))+owned_assets()+END
     return html.replace('</body>',block+'</body>',1)
 
 _STYLE=network_style()+r'''

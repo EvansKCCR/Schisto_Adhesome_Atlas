@@ -139,6 +139,7 @@ def navigation_icons_css():
     """Small local vector symbols; native radio labels keep their keyboard behavior."""
     icons=[
         '<path d="M4 5h6c2 0 2 1 2 2v13c0-2-1-2-3-2H4zM20 5h-6c-2 0-2 1-2 2v13c0-2 1-2 3-2h5z"/>',
+        '<circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="m8 8 3 7m5-7-3 7M9 6h6"/>',
         '<rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/>',
         '<path d="m7 8 9 0M7 9l4 8m5-8-4 8"/><circle cx="5" cy="7" r="3"/><circle cx="19" cy="7" r="3"/><circle cx="12" cy="19" r="3"/>',
         '<path d="M4 7h16m-4-4 4 4-4 4M20 17H4m4-4-4 4 4 4"/>',
@@ -164,16 +165,20 @@ def navigation_icons_css():
 
 
 def apply_style():
+    from scientific_text import install_streamlit,install_browser_typography
+    install_streamlit()
     st.set_page_config(page_title='Schisto-Adhesome Atlas | Integrin–adhesome',page_icon='🧬',layout='wide',initial_sidebar_state='auto')
     st.markdown('<style>'+TOKENS_CSS+APP_CSS+navigation_icons_css()+'</style>',unsafe_allow_html=True)
+    install_browser_typography()
 
 
-def introduction_hero(candidates):
+def introduction_hero(candidates,app_url=''):
     from html import escape
+    from navigation import hypothesis_url
     stats=[('Candidates',len(candidates)),('Species',candidates.species.nunique()),('Family labels',candidates.family.nunique()),('Orthogroups',candidates.loc[candidates.orthogroup.ne(''),'orthogroup'].nunique())]
     cards=''.join(f'<div class="atlas-hero-stat"><strong>{value:,}</strong><span>{escape(label)}</span></div>' for label,value in stats)
     st.markdown('''<section class="atlas-hero" aria-label="About the Schisto-Adhesome Atlas">
 <div><h1>Schisto-Adhesome Atlas</h1>
 <h2>About the Schisto-Adhesome Atlas</h2><p>The <strong>Schisto-Adhesome Atlas</strong> is an interactive platform for exploring adhesion-associated proteins across medically important <em>Schistosoma</em> species. It integrates protein annotations, orthology, phylogeny, conserved domains and motif exploration to reveal evolutionary relationships, parasite-specific features and potential functional interaction modules. By connecting comparative bioinformatics with experimental prioritization, the Atlas supports the discovery of candidate drug targets, vaccine antigens and biomarkers for schistosomiasis research.</p>
-<div class="atlas-hero-meta"><a href="#hypothesis-workspace" target="_self">Explore the adhesome <span aria-hidden="true">↗</span></a></div></div>
+<div class="atlas-hero-meta"><a href="'''+escape(hypothesis_url(app_url),quote=True)+'''" target="_self">Explore the adhesome <span aria-hidden="true">↗</span></a></div></div>
 <div class="atlas-hero-stats" aria-label="Catalogue summary">'''+cards+'</div></section>',unsafe_allow_html=True)

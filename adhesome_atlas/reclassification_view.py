@@ -10,9 +10,8 @@ from reclassification import FILE,TIER_LABELS,reconciliation_table
 
 
 def map_url(base,protein):
-    parts=urlsplit(base or '')
-    return urlunsplit((parts.scheme,parts.netloc,parts.path,urlencode({
-        'view':'Introduction','protein':protein,'classification':'pfam_cdd'}),''))
+    from navigation import hypothesis_url
+    return hypothesis_url(base,protein,'pfam_cdd')
 
 
 def reclassification_panel(candidates,classified,base,library_candidates=None):
