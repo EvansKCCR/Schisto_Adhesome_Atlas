@@ -1,0 +1,522 @@
+{
+  "version": "adhesion-lattice-4.0",
+  "coordinate_basis": "Conceptual adhesion layers informed by metazoan focal adhesions. Diagram positions represent functional placement.",
+  "layers": [
+    {
+      "id": "L1",
+      "name": "Membrane-proximal signalling",
+      "components": [
+        "Integrin α/β tails",
+        "Kindlin",
+        "FAK",
+        "Src",
+        "Paxillin"
+      ],
+      "reference_ids": [
+        "R15",
+        "R18",
+        "R20",
+        "R21"
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "Force transduction and membrane–actin clutch",
+      "components": [
+        "Talin",
+        "Vinculin",
+        "ILK",
+        "PINCH",
+        "Parvin"
+      ],
+      "reference_ids": [
+        "R15",
+        "R16",
+        "R17",
+        "R19"
+      ]
+    },
+    {
+      "id": "L3",
+      "name": "Actin regulation",
+      "components": [
+        "F-actin",
+        "α-Actinin",
+        "Zyxin / Ajuba",
+        "Ena/VASP"
+      ],
+      "reference_ids": [
+        "R15",
+        "R17",
+        "R20"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "M01",
+      "rule_name": "ECM engagement",
+      "components": [
+        "ECM",
+        "integrin alpha",
+        "integrin beta"
+      ],
+      "input_state": "Eligible unoccupied receptor site",
+      "transition_condition": "Seeded draw < ligand × integrinAvailability",
+      "output_state": "I occupancy",
+      "configurable_parameters": [
+        "ligand",
+        "integrinAvailability"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "Initialize a ligand-engaged integrin αβ site with a β-tail interface.",
+      "reference_ids": [
+        "R01",
+        "R18"
+      ],
+      "evidence_origin": "computational_family_annotation",
+      "model_basis": "exploratory model assumption"
+    },
+    {
+      "rule_id": "M02",
+      "rule_name": "Talin recruitment",
+      "components": [
+        "integrin beta",
+        "talin"
+      ],
+      "input_state": "Engaged I and free T site",
+      "transition_condition": "Seeded draw < clip(0.5 × WIT × talinAvailability)",
+      "output_state": "I–T bond and talin occupancy",
+      "configurable_parameters": [
+        "WIT",
+        "talinAvailability"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "Talin is recruited at the integrin β tail.",
+      "reference_ids": [
+        "R18"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M03",
+      "rule_name": "Talin–actin linkage",
+      "components": [
+        "talin",
+        "actin"
+      ],
+      "input_state": "Occupied talin",
+      "transition_condition": "Layered clutch enabled and seeded draw < talinActinProbability",
+      "output_state": "Talin–actin coupling",
+      "configurable_parameters": [
+        "layeredMechanics",
+        "talinActinProbability"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "Represent a talin-associated actin link preceding loading.",
+      "reference_ids": [
+        "R15",
+        "R18"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M04",
+      "rule_name": "Loading and vinculin-binding site exposure",
+      "components": [
+        "talin",
+        "vinculin",
+        "actin"
+      ],
+      "input_state": "Bound receptor with force-transmitting link",
+      "transition_condition": "Add load and reinforced-actin feedback. Expose talin sites at force ≥ threshold.",
+      "output_state": "Normalized force and talin-exposed state",
+      "configurable_parameters": [
+        "load",
+        "feedback",
+        "threshold",
+        "relaxation",
+        "layeredMechanics"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "Talin stretch can expose cryptic vinculin-binding sites.",
+      "reference_ids": [
+        "R16"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M05",
+      "rule_name": "Force-sensitive vinculin recruitment",
+      "components": [
+        "talin",
+        "vinculin"
+      ],
+      "input_state": "Talin occupied, vinculin vacant",
+      "transition_condition": "Seeded draw < clip(0.4 × WTV × vinculinAvailability × exposure gain). Gain is alpha when exposed and 1 at baseline.",
+      "output_state": "T–V bond and vinculin occupancy",
+      "configurable_parameters": [
+        "WTV",
+        "vinculinAvailability",
+        "alpha",
+        "threshold"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "The reconstituted talin–vinculin experiment motivates force-sensitive recruitment. The basal weight and amplification are dimensionless assumptions.",
+      "reference_ids": [
+        "R16"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M06",
+      "rule_name": "Clutch reinforcement",
+      "components": [
+        "talin",
+        "vinculin",
+        "actin"
+      ],
+      "input_state": "Assembled I–T–V with reciprocal bonds",
+      "transition_condition": "Seeded draw < actinProbability",
+      "output_state": "Actin-attached clutch and increased overload threshold",
+      "configurable_parameters": [
+        "actinProbability",
+        "reinforcement",
+        "feedback"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "An actin-attached I–T–V clutch increases load tolerance in the model.",
+      "reference_ids": [
+        "R15",
+        "R16"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "exploratory model assumption"
+    },
+    {
+      "rule_id": "M07",
+      "rule_name": "Relaxation and rupture",
+      "components": [
+        "integrin beta",
+        "talin",
+        "vinculin",
+        "ILK",
+        "PINCH-like",
+        "Parvin_like"
+      ],
+      "input_state": "Engaged site",
+      "transition_condition": "Force decays when unloaded. Basal off draw or overload clears every local state.",
+      "output_state": "Relaxed force or cleared site",
+      "configurable_parameters": [
+        "relaxation",
+        "off",
+        "ruptureForce",
+        "reinforcement",
+        "ippStabilization"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "Loss of receptor occupancy resets the local structural and signalling states together.",
+      "reference_ids": [],
+      "evidence_origin": "computational_family_annotation",
+      "model_basis": "exploratory model assumption"
+    },
+    {
+      "rule_id": "M08",
+      "rule_name": "Kindlin occupancy",
+      "components": [
+        "integrin beta",
+        "kindlin"
+      ],
+      "input_state": "Engaged I",
+      "transition_condition": "IPP enabled and seeded draw < kindlinProbability",
+      "output_state": "Kindlin at receptor",
+      "configurable_parameters": [
+        "enableIPP",
+        "kindlinProbability"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "Represent kindlin association with the integrin β tail.",
+      "reference_ids": [
+        "R18"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M09",
+      "rule_name": "Shared ILK–PINCH scaffold",
+      "components": [
+        "kindlin",
+        "integrin beta",
+        "ILK",
+        "PINCH-like"
+      ],
+      "input_state": "Engaged I, with kindlin for IPP or enabled VKR1 context",
+      "transition_condition": "Recruit one ILK state, then recruit PINCH to occupied ILK on independent draws",
+      "output_state": "Shared ILK and PINCH occupancy",
+      "configurable_parameters": [
+        "enableIPP",
+        "enableVKR",
+        "ilkProbability",
+        "pinchProbability"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "The two branches use the same ILK/PINCH pool. Kindlin-dependent IPP recruitment and the schistosome bridge are separate biological contexts.",
+      "reference_ids": [
+        "R02",
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M10",
+      "rule_name": "Ternary IPP assembly",
+      "components": [
+        "kindlin",
+        "ILK",
+        "PINCH-like",
+        "Parvin_like"
+      ],
+      "input_state": "Kindlin with ILK at an engaged receptor",
+      "transition_condition": "Recruit parvin to ILK independently of PINCH. Complex occupancy requires kindlin, ILK, PINCH and parvin.",
+      "output_state": "Parvin occupancy and assembled IPP",
+      "configurable_parameters": [
+        "enableIPP",
+        "parvinProbability"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "ILK provides binding interfaces for PINCH and parvin in the ternary scaffold.",
+      "reference_ids": [
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M11",
+      "rule_name": "IPP-dependent actin coupling",
+      "components": [
+        "ILK",
+        "PINCH-like",
+        "Parvin_like",
+        "actin"
+      ],
+      "input_state": "Assembled IPP",
+      "transition_condition": "Seeded draw < ippActinProbability",
+      "output_state": "IPP actin coupling and scaffold stabilization",
+      "configurable_parameters": [
+        "ippActinProbability",
+        "ippStabilization"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "Parvin-associated coupling connects the scaffold to the actin layer. The magnitude of stabilization is a model parameter.",
+      "reference_ids": [
+        "R17",
+        "R19"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M12",
+      "rule_name": "Smβ-Int1–ILK–PINCH–Nck2 bridge",
+      "components": [
+        "integrin beta",
+        "ILK",
+        "PINCH-like",
+        "Nck"
+      ],
+      "input_state": "Engaged I with shared ILK and PINCH",
+      "transition_condition": "VKR1 branch enabled and seeded draw < bridgeGate",
+      "output_state": "Nck2 and bridge occupancy",
+      "configurable_parameters": [
+        "enableVKR",
+        "bridgeGate"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "Schistosome complex reconstitution and perturbation motivate the bridge condition.",
+      "reference_ids": [
+        "R02"
+      ],
+      "evidence_origin": "schistosoma_pathway",
+      "model_basis": "Schistosoma-specific finding"
+    },
+    {
+      "rule_id": "M13",
+      "rule_name": "SmVKR1 engagement",
+      "components": [
+        "Nck",
+        "SmVKR1"
+      ],
+      "input_state": "Assembled Smβ-Int1 bridge",
+      "transition_condition": "VKR1 branch enabled and seeded draw < vkrGate",
+      "output_state": "VKR1 engagement and downstream ERK/AKT/survival proxies",
+      "configurable_parameters": [
+        "enableVKR",
+        "vkrGate",
+        "growthGate"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "The reconstituted receptor complex supported SmVKR1 and downstream phosphorylation.",
+      "reference_ids": [
+        "R02"
+      ],
+      "evidence_origin": "schistosoma_pathway",
+      "model_basis": "Schistosoma-specific finding"
+    },
+    {
+      "rule_id": "M14",
+      "rule_name": "FAK/Src signalling gate",
+      "components": [
+        "integrin beta",
+        "FAK",
+        "Src"
+      ],
+      "input_state": "Ligand-bound receptor and normalized load",
+      "transition_condition": "Multiply load fraction by fakGate",
+      "output_state": "FAK/Src projection",
+      "configurable_parameters": [
+        "fakGate",
+        "threshold",
+        "migrationGate",
+        "growthGate"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "Canonical focal adhesion recruitment and FAK–Src association inform the projection.",
+      "reference_ids": [
+        "R15",
+        "R21"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M15",
+      "rule_name": "Paxillin recruitment",
+      "components": [
+        "kindlin",
+        "FAK",
+        "paxillin-like"
+      ],
+      "input_state": "Receptor-proximal kindlin or FAK/Src activity",
+      "transition_condition": "Seeded draw < paxillinProbability",
+      "output_state": "Paxillin occupancy",
+      "configurable_parameters": [
+        "paxillinProbability",
+        "fakGate"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "Paxillin is placed in the membrane-proximal signalling layer.",
+      "reference_ids": [
+        "R15",
+        "R20"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "canonical metazoan mechanism"
+    },
+    {
+      "rule_id": "M16",
+      "rule_name": "Actin regulator recruitment",
+      "components": [
+        "actin",
+        "alpha actinin",
+        "zyxin ajuba-like",
+        "Ena/VASP"
+      ],
+      "input_state": "Talin-linked, IPP-linked or reinforced actin",
+      "transition_condition": "Actin-regulatory module enabled and independent recruitment draws succeed",
+      "output_state": "α-Actinin, Zyxin/Ajuba and Ena/VASP regulator occupancy",
+      "configurable_parameters": [
+        "enableActinRegulation",
+        "actinRegulationProbability",
+        "cytoskeletonGate"
+      ],
+      "functional_layer": "L3",
+      "biological_description": "Actin-regulatory layer composition informs exploratory recruitment without imposing a specific binary interaction.",
+      "reference_ids": [
+        "R15",
+        "R20"
+      ],
+      "evidence_origin": "metazoan_mechanism",
+      "model_basis": "exploratory model assumption"
+    },
+    {
+      "rule_id": "M17",
+      "rule_name": "Gonadal kinase and Rho context",
+      "components": [
+        "Src",
+        "SYK",
+        "Abl family",
+        "Rho GTPase-like"
+      ],
+      "input_state": "Bound I and FAK/Src or cytoskeletal activity",
+      "transition_condition": "Optional context gate scales the receptor/actin readout",
+      "output_state": "Gonadal kinase and Rho context index",
+      "configurable_parameters": [
+        "enableKinaseContext",
+        "gonadalGate"
+      ],
+      "functional_layer": "L3",
+      "biological_description": "Schistosome kinase and formin–Rho studies motivate a pathway-context readout.",
+      "reference_ids": [
+        "R03",
+        "R04",
+        "R05",
+        "R06"
+      ],
+      "evidence_origin": "schistosoma_pathway",
+      "model_basis": "exploratory model assumption"
+    },
+    {
+      "rule_id": "M18",
+      "rule_name": "PKC and ERK context",
+      "components": [
+        "PKC-like",
+        "MAPK-like"
+      ],
+      "input_state": "Engaged receptor and scaffold or FAK/Src signalling",
+      "transition_condition": "Optional context gate scales the receptor/kinase readout",
+      "output_state": "PKC/MAPK context index",
+      "configurable_parameters": [
+        "enableKinaseContext",
+        "pkcMapkGate"
+      ],
+      "functional_layer": "L1",
+      "biological_description": "Schistosome physiological and phosphorylation studies motivate a pathway-context readout.",
+      "reference_ids": [
+        "R07"
+      ],
+      "evidence_origin": "schistosoma_pathway",
+      "model_basis": "exploratory model assumption"
+    },
+    {
+      "rule_id": "M19",
+      "rule_name": "Optional I–V association",
+      "components": [
+        "integrin beta",
+        "vinculin"
+      ],
+      "input_state": "Assembled I–T–V",
+      "transition_condition": "allowIV enabled and seeded draw < clip(0.5 × WIV)",
+      "output_state": "Optional reciprocal I–V matrix entry",
+      "configurable_parameters": [
+        "allowIV",
+        "WIV"
+      ],
+      "functional_layer": "L2",
+      "biological_description": "Retained exploratory matrix coupling.",
+      "reference_ids": [],
+      "evidence_origin": "computational_family_annotation",
+      "model_basis": "exploratory model assumption"
+    }
+  ]
+}

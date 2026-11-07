@@ -1,0 +1,68 @@
+family	reference_id	evidence_origin	doi_url	relationship
+ARPC2-like	R20	metazoan_interaction	https://doi.org/10.1083/jcb.201701176	general_metazoan_mechanism
+Abl family	R06	schistosoma_pathway	https://doi.org/10.1074/jbc.M110.210336	family_level
+FAK	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	pathway_level
+FAK	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	pathway_level
+FAK	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+FAK	R21	metazoan_interaction	https://doi.org/10.1128/MCB.14.3.1680-1688.1994	general_metazoan_mechanism
+Fatty-acid-binding protein (FABP)-like	R12	schistosoma_family	https://doi.org/10.1073/pnas.93.1.269	family_level
+Fatty-acid-binding protein (FABP)-like	R13	schistosoma_family	https://doi.org/10.3390/vaccines13030316	family_level
+HSP70-like	R14	schistosoma_proteomics	https://doi.org/10.1016/j.ijpara.2015.03.004	family_level
+ILK	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	family_level
+ILK	R17	metazoan_mechanism	https://doi.org/10.1038/nrm1789	general_metazoan_mechanism
+ILK	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+ILK	R19	metazoan_interaction	https://doi.org/10.1242/jcs.155879	general_metazoan_mechanism
+Integrin α-like (Ig3 segment)	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	family_level
+MAPK-like	R07	schistosoma_pathway	https://doi.org/10.1371/journal.pntd.0002924	family_level
+Nck	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	family_level
+PINCH-like	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	family_level
+PINCH-like	R17	metazoan_mechanism	https://doi.org/10.1038/nrm1789	general_metazoan_mechanism
+PINCH-like	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+PINCH-like	R19	metazoan_interaction	https://doi.org/10.1242/jcs.155879	general_metazoan_mechanism
+PKC-like	R07	schistosoma_pathway	https://doi.org/10.1371/journal.pntd.0002924	family_level
+Parvin_like	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	pathway_level
+Parvin_like	R17	metazoan_mechanism	https://doi.org/10.1038/nrm1789	general_metazoan_mechanism
+Parvin_like	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+Parvin_like	R19	metazoan_interaction	https://doi.org/10.1242/jcs.155879	general_metazoan_mechanism
+Rho GTPase-like	R05	schistosoma_pathway	https://doi.org/10.1371/journal.pone.0006998	family_level
+SYK	R03	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1000769	family_level
+Src	R04	schistosoma_family	https://doi.org/10.1016/j.molbiopara.2004.07.010	family_level
+Src	R05	schistosoma_pathway	https://doi.org/10.1371/journal.pone.0006998	family_level
+Src	R06	schistosoma_pathway	https://doi.org/10.1074/jbc.M110.210336	family_level
+Src	R21	metazoan_interaction	https://doi.org/10.1128/MCB.14.3.1680-1688.1994	general_metazoan_mechanism
+Talin-like	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	pathway_level
+Talin-like	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	pathway_level
+Talin-like	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+Talin-like	R16	metazoan_mechanism	https://doi.org/10.1126/science.1162912	general_metazoan_mechanism
+Talin-like	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+actin	R17	metazoan_mechanism	https://doi.org/10.1038/nrm1789	general_metazoan_mechanism
+actin conventional	R17	metazoan_mechanism	https://doi.org/10.1038/nrm1789	general_metazoan_mechanism
+alpha actinin	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+calpain-like	R09	schistosoma_proteomics	https://doi.org/10.1074/jbc.M113.531558	family_level
+calpain-like	R11	schistosoma_direct_protein	https://doi.org/10.1038/s41598-017-13141-5	family_level
+calpain-like	R14	schistosoma_proteomics	https://doi.org/10.1016/j.ijpara.2015.03.004	family_level
+integrin alpha	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	family_level
+integrin alpha	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+integrin beta	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	family_level
+integrin beta	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	family_level
+integrin beta	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+integrin beta	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+kindlin	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	pathway_level
+kindlin	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	pathway_level
+kindlin	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+kindlin	R19	metazoan_interaction	https://doi.org/10.1242/jcs.155879	general_metazoan_mechanism
+kindlin	R20	metazoan_interaction	https://doi.org/10.1083/jcb.201701176	general_metazoan_mechanism
+paxillin-like	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+paxillin-like	R20	metazoan_interaction	https://doi.org/10.1083/jcb.201701176	general_metazoan_mechanism
+talin-like	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	pathway_level
+talin-like	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	pathway_level
+talin-like	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+talin-like	R16	metazoan_mechanism	https://doi.org/10.1126/science.1162912	general_metazoan_mechanism
+talin-like	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
+tetraspanin-like	R08	schistosoma_family	https://doi.org/10.1038/nm1430	family_level
+tetraspanin-like	R09	schistosoma_proteomics	https://doi.org/10.1074/jbc.M113.531558	family_level
+tetraspanin-like	R10	schistosoma_family	https://doi.org/10.1038/s41541-025-01301-y	family_level
+tetraspanin-like	R14	schistosoma_proteomics	https://doi.org/10.1016/j.ijpara.2015.03.004	family_level
+vinculin	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
+vinculin	R16	metazoan_mechanism	https://doi.org/10.1126/science.1162912	general_metazoan_mechanism
+zyxin ajuba-like	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism

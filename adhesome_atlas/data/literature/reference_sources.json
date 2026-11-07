@@ -1,0 +1,120 @@
+{
+  "version": "atlas-literature-1.0",
+  "verified_on": "2026-11-07",
+  "crosswalk_context": {
+    "R01": ["schistosoma_direct_protein", "PLOS ONE", "Integrin receptors and reproduction", "integrin_reproduction"],
+    "R02": ["schistosoma_pathway", "PLOS Pathogens", "Ovarian receptor signalling and cell survival", "integrin_vkr1"],
+    "R03": ["schistosoma_pathway", "PLOS Pathogens", "Gonadal development and gametogenesis", "gonadal_kinases"],
+    "R04": ["schistosoma_family", "Molecular and Biochemical Parasitology", "Gonadal kinase activity and cytoskeletal organization", "gonadal_kinases"],
+    "R05": ["schistosoma_pathway", "PLOS ONE", "Formin, Src and Rho cytoskeletal signalling", "src_rho_actin"],
+    "R06": ["schistosoma_pathway", "Journal of Biological Chemistry", "Hybrid kinase signalling in reproductive tissues", "gonadal_kinases"],
+    "R07": ["schistosoma_pathway", "PLOS Neglected Tropical Diseases", "Movement, attachment, pairing and egg release", "pkc_erk"],
+    "R08": ["schistosoma_family", "Nature Medicine", "Tegument accessibility and vaccine challenge", "tegument_antigens"],
+    "R09": ["schistosoma_proteomics", "Journal of Biological Chemistry", "Sm-TSP-2 EC2 structure and tegument microdomains", "tegument_antigens"],
+    "R10": ["schistosoma_family", "npj Vaccines", "Sm-TSP-2 mRNA vaccination in mice", "tegument_antigens"],
+    "R11": ["schistosoma_direct_protein", "Scientific Reports", "Tegumental protease activity and host fibronectin cleavage", "tegument_calpains"],
+    "R12": ["schistosoma_family", "Proceedings of the National Academy of Sciences", "Fatty-acid-binding antigen and preclinical immunization", "sm14_vaccination"],
+    "R13": ["schistosoma_family", "Vaccines", "Sm14 vaccine tolerability and immunogenicity", "sm14_vaccination"],
+    "R14": ["schistosoma_proteomics", "International Journal for Parasitology", "Schistosomulum tegumental proteome", "tegument_proteome"]
+  },
+  "verified_crosswalk_identifiers": {
+    "R01": ["10.1371/journal.pone.0052519", "23300694"],
+    "R02": ["10.1371/journal.ppat.1006147", "28114363"],
+    "R03": ["10.1371/journal.ppat.1000769", "20169182"],
+    "R04": ["10.1016/j.molbiopara.2004.07.010", "15555729"],
+    "R05": ["10.1371/journal.pone.0006998", "19746159"],
+    "R06": ["10.1074/jbc.M110.210336", "22013071"],
+    "R07": ["10.1371/journal.pntd.0002924", "24921927"],
+    "R08": ["10.1038/nm1430", "16783371"],
+    "R09": ["10.1074/jbc.M113.531558", "24429291"],
+    "R10": ["10.1038/s41541-025-01301-y", "41397983"],
+    "R11": ["10.1038/s41598-017-13141-5", "29018227"],
+    "R12": ["10.1073/pnas.93.1.269", "8552619"],
+    "R13": ["10.3390/vaccines13030316", "40266229"],
+    "R14": ["10.1016/j.ijpara.2015.03.004", "25910674"]
+  },
+  "pubmed_corrections": {"R10": "41397983"},
+  "published_loci": [
+    ["R01", "Sman__Smp_089700", "Smβ-Int1", "Smp_089700", "FR749886", "exact_protein_id"],
+    ["R01", "Sman__Smp_126140", "Smα-Int1", "Smp_126140", "FR749887", "exact_protein_id"],
+    ["R01", "Sman__Smp_170280", "Smα-Int2", "Smp_170280", "FR749888", "exact_protein_id"],
+    ["R02", "Sman__Smp_089700", "Smβ-Int1", "Smp_089700", "FR749886", "published_named_protein"],
+    ["R02", "Sman__Smp_079760", "SmILK", "Smp_079760", "", "exact_protein_id"],
+    ["R02", "Sman__Smp_020540", "SmPINCH", "Smp_020540.2", "", "published_named_protein"],
+    ["R02", "Sman__Smp_014850", "SmNck2", "Smp_014850", "", "exact_protein_id"],
+    ["R11", "Sman__Smp_214190", "SmCalp1 / Sm-p80", "Smp_214190", "", "exact_protein_id"],
+    ["R11", "Sman__Smp_137410", "SmCalp2", "Smp_137410", "", "exact_protein_id"]
+  ],
+  "additional_references": [
+    {
+      "reference_id": "R15", "authors": "Kanchanawong et al.", "year": 2010,
+      "title": "Nanoscale architecture of integrin-based cell adhesions", "journal": "Nature",
+      "doi": "10.1038/nature09621", "pmid": "21107430",
+      "study_species": ["Homo sapiens", "Mus musculus"], "studied_protein_or_family": "Integrin-associated focal adhesions",
+      "biological_process": "Layered adhesion organization", "experimental_methods": "Interferometric photoactivated localization microscopy",
+      "experimental_finding": "Mapped signalling, force-transduction and actin-regulatory strata in cultured mammalian cells.",
+      "evidence_origin": "metazoan_mechanism", "reference_type": "primary study",
+      "linked_pathways": ["layered_adhesion"], "families": ["integrin alpha", "integrin beta", "FAK", "paxillin-like", "talin", "vinculin", "alpha actinin", "zyxin ajuba-like", "Ena/VASP"]
+    },
+    {
+      "reference_id": "R16", "authors": "del Rio et al.", "year": 2009,
+      "title": "Stretching single talin rod molecules activates vinculin binding", "journal": "Science",
+      "doi": "10.1126/science.1162912", "pmid": "19179532",
+      "study_species": ["Mammalian proteins in a reconstituted assay"], "studied_protein_or_family": "Talin and vinculin",
+      "biological_process": "Force-sensitive recruitment", "experimental_methods": "Single-molecule stretching and fluorescence binding assay",
+      "experimental_finding": "Mechanical stretching of talin rod exposed binding sites and increased vinculin binding.",
+      "evidence_origin": "metazoan_mechanism", "reference_type": "primary study",
+      "linked_pathways": ["talin_vinculin_clutch"], "families": ["talin", "vinculin"]
+    },
+    {
+      "reference_id": "R17", "authors": "Legate et al.", "year": 2006,
+      "title": "ILK, PINCH and parvin: the tIPP of integrin signalling", "journal": "Nature Reviews Molecular Cell Biology",
+      "doi": "10.1038/nrm1789", "pmid": "16493410",
+      "study_species": ["Metazoan studies"], "studied_protein_or_family": "ILK, PINCH and parvin",
+      "biological_process": "Integrin-associated scaffold assembly", "experimental_methods": "Review of structural, cellular and genetic evidence",
+      "experimental_finding": "Synthesizes evidence for an ILK–PINCH–parvin scaffold coupling adhesion and cytoskeletal regulation.",
+      "evidence_origin": "metazoan_mechanism", "reference_type": "review",
+      "linked_pathways": ["kindlin_ipp"], "families": ["ILK", "PINCH-like", "Parvin_like", "actin", "actin conventional"]
+    },
+    {
+      "reference_id": "R18", "authors": "Zhu, Plow and Qin", "year": 2021,
+      "title": "Initiation of focal adhesion assembly by talin and kindlin: A dynamic view", "journal": "Protein Science",
+      "doi": "10.1002/pro.4014", "pmid": "33336515",
+      "study_species": ["Metazoan studies"], "studied_protein_or_family": "Integrin tails, talin and kindlin",
+      "biological_process": "Nascent adhesion assembly", "experimental_methods": "Review of structural and cell-biological evidence",
+      "experimental_finding": "Describes coordinated integrin-tail engagement by talin and kindlin and recruitment of downstream adhesion scaffolds.",
+      "evidence_origin": "metazoan_mechanism", "reference_type": "review",
+      "linked_pathways": ["kindlin_ipp", "talin_vinculin_clutch"], "families": ["integrin beta", "kindlin", "talin", "ILK", "PINCH-like", "Parvin_like"]
+    },
+    {
+      "reference_id": "R19", "authors": "Huet-Calderwood et al.", "year": 2014,
+      "title": "Differences in binding to the ILK complex determines kindlin isoform adhesion localization and integrin activation", "journal": "Journal of Cell Science",
+      "doi": "10.1242/jcs.155879", "pmid": "25086068",
+      "study_species": ["Mammalian cell and protein systems"], "studied_protein_or_family": "Kindlin-2 and the ILK–PINCH–parvin complex",
+      "biological_process": "Kindlin-associated IPP recruitment", "experimental_methods": "Protein binding, chimeras, mutagenesis and fibroblast rescue",
+      "experimental_finding": "The kindlin-2 F2 subdomain bound the IPP complex and supported adhesion targeting and integrin activation.",
+      "evidence_origin": "metazoan_interaction", "reference_type": "primary study",
+      "linked_pathways": ["kindlin_ipp"], "families": ["kindlin", "ILK", "PINCH-like", "Parvin_like"]
+    },
+    {
+      "reference_id": "R20", "authors": "Böttcher et al.", "year": 2017,
+      "title": "Kindlin-2 recruits paxillin and Arp2/3 to promote membrane protrusions during initial cell spreading", "journal": "Journal of Cell Biology",
+      "doi": "10.1083/jcb.201701176", "pmid": "28912124",
+      "study_species": ["Mammalian cell and protein systems"], "studied_protein_or_family": "Kindlin-2, paxillin and Arp2/3",
+      "biological_process": "Paxillin recruitment and actin assembly", "experimental_methods": "Cross-linking, calorimetry and cell spreading assays",
+      "experimental_finding": "Kindlin-2 bound paxillin and associated with Arp2/3 in a cell-spreading mechanism.",
+      "evidence_origin": "metazoan_interaction", "reference_type": "primary study",
+      "linked_pathways": ["layered_adhesion", "actin_regulation"], "families": ["kindlin", "paxillin-like", "ARPC2-like"]
+    },
+    {
+      "reference_id": "R21", "authors": "Schaller et al.", "year": 1994,
+      "title": "Autophosphorylation of the focal adhesion kinase, pp125FAK, directs SH2-dependent binding of pp60src", "journal": "Molecular and Cellular Biology",
+      "doi": "10.1128/MCB.14.3.1680-1688.1994", "pmid": "7509446",
+      "study_species": ["Vertebrate cell and protein systems"], "studied_protein_or_family": "FAK and Src",
+      "biological_process": "Receptor-proximal kinase coupling", "experimental_methods": "Mutagenesis and kinase-complex association assays",
+      "experimental_finding": "FAK Tyr397 autophosphorylation supported Src SH2-dependent association in the tested system.",
+      "evidence_origin": "metazoan_interaction", "reference_type": "primary study",
+      "linked_pathways": ["fak_src"], "families": ["FAK", "Src"]
+    }
+  ]
+}

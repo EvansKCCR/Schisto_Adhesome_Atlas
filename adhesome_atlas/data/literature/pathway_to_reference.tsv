@@ -1,0 +1,24 @@
+pathway_id	reference_id	evidence_origin	biological_process	doi_url
+integrin_reproduction	R01	schistosoma_direct_protein	Integrin receptors and reproduction	https://doi.org/10.1371/journal.pone.0052519
+integrin_vkr1	R02	schistosoma_pathway	Ovarian receptor signalling and cell survival	https://doi.org/10.1371/journal.ppat.1006147
+gonadal_kinases	R03	schistosoma_pathway	Gonadal development and gametogenesis	https://doi.org/10.1371/journal.ppat.1000769
+gonadal_kinases	R04	schistosoma_family	Gonadal kinase activity and cytoskeletal organization	https://doi.org/10.1016/j.molbiopara.2004.07.010
+src_rho_actin	R05	schistosoma_pathway	Formin, Src and Rho cytoskeletal signalling	https://doi.org/10.1371/journal.pone.0006998
+gonadal_kinases	R06	schistosoma_pathway	Hybrid kinase signalling in reproductive tissues	https://doi.org/10.1074/jbc.M110.210336
+pkc_erk	R07	schistosoma_pathway	Movement, attachment, pairing and egg release	https://doi.org/10.1371/journal.pntd.0002924
+tegument_antigens	R08	schistosoma_family	Tegument accessibility and vaccine challenge	https://doi.org/10.1038/nm1430
+tegument_antigens	R09	schistosoma_proteomics	Sm-TSP-2 EC2 structure and tegument microdomains	https://doi.org/10.1074/jbc.M113.531558
+tegument_antigens	R10	schistosoma_family	Sm-TSP-2 mRNA vaccination in mice	https://doi.org/10.1038/s41541-025-01301-y
+tegument_calpains	R11	schistosoma_direct_protein	Tegumental protease activity and host fibronectin cleavage	https://doi.org/10.1038/s41598-017-13141-5
+sm14_vaccination	R12	schistosoma_family	Fatty-acid-binding antigen and preclinical immunization	https://doi.org/10.1073/pnas.93.1.269
+sm14_vaccination	R13	schistosoma_family	Sm14 vaccine tolerability and immunogenicity	https://doi.org/10.3390/vaccines13030316
+tegument_proteome	R14	schistosoma_proteomics	Schistosomulum tegumental proteome	https://doi.org/10.1016/j.ijpara.2015.03.004
+layered_adhesion	R15	metazoan_mechanism	Layered adhesion organization	https://doi.org/10.1038/nature09621
+talin_vinculin_clutch	R16	metazoan_mechanism	Force-sensitive recruitment	https://doi.org/10.1126/science.1162912
+kindlin_ipp	R17	metazoan_mechanism	Integrin-associated scaffold assembly	https://doi.org/10.1038/nrm1789
+kindlin_ipp	R18	metazoan_mechanism	Nascent adhesion assembly	https://doi.org/10.1002/pro.4014
+talin_vinculin_clutch	R18	metazoan_mechanism	Nascent adhesion assembly	https://doi.org/10.1002/pro.4014
+kindlin_ipp	R19	metazoan_interaction	Kindlin-associated IPP recruitment	https://doi.org/10.1242/jcs.155879
+layered_adhesion	R20	metazoan_interaction	Paxillin recruitment and actin assembly	https://doi.org/10.1083/jcb.201701176
+actin_regulation	R20	metazoan_interaction	Paxillin recruitment and actin assembly	https://doi.org/10.1083/jcb.201701176
+fak_src	R21	metazoan_interaction	Receptor-proximal kinase coupling	https://doi.org/10.1128/MCB.14.3.1680-1688.1994

@@ -1,0 +1,55 @@
+{
+  "atlas_build_version": "atlas-data-6",
+  "registry_version": "atlas-literature-1.0",
+  "simulator_config_version": "adhesion-lattice-4.0",
+  "protein_id_mapping_date": "2026-11-07",
+  "candidate_sheet": "Audited_family_assignment",
+  "literature_sheets": [
+    "Schistosoma_studies",
+    "Library_ID_crosswalk",
+    "Supported_family_index"
+  ],
+  "unique_proteins": 4359,
+  "source_reference_count": 14,
+  "source_mapping_count": 27,
+  "source_family_count": 19,
+  "doi_verification": {
+    "R01": "bibliography_verified",
+    "R02": "bibliography_verified",
+    "R03": "bibliography_verified",
+    "R04": "bibliography_verified",
+    "R05": "bibliography_verified",
+    "R06": "bibliography_verified",
+    "R07": "bibliography_verified",
+    "R08": "bibliography_verified",
+    "R09": "bibliography_verified",
+    "R10": "bibliography_verified",
+    "R11": "bibliography_verified",
+    "R12": "bibliography_verified",
+    "R13": "bibliography_verified",
+    "R14": "bibliography_verified",
+    "R15": "bibliography_verified",
+    "R16": "bibliography_verified",
+    "R17": "bibliography_verified",
+    "R18": "bibliography_verified",
+    "R19": "bibliography_verified",
+    "R20": "bibliography_verified",
+    "R21": "bibliography_verified"
+  },
+  "support_counts": {
+    "unresolved": 1885,
+    "broad supported": 1337,
+    "specific supported": 1123,
+    "ambiguous": 13,
+    "provisional": 1
+  },
+  "inputs": {
+    "files/adhesome_candidates_list.xlsx": "ab1add5c2e15ae6c73f6e6f5bb833daef16b6da36caa458218356f0c6497ed44",
+    "files/Schisto_adhesome_focused_literature_crosswalk.xlsx": "dd20788edf1fe3435b23a2362cf01b053c1b5d287f7c5e0444570a39a58b35d5",
+    "data/literature/reference_sources.json": "a968aaacc1d4d2f8d4a6859658fc6275dcd4c2c0545fbf39f76a4ce9f5ed0cd9",
+    "data/literature/simulator_mechanisms.json": "7262167e991ddf8b3716e9a9980fc9f70f9cc7ad6c518e583112fe849721db7c",
+    "adhesome_network/interactions.csv": "fd3314c05035ca6c48cd3c9508f12a52d5d8c54bc66aed37bde07a7cb42db000",
+    "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "d5c47aa4d77f326f965118d6b271327c1e146d5678ec91cd9a8d70dd57bc8757",
+    "Target_prioritization.md": "71862ac89b7bf52e21c7d924da59c08e2bf8e6afaffa6c3df0f682b368af471e"
+  }
+}
