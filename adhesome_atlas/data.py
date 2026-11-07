@@ -5,13 +5,15 @@ import re
 import pandas as pd
 from library_refresh import DERIVED_FILES,module_annotations,refresh_derived
 ROOT=Path(__file__).resolve().parent
-SCHEMA_VERSION='atlas-data-5'
+SCHEMA_VERSION='atlas-data-6'
+CANDIDATE_FILE='files/adhesome_candidates_list.xlsx'
+CANDIDATE_SHEET='Audited_family_assignment'
 SPECIES={'Sbovis':'Schistosoma bovis','Scura':'Schistosoma curassoni','Shae':'Schistosoma haematobium','Sinter':'Schistosoma intercalatum','Sjap':'Schistosoma japonicum','Sman':'Schistosoma mansoni','Srhoda':'Schistosoma rodhaini'}
 
 AUDIT_COLUMNS=['sequence_id','species','family','protein_name','grade','assignment_confidence',
     'family_support_level','annotation_resolution','family_decision','identity_rule',
     'identity_competitors','alternative_family_hypotheses','equally_ranked_hypotheses',
-    'stage1_family_hypothesis']
+    'stage1_family_hypothesis','annotation_notes']
 
 
 def normalize_audit_columns(frame):
@@ -62,6 +64,8 @@ def source_files():
     folders=['files','family_specific_candidate_fasta','resource_library','adhesome_network','orthology','Phylogeny','family_phylogeny']
     library=[p for folder in folders for p in (ROOT/folder).rglob('*') if p.is_file() and not p.name.startswith('~$') and p.suffix.lower() not in {'.pyc','.tmp'}]
     documents=[p for p in ROOT.iterdir() if p.is_file() and p.suffix.lower() in {'.md','.jpeg','.png','.pptx','.html'}]
+    documents.extend(p for p in (ROOT/'data/literature').glob('*.json')
+                     if p.name in {'reference_sources.json','simulator_mechanisms.json'})
     return sorted(library+documents)
 
 def fingerprint(root=None):
@@ -74,7 +78,7 @@ def fingerprint(root=None):
         try:stat=path.stat()
         except FileNotFoundError:continue  # An atomic save may temporarily replace a file.
         name=path.relative_to(base).as_posix();digest=''
-        if name in {'files/adhesome_candidates_list.xlsx','files/adhesome_unassigned_Pfam_CDD_classification.xlsx','Target_prioritization.md'}:
+        if name in {CANDIDATE_FILE,'files/Schisto_adhesome_focused_literature_crosswalk.xlsx','Target_prioritization.md'}:
             try:digest=hashlib.sha256(path.read_bytes()).hexdigest()
             except OSError:digest='pending-save'  # The loader's retry state handles locked files.
         signature.append((name,stat.st_mtime_ns,stat.st_size,digest))
@@ -87,29 +91,44 @@ def fasta(path):
         elif key: records[key]+=line.strip()
     return records
 
-def load():
-    books={p.relative_to(ROOT).as_posix():pd.read_excel(p,sheet_name=None) for p in (ROOT/'files').glob('*.xlsx') if not p.name.startswith('~$')}
-    df=normalize_audit_columns(books['files/adhesome_candidates_list.xlsx']['Audited_family_assignment'])
+def adapt_candidate_library(frame, root=ROOT):
+    """Adapt the audited workbook to existing Atlas field names."""
+    from functional_categories import assign_modules, support_state
+
+    df=normalize_audit_columns(frame)
+    family_column=next((name for name in ('putative_audited_family_new','putative_audited_family') if name in df),None)
+    if family_column is None:
+        raise ValueError('The candidate sheet needs an audited family column.')
+    if df.protein_id.isna().any() or df.protein_id.astype(str).str.strip().eq('').any():
+        raise ValueError('The candidate sheet contains an empty protein ID.')
     df['sequence_id']=df.protein_id.astype(str)
     df['species']=df.Specie
-    df['family']=df.putative_audited_family.fillna('Unassigned')
+    df['family']=df[family_column].fillna('Unassigned')
     df['reviewed_family']=df.family
     df['catalogue_family']=df.family
     df['candidate_annotation']=df.protein_name.fillna(df.family)
-    df['audit_classification']=df.grade.map({'A':'Supported','B':'Supported','C':'Provisional','D':'Unassigned'}).fillna('Unassigned')
-    df['status']=df.family_support_level.fillna(df.family_decision)
+    df['display_annotation']=df.candidate_annotation
+    df['support_category']=support_state(df)
+    df['audit_classification']=df.support_category.map({
+        'specific supported':'Supported','broad supported':'Supported',
+        'ambiguous':'Ambiguous','provisional':'Provisional','unresolved':'Unassigned',
+    })
+    df['status']=df.support_category
     df['architecture']=df.Pfam_architecture
     df['orthogroup']=df.Orthology_Orthogroup.fillna('')
     df['orthology_scope']=df.Orthology_HOG_status.fillna('Not recorded')
-    df['source']='files/adhesome_candidates_list.xlsx / Audited_family_assignment'
+    df['source']=CANDIDATE_FILE+' / '+CANDIDATE_SHEET
     df['family_assignment_basis']=df.family_decision
     df['assignment_interpretation']=df.protein_name.fillna(df.family)
-    from functional_categories import assign_modules
-    df['module']=assign_modules(df,module_annotations(ROOT,df.family))
+    df['module']=assign_modules(df,module_annotations(root,df.family))
     df['module_basis']='Supported family functional category; localization predictions retained independently'
     df.loc[df.module.eq('Unassigned/unresolved'),'module_basis']='No supported family-category assignment'
-    from reclassification import FILE as RECLASS_FILE,SHEET as RECLASS_SHEET,reconcile
-    df=reconcile(df,books.get(RECLASS_FILE,{}).get(RECLASS_SHEET))
+    return df
+
+
+def load():
+    books={p.relative_to(ROOT).as_posix():pd.read_excel(p,sheet_name=None) for p in (ROOT/'files').glob('*.xlsx') if not p.name.startswith('~$')}
+    df=adapt_candidate_library(books[CANDIDATE_FILE][CANDIDATE_SHEET])
     motifs=books['files/Motif_annotations.xlsx']['Motif_annotations'].copy()
     motifs['motif_id']=motifs.motif_function
     motifs['motif_name']=motifs.motif_function

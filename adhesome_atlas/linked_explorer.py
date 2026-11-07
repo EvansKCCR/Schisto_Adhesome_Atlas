@@ -12,17 +12,18 @@ NODE_SCENARIOS = {
     'intb': {'controls': {'integrinAvailability':.2}, 'stage':'Receptor availability', 'note':'Reduced availability of the putative αβ receptor lowers initialization of local integrin roots; the matrix uses its β-tail interface.'},
     'integrin_ab': {'controls': {'integrinAvailability':.2}, 'stage':'Receptor availability', 'note':'Reduced αβ receptor availability lowers ligand-anchored matrix initialization.'},
     'talin': {'controls': {'talinAvailability':.15}, 'stage':'I–T recruitment', 'note':'Reduced talin availability lowers topology-driven I–T recruitment and subsequent T–V assembly.'},
-    'kindlin': {'controls': {'integrinAvailability':.5}, 'stage':'Integrin activation proxy', 'note':'Kindlin is represented through receptor availability; it is not an extra component of the I–T–V matrix.'},
+    'kindlin': {'controls': {'kindlinProbability':.15}, 'stage':'Kindlin occupancy', 'note':'Lower kindlin recruitment reduces the sites available for IPP assembly.', 'mechanism':'M08'},
     'vinculin': {'controls': {'vinculinAvailability':.15}, 'stage':'Force-dependent T–V recruitment', 'note':'Reduced vinculin availability lowers T–V recruitment despite talin exposure.'},
     'actinin': {'controls': {'feedback':.02}, 'stage':'Actin force transfer', 'note':'Reduced force feedback is an α-actinin-associated cytoskeletal coupling proxy.'},
     'filamin': {'controls': {'feedback':.02}, 'stage':'Actin force transfer', 'note':'Reduced force feedback is a filamin-associated cytoskeletal coupling proxy.'},
     'actin': {'controls': {'feedback':.02,'actinProbability':.1}, 'stage':'Actin attachment and feedback', 'note':'Reduced actin attachment and force feedback interrupt the assembly–tension loop.'},
-    'ilk': {'controls': {'bridgeGate':.15}, 'stage':'ILK–PINCH–Nck2 projection', 'note':'The bridge gate reduces downstream coupling from assembled sites. The I–T–V structural matrices remain governed by their own parameters.'},
-    'pinch': {'controls': {'bridgeGate':.15}, 'stage':'ILK–PINCH–Nck2 projection', 'note':'The bridge gate tests reduced coupling through the ILK–PINCH–Nck2 module.'},
+    'ilk': {'controls': {'ilkProbability':.15}, 'stage':'Shared ILK recruitment', 'note':'Lower ILK recruitment affects both IPP and the schistosome bridge.', 'mechanism':'M09'},
+    'pinch': {'controls': {'pinchProbability':.15}, 'stage':'Shared PINCH recruitment', 'note':'Lower PINCH recruitment affects both IPP and the schistosome bridge.', 'mechanism':'M09'},
+    'parvin': {'controls': {'parvinProbability':.15}, 'stage':'Parvin recruitment', 'note':'Lower parvin recruitment reduces IPP assembly and its actin linkage.', 'mechanism':'M10'},
     'nck': {'controls': {'bridgeGate':.15}, 'stage':'ILK–PINCH–Nck2 projection', 'note':'The bridge gate tests reduced coupling through the ILK–PINCH–Nck2 module to VKR1.'},
     'fak': {'controls': {'fakGate':.15}, 'stage':'FAK/Src mechanosensing', 'note':'Reduced FAK/Src coupling lowers the force-dependent receptor-signalling projection and its growth/migration outputs.'},
     'src': {'controls': {'fakGate':.15}, 'stage':'FAK/Src mechanosensing', 'note':'Reduced FAK/Src coupling lowers the force-dependent receptor-signalling projection and its growth/migration outputs.'},
-    'paxillin': {'controls': {'migrationGate':.15}, 'stage':'Migration and traction', 'note':'Reduced paxillin-associated migration coupling lowers the protrusion and traction projections.'},
+    'paxillin': {'controls': {'paxillinProbability':.15,'migrationGate':.15}, 'stage':'Paxillin recruitment and migration', 'note':'Paxillin recruitment and the migration gate change together in this perturbation.', 'mechanism':'M15'},
     'ptppest': {'controls': {'migrationGate':.15}, 'stage':'Adhesion turnover projection', 'note':'The migration gate probes PTP-PEST-associated turnover coupling as a functional projection.'},
     'grb2': {'controls': {'growthGate':.15}, 'stage':'Growth and survival', 'note':'Reduced adaptor coupling lowers ERK/Akt/survival projections; these are module readouts rather than fitted growth rates.'},
     'shc': {'controls': {'growthGate':.15}, 'stage':'Growth and survival', 'note':'Reduced Shc-associated adaptor coupling lowers growth and survival projections.'},
@@ -47,8 +48,11 @@ for family,node in {'actin_conventional':'actin','zyxin_ajuba_like':'zyxin','SmV
 
 # Explicit recovered-family labels reuse the existing conceptual family proxy.
 # Broad FERM/CH/SH3 classes and orthogroup-only hints acquire no mechanism alias.
-for family,node in {'Talin-like':'talin','Filamin-like':'filamin','α-actinin-like':'actinin',
-                    'GRB2-like adaptor':'grb2'}.items():
+for family,node in {'Talin-like':'talin','talin-like':'talin','Filamin-like':'filamin','α-actinin-like':'actinin',
+                    'GRB2-like adaptor':'grb2','integrin alpha':'inta','integrin beta':'intb',
+                    'PINCH-like':'pinch','Parvin_like':'parvin','paxillin-like':'paxillin',
+                    'alpha actinin':'actinin','actin conventional':'actin','zyxin ajuba-like':'zyxin',
+                    'collagen-like':'collagen','laminin-like':'laminin','Laminin-like':'laminin'}.items():
     NODE_SCENARIOS[family]=NODE_SCENARIOS[node]
 
 _MAP_BRIDGE = r'''
@@ -104,13 +108,14 @@ _SIMULATOR_BRIDGE = r'''
 const atlasNodeScenarios=__SCENARIOS__;
 function candidateScenario(value){
  const origin=atlasNodeScenarios[value.node]||{controls:{},module:'mechanics',stage:'Family context',note:'No family-specific perturbation is present in the current library. The structural baseline is displayed.'};
- let originControls={...origin.controls},notes=[];const nodes=new Set(value.highlighted_path?.nodes||[]),pathControls={};
+ let originControls={...origin.controls},notes=[];const normalize=name=>name.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+ const nodes=new Set((value.highlighted_path?.nodes||[]).map(normalize)),pathControls={};
  const usePath=value.path_enabled!==false&&value.highlighted_path;
  if(usePath){
-  const hasAny=names=>names.some(name=>nodes.has(name));
-  const rules=[['fakGate',['FAK','Src'],'all'],['bridgeGate',['ILK','PINCH_like','Nck'],'all'],['migrationGate',['FAK','Src','paxillin_like','PTP_PEST'],'any'],['growthGate',['Shc','Grb2','AKT_like','MAPK_like'],'any'],['cytoskeletonGate',['actin','actin_conventional','talin','vinculin','alpha_actinin','filamin','cofilin','profilin','zyxin_like','zyxin_ajuba_like'],'any']];
-  for(const [key,required,mode] of rules){const available=!value.highlighted_path.unreachable&&(mode==='all'?required.every(name=>nodes.has(name)):hasAny(required));pathControls[key]=available?1:0;notes.push(key+' = '+pathControls[key]+' ('+required.join(mode==='all'?' + ':' / ')+')')}
-  pathControls.vkrGate=!value.highlighted_path.unreachable&&nodes.has('SmVKR1')&&['Schistosoma mansoni','S. mansoni','all','pan',''].includes(value.species||'')?1:0;
+  const has=name=>nodes.has(normalize(name));
+  const rules=[['fakGate',['FAK','Src'],'all'],['bridgeGate',['ILK','PINCH-like','Nck'],'all'],['migrationGate',['FAK','Src','paxillin-like','PTP_PEST'],'any'],['growthGate',['Shc','Grb2','AKT_like','MAPK_like'],'any'],['cytoskeletonGate',['actin','actin conventional','Talin-like','vinculin','alpha actinin','Filamin-like','cofilin','profilin','zyxin ajuba-like','Parvin_like'],'any']];
+  for(const [key,required,mode] of rules){const available=!value.highlighted_path.unreachable&&(mode==='all'?required.every(has):required.some(has));pathControls[key]=available?1:0;notes.push(key+' = '+pathControls[key]+' ('+required.join(mode==='all'?' + ':' / ')+')')}
+  pathControls.vkrGate=!value.highlighted_path.unreachable&&has('SmVKR1')&&['Schistosoma mansoni','S. mansoni','all','pan',''].includes(value.species||'')?1:0;
  }
  const controls={...pathControls};for(const [key,weight] of Object.entries(originControls))controls[key]=Object.hasOwn(pathControls,key)?Math.min(pathControls[key],weight):weight;
  return {...origin,controls,path_controls:pathControls,path_rule:usePath?'Highlighted families select downstream projection gates; I–T–V structural assembly retains its model.':'Family mechanism only; highlighted path retained as context.',path_notes:notes,
@@ -128,7 +133,16 @@ render=function(){atlasSimulationRender();atlasRenderSimulationPath()};
 window.addEventListener('message',event=>{
  if(event.source!==window.parent||!event.data)return;
  if(event.data.type==='schisto-adhesome-visible'){resize();return}
- if(event.data.type==='schisto-adhesome-scenario')applyMapSelection(event.data,candidateScenario(event.data));
+ if(event.data.type==='schisto-adhesome-scenario'){
+  const mapping=candidateScenario(event.data);
+  applyMapSelection(event.data,mapping);
+  if(mapping.mechanism){
+   $('mechanismProtein').value='';
+   inspectMechanism();
+   $('mechanismRule').value=mapping.mechanism;
+   inspectMechanism();
+  }
+ }
 });
 window.parent.postMessage({type:'schisto-simulator-ready'},'*');
 </script>

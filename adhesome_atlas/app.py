@@ -25,17 +25,25 @@ from candidate_profiles import profile_payload,candidate_map_html,atlas_url
 from research_priorities import apply_target_route,research_priorities_panel
 from library_refresh import refresh_family_html
 from source_watch import reconcile_selections,watch_sources
-from reclassification import FILE as RECLASS_FILE,SHEET as RECLASS_SHEET,MAP_LABEL,classification_view
-from reclassification_view import reclassification_panel,map_url
 from functional_categories_view import functional_category_panel
 from navigation import PAGES,HYPOTHESIS_PAGE,hypothesis_url
+from literature import CROSSWALK,build_registry
+from literature_view import evidence_panel,registry_panel,interaction_panel
 apply_style()
 
 @st.cache_data(show_spinner='Reading current annotation library…',max_entries=3)
 def cached_data(signature,schema_version):return load()
+
+
+@st.cache_data(show_spinner=False,max_entries=3)
+def cached_literature(signature,_candidates,_sheets):
+    return build_registry(ROOT,_candidates,_sheets)
+
+
 loaded_signature=fingerprint()
 try:
     cohorts,books,motifs,sequences,memberships,raw,topologies,conflicts=cached_data(loaded_signature,SCHEMA_VERSION)
+    literature=cached_literature(loaded_signature,cohorts['Adhesome candidates'],books.get(CROSSWALK))
 except (OSError,ValueError,KeyError,BadZipFile) as error:
     st.warning('Waiting for a complete, readable source library: '+str(error))
     retry_at=st.session_state.setdefault('atlas_source_retry_at',time.monotonic()+30)
@@ -56,8 +64,8 @@ apply_target_route(all_candidates,st.query_params,st.session_state)
 app_url=st.context.url or ''
 
 @st.cache_data(show_spinner='Connecting candidate evidence profiles…',max_entries=3)
-def cached_profiles(signature,_candidates,_books,_motifs):
-    return profile_payload(_candidates,_books,_motifs)
+def cached_profiles(signature,_candidates,_books,_motifs,_literature):
+    return profile_payload(_candidates,_books,_motifs,literature=_literature)
 
 
 def table(frame):
@@ -98,7 +106,7 @@ with st.sidebar:
     st.session_state.setdefault('catalogue_species',species_options)
     species=st.multiselect('Species',species_options,key='catalogue_species')
     families=st.multiselect('Protein families',sorted(all_candidates.family.unique()),key='catalogue_families')
-    classification=st.selectbox('Classification',['All','Supported','Provisional','Unassigned'],key='catalogue_classification')
+    classification=st.selectbox('Classification',['All','Supported','Specific supported','Broad supported','Ambiguous','Provisional','Unassigned'],key='catalogue_classification')
     query=st.text_input('Search annotations',key='catalogue_query')
     figure_download_settings()
     auto_refresh=st.toggle('Automatically update inventory',value=True,key='atlas_auto_refresh',
@@ -109,7 +117,9 @@ with st.sidebar:
     st.caption(f'{len(all_candidates):,} assignment records · {all_candidates.sequence_id.nunique():,} proteins · {all_candidates.species.nunique()} species · {all_candidates.family.nunique()} family labels')
 selected=all_candidates[all_candidates.species.isin(species)].copy()
 if families:selected=selected[selected.family.isin(families)]
-if classification!='All':selected=selected[selected.audit_classification.eq(classification)]
+if classification in {'Specific supported','Broad supported'}:
+    selected=selected[selected.support_category.eq(classification.lower())]
+elif classification!='All':selected=selected[selected.audit_classification.eq(classification)]
 if query:selected=selected[selected.fillna('').astype(str).apply(lambda s:s.str.contains(query,case=False,regex=False)).any(axis=1)]
 
 if page=='Introduction':
@@ -126,7 +136,7 @@ if page=='Introduction':
             else:st.info('To be updated when additional information is available.')
     @st.fragment
     def research_entry():
-        research_priorities_panel(all_candidates,app_url,ROOT/'Target_prioritization.md')
+        research_priorities_panel(all_candidates,app_url,ROOT/'Target_prioritization.md',literature)
     research_entry()
 
 elif page==HYPOTHESIS_PAGE:
@@ -139,18 +149,14 @@ elif page==HYPOTHESIS_PAGE:
             format_func=lambda key:'Browse families and candidate profiles' if not key else key+' · '+labels[key])
     st.markdown('<span id="hypothesis-workspace"></span>',unsafe_allow_html=True)
     network_dir=ROOT/'adhesome_network'
-    basis=st.selectbox('Hypothesis map grouping',['Catalogue families',MAP_LABEL],key='atlas_map_basis',
-        help='The Pfam–CDD view groups recovered family and domain hypotheses by their classification. Original catalogue grades/support remain explicit; domain classes do not create reference interactions.')
-    map_candidates=classification_view(all_candidates) if basis==MAP_LABEL else all_candidates
-    if basis==MAP_LABEL:st.caption('Pfam–CDD A/B/C classes provide browsing groups and functional context. Their evidence tiers are separate from catalogue grades. Reference edges still use supported catalogue identities in shared species.')
     path=next((network_dir/name for name in ['Schistosome_adhesome_interactive.html','Schistosome_adhesome_rebuilt.html'] if (network_dir/name).exists()),None)
     if path:
-        html=refresh_family_html(path.read_text(encoding='utf-8'),map_candidates,ROOT).replace('previously supplied model','adhesome model in the library')
-        profiles=cached_profiles((fingerprint(),SCHEMA_VERSION,basis),map_candidates,books,motifs)
+        html=refresh_family_html(path.read_text(encoding='utf-8'),all_candidates,ROOT,literature)
+        profiles=cached_profiles((loaded_signature,SCHEMA_VERSION),all_candidates,books,motifs,literature)
         html=candidate_map_html(html,profiles,app_url=app_url,focus_candidate=focus)
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')
         sim=ROOT/SIMULATOR_FILE
-        if sim.exists():html=linked_explorer_html(html,simulator_html(sim,all_candidates))
+        if sim.exists():html=linked_explorer_html(html,simulator_html(sim,all_candidates,literature))
         st.iframe(html,height=980)
         st.download_button('Download interactive map and linked simulator',html,'Schisto_Adhesome_interactive.html','text/html')
         st.caption('Click any node to explore its linked candidates, then simulate the selected candidate and highlighted path. The profile remains visible beside the simulation; the search box is optional. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
@@ -164,15 +170,17 @@ elif page=='Components':
     requested_family=st.query_params.get('family','')
     if requested_view=='Components' and requested_family and requested_family not in set(all_candidates.family):
         st.info('The requested family is unavailable in the current catalogue: '+requested_family)
-    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Supported families by functional category','Pfam–CDD family reclassification','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization'],key='component_section')
-    if view=='Pfam–CDD family reclassification':reclassification_panel(selected,books.get(RECLASS_FILE,{}).get(RECLASS_SHEET),app_url,library_candidates=all_candidates)
-    elif view=='Supported families by functional category':functional_category_panel(selected)
+    view=st.selectbox('Component section',['Summary statistics','Summary graphs','Supported families by functional category','Candidate catalogue','Family assignment audit','Comparative lab','Candidate prioritization','Family literature evidence'],key='component_section')
+    if view=='Supported families by functional category':functional_category_panel(selected)
+    elif view=='Family literature evidence':
+        available=sorted(set(selected.family))
+        if available:
+            family=st.selectbox('Explore literature by family',available)
+            evidence_panel(literature,family)
     elif view in ['Summary statistics','Summary graphs','Comparative lab']:
         counts=selected.groupby(['species','family']).sequence_id.nunique().reset_index(name='Proteins')
         if view=='Summary statistics':
-            table(selected.groupby(['species','grade','assignment_confidence']).size().reset_index(name='Candidates'))
-            counts=selected.drop_duplicates('sequence_id').reclassification_tier.value_counts()
-            st.caption('Local Pfam–CDD reclassification: '+', '.join(t+' = '+str(int(counts.get(t,0))) for t in ['A','B','C','D'])+'. Explore family hypotheses and complete evidence in the Pfam–CDD family reclassification section.')
+            table(selected.groupby(['species','support_category','grade','assignment_confidence']).sequence_id.nunique().reset_index(name='Candidates'))
         elif view=='Summary graphs':
             if len(counts):plotly_chart(px.bar(counts,x='family',y='Proteins',color='species'),width='stretch')
             if len(selected):plotly_chart(px.treemap(selected.groupby(['module','family']).size().reset_index(name='Proteins'),path=['module','family'],values='Proteins',color='module'),width='stretch')
@@ -182,14 +190,14 @@ elif page=='Components':
             download(matrix.reset_index(),'family_species_counts.csv')
     elif view=='Candidate prioritization':
         st.write('Rank candidates using the current audited evidence scores. Orthology benchmark weights and family confidence are retained. Scores are separate from reference-network centrality; domain architecture, topology and motif context remain explicit supporting evidence.')
-        metric=st.selectbox('Rank by',['total_score_0_10','domain_score_0_4','orthology_score_0_3','motif_score_0_2','localization_score_0_1','Local Pfam–CDD priority / tier'])
-        if metric=='Local Pfam–CDD priority / tier':
-            from reclassification import priority_order
-            ranked=priority_order(selected)
-            st.caption('Unique proteins ordered by the reported P1–P4 priority, then Pfam–CDD evidence tier. Catalogue scores remain available as separate columns.')
-        else:ranked=selected.sort_values(metric,ascending=False).reset_index(drop=True)
+        metrics=['total_score_0_10','domain_score_0_4','orthology_score_0_3','orthology_raw_score_0_3','motif_score_0_2','localization_score_0_1']
+        metric=st.selectbox('Rank by',[name for name in metrics if name in selected])
+        ranked=selected.sort_values(metric,ascending=False).reset_index(drop=True)
         ranked.insert(0,'rank',range(1,len(ranked)+1))
         table(ranked);download(ranked,'candidate_prioritization.csv')
+        if len(ranked):
+            chosen=st.selectbox('Literature for a ranked candidate',ranked.sequence_id.unique())
+            evidence_panel(literature,ranked.loc[ranked.sequence_id.eq(chosen),'family'].iloc[0],chosen)
     elif view=='Family assignment audit':
         audit,missing=family_audit_table(selected)
         if missing:st.caption('No additional information present in the current library for: '+', '.join(missing)+'.')
@@ -199,8 +207,9 @@ elif page=='Components':
 elif page=='Interactions':
     st.header('Interactions')
     st.caption('Choose a network workspace, then select the visualization, centrality, clustering or evidence section. Each section uses the full page width.')
-    workspace=st.selectbox('Network workspace',['Curated orthogroup consensus','STRING query & import'])
-    if workspace=='Curated orthogroup consensus':consensus_panel(all_candidates)
+    workspace=st.selectbox('Network workspace',['Curated orthogroup consensus','STRING query & import','Literature & mechanism evidence'])
+    if workspace=='Curated orthogroup consensus':consensus_panel(all_candidates,literature)
+    elif workspace=='Literature & mechanism evidence':interaction_panel(literature)
     else:string_panel(all_candidates,sequences)
 
 elif page=='Orthology':orthology_panel(all_candidates)
@@ -222,16 +231,9 @@ elif page=='Protein dossier':
         records=dossier_pool[dossier_pool.sequence_id.eq(protein)];row=records.iloc[0]
         st.link_button('Locate this candidate on the interactive hypothesis ↗',hypothesis_url(app_url,protein))
         st.subheader(row.display_annotation);st.caption(protein+' · '+row.species+' · catalogue family: '+row.family+' · catalogue grade '+row.grade)
-        if row.reclassification_tier:
-            st.write('**Local Pfam–CDD:** '+row.reclassification_family+' · '+row.reclassification_evidence_tier)
-            st.write(row.reclassification_rationale)
-            st.caption('Reclassification alignment: '+row.reclassification_alignment+'. Pfam–CDD evidence tier and catalogue grade are independent.')
-            st.link_button('Locate the Pfam–CDD family/class on the map ↗',map_url(app_url,protein))
-        tabs=st.tabs(['Overview','Domains','Motif','Topology','Orthology','Sequence & SMART'])
+        tabs=st.tabs(['Overview','Domains','Motif','Topology','Orthology','Sequence & SMART','Literature and biological evidence'])
         with tabs[0]:table(records.T.reset_index().rename(columns={'index':'Field',records.index[0]:'Value'}))
         with tabs[1]:
-            if row.reclassification_tier:
-                table(records[['reclassification_family','reclassification_evidence_tier','reclassification_pfam','reclassification_cdd','reclassification_rationale','reclassification_orthogroup_context','reclassification_alignment']])
             domains=books['files/NCBI_CDD.xlsx']['NCBI_CDD_selected_hits'];domains=domains[domains.sequence_id.eq(protein)]
             st.write('Pfam: '+str(row.architecture));st.write('CDD: '+str(row.NCBI_CDD_architecture))
             if len(domains):
@@ -252,6 +254,7 @@ elif page=='Protein dossier':
             if sequence:st.code('>'+protein+'\n'+sequence);st.download_button('Download original sequence',fasta_export([protein],sequences),protein+'.faa')
             else:st.info('No original sequence is present in the current family FASTAs for this protein.')
             smart_panel(protein,records,sequence)
+        with tabs[6]:evidence_panel(literature,row.family,protein)
 elif page=='Comments & feedback':feedback_panel()
 elif page=='Source Library':
     st.header('Source Library')
@@ -267,6 +270,9 @@ elif page=='Source Library':
         frame=pd.read_csv(path,sep='\t' if path.suffix=='.tsv' else ',',nrows=500);table(frame);st.caption('Preview: first 500 rows. Download retains the complete original file.')
     else:st.code(path.read_text(encoding='utf-8',errors='replace')[:30000]);st.caption('Preview limited to 30,000 characters.')
     if conflicts:st.warning(f'{len(conflicts)} sequence conflicts in family FASTAs.');table(pd.DataFrame(conflicts))
-elif page=='Citations':st.markdown((ROOT/'CITATIONS.md').read_text(encoding='utf-8'))
+elif page=='Citations':
+    registry_panel(literature)
+    with st.expander('Atlas methods and citations'):
+        st.markdown((ROOT/'CITATIONS.md').read_text(encoding='utf-8'))
 
 creator_credit()

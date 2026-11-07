@@ -4,10 +4,11 @@ import json
 from html import escape
 import pandas as pd
 from pathlib import Path
-import streamlit as st
 import re
 from design_system import network_style
 from library_refresh import family_key
+from functional_categories import supported_mask
+from literature import browser_script
 
 
 SIMULATOR_FILE = 'adhesome_network/schistosome_integrin_adhesome_hypothesis_simulator.html'
@@ -29,7 +30,10 @@ SPECIES = {
 
 def supported_inventory(adhesome):
     """Count distinct supported proteins, without transferring reference counts."""
-    retained = adhesome[adhesome.audit_classification.eq('Supported')]
+    if 'family_support_level' not in adhesome and 'grade' not in adhesome:
+        retained = adhesome[adhesome.audit_classification.eq('Supported')]
+    else:
+        retained = adhesome[supported_mask(adhesome)]
     inventory = {}
     for code, species in [('pan', None), *SPECIES.items()]:
         subset = retained if species is None else retained[retained.species.eq(species)]
@@ -42,16 +46,45 @@ def supported_inventory(adhesome):
 
 
 
-def simulator_html(path,adhesome):
+def refresh_simulator_assets(html,adhesome,literature):
+    """Embed current rule metadata and engine source for offline and live use."""
+    source=Path(__file__).resolve().parent
+    retained=adhesome[supported_mask(adhesome)].drop_duplicates('sequence_id')
+    fields=['sequence_id','species','family','family_support_level']
+    families=retained.family.map(family_key)
+    components=sorted({name for rule in literature['mechanisms']['rules'] for name in rule['components']})
+    candidates={}
+    for component in components:
+        keys={family_key(component)}
+        if component=='actin':
+            keys.add('actin conventional')
+        candidates[component]=json.loads(retained.loc[families.isin(keys),fields].to_json(orient='records'))
+    payload=dict(mechanisms=literature['mechanisms'],references=literature['references'],
+                 candidates=candidates,provenance=literature['provenance'])
+    assets={
+        'matrix-engine':(source/'simulator_engine.js').read_text(encoding='utf-8'),
+        'atlas-mechanisms':json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
+        'atlas-mechanism-ui':browser_script()+'\n'+(source/'simulator_evidence.js').read_text(encoding='utf-8'),
+    }
+    for marker,body in assets.items():
+        pattern=rf"(<script\b[^>]*\bid=['\"]{marker}['\"][^>]*>).*?(</script>)"
+        html,count=re.subn(pattern,lambda match:match[1]+'\n'+body+'\n'+match[2],html,count=1,flags=re.S)
+        if not count:
+            raise ValueError('Missing simulator asset marker: '+marker)
+    return html
+
+
+def simulator_html(path,adhesome,literature=None):
     """Use current inventory and explicit conceptual weights, never removed STRING data."""
     html=path.read_text(encoding='utf-8')
+    if literature:
+        html=refresh_simulator_assets(html,adhesome,literature)
     inventory=json.dumps(supported_inventory(adhesome),ensure_ascii=False).replace('<','\\u003c')
-    html=html.replace(INVENTORY_MARKER,'const atlasInventory = '+inventory+';')
+    html=re.sub(r'const atlasInventory = \{[^\n]*\};',lambda _: 'const atlasInventory = '+inventory+';',html,count=1)
     html=re.sub(r'speciesLabels=\{.*?\}(?=,pairs=)',lambda _: 'speciesLabels='+json.dumps({'pan':'Pan-schistosome',**SPECIES}),html,count=1)
     # The simulator retains its documented conceptual defaults. Reference row counts
     # and interaction types are not affinities or recruitment probabilities.
     html=html.replace(TOPOLOGY_MARKER,'const atlasTopology = {};')
-    html=html.replace('...p,...AdhesionMatrix.defaults,grid:p.grid','...p,...AdhesionMatrix.defaults,...(scenario?.path_controls||{}),grid:p.grid')
     options="<option value='pan'>Pan-schistosome</option>"+''.join("<option value='"+key+"'>"+escape(name)+"</option>" for key,name in SPECIES.items())
     html=re.sub(r"(<select id=['\"]species['\"]>).*?(</select>)",lambda m:m[1]+options+m[2],html,count=1,flags=re.S)
     source=path.parent.parent/'orthology/adhesome_candidates_list/direct_orthologues.tsv'
@@ -66,11 +99,12 @@ def simulator_html(path,adhesome):
     species_map=json.dumps({**{name:key for key,name in SPECIES.items()},'S. haematobium':'sh','S. japonicum':'sj','S. mansoni':'sm'})
     html=html.replace("value.species==='S. haematobium'?'sh':value.species==='S. japonicum'?'sj':value.species==='S. mansoni'||value.node==='vkr1'?'sm':'pan'","("+species_map+")[value.species]||(value.node==='vkr1'?'sm':'pan')")
     html=html.replace("$('referenceSpecies').value='H. sapiens'","$('referenceSpecies').value='Homo sapiens'")
-    return html.replace('</head>',network_style()+'''<style>
+    html=re.sub(r'<!-- ATLAS_SIM_STYLE_START -->.*?<!-- ATLAS_SIM_STYLE_END -->','',html,flags=re.S)
+    return html.replace('</head>','<!-- ATLAS_SIM_STYLE_START -->'+network_style()+'''<style>
 body{background:#f1f6f2;padding:14px;font-family:var(--atlas-font)}.app{max-width:none}
 header,.panel,details{border:1px solid #dce5df;border-radius:14px;box-shadow:none}
 header{border-top:3px solid #1b6248;padding:20px}h1{font-size:23px;letter-spacing:-.035em}h2{font-size:19px;letter-spacing:-.025em}
 .muted{line-height:1.6}.note,#linkedContext{background:#f8f5e9;border-color:#d6c58e;border-radius:10px}
 .primary{background:#e7f1e9}.zoneCard,.moduleCard{border-color:#d5e2d9;border-radius:10px}
 .metrics span{background:#eaf3ed}.reference{border-top-color:#b66459}button{border-width:1px}
-</style></head>''',1)
+</style><!-- ATLAS_SIM_STYLE_END --></head>''',1)

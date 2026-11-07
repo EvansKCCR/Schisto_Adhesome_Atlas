@@ -36,6 +36,8 @@ FAMILY_JOINS = {
     'PKC-like kinases':('PKC_like',),'Alpha-actinin and filamin':('alpha_actinin','filamin'),
     'ARPC2-like actin nucleation components':('ARPC2_like',),'PIP5K-like lipid kinases':('PIP5K_like',),
     'ADAM-like membrane metalloproteases':('ADAM_like',),'KCNH-like potassium channels':('KCNH_like',),
+    'MAPK-like kinases':('MAPK-like',),
+    'Fatty-acid-binding proteins':('Fatty-acid-binding protein (FABP)-like',),
 }
 # Explicit display joins for the two catalogue naming versions. No source family
 # assignments are renamed, inferred or combined with a different biological family.
@@ -210,9 +212,6 @@ def apply_target_route(candidates,params,state):
     if view in PAGES:state['atlas_page']=view
     if protein in set(candidates.sequence_id):
         state['map_candidate']=protein;state['dossier_protein']=protein
-    if view==HYPOTHESIS_PAGE and params.get('classification')=='pfam_cdd':
-        from reclassification import MAP_LABEL
-        state['atlas_map_basis']=MAP_LABEL
     if view=='Components' and family in set(candidates.family):
         state['catalogue_families']=[family]
         state['catalogue_species']=sorted(candidates.species.unique())
@@ -298,7 +297,47 @@ def comparisons(brief,candidates):
     return rows
 
 
-def feature_card(feature,candidates,base):
+def _reference_links(registry,families,candidates):
+    from literature import evidence_for
+    if not registry:
+        return ''
+    refs=registry['references']
+    ids=sorted({link['reference_id'] for family in available_families(families,candidates)
+                for link in evidence_for(registry,family)})
+    return ' '.join(f'<a href="{escape(refs[rid]["doi_url"])}" target="_blank" rel="noopener">{rid}</a>' for rid in ids)
+
+
+def priority_trace(brief,candidates,registry):
+    """Connect the brief's representatives and orthogroups to scoped registry evidence."""
+    from literature import evidence_for
+    targets=[(feature['label'],feature['proteins'],feature['orthogroups'],feature['families'])
+             for feature in brief['features']]
+    targets.extend((row['Candidate family'],re.findall(r'(?:[A-Za-z]+__)?(?:Smp|SBOV2)_\d+',row['Representative S. mansoni IDs']),
+                    row['orthogroups'],row['families']) for row in brief['additional'])
+    for row in brief['roadmap']:
+        label=row['Candidate or orthogroup']
+        targets.append((label,re.findall(r'(?:[A-Za-z]+__)?(?:Smp|SBOV2)_\d+',label),re.findall(r'OG\d{7}',label),()))
+    rows=[]
+    for label,proteins,groups,families in targets:
+        ids={pid for accession in proteins for pid in protein_matches(candidates,accession).sequence_id}
+        scoped=candidates[candidates.sequence_id.isin(ids)|candidates.orthogroup.isin(groups)]
+        if scoped.empty and families:
+            scoped=candidates[candidates.family.isin(available_families(families,candidates))]
+        for row in scoped.drop_duplicates('sequence_id').itertuples():
+            links=evidence_for(registry,row.family,row.sequence_id)
+            for link in links or [{}]:
+                rid=link.get('reference_id','')
+                rows.append(dict(priority=label,protein_id=row.sequence_id,family=row.family,
+                                 priority_scope='Representative accession' if row.sequence_id in ids else
+                                 'Orthogroup context' if row.orthogroup in groups else 'Family context',
+                                 orthogroup=row.orthogroup,grade=row.grade,support=row.family_support_level,
+                                 reference_id=rid,match_level=link.get('match_level',''),
+                                 doi_url=registry['references'].get(rid,{}).get('doi_url',''),
+                                 evidence_note=link.get('note','')))
+    return rows
+
+
+def feature_card(feature,candidates,base,registry=None):
     metrics=''
     for metric in feature['metrics']:
         comparison=metric_comparison(metric,candidates)
@@ -315,10 +354,10 @@ def feature_card(feature,candidates,base):
         f'<div class="research-card-label">Key orthogroups</div><div class="research-links">{rich_text(" · ".join(feature["orthogroups"]),candidates,base)}</div>'
         f'<div class="research-card-label">Representative proteins · <em>S. mansoni</em></div><div class="research-links">{rich_text(" · ".join(feature["proteins"]),candidates,base)}</div>'
         f'<div class="research-next"><span>Next investigation</span><p>{escape(feature["next"])}</p></div>'
-        f'<details><summary>Evidence & interpretation</summary><div class="research-evidence"><span class="research-tag published">Published evidence / research context</span>{evidence}</div></details></article>')
+        f'<details><summary>Evidence & interpretation</summary><div class="research-evidence"><span class="research-tag published">Published evidence / research context</span>{evidence}<p>{_reference_links(registry,feature["families"],candidates)}</p></div></details></article>')
 
 
-def research_priorities_panel(candidates,base,source):
+def research_priorities_panel(candidates,base,source,registry=None):
     import pandas as pd
     import streamlit as st
     if not source.exists():
@@ -327,14 +366,14 @@ def research_priorities_panel(candidates,base,source):
     except (ValueError,StopIteration) as error:
         st.warning('The research-priority brief needs a format update: '+str(error));return
     st.markdown('<section class="research-intro"><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+rich_text(brief.get('overview',OVERVIEW),candidates,base)+'</p></section>',unsafe_allow_html=True)
-    st.markdown('<div class="research-legend"><span class="research-tag supported">Supported computational annotation · A/B</span><span class="research-tag provisional">Provisional assignment · C</span><span class="research-tag unassigned">Unassigned · D</span><span class="research-tag published">Published experimental evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
+    st.markdown('<div class="research-legend"><span class="research-tag supported">Specific or broad family support</span><span class="research-tag provisional">Ambiguous or provisional assignment</span><span class="research-tag unassigned">Unresolved assignment</span><span class="research-tag published">Published evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
     st.caption('Family assignments support computational prioritization. Published findings apply to the named proteins or antigens; candidate-family membership does not establish vaccine efficacy, drug activity or biological essentiality. Counts below cover the complete catalogue, independently of sidebar filters.')
     checks=comparisons(brief,candidates)
     differences=[r for r in checks if not r['matches']]
     if differences:st.warning(f'{len(differences)} research-brief count(s) differ from the live catalogue. Both values are shown; see Count reconciliation below.')
     featured,framework,roadmap=st.tabs(['Featured priorities','Target-selection framework','Experimental roadmap'])
     with featured:
-        st.markdown('<div class="research-grid">'+''.join(feature_card(f,candidates,base) for f in brief['features'])+'</div>',unsafe_allow_html=True)
+        st.markdown('<div class="research-grid">'+''.join(feature_card(f,candidates,base,registry) for f in brief['features'])+'</div>',unsafe_allow_html=True)
         with st.expander('Additional Adhesome Targets for Functional Investigation'):
             st.caption('Functional and therapeutic research candidates. These family assignments do not establish experimentally confirmed drug targets.')
             cards=[]
@@ -343,7 +382,7 @@ def research_priorities_panel(candidates,base,source):
                 diff=f'<p class="research-difference">Live catalogue: {check["live"]} supported candidates; brief: {check["brief"]}.</p>' if not check['matches'] else ''
                 count_label=row['Supported proteins'] if 'supported' in row['Supported proteins'].lower() else row['Supported proteins']+' supported candidates'
                 cards.append('<article class="research-additional"><h4>'+escape(row['Candidate family'])+'</h4><span class="research-tag supported">'+escape(count_label)+'</span>'+diff+
-                    '<p>'+rich_text(row['Priority and rationale'],candidates,base)+'</p><div class="research-card-label">Principal validation challenge</div><p>'+escape(row['challenge'])+'</p><div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+rich_text(row['Representative S. mansoni IDs'],candidates,base)+'</div></article>')
+                    '<p>'+rich_text(row['Priority and rationale'],candidates,base)+'</p><div class="research-card-label">Principal validation challenge</div><p>'+escape(row['challenge'])+'</p><div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+rich_text(row['Representative S. mansoni IDs'],candidates,base)+'</div><p>'+_reference_links(registry,row['families'],candidates)+'</p></article>')
             st.markdown('<div class="research-additional-grid">'+''.join(cards)+'</div>',unsafe_allow_html=True)
             if brief.get('additional_evidence'):
                 st.markdown('#### Evidence and expanded family priorities')
@@ -374,8 +413,12 @@ def research_priorities_panel(candidates,base,source):
             items.append(f'<article class="research-step"><span class="research-step-number">{i:02}</span><div><div class="research-card-label">{escape(row["Development objective"])}</div><h4>{target}</h4><p>{escape(row["First decisive experiment or analysis"])}</p><span class="research-tag proposed">Proposed investigation</span></div></article>')
         st.markdown('<div class="research-roadmap">'+''.join(items)+'</div>',unsafe_allow_html=True)
     with st.expander('Research references'+(' & count mismatches' if differences else '')):
-        st.caption('Scientific content: Target_prioritization.md. Brief counts are preserved; live counts use unique protein IDs and A/B = Supported, C = Provisional, D = Unassigned. Unassigned integrin hypotheses are counted from the recorded stage-1 hypothesis without assigning family membership. Orthogroup counts use supported members only.')
+        st.caption('Live counts use unique protein IDs and the audited support designations. Specific and broad family support contribute to the supported totals. Orthogroup counts use supported members only.')
         for ref in brief['references']:st.markdown(f'[{ref["label"]}]({ref["url"]})')
         if differences:
             st.dataframe(pd.DataFrame(differences).drop(columns='matches').rename(columns={'category':'Research category','label':'Measure','brief':'Research brief','live':'Live catalogue'}),hide_index=True,width='stretch')
         st.download_button('Download research-priority brief',source.read_text(encoding='utf-8-sig'),source.name,'text/markdown')
+        if registry:
+            from literature import tsv
+            st.download_button('Download candidate-to-reference traceability',tsv(priority_trace(brief,candidates,registry)),
+                               'priority_reference_trace.tsv','text/tab-separated-values')

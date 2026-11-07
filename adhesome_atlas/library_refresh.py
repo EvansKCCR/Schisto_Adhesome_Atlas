@@ -12,22 +12,26 @@ import tempfile
 
 import pandas as pd
 
-VERSION='library-refresh-5'
+VERSION='library-refresh-6'
 EDGE_FILE='Schistosome_human_reference_family_edges.csv'
 INVENTORY_FILE='Schistosome_adhesome_family_inventory.csv'
 MEMBERS_FILE='Schistosome_adhesome_candidate_node_members.csv'
 MODULE_FILE='family_module_annotations.csv'
-from reclassification import FILE as RECLASS_FILE,REPORT as RECLASS_REPORT
-DERIVED_FILES={EDGE_FILE,INVENTORY_FILE,MEMBERS_FILE,RECLASS_REPORT}
+DERIVED_FILES={EDGE_FILE,INVENTORY_FILE,MEMBERS_FILE}
 UNRESOLVED='Unassigned/unresolved'
 EDGE_COLUMNS=['family_A','family_B','human_reference_pairs','original_rows','human_symbol_pairs',
     'interaction_types','effects','PMIDs','data_sources','evidence_interpretation']
 
 
 def family_key(value):
-    """Formatting-only join key; retain every original scientific family label."""
+    """Join audited names to the corresponding historical crosswalk labels."""
     if pd.isna(value): return ''
-    return re.sub(r'[\W_]+',' ',str(value).casefold()).strip()
+    key=re.sub(r'[\W_]+',' ',str(value).casefold()).strip()
+    return {
+        'talin like':'talin',
+        'filamin like':'filamin',
+        'adam like metalloprotease':'adam like',
+    }.get(key,key)
 
 
 def family_index(labels):
@@ -138,42 +142,41 @@ def _write_changed(path,body):
 
 def refresh_derived(candidates,root,persist=True):
     """One coherent in-memory snapshot; disk mirrors are optional on read-only hosts."""
-    from functional_categories import supported_mask,SUMMARY_FILE
+    from functional_categories import support_state,SUMMARY_FILE
     root=Path(root);net=root/'adhesome_network'
     raw_bytes=(net/'interactions.csv').read_bytes();cross_bytes=(net/'Schistosome_human_gene_family_crosswalk.csv').read_bytes()
     edges,diagnostics=_cached_reference(raw_bytes,cross_bytes)
     crosswalk=_csv(cross_bytes);groups=module_annotations(root,candidates.family);species=sorted(candidates.species.unique());inventory=[]
     symbol_map=crosswalk.assign(family_key=crosswalk.candidate_family.map(family_key)).groupby('family_key').human_symbol.agg(lambda s:';'.join(sorted(set(s)))).to_dict()
-    for family,group in candidates.groupby('family',sort=True):
-        supported=group[supported_mask(group)]
-        row=dict(family=family,visual_group=(groups.get(family) or UNRESOLVED) if len(supported) else UNRESOLVED,
+    counts=candidates[['family','sequence_id','species','grade']].assign(support=support_state(candidates))
+    for family,group in counts.groupby('family',sort=True):
+        supported=group.support.isin(['specific supported','broad supported'])
+        row=dict(family=family,visual_group=(groups.get(family) or UNRESOLVED) if supported.any() else UNRESOLVED,
             assignment_records=len(group),total=group.sequence_id.nunique(),
-            supported_proteins=supported.sequence_id.nunique(),
-            unsupported_proteins=group.loc[~supported_mask(group),'sequence_id'].nunique(),
+            supported_proteins=group.loc[supported,'sequence_id'].nunique(),
+            unsupported_proteins=group.loc[~supported,'sequence_id'].nunique(),
             **{'grade_'+grade:group.loc[group.grade.eq(grade),'sequence_id'].nunique() for grade in ['A','B','C','D']},
             human_mapping_symbols=symbol_map.get(family_key(family),''))
         row.update({name:group.loc[group.species.eq(name),'sequence_id'].nunique() for name in species});inventory.append(row)
-        if 'reclassification_tier' in group:
-            row.update({'pfam_cdd_'+tier:group.loc[group.reclassification_tier.eq(tier),'sequence_id'].nunique() for tier in ['A','B','C','D']})
+        row.update({'support_'+state.replace(' ','_'):int(count)
+                    for state,count in group.drop_duplicates('sequence_id').support.value_counts().items()})
     inventory=pd.DataFrame(inventory)
     members=candidates[['species','sequence_id','family','grade','assignment_confidence','family_decision','architecture']].rename(
         columns={'sequence_id':'protein_id','family':'putative_audited_family','architecture':'Pfam_architecture'})
-    from reclassification import PROFILE_FIELDS as RECLASS_FIELDS,reconciliation_table,load_table
-    for field in RECLASS_FIELDS:
+    for field in ['protein_name','orthogroup','family_support_level','annotation_resolution',
+                  'annotation_notes','NCBI_CDD_architecture','DeepLoc_2.1','DeepTMHMM','SignalP.v6.0','module']:
         if field in candidates:members[field]=candidates[field].values
     primary=[root/'files/adhesome_candidates_list.xlsx',net/'interactions.csv',net/'Schistosome_human_gene_family_crosswalk.csv']
     if (net/MODULE_FILE).exists():primary.append(net/MODULE_FILE)
     if (root/SUMMARY_FILE).exists():primary.append(root/SUMMARY_FILE)
-    if (root/RECLASS_FILE).exists():primary.append(root/RECLASS_FILE)
     if (root/'Target_prioritization.md').exists():primary.append(root/'Target_prioritization.md')
     provenance=dict(version=VERSION,inputs={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in primary},
         assignment_records=len(candidates),candidates=int(candidates.sequence_id.nunique()),families=len(inventory),species=species,
         grade_counts={g:int(candidates.grade.eq(g).sum()) for g in ['A','B','C','D']},
-        unique_grade_counts={g:int(candidates.loc[candidates.grade.eq(g),'sequence_id'].nunique()) for g in ['A','B','C','D']},**diagnostics)
+        unique_grade_counts={g:int(candidates.loc[candidates.grade.eq(g),'sequence_id'].nunique()) for g in ['A','B','C','D']},
+        support_counts={str(state):int(n) for state,n in support_state(candidates.drop_duplicates('sequence_id')).value_counts().items()},
+        **diagnostics)
     outputs={EDGE_FILE:edges,INVENTORY_FILE:inventory,MEMBERS_FILE:members}
-    if candidates.attrs.get('reclassification'):
-        provenance['reclassification']=candidates.attrs['reclassification']
-        if persist and (root/RECLASS_FILE).exists():outputs[RECLASS_REPORT]=reconciliation_table(candidates,load_table(root))
     storage_error=''
     if persist:
         try:
@@ -190,34 +193,34 @@ def _data_span(html):
     return match.end(),match.end()+end,model
 
 
-def refresh_family_html(html,candidates,root):
+def refresh_family_html(html,candidates,root,literature=None):
     """Refresh only data/grade adapters; keep authored controls, special evidence and styling."""
-    from functional_categories import CATEGORIES,supported_mask
+    from functional_categories import CATEGORIES,support_state
     start,end,old=_data_span(html);snapshot=refresh_derived(candidates,root,persist=False)
     inventory=snapshot['inventory'];reference=snapshot['reference'];active=set(candidates.family)
-    if 'classification_basis' in candidates:
-        for family,group in candidates.groupby('family'):
-            if not group.classification_basis.str.startswith('Pfam–CDD',na=False).any():continue
-            zones=group.module.dropna().unique()
-            inventory.loc[inventory.family.eq(family),'visual_group']=zones[0] if len(zones)==1 else UNRESOLVED
     aliases=family_index(active)
     families=[]
+    memberships=candidates[['family','sequence_id','species','grade']].assign(support=support_state(candidates))
+    grouped=dict(tuple(memberships.drop_duplicates(['family','sequence_id']).groupby('family',sort=False)))
+    species_names=sorted(memberships.species.unique())
     for row in inventory.to_dict('records'):
-        group=candidates[candidates.family.eq(row['family'])].drop_duplicates('sequence_id')
+        group=grouped[row['family']]
         families.append(dict(id=row['family'],zone=row['visual_group'],n=int(row['total']),
             supported_n=int(row['supported_proteins']),unsupported_n=int(row['unsupported_proteins']),
-            pfam_cdd_tiers={tier:int(group.get('reclassification_tier',pd.Series('',index=group.index)).eq(tier).sum()) for tier in ['A','B','C','D']},
-            counts={s:int(group.species.eq(s).sum()) for s in sorted(candidates.species.unique())},
+            support_counts={str(state):int(n) for state,n in group.support.value_counts().items()},
+            counts={s:int(group.species.eq(s).sum()) for s in species_names},
             grade_by_species={s:{g:int((sub.grade==g).sum()) for g in ['A','B','C','D']} for s,sub in group.groupby('species')},
-            grades={g:int(group.grade.eq(g).sum()) for g in ['A','B','C','D']},strong=int(group.grade.isin(['A','B']).sum()),
+            grades={g:int(group.grade.eq(g).sum()) for g in ['A','B','C','D']},strong=int(row['supported_proteins']),
             human_symbols=[s for s in row['human_mapping_symbols'].split(';') if s]))
     field_map={'s':'species','id':'sequence_id','f':'family','c':'assignment_confidence','g':'grade','support':'family_support_level',
         'decision':'family_decision','name':'candidate_annotation','pfam':'architecture','cdd':'NCBI_CDD_architecture',
         'hog':'orthogroup','orthostat':'orthology_scope','local':'DeepLoc_2.1','module':'module',
-        'reclassification':'reclassification_family','reclassification_tier':'reclassification_tier','motif':'MotifPrediction_distinct_site_count'}
+        'motif':'MotifPrediction_distinct_site_count'}
     frame=candidates.reindex(columns=list(field_map.values())).rename(columns={v:k for k,v in field_map.items()})
     records=json.loads(frame.to_json(orient='records'));edges=[]
-    supported_by_family={family:group for family,group in candidates[supported_mask(candidates)].groupby('family')}
+    supported_members=memberships.loc[memberships.support.isin(['specific supported','broad supported']),
+                                       ['family','sequence_id','species']]
+    supported_by_family=dict(tuple(supported_members.groupby('family')))
     for row in reference.to_dict('records'):
         pairs=row['human_symbol_pairs'].split('; ')
         for left,right in product(aliases.get(family_key(row['family_A']),[]),aliases.get(family_key(row['family_B']),[])):
@@ -235,14 +238,23 @@ def refresh_family_html(html,candidates,root):
                 types=json.loads(row['interaction_types']),effects=json.loads(row['effects'])))
     by_id=candidates.set_index('sequence_id').family.to_dict();special=[]
     for edge in old.get('special',[]):
-        named=[by_id.get(identifier) for identifier in edge.get('ids',[])]
-        if not named or not all(identifier in by_id for identifier in edge['ids']):continue
-        left=next((family for family in named if family_key(family)==family_key(edge['a'])),None)
-        right='SmVKR1' if edge['b']=='SmVKR1' else next((family for family in named if family_key(family)==family_key(edge['b'])),None)
-        if left and right:special.append({**edge,'a':left,'b':right})
+        lefts=aliases.get(family_key(edge['a']),[])
+        rights=['SmVKR1'] if edge['b']=='SmVKR1' else aliases.get(family_key(edge['b']),[])
+        # Literature context is anchored to published named proteins. Only the
+        # registry can identify a matching modern accession as directly studied.
+        for left,right in product(lefts,rights):
+            context={**edge,'a':left,'b':right,'ids':[pid for pid in edge.get('ids',[]) if pid in by_id]}
+            if literature:
+                from literature import named_reference_ids
+                context['reference_ids']=['R02']
+                context['interaction_id']=edge['id']
+                context['evidence_origin']='schistosoma_pathway'
+                context['direct_candidate_ids']=sorted(set(context['ids'])&named_reference_ids(literature,'R02'))
+            special.append(context)
     zones=[z for z in CATEGORIES if z in set(inventory.visual_group)]
     zones+=sorted(set(inventory.visual_group)-set(zones))
-    model={**old,'meta':{**old.get('meta',{}),**snapshot['provenance'],'proteins':len(candidates),'families':len(families),
+    old_metadata={key:value for key,value in old.get('meta',{}).items() if key!='reclassification'}
+    model={**old,'meta':{**old_metadata,**snapshot['provenance'],'proteins':len(candidates),'families':len(families),
         'human_original_rows':snapshot['provenance']['reference_rows'],'human_mapped_rows':snapshot['provenance']['mapped_rows'],
         'human_interfamily_edges':len(edges),'human_intrfamily_groups':snapshot['provenance']['intrafamily_groups'],
         'human_distinct_symbols':snapshot['provenance']['distinct_reference_symbols'],
@@ -252,38 +264,51 @@ def refresh_family_html(html,candidates,root):
         'families':families,'candidates':records,'edges':edges,'special':special,'zones':zones,
         'core':sorted({label for family in old.get('core',[]) for label in aliases.get(family_key(family),[])}|
             set(inventory.loc[inventory.visual_group.eq('Membrane-actin clutch')&inventory.supported_proteins.gt(0),'family']))}
+    if literature:
+        from literature import references_for_pmids, projected_interaction_id
+        for edge in edges:
+            edge['reference_ids']=references_for_pmids(literature,edge['pmids'])
+            edge['interaction_id']=projected_interaction_id(edge['reference_family_A'],edge['reference_family_B'])
+            edge['evidence_origin']='reference_projected_interaction'
     html=html[:start]+json.dumps(model,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+html[end:]
-    return _dynamic_family_controls(_classification_caption(html,candidates))
-
-
-def _classification_caption(html,candidates):
-    html=re.sub(r'<p id="atlas-reclassification-map-note"[^>]*>.*?</p>','',html,flags=re.S)
-    if 'classification_basis' in candidates and candidates.classification_basis.str.startswith('Pfam–CDD',na=False).any():
-        note='<p id="atlas-reclassification-map-note" style="margin:12px 18px;padding:12px;border:1px solid #146b4e;background:#fff;color:#000;font:14px Arial,sans-serif">Pfam–CDD family/domain-class view. Evidence tiers A–D and catalogue grades are separate. Candidate profiles retain original family assignments and support. Reference edges use supported catalogue identities in shared species; new domain classes provide exploration groups and functional context.</p>'
-        html=html.replace('</header>','</header>'+note,1)
-    return html
+    return _dynamic_family_controls(html)
 
 
 def _dynamic_family_controls(html):
     html=html.replace('All A / B / C</option>','All A / B / C / D</option>')
     html=re.sub(r'const ZONECOLORS=\[[^\]]*\];',"const ZONECOLORS=['#16724e','#166b84','#956415','#8a4050','#6650a7','#526b86','#64746d','#536c80','#79664f'];",html,count=1)
     html=html.replace("['All seven species',...DATA.meta.species]","['All '+DATA.meta.species.length+' species',...DATA.meta.species]")
+    html=html.replace('B · Unassigned','Grade B').replace('C · Provisional','Grade C').replace('D · Unassigned','Grade D')
+    html=html.replace('Solid-border nodes: ≥1 grade A/B assignment · dashed: grade C only',
+        'Solid-border nodes have a specific or broad supported candidate in view')
+    html=html.replace("gradeA+gradeB?'':'5 4'","r.some(x=>['specific supported','broad supported'].includes(x.support))?'':'5 4'")
+    html=html.replace('Receptor context from the previously supplied model and Gelmedin et al. (2017).',
+                      'Receptor context from the Gelmedin et al. (2017) study.')
     html=html.replace('extent={w:1568,h:Math.max','extent={w:8+zones.length*260,h:Math.max')
     html=re.sub(r'function chooseRows\(f,opts\)\{.*?(?=function countFmt)',
         "function chooseRows(f,opts){const seen=new Set();let a=(proteinsByFamily[f]||[]).filter(r=>{if(seen.has(r.id))return false;seen.add(r.id);return true});if(opts.species!=='all')a=a.filter(r=>r.s===opts.species);if(opts.grade!=='all')a=a.filter(r=>opts.grade==='AB'?['A','B'].includes(r.g):r.g===opts.grade);return a}\n",html,count=1,flags=re.S)
     html=re.sub(r'function summaryStats\(opts\)\{.*?(?=function selectedEvidenceFilter)',r'''function summaryStats(opts){const all=DATA.candidates.filter(p=>(opts.species==='all'||p.s===opts.species)&&(opts.grade==='all'||opts.grade==='AB'&&['A','B'].includes(p.g)||p.g===opts.grade));
-const counts=['A','B','C','D'].map(g=>all.filter(p=>p.g===g).length).join(' / '),fields=[['Candidates',all.length,'protein records'],['Inventory groups',visibleFamilies.length,'displayed in network'],['Human ref. edges',activeEdges.filter(e=>e.kind==='human_reference_transfer').length,'family-level hypotheses'],['Grades A / B / C / D',counts,'D = unassigned']];
+const counts=['A','B','C','D'].map(g=>all.filter(p=>p.g===g).length).join(' / '),fields=[['Candidates',all.length,'protein records'],['Inventory groups',visibleFamilies.length,'displayed in network'],['Human ref. edges',activeEdges.filter(e=>e.kind==='human_reference_transfer').length,'family-level hypotheses'],['Grades A / B / C / D',counts,'source grades']];
 $('topstats').innerHTML=fields.map(([n,v,tag])=>`<div class="metric"><span>${escapeHtml(n)}</span><b>${escapeHtml(v)}</b><small>${escapeHtml(tag)}</small></div>`).join('')}
 ''',html,count=1,flags=re.S)
     html=html.replace('gradeC=r.length-gradeA-gradeB','gradeC=r.filter(x=>x.g===\'C\').length,gradeD=r.filter(x=>x.g===\'D\').length')
     html=html.replace(' B ${gradeB}  C ${gradeC}`', ' B ${gradeB}  C ${gradeC}  D ${gradeD}`')
     html=html.replace('Current seven-species candidate inventory','Current '+"${DATA.meta.species.length}"+'-species candidate inventory')
-    html=html.replace('provisional-family records. These grades','provisional-family records; <b>D = ${countFmt(DATA.meta.grade_counts.D||0)}</b> unassigned records. These grades')
-    for name in ['C','D']:
+    html=re.sub(r'<h3>Current audit grades</h3><p>.*?</p>',
+        lambda _:'''<h3>Audited support categories</h3><p>${Object.entries(DATA.meta.support_counts||{}).map(([state,n])=>escapeHtml(state)+' '+countFmt(n)).join(' · ')}. Source grades are listed separately above the map.</p>''',html,count=1,flags=re.S)
+    html=html.replace("if(o.human)activeEdges.push(...DATA.edges.filter(e=>included.has(e.a)&&included.has(e.b)&&e.human_pairs>=o.minPairs));",
+        """if(o.human){
+ const eligible=new Map(DATA.candidates.filter(p=>(o.species==='all'||p.s===o.species)
+  &&(o.grade==='all'||o.grade==='AB'&&['A','B'].includes(p.g)||o.grade===p.g)).map(p=>[p.id,p.s]));
+ activeEdges.push(...DATA.edges.filter(e=>included.has(e.a)&&included.has(e.b)&&e.human_pairs>=o.minPairs
+  &&e.shared_species.some(species=>e.source_candidates.some(id=>eligible.get(id)===species)
+   &&e.target_candidates.some(id=>eligible.get(id)===species))));
+}""")
+    for name in ['B','C','D']:
         pattern=r'(<select\b[^>]*\bid=[\"\']grade[\"\'][^>]*>)(.*?)(</select>)'
         def add_option(match):
             if re.search(r'value=[\"\']'+name+r'[\"\']',match[2]):return match[0]
-            return match[1]+match[2]+f'<option value="{name}">{name} · '+('Provisional' if name=='C' else 'Unassigned')+'</option>'+match[3]
+            return match[1]+match[2]+f'<option value="{name}">Grade {name}</option>'+match[3]
         html=re.sub(pattern,add_option,html,count=1,flags=re.S)
     # Default to the complete inventory; the authored core subset remains available.
     def all_scope(match):

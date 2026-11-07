@@ -13,7 +13,7 @@ from topological_clustering import clustering_panel
 from library_refresh import reference_family_edges,family_key
 
 NET=ROOT/'adhesome_network'
-PROJECTION_VERSION='consensus-projection-3'
+PROJECTION_VERSION='consensus-projection-4'
 
 def build_consensus(candidates,reference=None):
     reference=reference_family_edges(ROOT) if reference is None else reference.copy()
@@ -55,7 +55,7 @@ def build_consensus(candidates,reference=None):
         'evidence','relation','effects','reference_pairs','reference_rows','PMIDs','sources','reference_symbols','source_candidates','target_candidates']).drop_duplicates()
     return nodes,edges,members
 
-def consensus_panel(candidates):
+def consensus_panel(candidates,literature=None):
     st.subheader('Orthogroup consensus adhesome network')
     st.write('Curated metazoan adhesome interactions are projected through the family crosswalk onto orthogroups in the active catalogue. Edges require specific or broad supported family identities at both ends in at least one shared species. All candidate memberships and original grades remain available. Each edge retains its supporting candidate IDs, shared species, reference families, symbols, interaction types, effects, sources and PMIDs.')
     a,b=st.columns(2)
@@ -91,6 +91,12 @@ def consensus_panel(candidates):
         @st.cache_data(show_spinner='Organizing annotation-informed network regions…',max_entries=8)
         def presentation(metrics,edges,members,rules_signature):return build_view_model(metrics,edges,members)
         model=presentation(metrics,edges,members,layout_signature())
+        from literature import browser_evidence,references_for_pmids,projected_interaction_id
+        model['literature']=browser_evidence(literature,members)
+        if literature:
+            for row in model['evidence']:
+                row['reference_ids']=references_for_pmids(literature,str(row.get('PMIDs','')).split('; '))
+                row['interaction_id']=projected_interaction_id(row['reference_source_family'],row['reference_target_family'])
         html=consensus_network_html(model,st.context.url or '')
         st.iframe(html,height=1200)
         st.caption(f'All {len(metrics):,} filtered orthogroups and {graph.number_of_edges():,} original projected pairs are retained. Layout, module focus and local hiding affect presentation only. Select a node for its complete filtered candidate membership, prediction evidence and recorded neighbors. Read labels, zoom or search for detailed exploration; overview labels suppress collisions.')
@@ -115,5 +121,5 @@ def consensus_panel(candidates):
         for label,frame,name in [('Orthogroup centrality',metrics,'orthogroup_centrality.csv'),('Projected reference evidence',edges,'orthogroup_reference_edges.csv'),('Candidate membership',members[members.orthogroup.isin(nodes.identifier)],'orthogroup_members.csv')]:st.download_button('Download '+label,frame.to_csv(index=False),name)
         files=[NET/'Schistosome_human_reference_family_edges.csv',NET/'Schistosome_human_gene_family_crosswalk.csv',NET/'interactions.csv',ROOT/'files/adhesome_candidates_list.xlsx']
         st.download_button('Download projection provenance',json.dumps({'model':'Metazoan family projection onto current orthogroups',
-            'projection_version':PROJECTION_VERSION,'edge_rule':'Formatting-equivalent reference families; A/B/C candidates at both ends in a shared species; no self-loops',
+            'projection_version':PROJECTION_VERSION,'edge_rule':'Audited specific or broad support at both ends in a shared species; no self-loops',
             'grades':grades,'species':species,'families':families,'inputs':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}},indent=2),'consensus_provenance.json')

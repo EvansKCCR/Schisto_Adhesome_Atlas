@@ -62,7 +62,7 @@ def candidate_reports_panel(candidates):
     report,hogs,direct=read(folder,signature)
     annotations=candidates.drop_duplicates('sequence_id').set_index('sequence_id')
     report=report[report.candidate_id.isin(annotations.index)].copy()
-    for field in ['family','species','candidate_annotation','grade','assignment_confidence','reclassification_family','reclassification_evidence_tier','reclassification_rationale','reclassification_alignment']:
+    for field in ['family','species','candidate_annotation','grade','assignment_confidence','family_support_level','annotation_notes']:
         if field not in annotations:continue
         report[field]=report.candidate_id.map(annotations[field])
     refs=sorted(direct.reference_species.unique())

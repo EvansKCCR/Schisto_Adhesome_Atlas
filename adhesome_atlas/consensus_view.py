@@ -12,7 +12,7 @@ import pandas as pd
 from candidate_profiles import PROFILE_FIELDS
 from design_system import network_style
 from library_refresh import family_key
-from functional_categories import supported_mask
+from functional_categories import supported_mask,support_state,UNASSIGNED
 
 REGIONS = [
     ('extracellular','Extracellular environment','#3e7b69','#edf6f1'),
@@ -38,10 +38,10 @@ RULES = [
     'Functional neighborhoods are connected components within each primary annotated module, using the existing undirected projected edges. Isolated orthogroups remain isolated neighborhoods.',
     'Conceptual regions are function-first: extracellular, receptors, membrane-actin clutch, signaling (kinases/phosphatases and adaptors/GTPases), and actin/regulators. These are molecular roles, not measured subcellular localizations.',
     'DeepLoc, transmembrane and signal-peptide predictions are retained separately, including conflicting or multiple predictions. Peripheral membrane proteins do not require a transmembrane segment for clutch placement.',
-    'An orthogroup has a resolved conceptual region when its supported family assignments agree on that region. Unsupported members remain in the complete profiles and counts without overriding the supported functional context. Mixed supported contexts stay unassigned/mixed.',
+    'An orthogroup has a resolved conceptual region when its placed, supported family assignments agree. Members without a functional placement remain in the profiles and counts. Conflicting placed modules are shown as mixed.',
     'Circle radius = 12 + 4 × log2(1 + unique candidate count), in layout units. Label controls never change the quantitative circle radius.',
     'Layout coordinates, region assignments and neighborhoods are presentation metadata only. Communities are the existing greedy-modularity topology result, not annotated biological modules.',
-    'Family joins ignore case and punctuation/spacing only. Projected edges require specific or broad supported family identities in a shared species. Unsupported identities retain original node membership without transferring an edge.',
+    'Family joins normalize formatting and use explicit audited label aliases. Projected edges require specific or broad support for the mapped family in a shared species.',
 ]
 
 
@@ -191,7 +191,8 @@ def build_view_model(metrics,edges,members):
     for row in metrics.sort_values('identifier').to_dict('records'):
         group=members[members.orthogroup.eq(row['identifier'])].drop_duplicates('sequence_id')
         supported=group[supported_mask(group)]
-        context=supported if len(supported) else group
+        placed=supported[supported.module.ne(UNASSIGNED)]
+        context=placed if len(placed) else supported if len(supported) else group
         functional=sorted({_clean(v) for v in context.module if _clean(v) and _clean(v)!='Other family context'})
         module=functional[0] if len(functional)==1 else 'Multiple / unresolved functional annotations'
         votes=Counter(member_region(m) for m in context.to_dict('records'))
@@ -203,13 +204,12 @@ def build_view_model(metrics,edges,members):
             compartment=region,compartment_label=REGION_LABELS[region],location_votes=dict(sorted(votes.items())),
             predicted_localizations=dict(sorted(predicted.items())),grades={k:int(grades[k]) for k in ('A','B','C','D')},
             member_ids=sorted(set(group.sequence_id)),member_count=int(group.sequence_id.nunique()),
+            support_counts={str(state):int(count) for state,count in support_state(group).value_counts().items()},
             supported_member_count=len(supported),unsupported_member_count=len(group)-len(supported),
             species=sorted(set(group.species)),community=int(row['community']),degree=int(row['degree']),
             betweenness=float(row['betweenness']),closeness=float(row['closeness']),
             radius=12+4*math.log2(1+group.sequence_id.nunique()))
-        node['reclassified_families']=sorted({str(value) for value in group.get('reclassification_family',pd.Series(dtype=str)).dropna() if value})
-        node['pfam_cdd_tiers']={tier:int(group.get('reclassification_tier',pd.Series(dtype=str)).eq(tier).sum()) for tier in ['A','B','C','D']}
-        node['search_text']=' '.join([node['id'],node['family']]+node['reclassified_families']+node['member_ids']+[str(by_protein[p].get('candidate_annotation','')) for p in node['member_ids']]).lower()
+        node['search_text']=' '.join([node['id'],node['family']]+node['member_ids']+[str(by_protein[p].get('candidate_annotation','')) for p in node['member_ids']]).lower()
         nodes.append(node)
     lookup={n['id']:n for n in nodes}
     modules=sorted({n['primary_module'] for n in nodes})
@@ -230,15 +230,16 @@ def build_view_model(metrics,edges,members):
     return dict(nodes=nodes,edges=visual_edges,evidence=evidence,candidates=by_protein,
         layouts=dict(cellular=cellular,functional=_functional_layout(nodes,graph,lookup,module_colors),community=_community_layout(nodes,graph,lookup),free=_free_layout(graph,lookup)),
         module_colors=module_colors,regions=[dict(id=k,label=l,color=c,fill=f) for k,l,c,f in REGIONS],
-        rules=RULES,disclaimer=DISCLAIMER,rule_version='consensus-spatial-3',
+        rules=RULES,disclaimer=DISCLAIMER,rule_version='consensus-spatial-4',
         graph_sha256=hashlib.sha256(json.dumps(dict(nodes=sorted(graph),edges=sorted(sorted(pair) for pair in graph.edges)),sort_keys=True).encode()).hexdigest(),
         totals=dict(nodes=len(nodes),pairs=graph.number_of_edges(),evidence_rows=len(edges),candidates=len(by_protein)))
 
 
 def consensus_network_html(model,app_url=''):
+    from literature import browser_script
     payload={**model,'app_url':app_url}
     template=Path(__file__).with_name('consensus_view.html').read_text(encoding='utf-8')
-    return template.replace('__ATLAS_STYLE__',network_style()).replace('__PAYLOAD__',json.dumps(payload,ensure_ascii=False,allow_nan=False).replace('<','\\u003c'))
+    return template.replace('__ATLAS_STYLE__',network_style()).replace('__LITERATURE_SCRIPT__',browser_script()).replace('__PAYLOAD__',json.dumps(payload,ensure_ascii=False,allow_nan=False).replace('<','\\u003c'))
 
 
 def layout_signature():
