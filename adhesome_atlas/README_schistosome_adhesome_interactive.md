@@ -6,7 +6,7 @@ Users can download the hypothesis map as a standalone HTML file, along with asso
 
 ## Candidate Profiles and Protein Dossiers
 
-The atlas contains profiles for all 4359 candidate adhesome-associated hypothesis. Candidates can be searched by accession or annotation, and selecting a protein highlights its family node and displays a detailed profile.
+The current Atlas contains 4,359 unique candidate profiles. Candidates can be searched by accession or annotation, and selecting a protein highlights its family node and displays a detailed profile.
 
 Each profile includes:
 
@@ -17,6 +17,7 @@ Localization and topology predictions
 Evidence scores
 Motifs and domain hits
 Reference orthologues
+Scoped literature and biological evidence
 
 Profiles can be downloaded as JSON files with full source identifiers. Each candidate also has a dedicated protein dossier that links directly between the dossier view and its position on the interactive map.
 
@@ -28,6 +29,8 @@ Direct partners
 Two-step neighborhoods
 Entire connected components
 Shortest paths between selected families
+
+In **Network filters**, enable **Show connected nodes only** to display families with at least one edge under the active species, grade and evidence filters. Clear the option to see isolated families again.
 
 Path highlighting is based on displayed family-level associations and evidence filters. It does not imply direct candidate-level interactions or causality.
 
@@ -42,15 +45,15 @@ Update simulations as paths change
 Launch candidate-specific simulations
 Export simulation outputs, including path information, filters, assumptions, and random seeds
 
-Optional pathway-coupling rules apply biologically motivated module requirements (for example, FAK/Src and ILK-PINCH-Nck complexes) when generating hypothetical downstream outcomes.
+Optional path controls apply the selected FAK/Src and SmVKR1 pathway context. Kindlin, ILK, PINCH and parvin selections adjust the corresponding scaffold recruitment parameters. The simulator inspector links the selected mechanism to the publication registry.
 
 ## Interface and Data Integrity
 
 The atlas supports mouse, touch, and keyboard navigation. Candidate selection, node highlighting, profiles, and network paths remain synchronized across views.
 
-Family panels display all matching candidates together with grade distributions (A/B/C). Nodes without candidate proteins display a clear empty-state message. Non-selected network elements remain visible but are visually de-emphasized.
+Family panels display matching candidates with A/B/C/D grade distributions. The dossier records the audited support designation separately. Nodes without candidate proteins display a clear empty-state message. Non-selected network elements remain visible but are visually de-emphasized.
 
-For example, the current dataset contains 76 collagen-like proteins across seven species (75 grade A and 1 grade C). No curated collagen interaction is currently present in the network topology, so collagen nodes appear without recorded connections.
+The current collagen-like label covers 75 broad-supported candidates. The Parvin_like label contains 14 specific-supported candidates. OG0000818 includes two additional broad CH-domain proteins, which retain their own audited label.
 
 ## User Experience
 

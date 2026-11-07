@@ -127,6 +127,8 @@ main{padding:12px;gap:12px}.paper{border:1px solid var(--atlas-line);border-radi
 .controlbar{padding:12px 16px;gap:12px;background:#fbfdfb;border:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 .controlbar .ctrl{font-size:10px;letter-spacing:.07em;color:var(--atlas-muted)}.controlbar select,.controlbar input{width:100%;max-width:none}
 .controlbar .toggles{grid-column:1/-1;padding:0}.controlbar .toggles label{font-size:13px}
+.controlbar .toggles #atlas-connected-only{width:auto;accent-color:var(--atlas-green)}
+.atlas-connectivity-message{margin:0;padding:10px 16px;color:var(--atlas-deep);background:#f1f6f2;font-size:13px}
 .atlas-profiles-bar{padding:11px 16px;gap:9px;background:#fff;border-color:var(--atlas-line);font-size:13px}
 .atlas-profiles-bar label{color:var(--atlas-muted);font-weight:650}.atlas-profiles-bar input{min-width:180px;min-height:36px;font-size:14px;border-color:#bdcec5}
 .atlas-profiles-bar button{background:var(--atlas-deep);color:#fff;border-color:var(--atlas-deep);font-size:13px}
@@ -313,7 +315,11 @@ setNode=atlasSelectNode;window.atlasSelectNode=atlasSelectNode;
 window.atlasSelectCandidate=function(id,locate=true){const record=atlasProfileIndex.get(id);if(!record)return false;
  if(!DATA.families.some(f=>f.id===record.family)){document.getElementById('atlas-profile-status').textContent='Candidate family is not represented on this map: '+record.family;return false}
  if(locate){document.getElementById('species').value=record.species;document.getElementById('grade').value='all';document.getElementById('scope').value='all';document.getElementById('search').value=''}
- setNode(record.family,id);const search=document.getElementById('atlas-profile-search');if(search)search.value=id;
+ if(!setNode(record.family,id)){
+  if(atlasConnectedOnly?.checked)atlasShowConnectivityMessage('This family has no displayed connections. Clear “Show connected nodes only” to locate it.');
+  return false;
+ }
+ const search=document.getElementById('atlas-profile-search');if(search)search.value=id;
  document.getElementById('atlas-profile-status').textContent=record.sequence_id+' · '+record.family+' · '+record.orthogroup;
  if(locate){const element=[...document.querySelectorAll('[data-family]')].find(e=>e.getAttribute('data-family')===record.family);if(element&&typeof element.getBBox==='function'){const b=element.getBBox();zoom={x:Math.max(0,b.x-420),y:Math.max(0,b.y-240),w:1100,h:720};applyView()}}
  return true
@@ -339,6 +345,38 @@ function atlasLocateFromSearch(){const query=atlasGlobalSearch.value.trim();if(a
  if(matches.length===1)window.atlasSelectCandidate(matches[0].sequence_id);else atlasStatus.textContent=matches.length+' matching candidates. Choose a protein accession from the suggestions.'}
 const atlasHeader=document.querySelector('header');if(atlasHeader)atlasHeader.after(atlasBar);else document.body.prepend(atlasBar);
 atlasLocate.onclick=atlasLocateFromSearch;atlasGlobalSearch.onchange=()=>{if(atlasProfileIndex.has(atlasGlobalSearch.value.trim()))atlasLocateFromSearch()};atlasGlobalSearch.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();atlasLocateFromSearch()}});
+const atlasNetworkToggles=document.querySelector('.controlbar .toggles');
+let atlasConnectedOnly,atlasConnectivityMessage;
+function atlasShowConnectivityMessage(message){
+ if(!atlasConnectivityMessage)return;
+ atlasConnectivityMessage.textContent=message;
+ atlasConnectivityMessage.hidden=!message;
+}
+if(atlasNetworkToggles&&typeof filteredData==='function'){
+ const label=atlasElement('label',undefined,atlasNetworkToggles);
+ atlasConnectedOnly=atlasElement('input',undefined,label);
+ atlasConnectedOnly.type='checkbox';atlasConnectedOnly.id='atlas-connected-only';
+ label.append(' Show connected nodes only');
+ atlasConnectivityMessage=atlasElement('p');atlasConnectivityMessage.className='atlas-connectivity-message';
+ atlasConnectivityMessage.setAttribute('role','status');atlasConnectivityMessage.hidden=true;
+ document.getElementById('svgWrap')?.before(atlasConnectivityMessage);
+ const networkData=filteredData;
+ filteredData=function(){
+  const options=networkData();
+  atlasShowConnectivityMessage('');
+  if(!atlasConnectedOnly.checked)return options;
+  const endpoints=new Set();
+  for(const {a,b} of activeEdges){endpoints.add(a);endpoints.add(b)}
+  visibleFamilies=visibleFamilies.filter(family=>endpoints.has(family.id));
+  if(current.family&&!endpoints.has(current.family)){
+   atlasCandidateId='';
+   atlasStatus.textContent='Select a connected family to open its candidate profiles.';
+  }
+  if(!endpoints.size)atlasShowConnectivityMessage('No connections match the active filters.');
+  return options;
+ };
+ atlasConnectedOnly.onchange=()=>{needsFit=true;draw()};
+}
 atlasActivateNodes();
 const atlasFitButton=document.getElementById('reset'),atlasToolButtons=document.querySelector('.toolbuttons');if(atlasFitButton&&atlasToolButtons){atlasFitButton.textContent='Fit all';atlasFitButton.onclick=()=>{atlasReadingView=false;fitView()};const read=atlasElement('button','Read labels',atlasToolButtons);read.className='btn';read.title='Readable labels: drag the canvas to pan. Fit all shows the complete network.';read.onclick=()=>{atlasReadingView=true;atlasReadLabels()};atlasReadLabels()}
 window.addEventListener('resize',()=>{if(atlasReadingView)atlasReadLabels()});
