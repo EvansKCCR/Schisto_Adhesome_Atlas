@@ -28,6 +28,10 @@ SPECIES = {
 }
 
 
+class SimulatorAssetsError(ValueError):
+    """The deployed simulator HTML needs to be regenerated."""
+
+
 def supported_inventory(adhesome):
     """Count distinct supported proteins, without transferring reference counts."""
     if 'family_support_level' not in adhesome and 'grade' not in adhesome:
@@ -61,16 +65,32 @@ def refresh_simulator_assets(html,adhesome,literature):
         candidates[component]=json.loads(retained.loc[families.isin(keys),fields].to_json(orient='records'))
     payload=dict(mechanisms=literature['mechanisms'],references=literature['references'],
                  candidates=candidates,provenance=literature['provenance'])
-    assets={
-        'matrix-engine':(source/'simulator_engine.js').read_text(encoding='utf-8'),
-        'atlas-mechanisms':json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
-        'atlas-mechanism-ui':browser_script()+'\n'+(source/'simulator_evidence.js').read_text(encoding='utf-8'),
-    }
-    for marker,body in assets.items():
-        pattern=rf"(<script\b[^>]*\bid=['\"]{marker}['\"][^>]*>).*?(</script>)"
-        html,count=re.subn(pattern,lambda match:match[1]+'\n'+body+'\n'+match[2],html,count=1,flags=re.S)
-        if not count:
-            raise ValueError('Missing simulator asset marker: '+marker)
+    scripts={}
+    for marker in ('matrix-engine','atlas-mechanism-ui','atlas-mechanisms'):
+        match=re.search(rf"<script\b[^>]*\bid=['\"]{marker}['\"][^>]*>(.*?)</script>",html,flags=re.S)
+        if match is None:
+            raise SimulatorAssetsError('Missing simulator asset marker: '+marker)
+        scripts[marker]=match
+    try:
+        engine=(source/'simulator_engine.js').read_text(encoding='utf-8')
+        controls=(source/'simulator_evidence.js').read_text(encoding='utf-8')
+    except FileNotFoundError as error:
+        # Keep the engine and its UI together when using the offline bundle.
+        try:
+            embedded_version=json.loads(scripts['atlas-mechanisms'][1])['mechanisms']['version']
+        except (ValueError,KeyError,TypeError) as metadata_error:
+            raise SimulatorAssetsError('Embedded simulator metadata is incomplete.') from metadata_error
+        if embedded_version!=payload['mechanisms']['version'] or any(
+            not scripts[marker][1].strip() for marker in ('matrix-engine','atlas-mechanism-ui')
+        ):
+            raise SimulatorAssetsError('Embedded simulator scripts are missing or out of date.') from error
+        assets={}
+    else:
+        assets={'matrix-engine':engine,'atlas-mechanism-ui':browser_script()+'\n'+controls}
+    assets['atlas-mechanisms']=json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')
+    for marker in sorted(assets,key=lambda key:scripts[key].start(1),reverse=True):
+        start,end=scripts[marker].span(1)
+        html=html[:start]+'\n'+assets[marker]+'\n'+html[end:]
     return html
 
 

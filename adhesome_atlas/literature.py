@@ -345,7 +345,36 @@ def browser_evidence(registry, candidates):
 
 
 def browser_script():
-    return Path(__file__).with_name('literature_browser.js').read_text(encoding='utf-8')
+    """Render literature evidence without a separate deployment asset."""
+    return """/* Render structured study references in standalone Atlas documents. */
+function renderLiteratureEvidence(parent, links, references) {
+    for (const link of links) {
+        const ref = references[link.reference_id];
+        if (!ref) continue;
+        const item = document.createElement('div');
+        item.className = 'atlas-literature-record';
+        const heading = document.createElement('strong');
+        heading.textContent = ref.reference_id + ' · ' + ref.authors + ' (' + ref.year + ') · ' + ref.title;
+        const scope = document.createElement('p');
+        scope.textContent = [link.match_level, ref.evidence_origin, ref.study_species.join(', ')]
+            .filter(Boolean).join(' · ').replaceAll('_', ' ');
+        if (ref.reference_verification_status === 'unverified') scope.textContent += ' · Bibliography unverified';
+        const finding = document.createElement('p');
+        finding.textContent = [ref.experimental_methods, ref.experimental_finding, link.note].filter(Boolean).join(' · ');
+        item.append(heading, scope, finding);
+        for (const [label, url] of [['DOI', ref.doi_url], ['PubMed', ref.pubmed_url]]) {
+            if (!url) continue;
+            const anchor = document.createElement('a');
+            anchor.textContent = label;
+            anchor.href = url;
+            anchor.target = '_blank';
+            anchor.rel = 'noopener';
+            item.append(anchor, document.createTextNode(' '));
+        }
+        parent.appendChild(item);
+    }
+}
+"""
 
 
 def tsv(records):

@@ -4,6 +4,7 @@ from decimal import Decimal
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import json
+import logging
 import time
 from zipfile import BadZipFile
 import pandas as pd
@@ -18,7 +19,7 @@ from phylogeny_view import phylogeny_panel
 from string_workbench import string_panel
 from smart_links import smart_panel
 from linked_explorer import linked_explorer_html
-from simulator import simulator_html,SIMULATOR_FILE
+from simulator import simulator_html,SIMULATOR_FILE,SimulatorAssetsError
 from feedback import feedback_panel
 from branding import identity_banner,creator_credit
 from candidate_profiles import profile_payload,candidate_map_html,atlas_url
@@ -156,10 +157,21 @@ elif page==HYPOTHESIS_PAGE:
         html=candidate_map_html(html,profiles,app_url=app_url,focus_candidate=focus)
         html=html.replace('</head>','<style>svg text{fill:#000!important;font-family:Arial,sans-serif}</style></head>')
         sim=ROOT/SIMULATOR_FILE
-        if sim.exists():html=linked_explorer_html(html,simulator_html(sim,all_candidates,literature))
+        linked_simulator=False
+        if sim.exists():
+            try:
+                simulation=simulator_html(sim,all_candidates,literature)
+            except (FileNotFoundError,SimulatorAssetsError):
+                logging.getLogger(__name__).exception('Could not load the linked simulator.')
+                st.info('The simulator bundle needs an update. The candidate map and literature evidence are available below.')
+            else:
+                html=linked_explorer_html(html,simulation)
+                linked_simulator=True
         st.iframe(html,height=980)
-        st.download_button('Download interactive map and linked simulator',html,'Schisto_Adhesome_interactive.html','text/html')
-        st.caption('Click any node to explore its linked candidates, then simulate the selected candidate and highlighted path. The profile remains visible beside the simulation; the search box is optional. Simulator weights are conceptual parameters; metazoan reference evidence counts are not used as binding affinities.')
+        label='Download interactive map and linked simulator' if linked_simulator else 'Download interactive map'
+        st.download_button(label,html,'Schisto_Adhesome_interactive.html','text/html')
+        if linked_simulator:
+            st.caption('Click any node to explore its linked candidates, then simulate the selected candidate and highlighted path. The profile remains visible beside the simulation; the search box is optional. Simulator weights are conceptual parameters.')
     else:st.info('No interactive map is present in the current network library.')
     st.subheader('Build an evidence-stratified schistosome adhesome hypothesis')
     st.write('Use Interactions to choose species, grades and families, construct the orthogroup consensus graph, and download membership, reference-edge evidence, centrality and provenance.')
