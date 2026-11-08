@@ -3,45 +3,149 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111338">
+  <meta name="google-site-verification" content="gFUFpt758JYcYrTgXXClX9mncqXUtRi1PRnjrYZKOCc" />
   <title>Schisto-Adhesome Atlas | Schistosome integrin adhesion</title>
   <meta name="description" content="Explore candidate integrin adhesion proteins across seven Schistosoma species, with protein dossiers, orthology, phylogeny, domains, motifs and interactive network hypotheses.">
   <link rel="canonical" href="https://evanskccr.github.io/Schisto_Adhesome_Atlas/">
+  <link rel="icon" type="image/svg+xml" href="atlas-mark.svg">
   <style>
-    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #182b24; background: #fff; }
-    body { margin: 0; border-top: .4rem solid #086046; line-height: 1.6; }
-    main, footer { max-width: 56rem; padding: 0 1.25rem; margin: 0 auto; }
-    header { padding: clamp(2rem, 7vw, 5rem) 0 1.75rem; }
-    .eyebrow { margin: 0; color: #086046; font-weight: 700; }
-    h1 { margin: .3rem 0 1rem; font-size: clamp(2.35rem, 6vw, 4rem); line-height: 1.08; }
-    header > p { max-width: 65ch; }
-    a { color: #086046; text-underline-offset: .18em; }
-    a:focus-visible { outline: 3px solid #086046; outline-offset: 4px; }
-    .primary { display: inline-block; margin: .45rem 0; padding: .65rem 1rem; background: #086046; color: #fff; border-radius: .35rem; font-weight: 700; }
-    section { border-top: 1px solid #cbdad3; padding: 1rem 0; }
-    li + li { margin-top: .6rem; }
-    footer { padding-bottom: 2rem; }
+    :root {
+      color-scheme: light;
+      font-family: "Segoe UI", Arial, sans-serif;
+      --ink: #171832;
+      --muted: #474b6b;
+      --navy: #111338;
+      --blue: #263ca6;
+      --violet: #6e34bc;
+      --pink: #bd2d77;
+      --cyan: #69e9ff;
+      --amber: #ffbf67;
+      --line: #dedff0;
+      --lavender: #f4f1fc;
+      color: var(--ink);
+      background: #fff;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; line-height: 1.6; }
+    a { color: var(--blue); text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+    .wrap { width: min(70rem, calc(100% - clamp(2rem, 8vw, 6rem))); margin-inline: auto; }
+    .masthead { border-bottom: 1px solid var(--line); }
+    .masthead::before {
+      content: ""; display: block; height: .25rem;
+      background: linear-gradient(90deg, var(--amber), #f05d69 27%, var(--violet) 60%, var(--cyan));
+    }
+    .masthead .wrap, .footer .wrap {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap;
+    }
+    .masthead .wrap { padding-block: .7rem; }
+    .identity { display: flex; align-items: center; gap: .8rem; }
+    .identity img { width: 3.6rem; height: 3.6rem; }
+    .identity strong, .identity small { display: block; line-height: 1.35; }
+    .identity small { margin-top: .2rem; color: var(--muted); }
+    .masthead nav { display: flex; flex-wrap: wrap; gap: .5rem 1.3rem; font-size: .94rem; font-weight: 650; }
+    .hero {
+      color: #fff;
+      background: radial-gradient(ellipse at 76% 48%, #34215f 0, transparent 44%),
+        linear-gradient(118deg, #10132f, #1b2358);
+    }
+    .hero .wrap {
+      display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: center;
+      gap: clamp(1rem, 4vw, 4rem); padding-block: clamp(2.6rem, 7vw, 5rem);
+    }
+    .eyebrow { margin: 0; color: var(--cyan); font-size: .79rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: .5rem 0 1rem; font-size: clamp(2.2rem, 5.2vw, 4.5rem); letter-spacing: -.045em; line-height: 1.04; }
+    .hero p:not(.eyebrow) { max-width: 56ch; color: #edf0ff; font-size: clamp(1rem, 1.7vw, 1.14rem); }
+    .primary {
+      display: inline-block; margin-top: .35rem; padding: .7rem 1rem;
+      background: var(--cyan); color: var(--navy); border-radius: .4rem; font-weight: 750; text-decoration: none;
+    }
+    .primary:hover { background: #b2f4ff; }
+    .primary:focus-visible { outline-color: #fff; }
+    .synergy-logo { display: block; width: min(100%, 23rem); height: auto; justify-self: center; }
+    .explore { padding-block: clamp(2rem, 5vw, 3.5rem); }
+    h2 { margin-bottom: 1rem; font-size: clamp(1.65rem, 3vw, 2.2rem); letter-spacing: -.025em; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .card { border: 1px solid var(--line); border-top: .2rem solid var(--blue); border-radius: .5rem; padding: 1.15rem; }
+    .card:nth-child(2) { border-top-color: var(--violet); }
+    .card:nth-child(3) { border-top-color: var(--pink); }
+    .card h3 { margin-bottom: .5rem; font-size: 1.11rem; line-height: 1.3; }
+    .card p { margin-bottom: .85rem; color: var(--muted); }
+    .card-links { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .94rem; font-weight: 700; }
+    .evidence-note { margin: 1.1rem 0 0; padding: .8rem 1rem; background: var(--lavender); border-radius: .4rem; color: var(--muted); }
+    .footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .94rem; }
+    .footer .wrap { padding-block: 1.25rem; }
+    @media (max-width: 760px) {
+      .hero .wrap, .cards { grid-template-columns: 1fr; }
+      .synergy-logo { width: min(48vw, 10rem); justify-self: start; }
+    }
   </style>
 </head>
 <body>
+  <header class="masthead">
+    <div class="wrap">
+      <div class="identity">
+        <img src="ghid-kccr.jpeg" alt="" width="200" height="200">
+        <div>
+          <strong>Global Health and Infectious Diseases Group</strong>
+          <small>GHID-KCCR</small>
+        </div>
+      </div>
+      <nav aria-label="Landing page">
+        <a href="#explore">Explore the data</a>
+        <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code</a>
+      </nav>
+    </div>
+  </header>
   <main>
-    <header>
-      <p class="eyebrow">Comparative parasite proteomics</p>
-      <h1>Schisto-Adhesome Atlas</h1>
-      <p>The Schisto-Adhesome Atlas is an interactive resource for exploring integrin adhesion and candidate adhesome proteins across seven <i>Schistosoma</i> species. It brings protein annotations, comparative genomics and interaction evidence together to identify conserved families and prioritize candidates for schistosomiasis research.</p>
-      <a class="primary" href="https://schistoadhesomeatlas.streamlit.app/">Open the interactive Atlas</a>
-    </header>
-    <section aria-labelledby="explore">
+    <section class="hero" aria-labelledby="atlas-title">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow">Comparative parasite proteomics</p>
+          <h1 id="atlas-title">Schisto-Adhesome Atlas</h1>
+          <p>Explore integrin adhesion and candidate adhesome proteins across seven <i>Schistosoma</i> species. The Atlas connects protein annotations, comparative genomics and interaction evidence to identify conserved families and prioritize candidates for schistosomiasis research.</p>
+          <a class="primary" href="https://schistoadhesomeatlas.streamlit.app/">Open the interactive Atlas <span aria-hidden="true">↗</span></a>
+        </div>
+        <img class="synergy-logo" src="Synergy_NGS2025.png" alt="SYNERGY-NGS 2025" width="2000" height="2000">
+      </div>
+    </section>
+    <section class="explore wrap" aria-labelledby="explore">
       <h2 id="explore">Explore the data</h2>
-      <ul>
-        <li><a href="https://schistoadhesomeatlas.streamlit.app/?view=Components">Components</a> and <a href="https://schistoadhesomeatlas.streamlit.app/?view=Protein+dossier">protein dossiers</a> summarize family assignments, domain architecture, motifs, predicted localization and supporting evidence.</li>
-        <li><a href="https://schistoadhesomeatlas.streamlit.app/?view=Orthology">Orthology</a> and <a href="https://schistoadhesomeatlas.streamlit.app/?view=Phylogeny">phylogeny</a> show copy profiles and evolutionary relationships among candidates and reference proteins.</li>
-        <li>The <a href="https://schistoadhesomeatlas.streamlit.app/?view=Interactive+hypothesis">interactive integrin-adhesome hypothesis</a> links family nodes to candidate profiles and a simulator for exploring predicted downstream effects.</li>
-      </ul>
-      <p>The Atlas distinguishes projected family-level interactions from published experimental evidence. Network projections and simulations help formulate hypotheses for experimental follow-up.</p>
+      <div class="cards">
+        <article class="card">
+          <h3>Protein annotations</h3>
+          <p>Inspect family assignments, domain architecture, motifs, predicted localization and supporting evidence.</p>
+          <div class="card-links">
+            <a href="https://schistoadhesomeatlas.streamlit.app/?view=Components">Components</a>
+            <a href="https://schistoadhesomeatlas.streamlit.app/?view=Protein+dossier">Protein dossiers</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Comparative genomics</h3>
+          <p>Compare copy profiles and evolutionary relationships among candidates and reference proteins.</p>
+          <div class="card-links">
+            <a href="https://schistoadhesomeatlas.streamlit.app/?view=Orthology">Orthology</a>
+            <a href="https://schistoadhesomeatlas.streamlit.app/?view=Phylogeny">Phylogeny</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Interaction hypotheses</h3>
+          <p>Explore family connections, open candidate profiles and simulate predicted downstream effects.</p>
+          <div class="card-links">
+            <a href="https://schistoadhesomeatlas.streamlit.app/?view=Interactive+hypothesis">Interactive network</a>
+          </div>
+        </article>
+      </div>
+      <p class="evidence-note">The Atlas distinguishes projected family-level interactions from published experimental evidence. Network projections and simulations help formulate hypotheses for experimental follow-up.</p>
     </section>
   </main>
-  <footer>
-    <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code and documentation on GitHub</a>
+  <footer class="footer">
+    <div class="wrap">
+      <span>Schisto-Adhesome Atlas · Created by Evans Asamoah Adu</span>
+      <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code and documentation on GitHub</a>
+    </div>
   </footer>
 </body>
 </html>
