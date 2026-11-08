@@ -36,15 +36,11 @@
       content: ""; display: block; height: .25rem;
       background: linear-gradient(90deg, var(--amber), #f05d69 27%, var(--violet) 60%, var(--cyan));
     }
-    .masthead .wrap, .footer .wrap {
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap;
-    }
     .masthead .wrap { padding-block: .7rem; }
     .identity { display: flex; align-items: center; gap: .8rem; }
     .identity img { width: 3.6rem; height: 3.6rem; }
     .identity strong, .identity small { display: block; line-height: 1.35; }
     .identity small { margin-top: .2rem; color: var(--muted); }
-    .masthead nav { display: flex; flex-wrap: wrap; gap: .5rem 1.3rem; font-size: .94rem; font-weight: 650; }
     .hero {
       color: #fff;
       background: radial-gradient(ellipse at 76% 48%, #34215f 0, transparent 44%),
@@ -75,11 +71,20 @@
     .card p { margin-bottom: .85rem; color: var(--muted); }
     .card-links { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .94rem; font-weight: 700; }
     .evidence-note { margin: 1.1rem 0 0; padding: .8rem 1rem; background: var(--lavender); border-radius: .4rem; color: var(--muted); }
-    .footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .94rem; }
-    .footer .wrap { padding-block: 1.25rem; }
+    .footer { background: #191919; color: #f5f4f8; }
+    .footer .wrap {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.25rem 3rem;
+      padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    }
+    .footer p { margin: .35rem 0 0; }
+    .footer a { color: inherit; }
+    .footer a:hover { color: var(--cyan); }
+    .footer-links a { display: block; width: fit-content; }
+    .footer-links a + a { margin-top: .35rem; }
     @media (max-width: 760px) {
       .hero .wrap, .cards { grid-template-columns: 1fr; }
       .synergy-logo { width: min(48vw, 10rem); justify-self: start; }
+      .footer .wrap { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -93,10 +98,6 @@
           <small>GHID-KCCR</small>
         </div>
       </div>
-      <nav aria-label="Landing page">
-        <a href="#explore">Explore the data</a>
-        <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code</a>
-      </nav>
     </div>
   </header>
   <main>
@@ -138,13 +139,21 @@
           </div>
         </article>
       </div>
-      <p class="evidence-note">The Atlas distinguishes projected family-level interactions from published experimental evidence. Network projections and simulations help formulate hypotheses for experimental follow-up.</p>
+      <p class="evidence-note">The Atlas differentiates computationally inferred family-level interactions from experimentally validated associations. Network-based projections and simulations provide a hypothesis-generating framework to guide future experimental investigation.</p>
     </section>
   </main>
   <footer class="footer">
     <div class="wrap">
-      <span>Schisto-Adhesome Atlas · Created by Evans Asamoah Adu</span>
-      <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code and documentation on GitHub</a>
+      <div>
+        <strong>Schisto-Adhesome Atlas</strong>
+        <p>Comparative proteomics of integrin adhesion in <i>Schistosoma</i>.</p>
+        <p>Created by Evans Asamoah Adu</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">Privacy policy (GitHub Pages)</a>
+        <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code and documentation on GitHub</a>
+        <p>Last updated <time datetime="2026-11-08">8 November 2026</time></p>
+      </div>
     </div>
   </footer>
 </body>
