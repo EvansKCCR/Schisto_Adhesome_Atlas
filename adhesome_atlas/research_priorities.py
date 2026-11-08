@@ -1,4 +1,5 @@
 """Source-driven research entry point; never changes candidate scores or assignments."""
+from functools import partial
 from html import escape
 from pathlib import Path
 import re
@@ -66,7 +67,9 @@ TABLE_HEADERS={
     'Candidate family':('Candidate family','Supported proteins','Representative S. mansoni IDs','Priority and rationale'),
     'Evaluation criterion':('Evaluation criterion','Vaccine/antibody candidate','Small-molecule drug candidate'),
 }
-CITATION_PATTERN=r'\[([^\]\n]+)\]\((https://(?:doi\.org|pubmed\.ncbi\.nlm\.nih\.gov)/[^\s)]+)\)|\(([^()\n]+)\)\[(https://(?:doi\.org|pubmed\.ncbi\.nlm\.nih\.gov)/[^\]\s]+)\]'
+REFERENCE_HOST=r'(?:doi\.org|(?:pubmed|pmc)\.ncbi\.nlm\.nih\.gov)'
+CITATION_PATTERN=rf'\[([^\]\n]+)\]\((https://{REFERENCE_HOST}/[^\s)]+)\)|\(([^()\n]+)\)\[(https://{REFERENCE_HOST}/[^\]\s]+)\]'
+ROADMAP_OBJECTIVE_END=r'\b(?:discovery|target|mechanism|characterization|validation|investigation|evaluation)'
 
 
 def _plain_cells(line,first_header):
@@ -76,7 +79,7 @@ def _plain_cells(line,first_header):
     columns. Tabs and Markdown pipes support arbitrary prose without these rules.
     """
     patterns={
-        'Candidate or orthogroup':r'^((?:OG\d+(?:/OG\d+)*\s+\S+)|(?:.+?\([^)]*(?:Smp_|OG)\d+[^)]*\))|(?:.+?\brepresentatives))\s+(.+?\b(?:discovery|target|mechanism|characterization|validation|investigation|evaluation))\s+(.+)$',
+        'Candidate or orthogroup':rf'^((?:OG\d+(?:/OG\d+)*\s+\S+)|(?:.+?\([^)]*(?:Smp_|OG)\d+[^)]*\))|(?:.+?\brepresentatives))\s+(.+?{ROADMAP_OBJECTIVE_END})\s+(.+)$',
         'Protein ID':r'^(\S+)\s+((?:Supported|Provisional|Unassigned|Unresolved)\s+integrin\s+(?:alpha|beta|α|β)(?:\s+hypothesis)?)\s+(.+)$',
         'Candidate family':r'^(.+?)\s+(\d+.*?)\s+(Smp_\d+(?:\s*,\s*Smp_\d+)*)\s+(.+)$',
     }
@@ -102,7 +105,16 @@ def _table_block(text, first_header):
         if not line:break
         end=index+1
         if re.fullmatch(r'[|:\-\s]+',line):continue
-        if '\t' in line:values=[v.strip() for v in line.split('\t')]
+        if '\t' in line:
+            values=[v.strip() for v in line.split('\t')]
+            if first_header=='Candidate or orthogroup' and len(values)==2:
+                # A mixed-delimiter row can retain an explicit candidate cell.
+                # Split the remaining prose only at a unique objective boundary.
+                remainder=values[1]
+                boundaries=list(re.finditer(ROADMAP_OBJECTIVE_END+r'\s+(?=[A-Z])',remainder))
+                if len(boundaries)==1:
+                    boundary=boundaries[0]
+                    values[1:]=[remainder[:boundary.end()].rstrip(),remainder[boundary.end():]]
         elif line.startswith('|') and line.endswith('|'):values=[v.strip() for v in line[1:-1].split('|')]
         else:
             values=re.split(r'\s{2,}',line)
@@ -173,19 +185,22 @@ def load_brief(path):
     for match in re.finditer(CITATION_PATTERN,text):
         label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
         if url not in [r['url'] for r in references]:references.append(dict(label=label,url=url))
-    roadmap_rows=_tabular(text,'Candidate or orthogroup');roadmap=[];seen=set()
+    roadmap_rows,roadmap_start,roadmap_end=_table_block(prefix,'Candidate or orthogroup')
+    roadmap=[];seen=set()
     for row in roadmap_rows:
         identity=tuple(' '.join(value.split()) for value in row.values())
         if identity not in seen:roadmap.append(row);seen.add(identity)
-    intro=prefix.split('Candidate or orthogroup')[0]
-    overview=' '.join(line.strip() for line in intro.splitlines() if line.strip().strip('|') and not line.startswith('#') and not re.match(r'\d+[.)]\s',line))
+    prefix_lines=prefix.splitlines()
+    overview=' '.join(line.strip() for line in prefix_lines[:roadmap_start] if line.strip().strip('|') and not line.startswith('#') and not re.match(r'\d+[.)]\s',line))
+    context='\n'.join(prefix_lines[roadmap_end:])
+    priority_context=re.split(r'^(?:\d+[.)]\s+|#{1,6}\s+)\**Recommended priority candidates\b',context,flags=re.M|re.I)[0].strip()
     _,_,additional_end=_table_block(text,'Candidate family')
     tail='\n'.join(text.splitlines()[additional_end:])
     additional_evidence=re.split(r'^\s*3[.)]\s+\**A practical target-selection framework',tail,flags=re.M|re.I)[0].strip()
     _,_,framework_end=_table_block(text,'Evaluation criterion')
     framework_text='\n'.join(text.splitlines()[framework_end:]).strip()
     return dict(features=features,additional=additional,framework=_tabular(text,'Evaluation criterion'),
-                roadmap=roadmap,references=references,overview=overview or OVERVIEW,
+                roadmap=roadmap,references=references,overview=overview or OVERVIEW,priority_context=priority_context,
                 additional_evidence=additional_evidence,framework_text=framework_text,
                 repeated_roadmap_rows=len(roadmap_rows)-len(roadmap))
 
@@ -229,11 +244,17 @@ def _link(label,url,kind='target',title=''):
         f'target="_self" title="{escape(title or label,quote=True)}">{escape(label)}</a>')
 
 
-def protein_links(identifier,candidates,base):
+def protein_links(identifier,candidates,base,registry=None):
     matches=protein_matches(candidates,identifier).drop_duplicates('sequence_id')
+    published=matches.empty and bool(registry)
+    if published:
+        loci={link['protein_id'] for link in registry['protein_links']
+              if link.get('published_locus')==identifier and link['match_level']=='published_named_protein'}
+        matches=candidates[candidates.sequence_id.isin(loci)].drop_duplicates('sequence_id')
     if matches.empty:return f'<span class="research-unavailable" title="No matching candidate in the current catalogue">{escape(identifier)} · unavailable</span>'
     return ' '.join(_link(identifier if len(matches)==1 else row.sequence_id,
         target_url(base,'Protein dossier',protein=row.sequence_id),'protein',
+        f'Published transcript {identifier} · catalogue locus {row.sequence_id}' if published else
         f'{row.sequence_id} · {row.family} · {row.audit_classification}') for row in matches.itertuples())
 
 
@@ -252,8 +273,8 @@ def available_families(families,candidates):
     return sorted(name for name in set(candidates.family) if family_key(name) in wanted)
 
 
-def rich_text(text,candidates,base):
-    """Safe inline links to exact records, orthogroups and the brief's original DOIs."""
+def rich_text(text,candidates,base,registry=None):
+    """Safe inline links to exact records, orthogroups and publications."""
     protein_pattern=r'(?:[A-Za-z]+__)?(?:Smp_|MS3_|EWB00_|SBOV2_|SCUR1_|SINT2_|SRDH2_)\d+(?:\.\d+)?'
     pattern=CITATION_PATTERN+r'|`?(?:OG\d{7}|'+protein_pattern+r')`?'
     parts=[];end=0;groups=set(candidates.orthogroup)
@@ -263,7 +284,7 @@ def rich_text(text,candidates,base):
         if match[1] or match[3]:
             label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
             parts.append(f'<a href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)} ↗</a>')
-        elif re.fullmatch(protein_pattern,token):parts.append(protein_links(token,candidates,base))
+        elif re.fullmatch(protein_pattern,token):parts.append(protein_links(token,candidates,base,registry))
         elif token in groups:parts.append(_link(token,target_url(base,'Orthology',orthogroup=token),'orthogroup','Open orthogroup assignments and members'))
         else:parts.append(f'<span class="research-unavailable">{escape(token)} · unavailable</span>')
         end=match.end()
@@ -338,21 +359,22 @@ def priority_trace(brief,candidates,registry):
 
 
 def feature_card(feature,candidates,base,registry=None):
+    render=partial(rich_text,candidates=candidates,base=base,registry=registry)
     metrics=''
     for metric in feature['metrics']:
         comparison=metric_comparison(metric,candidates)
         badge=metric['classification'].lower()
         diff=f'<span class="research-difference">Catalogue: {comparison["live"]:,} · differs from brief</span>' if not comparison['matches'] else ''
         metrics+=f'<div class="research-metric {badge}"><strong>{metric["count"]:,}</strong><span>{escape(metric["label"])}</span>{diff}</div>'
-    evidence=''.join('<p>'+rich_text(p,candidates,base)+'</p>' for p in feature['evidence'])
+    evidence=''.join('<p>'+render(p)+'</p>' for p in feature['evidence'])
     for row in feature['assignments']:
-        evidence+='<p>'+rich_text(' · '.join(row.values()),candidates,base)+'</p>'
+        evidence+='<p>'+render(' · '.join(row.values()))+'</p>'
     return (f'<article class="research-card" aria-label="{escape(feature["label"])}">'
         f'<h3>{escape(feature["label"])}</h3><div class="research-metrics">{metrics}</div>'
         f'<p class="research-objective">{escape(feature["objective"])}</p>'
         f'<div class="research-card-label">Explore families</div><div class="research-links">{family_links(feature["families"],candidates,base)}</div>'
-        f'<div class="research-card-label">Key orthogroups</div><div class="research-links">{rich_text(" · ".join(feature["orthogroups"]),candidates,base)}</div>'
-        f'<div class="research-card-label">Representative proteins · <em>S. mansoni</em></div><div class="research-links">{rich_text(" · ".join(feature["proteins"]),candidates,base)}</div>'
+        f'<div class="research-card-label">Key orthogroups</div><div class="research-links">{render(" · ".join(feature["orthogroups"]))}</div>'
+        f'<div class="research-card-label">Representative proteins · <em>S. mansoni</em></div><div class="research-links">{render(" · ".join(feature["proteins"]))}</div>'
         f'<div class="research-next"><span>Next investigation</span><p>{escape(feature["next"])}</p></div>'
         f'<details><summary>Evidence & interpretation</summary><div class="research-evidence"><span class="research-tag published">Published evidence / research context</span>{evidence}<p>{_reference_links(registry,feature["families"],candidates)}</p></div></details></article>')
 
@@ -365,7 +387,8 @@ def research_priorities_panel(candidates,base,source,registry=None):
     try:brief=load_brief(source)
     except (ValueError,StopIteration) as error:
         st.warning('The research-priority brief needs a format update: '+str(error));return
-    st.markdown('<section class="research-intro"><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+rich_text(brief.get('overview',OVERVIEW),candidates,base)+'</p></section>',unsafe_allow_html=True)
+    render=partial(rich_text,candidates=candidates,base=base,registry=registry)
+    st.markdown('<section class="research-intro"><h2 id="research-priorities">Research Priorities & Target Discovery</h2><p>'+render(brief.get('overview',OVERVIEW))+'</p></section>',unsafe_allow_html=True)
     st.markdown('<div class="research-legend"><span class="research-tag supported">Specific or broad family support</span><span class="research-tag provisional">Ambiguous or provisional assignment</span><span class="research-tag unassigned">Unresolved assignment</span><span class="research-tag published">Published evidence</span><span class="research-tag proposed">Proposed research</span></div>',unsafe_allow_html=True)
     st.caption('Family assignments support computational prioritization. Published findings apply to the named proteins or antigens; candidate-family membership does not establish vaccine efficacy, drug activity or biological essentiality. Counts below cover the complete catalogue, independently of sidebar filters.')
     checks=comparisons(brief,candidates)
@@ -373,6 +396,8 @@ def research_priorities_panel(candidates,base,source,registry=None):
     if differences:st.warning(f'{len(differences)} research-brief count(s) differ from the live catalogue. Both values are shown; see Count reconciliation below.')
     featured,framework,roadmap=st.tabs(['Featured priorities','Target-selection framework','Experimental roadmap'])
     with featured:
+        if brief['priority_context']:
+            st.markdown(render(brief['priority_context']),unsafe_allow_html=True)
         st.markdown('<div class="research-grid">'+''.join(feature_card(f,candidates,base,registry) for f in brief['features'])+'</div>',unsafe_allow_html=True)
         with st.expander('Additional Adhesome Targets for Functional Investigation'):
             st.caption('Functional and therapeutic research candidates. These family assignments do not establish experimentally confirmed drug targets.')
@@ -382,11 +407,11 @@ def research_priorities_panel(candidates,base,source,registry=None):
                 diff=f'<p class="research-difference">Live catalogue: {check["live"]} supported candidates; brief: {check["brief"]}.</p>' if not check['matches'] else ''
                 count_label=row['Supported proteins'] if 'supported' in row['Supported proteins'].lower() else row['Supported proteins']+' supported candidates'
                 cards.append('<article class="research-additional"><h4>'+escape(row['Candidate family'])+'</h4><span class="research-tag supported">'+escape(count_label)+'</span>'+diff+
-                    '<p>'+rich_text(row['Priority and rationale'],candidates,base)+'</p><div class="research-card-label">Principal validation challenge</div><p>'+escape(row['challenge'])+'</p><div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+rich_text(row['Representative S. mansoni IDs'],candidates,base)+'</div><p>'+_reference_links(registry,row['families'],candidates)+'</p></article>')
+                    '<p>'+render(row['Priority and rationale'])+'</p><div class="research-card-label">Principal validation challenge</div><p>'+escape(row['challenge'])+'</p><div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+render(row['Representative S. mansoni IDs'])+'</div><p>'+_reference_links(registry,row['families'],candidates)+'</p></article>')
             st.markdown('<div class="research-additional-grid">'+''.join(cards)+'</div>',unsafe_allow_html=True)
             if brief.get('additional_evidence'):
                 st.markdown('#### Evidence and expanded family priorities')
-                st.markdown(rich_text(brief['additional_evidence'],candidates,base),unsafe_allow_html=True)
+                st.markdown(render(brief['additional_evidence']),unsafe_allow_html=True)
     with framework:
         st.markdown('#### Match the evidence to the development objective')
         mode=st.radio('Compare target-development routes',['Side by side','Vaccine / antibody candidates','Small-molecule drug candidates'],horizontal=True,key='research_framework')
@@ -398,14 +423,14 @@ def research_priorities_panel(candidates,base,source,registry=None):
         rows=''.join('<tr>'+''.join('<th scope="row">'+escape(headings.get(row[c],row[c]))+'</th>' if c==columns[0] else '<td>'+escape(row[c])+'</td>' for c in columns)+'</tr>' for row in brief['framework'])
         st.markdown('<div class="research-matrix"><table><thead><tr>'+header+'</tr></thead><tbody>'+rows+'</tbody></table></div>',unsafe_allow_html=True)
         st.caption('A qualitative decision framework; no new numerical priority score is calculated. The existing Components prioritization analysis remains available.')
-        if brief.get('framework_text'):st.markdown(rich_text(brief['framework_text'],candidates,base),unsafe_allow_html=True)
+        if brief.get('framework_text'):st.markdown(render(brief['framework_text']),unsafe_allow_html=True)
     with roadmap:
         st.markdown('#### From Computational Candidates to Experimental Validation')
         st.caption('Proposed first investigations from the research brief. These steps are a research plan, not completed experimental results.')
         if brief.get('repeated_roadmap_rows'):st.caption(f'{brief["repeated_roadmap_rows"]} repeated roadmap entry displayed once; the complete original brief is available for download.')
         items=[]
         for i,row in enumerate(brief['roadmap'],1):
-            target=rich_text(row['Candidate or orthogroup'],candidates,base)
+            target=render(row['Candidate or orthogroup'])
             name=row['Candidate or orthogroup']
             if name.endswith(' representatives'):
                 families=tuple(name.removesuffix(' representatives').split('/'))
