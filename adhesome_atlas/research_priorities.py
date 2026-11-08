@@ -180,7 +180,7 @@ def load_brief(path):
         row['families']=FAMILY_JOINS.get(row['Candidate family'],())
         row['count']=int(re.search(r'\d+',row['Supported proteins'])[0])
         row['orthogroups']=tuple(dict.fromkeys(re.findall(r'OG\d{7}',row['Priority and rationale']))) if not row['families'] else ()
-        row['challenge']=CHALLENGES.get(row['Candidate family'],row['Priority and rationale'])
+        row['challenge']=CHALLENGES.get(row['Candidate family'],'')
     references=[]
     for match in re.finditer(CITATION_PATTERN,text):
         label,url=(match[1],match[2]) if match[1] else (match[3],match[4])
@@ -318,14 +318,17 @@ def comparisons(brief,candidates):
     return rows
 
 
-def _reference_links(registry,families,candidates):
+def _reference_links(registry,families,candidates,cited_in=''):
     from literature import evidence_for
     if not registry:
         return ''
     refs=registry['references']
     ids=sorted({link['reference_id'] for family in available_families(families,candidates)
                 for link in evidence_for(registry,family)})
-    return ' '.join(f'<a href="{escape(refs[rid]["doi_url"])}" target="_blank" rel="noopener">{rid}</a>' for rid in ids)
+    cited_urls={(match[2] or match[4]).rstrip('/').casefold()
+                for match in re.finditer(CITATION_PATTERN,cited_in)}
+    return ' '.join(f'<a href="{escape(refs[rid]["doi_url"])}" target="_blank" rel="noopener">{rid}</a>'
+                    for rid in ids if refs[rid]['doi_url'].rstrip('/').casefold() not in cited_urls)
 
 
 def priority_trace(brief,candidates,registry):
@@ -406,8 +409,13 @@ def research_priorities_panel(candidates,base,source,registry=None):
                 check=next(r for r in checks if r['category']==row['Candidate family'])
                 diff=f'<p class="research-difference">Live catalogue: {check["live"]} supported candidates; brief: {check["brief"]}.</p>' if not check['matches'] else ''
                 count_label=row['Supported proteins'] if 'supported' in row['Supported proteins'].lower() else row['Supported proteins']+' supported candidates'
+                rationale=row['Priority and rationale']
+                challenge=row['challenge']
+                validation='<div class="research-card-label">Principal validation challenge</div><p>'+render(challenge)+'</p>' if challenge else ''
+                references=_reference_links(registry,row['families'],candidates,cited_in=rationale+'\n'+challenge)
                 cards.append('<article class="research-additional"><h4>'+escape(row['Candidate family'])+'</h4><span class="research-tag supported">'+escape(count_label)+'</span>'+diff+
-                    '<p>'+render(row['Priority and rationale'])+'</p><div class="research-card-label">Principal validation challenge</div><p>'+escape(row['challenge'])+'</p><div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+render(row['Representative S. mansoni IDs'])+'</div><p>'+_reference_links(registry,row['families'],candidates)+'</p></article>')
+                    '<p>'+render(rationale)+'</p>'+validation+'<div class="research-links">'+family_links(row['families'],candidates,base)+'</div><div class="research-links">'+render(row['Representative S. mansoni IDs'])+'</div>'+
+                    ('<p>'+references+'</p>' if references else '')+'</article>')
             st.markdown('<div class="research-additional-grid">'+''.join(cards)+'</div>',unsafe_allow_html=True)
             if brief.get('additional_evidence'):
                 st.markdown('#### Evidence and expanded family priorities')
