@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schisto-Adhesome Atlas | Schistosome integrin adhesion</title>
+  <meta name="description" content="Explore candidate integrin adhesion proteins across seven Schistosoma species, with protein dossiers, orthology, phylogeny, domains, motifs and interactive network hypotheses.">
+  <link rel="canonical" href="https://evanskccr.github.io/Schisto_Adhesome_Atlas/">
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #182b24; background: #fff; }
+    body { margin: 0; border-top: .4rem solid #086046; line-height: 1.6; }
+    main, footer { max-width: 56rem; padding: 0 1.25rem; margin: 0 auto; }
+    header { padding: clamp(2rem, 7vw, 5rem) 0 1.75rem; }
+    .eyebrow { margin: 0; color: #086046; font-weight: 700; }
+    h1 { margin: .3rem 0 1rem; font-size: clamp(2.35rem, 6vw, 4rem); line-height: 1.08; }
+    header > p { max-width: 65ch; }
+    a { color: #086046; text-underline-offset: .18em; }
+    a:focus-visible { outline: 3px solid #086046; outline-offset: 4px; }
+    .primary { display: inline-block; margin: .45rem 0; padding: .65rem 1rem; background: #086046; color: #fff; border-radius: .35rem; font-weight: 700; }
+    section { border-top: 1px solid #cbdad3; padding: 1rem 0; }
+    li + li { margin-top: .6rem; }
+    footer { padding-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Comparative parasite proteomics</p>
+      <h1>Schisto-Adhesome Atlas</h1>
+      <p>The Schisto-Adhesome Atlas is an interactive resource for exploring integrin adhesion and candidate adhesome proteins across seven <i>Schistosoma</i> species. It brings protein annotations, comparative genomics and interaction evidence together to identify conserved families and prioritize candidates for schistosomiasis research.</p>
+      <a class="primary" href="https://schistoadhesomeatlas.streamlit.app/">Open the interactive Atlas</a>
+    </header>
+    <section aria-labelledby="explore">
+      <h2 id="explore">Explore the data</h2>
+      <ul>
+        <li><a href="https://schistoadhesomeatlas.streamlit.app/?view=Components">Components</a> and <a href="https://schistoadhesomeatlas.streamlit.app/?view=Protein+dossier">protein dossiers</a> summarize family assignments, domain architecture, motifs, predicted localization and supporting evidence.</li>
+        <li><a href="https://schistoadhesomeatlas.streamlit.app/?view=Orthology">Orthology</a> and <a href="https://schistoadhesomeatlas.streamlit.app/?view=Phylogeny">phylogeny</a> show copy profiles and evolutionary relationships among candidates and reference proteins.</li>
+        <li>The <a href="https://schistoadhesomeatlas.streamlit.app/?view=Interactive+hypothesis">interactive integrin-adhesome hypothesis</a> links family nodes to candidate profiles and a simulator for exploring predicted downstream effects.</li>
+      </ul>
+      <p>The Atlas distinguishes projected family-level interactions from published experimental evidence. Network projections and simulations help formulate hypotheses for experimental follow-up.</p>
+    </section>
+  </main>
+  <footer>
+    <a href="https://github.com/EvansKCCR/Schisto_Adhesome_Atlas">Source code and documentation on GitHub</a>
+  </footer>
+</body>
+</html>
