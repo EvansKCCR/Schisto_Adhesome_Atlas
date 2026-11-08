@@ -24,12 +24,13 @@ def identity_banner():
     title = f'<div class="identity-title">{escape(lines[0])}</div>' if lines else ''
     detail = ''.join(f'<div class="identity-detail">{escape(line)}</div>' for line in lines[1:] if not line.lower().startswith('created by'))
     st.markdown('''<style>
-    .atlas-identity{display:flex;align-items:center;gap:20px;padding:0 2px 5px;color:#13251f}
-    .identity-logos{display:flex;align-items:center;gap:12px;flex-shrink:0;padding-right:20px;border-right:1px solid #dce5df}
+    .atlas-identity{display:flex;align-items:center;gap:20px;padding:0 2px 5px;color:var(--atlas-deep)}
+    .identity-logos{display:flex;align-items:center;gap:12px;flex-shrink:0;padding-right:20px;border-right:1px solid var(--atlas-line)}
     .identity-logos img{width:56px;height:56px;object-fit:contain;background:white;border-radius:4px}
+    .identity-logos img[alt="Synergy-NGS 2025"]{width:72px;height:72px;background:var(--atlas-deep)}
     .identity-title{font-weight:700;font-size:.92rem;line-height:1.35;letter-spacing:-.015em}
-    .identity-detail{font-size:.76rem;color:#526760;margin-top:4px;line-height:1.45}
-    @media(max-width:760px){.atlas-identity{gap:13px}.identity-logos{padding-right:12px;gap:8px}.identity-logos img{width:43px;height:43px}.identity-detail{display:none}.identity-title{font-size:.8rem}}
+    .identity-detail{font-size:.76rem;color:var(--atlas-muted);margin-top:4px;line-height:1.45}
+    @media(max-width:760px){.atlas-identity{gap:13px}.identity-logos{padding-right:12px;gap:8px}.identity-logos img{width:43px;height:43px}.identity-logos img[alt="Synergy-NGS 2025"]{width:54px;height:54px}.identity-detail{display:none}.identity-title{font-size:.8rem}}
     </style>''' + f'<div class="atlas-identity"><div class="identity-logos">{"".join(logos)}</div><div>{title}{detail}</div></div>', unsafe_allow_html=True)
 
 

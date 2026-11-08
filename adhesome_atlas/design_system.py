@@ -1,10 +1,12 @@
 """Offline design tokens shared by the atlas and standalone visualizations."""
 TOKENS_CSS = '''
 :root{
- --atlas-ink:#111111;--atlas-text:#202421;--atlas-muted:#454c48;
- --atlas-green:#146b4e;--atlas-deep:#10523e;--atlas-mint:#edf5f0;
- --atlas-gold:#f1d27b;--atlas-paper:#ffffff;--atlas-surface:#ffffff;
- --atlas-line:#d4d9d6;--atlas-red:#c43c2c;--atlas-focus:#146b4e;
+ --atlas-ink:#171832;--atlas-text:#252742;--atlas-muted:#474b6b;
+ --atlas-primary:#263ca6;--atlas-deep:#111338;--atlas-accent:#bd2d77;
+ --atlas-violet:#6e34bc;--atlas-cyan:#69e9ff;--atlas-amber:#ffbf67;
+ --atlas-paper:#ffffff;--atlas-surface:#ffffff;--atlas-tint:#f4f1fc;
+ --atlas-line:#dedff0;--atlas-field-line:#8589a9;--atlas-focus:#6e34bc;
+ --atlas-spectrum:linear-gradient(90deg,var(--atlas-amber),#f05d69 27%,var(--atlas-violet) 60%,var(--atlas-cyan));
  --atlas-a:#0b6648;--atlas-a-bg:#e4f3eb;--atlas-b:#7b5010;--atlas-b-bg:#fff2d4;
  --atlas-c:#a62d25;--atlas-c-bg:#fff0ee;
  --atlas-font:"Segoe UI",Arial,Helvetica,sans-serif;
@@ -15,9 +17,9 @@ TOKENS_CSS = '''
 NETWORK_CSS = '''
 body{font-family:var(--atlas-font);color:var(--atlas-ink);background:var(--atlas-paper)}
 button,select,input{font-family:inherit}
-button,select,input[type=search]{min-height:36px;border-radius:var(--atlas-small-radius);border-color:#bdcec5;font-size:14px}
+button,select,input[type=search]{min-height:36px;border-radius:var(--atlas-small-radius);border-color:var(--atlas-field-line);font-size:14px}
 button{transition:background .15s,border-color .15s;cursor:pointer}
-button:hover{background:#f6f9f7;border-color:var(--atlas-green)}
+button:hover{background:var(--atlas-tint);border-color:var(--atlas-primary)}
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--atlas-focus);outline-offset:3px}
 .atlas-grade{display:inline-flex;align-items:center;gap:5px;border-radius:30px;padding:5px 10px;font-size:12px;font-weight:750;letter-spacing:.02em}
 .atlas-grade[data-grade=A]{background:var(--atlas-a-bg);color:var(--atlas-a)}
@@ -30,24 +32,25 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,su
 details>summary{cursor:pointer}
 /* Scientific interface surfaces; SVG node/edge colors retain their data meaning. */
 html,body{background:#fff!important;color:var(--atlas-ink)!important}
+a{color:var(--atlas-primary)}
 header,.toolbar,.bar,.controlbar,.mapbar,.topstats,.paper,.panel,.stage,.workspace,
 .profile-rail,.sidebar,.legend,.detail,.atlas-profiles-bar,.atlas-filter-drawer,.atlas-evidence-drawer{background:#fff!important;box-shadow:none!important}
-header,.toolbar,.bar{border-bottom:1px solid var(--atlas-red)!important}
-header h1,header h2,header strong{color:var(--atlas-deep)!important}
+header,.toolbar,.bar{border-bottom:1px solid var(--atlas-accent)!important}
+header h1,header h2,header strong,.bar strong,.profile-rail h2,.profile-rail summary{color:var(--atlas-deep)!important}
 header p,header label,.muted,.view-status,.hint{color:var(--atlas-muted)!important}
-button,select,input[type=search],input[type=text]{border:1px solid #aebcb3!important;border-radius:5px!important;min-height:36px;font:600 14px var(--atlas-font)!important}
+button,select,input[type=search],input[type=text]{border:1px solid var(--atlas-field-line)!important;border-radius:5px!important;min-height:36px;font:600 14px var(--atlas-font)!important}
 button{background:#fff!important;color:var(--atlas-deep)!important;box-shadow:none!important}
-button:hover{background:#edf5f0!important;border-color:var(--atlas-green)!important}
-button.active,button.primary,button.major,.btn.major,button[aria-pressed=true],#simulateSelection{background:var(--atlas-green)!important;color:#fff!important;border-color:var(--atlas-green)!important}
+button:hover{background:var(--atlas-tint)!important;border-color:var(--atlas-primary)!important}
+button.active,button.primary,button.major,.btn.major,button[aria-pressed=true],#simulateSelection{background:var(--atlas-primary)!important;color:#fff!important;border-color:var(--atlas-primary)!important}
 button.active:hover,button.primary:hover,button.major:hover,#simulateSelection:hover{background:var(--atlas-deep)!important;color:#fff!important}
 select,input[type=search],input[type=text]{background:#fff!important;color:#111!important}
-label,.ctrl{font-size:13px!important;font-weight:600;color:#303833!important}
-input[type=checkbox],input[type=radio],input[type=range]{accent-color:var(--atlas-green)}
+label,.ctrl{font-size:13px!important;font-weight:600;color:var(--atlas-text)!important}
+input[type=checkbox],input[type=radio],input[type=range]{accent-color:var(--atlas-primary)}
 .profile-rail,.sidebar{border-left:1px solid var(--atlas-line)!important}
-.profile-rail th,.atlas-profile th{background:#f4f5f4!important;color:#202421!important}
-#status,#pathSummary,.hint,.atlas-connected-info{background:#fff!important;border-color:var(--atlas-line)!important;border-left:3px solid var(--atlas-green)!important;color:#303833!important}
-.metric,#candidateCounts{background:#f4f5f4!important;color:#202421!important;box-shadow:none!important}
-.eyebrow,.atlas-profile-heading small{font-size:12px!important;letter-spacing:.025em!important;color:#303833!important}
+.profile-rail th,.atlas-profile th{background:var(--atlas-tint)!important;color:var(--atlas-text)!important}
+#status,#pathSummary,.hint,.atlas-connected-info{background:var(--atlas-tint)!important;border-color:var(--atlas-line)!important;border-left:3px solid var(--atlas-primary)!important;color:var(--atlas-text)!important}
+.metric,#candidateCounts{background:var(--atlas-tint)!important;color:var(--atlas-text)!important;box-shadow:none!important}
+.eyebrow,.atlas-profile-heading small{font-size:12px!important;letter-spacing:.025em!important;color:var(--atlas-text)!important}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 '''
 

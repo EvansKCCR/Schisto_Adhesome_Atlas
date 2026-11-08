@@ -71,7 +71,7 @@ body.atlas-linked-profile .atlas-profiles-bar>label,body.atlas-linked-profile #a
 body.atlas-linked-profile .atlas-profiles-bar>input{min-width:120px}
 body.atlas-linked-profile .graphheader{justify-content:flex-end;padding:8px 12px}
 body.atlas-linked-profile .graphheader>div:first-child{display:none}
-.atlas-display-options{flex:none}.atlas-display-options>summary{padding:9px;border-radius:8px;background:#f1f6f2;font-size:12px;font-weight:650;color:#164a34;white-space:nowrap}
+.atlas-display-options{flex:none}.atlas-display-options>summary{padding:9px;border-radius:8px;background:var(--atlas-tint);font-size:12px;font-weight:650;color:var(--atlas-deep);white-space:nowrap}
 .atlas-display-options>div{position:absolute;z-index:100;right:12px;top:55px;display:grid;grid-template-columns:130px minmax(170px,1fr);gap:9px;align-items:center;background:#fff;padding:17px;border:1px solid #c7d9cb;border-radius:12px;box-shadow:0 12px 30px #163b2926}
 .atlas-display-options select{width:100%;max-width:230px!important}.atlas-display-options input[type=range]{width:150px}
 </style>
@@ -91,7 +91,7 @@ const atlasNodeDetails=nodeDetails;
 nodeDetails=function(id){atlasNodeDetails(id);
  const panel=document.getElementById('sidebar');if(!panel)return;
  const button=document.createElement('button');button.textContent='Simulate candidate and highlighted path';
- button.style.cssText='padding:10px;background:#ffe34d;color:#000;border:2px solid #064c2c;border-radius:8px;font-weight:bold';
+ button.className='primary';button.style.padding='10px';
  button.onclick=()=>{const context=window.atlasCandidateContext?.();if(context)window.parent.postMessage({type:'schisto-adhesome-node',...context},'*')};panel.prepend(button);
 };
 window.addEventListener('message',event=>{if(event.source!==window.parent||!event.data)return;
@@ -191,7 +191,7 @@ header button.active{background:#e2efe7;color:#103f2e;box-shadow:inset 0 0 0 1px
 .profile-rail h2{font-size:23px;line-height:1.25;letter-spacing:-.04em;color:#113f2c;margin-bottom:8px;overflow-wrap:anywhere}
 .profile-rail h3{font-size:18px;line-height:1.35;letter-spacing:-.02em}
 .profile-rail p{font-size:13px;line-height:1.6}.profile-rail small{font-size:12px;line-height:1.5}
-#selectionHint{font-family:ui-monospace,Consolas,monospace;font-size:12px;overflow-wrap:anywhere;color:#526760}
+#selectionHint{font-family:ui-monospace,Consolas,monospace;font-size:12px;overflow-wrap:anywhere;color:var(--atlas-muted)}
 #candidateCounts{color:#28563e;background:#eaf3ed;border-radius:8px;padding:10px;font-size:12px}
 .profile-rail label{font-size:12px;color:#42604e;margin-top:16px}.profile-rail label:has(input){line-height:1.5;font-size:12px;font-weight:500}
 .profile-rail select{border-color:#c4d5c9;border-radius:8px;font-size:13px;line-height:1.5;padding:10px;margin-bottom:6px}

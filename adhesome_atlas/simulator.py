@@ -122,9 +122,9 @@ def simulator_html(path,adhesome,literature=None):
     html=re.sub(r'<!-- ATLAS_SIM_STYLE_START -->.*?<!-- ATLAS_SIM_STYLE_END -->','',html,flags=re.S)
     return html.replace('</head>','<!-- ATLAS_SIM_STYLE_START -->'+network_style()+'''<style>
 body{background:#f1f6f2;padding:14px;font-family:var(--atlas-font)}.app{max-width:none}
-header,.panel,details{border:1px solid #dce5df;border-radius:14px;box-shadow:none}
-header{border-top:3px solid #1b6248;padding:20px}h1{font-size:23px;letter-spacing:-.035em}h2{font-size:19px;letter-spacing:-.025em}
+header,.panel,details{border:1px solid var(--atlas-line);border-radius:14px;box-shadow:none}
+header{border-top:3px solid var(--atlas-violet);padding:20px}h1{font-size:23px;letter-spacing:-.035em}h2{font-size:19px;letter-spacing:-.025em}
 .muted{line-height:1.6}.note,#linkedContext{background:#f8f5e9;border-color:#d6c58e;border-radius:10px}
-.primary{background:#e7f1e9}.zoneCard,.moduleCard{border-color:#d5e2d9;border-radius:10px}
-.metrics span{background:#eaf3ed}.reference{border-top-color:#b66459}button{border-width:1px}
+.zoneCard,.moduleCard{border-color:var(--atlas-line);border-radius:10px}
+.metrics span{background:var(--atlas-tint)}.reference{border-top-color:var(--atlas-accent)}button{border-width:1px}
 </style><!-- ATLAS_SIM_STYLE_END --></head>''',1)
