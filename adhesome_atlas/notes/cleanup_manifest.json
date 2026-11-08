@@ -1,0 +1,2095 @@
+{
+  "date": "2026-10-20",
+  "root": "C:\\Users\\eaasa\\Desktop\\Evans_PHD_Thesis\\Integrin_analysis\\adhesome_atlas",
+  "removed_files": [
+    {
+      "path": "candidate_annotations.py",
+      "bytes": 4229,
+      "sha256": "d049b0915b5deb93af21afb3bcbee77810dbf515e128675db42c5d7d19584398",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "candidate_prioritization.py",
+      "bytes": 13736,
+      "sha256": "52986d7dc23193ef0f87a92498af6728eb2e7e9fd13c766f082ebefdc28652c0",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "evidence.py",
+      "bytes": 5456,
+      "sha256": "fbf123f12eb3067a81ed0c0b64686ad1e5196a915018ff4a01aa350c4e9f3716",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "family_audit.py",
+      "bytes": 2379,
+      "sha256": "ca9e98217d7364584bf73d916638742335357206416622e54cbfcca1eb1c858e",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "motif_explorer.py",
+      "bytes": 14467,
+      "sha256": "012b33cdb14f929db1bda09f7a0ec963ca3d477c9f94c1f81439e615b6f7aa4a",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "nanoscale_architecture.py",
+      "bytes": 3119,
+      "sha256": "1b97ab70981d50a7a83f9ff4389c233673a3c029230ea8aca840cc28e57188c1",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "orthogroup_annotations.py",
+      "bytes": 4808,
+      "sha256": "31ab508f36b082bf88c2bf3a29948e4a358aeeed9b52cd4958cac82fca717015",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "orthology_views.py",
+      "bytes": 4825,
+      "sha256": "006808222458af033487b3f19a780bdfb467e683985c4cf573238c309c402dd8",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "prioritization_evidence.py",
+      "bytes": 9334,
+      "sha256": "3670394de89203e1bbec1bea818e65f6de7a0f21659d8395cebfd80a69d2bba8",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "prioritize_candidates.py",
+      "bytes": 33382,
+      "sha256": "61b35e7bbf7eb4570dfb61bc22feec1091fab315199993885a0b0057db2df6e0",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "prototype.py",
+      "bytes": 18288,
+      "sha256": "c68dcb33ba40076f2b2b53506f725b3549179f3b714ed3e788e3a3719091c6b7",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "refresh_interactive_map.py",
+      "bytes": 4564,
+      "sha256": "cc2c2c653dce873ae3c003cb0bc36b7647e4b50d2cf9479b0abad381523ff8c8",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "phylogeny_family_groups.tsv",
+      "bytes": 934,
+      "sha256": "45595da4c4383ee7ba80fb0433a68a086537f5d0731318f06fbd82e7d88f1a3a",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "identifier_map.tsv",
+      "bytes": 15016257,
+      "sha256": "302bd92eb663c1802fe9bcccc570bbb8825d21cd67622978ea1029ed8dd5d4da",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "identifier_map_expanded8.tsv",
+      "bytes": 30263126,
+      "sha256": "f98d40f9f9e1c1169db7e2441c44415c9fb1de31aed0837815c904419240c3df",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "identifier_map_expanded8.tsv.gz",
+      "bytes": 3668108,
+      "sha256": "0023eaa8250ea698acc186af6fef965eae69d071117cf1f8d4dc932e58ee8731",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "orthology/Orthogroup_dictionary.xlsx",
+      "bytes": 24287,
+      "sha256": "4d50aa5ebc5ad2812d60f8cf8646d922f153310c6dccf94ec71eeae1f36b7f42",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_atlas.py",
+      "bytes": 3803,
+      "sha256": "a8a0fe63d3518f956fb5c0c27a2dd95beb661d025ede45da167240d28f3f3271",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_candidate_annotations.py",
+      "bytes": 2692,
+      "sha256": "ffaf691c6ba56abab99c77f69f3d8ca532b8d05d4ed36d68e81052f25f3395c3",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_candidate_prioritization.py",
+      "bytes": 14212,
+      "sha256": "bf49082294701b582973b3f4649fb90d9206fd7aa5ba42d605d2bea3ac96c52f",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_cloud_schema.py",
+      "bytes": 953,
+      "sha256": "41c2b2e605a3eda0d4b990a172a80be3b14e36ebe383be475ec7559ef98b3f8f",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_feedback.py",
+      "bytes": 862,
+      "sha256": "7bfbf9a90686774bab75367da5264eb035fe6bdea9bbc1f8285893ad1ed1232c",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_figure_exports.py",
+      "bytes": 7024,
+      "sha256": "8cd04211f7de26e6c59eca7712d0840b506210702fd9267ddda62a3645ddcd86",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_linked_explorer.py",
+      "bytes": 5661,
+      "sha256": "365f8f46076e708ff55cc7f770a286207be6b15ec206d8024582c202649724b4",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_matrix_simulator.py",
+      "bytes": 8692,
+      "sha256": "d274b46d2f0741ce3c2458d8160086cf0904de1b5070f4ad21de107f808c809c",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_motif_explorer.py",
+      "bytes": 2390,
+      "sha256": "e90745aa4e606c25e1032839219267f58f3c2c9a87ddee3e70c0d1f435113b2f",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_orthogroup_annotations.py",
+      "bytes": 3894,
+      "sha256": "d262afc1c40044814327a19037a9762dc6c6e03bb57210e83cb58be34913202d",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_orthology.py",
+      "bytes": 4553,
+      "sha256": "e654beb7db74a2ad3d6321a6ef59872bda0bd9aec4169852f1ef1782229ff7fa",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_phylogeny.py",
+      "bytes": 6722,
+      "sha256": "e42915e51a50480b7b42ecce7b0ab4b0d75a2523d8e27a7665a57bf9f40cc8f9",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_prioritization_evidence.py",
+      "bytes": 2054,
+      "sha256": "05905085f2fbaaa66a20c93ac9b2cdcc1462327e7a9d20989c18e50e478a5968",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_prototype.py",
+      "bytes": 4152,
+      "sha256": "d7f63c7bb7838901e788eed5533b4f714aaac2fe3a0a61347cb315abdf74516c",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_reconstruction.py",
+      "bytes": 7764,
+      "sha256": "701629568f820028a01830edcd84f7f872223724ed30a02bbe1bceebd23c9932",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_simulator.py",
+      "bytes": 3336,
+      "sha256": "11ae13aa09633d6065e9e39d0b7033cfe6cd1b63069ecfbe61f409cd8342eac9",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "test_string_workbench.py",
+      "bytes": 9883,
+      "sha256": "b7239dae2a8193c5539af106a281babc24cd60d7790d94dfa3d1b9b3792ac47b",
+      "reason": "Replaced dataset dependency or obsolete regression fixture"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/members.faa",
+      "bytes": 188993,
+      "sha256": "f0a91c71607299d26cf09db60e5fc356be498a24ea8a30b90d024b9c5a091db1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/orthology_edges.tsv",
+      "bytes": 175711,
+      "sha256": "ce776dd91054ede25043702082b5573ed4c0fc7f801716fef54a98ef877d93c6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/members.faa",
+      "bytes": 79154,
+      "sha256": "79c65812e723332becca64c69319664ff7e0737757f71cf8cd02eda8d2f16bc6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/orthology_edges.tsv",
+      "bytes": 122029,
+      "sha256": "fada06bb08fcbfa04b61f768c84eff60b2b637a261601498f3655fe489da79ec",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/members.faa",
+      "bytes": 78101,
+      "sha256": "c02ccee3142b1ac5d72bd188b23fa0461f74621ddce841c55d60c620745c93d2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/orthology_edges.tsv",
+      "bytes": 407520,
+      "sha256": "8bc37c527a38d47c4babcef107ae263de3ed238a425d85c1a8c62d6642db1e60",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/members.faa",
+      "bytes": 29899,
+      "sha256": "48f9297526e7bd2b0d567d2d6b12d49ff78c99c59433fd24cbf3a41e9464a01e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/orthology_edges.tsv",
+      "bytes": 3201,
+      "sha256": "5ad5c780b3f0261246a114e41abff675811b6aaa009e0119405f524dd52dab99",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/members.faa",
+      "bytes": 61122,
+      "sha256": "0b03dccb2932b274b9358bd71693782f6dae0764b03791d5413c6f8e1192f60a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/orthology_edges.tsv",
+      "bytes": 85663,
+      "sha256": "9f289f552abbf4bde37e00030c2ea96c5edc27d6949144822f234c07d5ab75f8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/members.faa",
+      "bytes": 87383,
+      "sha256": "47327efd71f8a8ab68610cb7f7ccfa974ac0d998435e33da42125b7510030f13",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/orthology_edges.tsv",
+      "bytes": 199163,
+      "sha256": "44509b4fffbc0c83696cbcf5109af57c9f3d2c9949df5de4b44ecc05b4b76d85",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/members.faa",
+      "bytes": 30743,
+      "sha256": "b6445f1aaefd26a7b6492223cad379d669a0116eaff249c474eed7cda348486f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/orthology_edges.tsv",
+      "bytes": 9966,
+      "sha256": "9bf4725e59c85a7a1d2a5f43559a701f52f8825ea37650aa48684acfb569e50c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/members.faa",
+      "bytes": 36589,
+      "sha256": "67f3d4f623e25bd2571592c14fc3bca618d92888ad1bc6c1dacfd48d9b4820f5",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/orthology_edges.tsv",
+      "bytes": 24561,
+      "sha256": "2bfcc9001c662fd88311ac9e340fe2bbf7805fef3e5d564a6f000e4d4bce32c7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/members.faa",
+      "bytes": 60596,
+      "sha256": "ca6b99ea6a0039dc6b635d445f1573919c4811472a67d6766631521fd4c21130",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/orthology_edges.tsv",
+      "bytes": 31693,
+      "sha256": "4dfb20d9b373288c219df0259586b36f34fd7ea59ac8b73b8fa11c35b7cdd1b1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/members.faa",
+      "bytes": 31446,
+      "sha256": "fbb7c89659e81d610116822f2a0023b1e3b13e65c9e7025b5100b759927d858a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/orthology_edges.tsv",
+      "bytes": 156235,
+      "sha256": "8f166ea6d95e6aff2834b32c1abb3a478274bd631e899985fc7d002940a3ddf2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/members.faa",
+      "bytes": 23644,
+      "sha256": "cec34bc1e08326c4a01ab07fd96aab0089a1b2132300ac19972d45d1fc926835",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/orthology_edges.tsv",
+      "bytes": 84970,
+      "sha256": "8fedec3c148edd132ca6f9e9b0d2eb6518b67e788ad97fdc17ce5bd59611476f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/duplication_evidence.tsv",
+      "bytes": 74,
+      "sha256": "e832cc7f75c6c4c94b61772a5d391f285fea049cd50bd28fd1995aa3d801a26b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/duplication_status.json",
+      "bytes": 56,
+      "sha256": "2ead08712778d8d2be44a71546977ef711683deace0b7bc9aba379ab81d15c5b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/members.faa",
+      "bytes": 24249,
+      "sha256": "5de2a9a5e8656fa3b3bc9e4b270c12b0beda41db33d54253fb63f95d20cf7dd5",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/orthology_edges.tsv",
+      "bytes": 85907,
+      "sha256": "d8761e5f2498e9fee9388c902998e827865157534b6e75b8e7883454c6fa7ad8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/aligned.faa",
+      "bytes": 733854,
+      "sha256": "d9b69190e96dcd805e25c9016abfc9884cc10be8119284a8f4c5481e3af5bedd",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/aligned.sequence_qc.tsv",
+      "bytes": 13341,
+      "sha256": "5f8d97f8e9dc5ed8217f84b1822beb32dd34150f8b41be7cac0fd5637eacbdd7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/alignment_qc.json",
+      "bytes": 307,
+      "sha256": "f565b1accafb390007f122738d07b0cf0b1ef053d8bea0d9239646bd1f75708c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/command_1.stderr.log",
+      "bytes": 68731,
+      "sha256": "3317a9d3be34c380ddbf37c1d2b1f2156c0a8b43c4875670222a89867a390ede",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/command_3.stdout.log",
+      "bytes": 113873,
+      "sha256": "d0f9e0044a441500bd60c07ee503082a6fab28bbf9c9a9417b4268c0fe889ff2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.bionj",
+      "bytes": 12698,
+      "sha256": "0190e15a111d49ba39a16d8a8aa9fe6225596cbb75954f6d45a8b2f925ef4cd7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.ckp.gz",
+      "bytes": 1650772,
+      "sha256": "c27bc88336140e41d5c26f3560ed703f24fd3187e04cebf8ef9e7ed92708ca50",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.contree",
+      "bytes": 13609,
+      "sha256": "63c190864a037ebc054add554bd7168c3705accab362ef0ff547873128e3dc15",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.log",
+      "bytes": 113873,
+      "sha256": "d0f9e0044a441500bd60c07ee503082a6fab28bbf9c9a9417b4268c0fe889ff2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.mldist",
+      "bytes": 276941,
+      "sha256": "ead583debcfd55153aaac4f124e9df22a409c48c361b74914088573bdd2bf3e9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.model.gz",
+      "bytes": 12393,
+      "sha256": "085e229cc589874f5ae63423abaf8dc362a3aeb120021d63e27bbd7622d81aa7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.splits.nex",
+      "bytes": 33612,
+      "sha256": "846ad5f93ffa4964107d6c53cafc98f53bff4cc63030adb06d91af8b32ebf7ab",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/gene_tree.ufboot",
+      "bytes": 13189000,
+      "sha256": "1abae426706aeaf95eae4631904edc4ebc1c4637755d3b7f0b663763a2de31b2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/sequence_qc.tsv",
+      "bytes": 13310,
+      "sha256": "009f031ea3cfbbe1536d7a8cc2889583e71773e2b370abd3083db35286cf62f6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/trimal_identifiers.tsv",
+      "bytes": 10316,
+      "sha256": "3ede690240358c801dc170bbf4ffad46fe8e736d987540a93dd6697076f4d1e3",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/trimal_input.faa",
+      "bytes": 723720,
+      "sha256": "3ac39c7bb266a12247a3db172ed7af139d90012cb8306b9ae12e627f445fb2a6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/trimmed.sequence_qc.tsv",
+      "bytes": 13310,
+      "sha256": "009f031ea3cfbbe1536d7a8cc2889583e71773e2b370abd3083db35286cf62f6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000076/inference/trimmed_aliases.faa",
+      "bytes": 120294,
+      "sha256": "d37b438c62112dd1bb01ba47cf112e2ba7373e9a442263ff22e92c1a16c86af9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/aligned.faa",
+      "bytes": 241874,
+      "sha256": "e3dc5c22e4f9402e6bb2e6120a3fde6b1a9bae89bedefae6c1a643d9ac38f997",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/aligned.sequence_qc.tsv",
+      "bytes": 12403,
+      "sha256": "2f56122730f25e999261404f547adc8fb0cb60fe63898e8de69109e9f446fe07",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/alignment_qc.json",
+      "bytes": 305,
+      "sha256": "20b1d08b07585d8d23c0e3ec1cee01411849432d8eede9bddfedd6c2f1f8e676",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/command_1.stderr.log",
+      "bytes": 91030,
+      "sha256": "82691cbe65698ba3a9b801aa358780ef075303425ade474b51c5bc4cd6c6b00b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/command_3.stdout.log",
+      "bytes": 40753,
+      "sha256": "7b459857869e8a14cb26771a8d6d263463b914058354f91a40cb25351c2c72c6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.bionj",
+      "bytes": 11719,
+      "sha256": "eb8d5c59a12905f45f97cac9d3ca5cae351aa0e604d5d568af413670a534c149",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.ckp.gz",
+      "bytes": 1491415,
+      "sha256": "e372f464acc3a960df8df6fd04b58735cf12d215895a1aee3ee8bdce9c50e425",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.contree",
+      "bytes": 12517,
+      "sha256": "0268aab5dc05514a4fb8203875e51fe993588a5b03832d2f3fc719c6a594261b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.log",
+      "bytes": 40753,
+      "sha256": "7b459857869e8a14cb26771a8d6d263463b914058354f91a40cb25351c2c72c6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.mldist",
+      "bytes": 223238,
+      "sha256": "8d86be9f4ae3288128180a817ae5aa8124dd54eb2df6d655d30f78f5ef11c77a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.model.gz",
+      "bytes": 15083,
+      "sha256": "60791da776fe70d18b6bc5dec99c1550e0f11b8469c63f3048fd87d491845252",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.splits.nex",
+      "bytes": 46224,
+      "sha256": "4faab5ac4dc3545d36b9fbb1548142230c8868c6df146f0e2e0d4f66702f3271",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/gene_tree.ufboot",
+      "bytes": 12174000,
+      "sha256": "942455f18d25133855c7d5a54905654fc16ee6ce9b263e232e24ab604daf21e1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/sequence_qc.tsv",
+      "bytes": 12409,
+      "sha256": "e477613c3ed279628c10910a45b16b1f6026c3d4e9bc0e73df8d873e240ff402",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/trimal_identifiers.tsv",
+      "bytes": 9607,
+      "sha256": "db7469381418de753ddc0833e4403bef1a99cba92337a47377d2c27d3aa95d4a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/trimal_input.faa",
+      "bytes": 234038,
+      "sha256": "5dc4b152483fce27ef62be234ff58ea1f14f44927ee5afff5070995ffda6ebf6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/trimmed.sequence_qc.tsv",
+      "bytes": 12409,
+      "sha256": "e477613c3ed279628c10910a45b16b1f6026c3d4e9bc0e73df8d873e240ff402",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000094/inference/trimmed_aliases.faa",
+      "bytes": 52706,
+      "sha256": "dd6f8ccc2b769e2253e955e2258aa9054519b5b648e743f542cfa2940d0ecf01",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/aligned.faa",
+      "bytes": 222418,
+      "sha256": "a7f35fb96d89a07fd7eb4abd633350911fb0863aa94ace8aaf8f5444acd67a95",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/aligned.sequence_qc.tsv",
+      "bytes": 9613,
+      "sha256": "4d8679589c23fc0a7c61d6da73484f9ff2df6c232ab71138de7ab54d6099f267",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/alignment_qc.json",
+      "bytes": 306,
+      "sha256": "20c8875a7326711a92bfcfaf23aae984634c42d04da85ffd7149b86e3d35ddce",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/command_1.stderr.log",
+      "bytes": 24021,
+      "sha256": "6ef5b428670953d471d0e46086030a6a3cad72d85d2689e71ef56ff5571fcee4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/command_3.stdout.log",
+      "bytes": 47796,
+      "sha256": "a07a4d35bda1e8020d7c263e05234f99207930550bb276466c03500786a1450e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.bionj",
+      "bytes": 9095,
+      "sha256": "1dd34c18ae0f45e29d89004b57ab675ffc831891f944b1e942f31b423e27a333",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.ckp.gz",
+      "bytes": 1145599,
+      "sha256": "17f65a6322572cf690ba27c77901f8def59038a94e2babfaaa632f0e50862505",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.contree",
+      "bytes": 9679,
+      "sha256": "e4c2a91c738fa5021827096560276f41fb0ae6768a166a43fea7be0d532c81ce",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.log",
+      "bytes": 47796,
+      "sha256": "a07a4d35bda1e8020d7c263e05234f99207930550bb276466c03500786a1450e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.mldist",
+      "bytes": 170057,
+      "sha256": "cfa0ab128ad7c5a18ae6d1881d960bba0751679f1a6acfdd04db1a52f609002f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.model.gz",
+      "bytes": 13608,
+      "sha256": "ca2cb5f5962cff727bf1f555f7ed7c03559de53bfc94fad4c5600fbbb0b16ef7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.splits.nex",
+      "bytes": 31395,
+      "sha256": "1d841527b30681245cc6a6964eae8f2340c28fb77be30e3d478282f4680078c9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/gene_tree.ufboot",
+      "bytes": 9397000,
+      "sha256": "6dd28b9ef4274e2b7fbf176bdc2e637cbef200132f3692888fe946a6938fe992",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/sequence_qc.tsv",
+      "bytes": 9721,
+      "sha256": "93044fab2dc0ba05fcd4bd79ea9f7693ef9770bacf6413c37d81650753a5fe2b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/trimal_identifiers.tsv",
+      "bytes": 7172,
+      "sha256": "c2faacf88934f5a801436ad5eeae4d7dd7c2255aa235e64214b206e17139ee7a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/trimal_input.faa",
+      "bytes": 216789,
+      "sha256": "cde8f1242e76508bd8c0498d2b6aac0bad6adc772c0243d03405e9fcaa3da528",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/trimmed.sequence_qc.tsv",
+      "bytes": 9721,
+      "sha256": "93044fab2dc0ba05fcd4bd79ea9f7693ef9770bacf6413c37d81650753a5fe2b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000122/inference/trimmed_aliases.faa",
+      "bytes": 47625,
+      "sha256": "87f22b9d7ab8ad18fc1277ed424b0cc7c621c9024760bd2a0bff1ab175812109",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/aligned.faa",
+      "bytes": 123027,
+      "sha256": "4ea5b1e8fe2570148fd569640686856e1ca6fcb86d9a055586c89b0106f56d7e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/aligned.sequence_qc.tsv",
+      "bytes": 10563,
+      "sha256": "a986f92e267398ef25ea0b672575281d0f08d9c25a1989829ef1266fa0e030f4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/alignment_qc.json",
+      "bytes": 302,
+      "sha256": "0a1bb825e3f6d211c861b41c7ba93d9127e3f42c7d7ed5629f9a0af3cac22537",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/command_1.stderr.log",
+      "bytes": 39590,
+      "sha256": "5d578c8c36d979c6b9d097a0fc34949087912333d85d8f9356faec13f0dc93e3",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/command_3.stdout.log",
+      "bytes": 33108,
+      "sha256": "a0f3b308ec99526d1a4c7e5e0173fb798d9bd883a6fd8866a7b275ddda1d1573",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.bionj",
+      "bytes": 9953,
+      "sha256": "fcda4e717895bd396a72b48b738e4d2feea8fc31e3cc74880eb32c0295896443",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.ckp.gz",
+      "bytes": 1157723,
+      "sha256": "be6cc9686e4fc621cca5ae002d48a69ac2521590310f4894f5285a23fd1df7f9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.contree",
+      "bytes": 10756,
+      "sha256": "3c5a5e169e3e4556633c9c407a911eae47cad9f727e646d48f6d931cfe3e6065",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.log",
+      "bytes": 33108,
+      "sha256": "a0f3b308ec99526d1a4c7e5e0173fb798d9bd883a6fd8866a7b275ddda1d1573",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.mldist",
+      "bytes": 157262,
+      "sha256": "3dbee4601c94ae0b109f7a235b097f1f752123d6f73ca0ff0a27aaaf90a1945d",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.model.gz",
+      "bytes": 9607,
+      "sha256": "05b05153ad31dca02af6bbee4ca1a62362313e8b489a1f46acb5cfe3a04769d3",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.splits.nex",
+      "bytes": 107312,
+      "sha256": "8d651a48a0ebd77722b7d03bbff0d1df2a9bbf508310a88f7a715cf5cf7af8d0",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/gene_tree.ufboot",
+      "bytes": 10501000,
+      "sha256": "c0702c084c3e98324fe2d56b26faec954e927b558d702cba92a494d49eb2115b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/sequence_qc.tsv",
+      "bytes": 10591,
+      "sha256": "3cad1469a975e215279945aaf193596ff4581b0cdffe96d2b95082017c11ff85",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/trimal_identifiers.tsv",
+      "bytes": 8366,
+      "sha256": "941363822ba642960911f5a4221f471ab48763d19fd5921f0fcd4f2b4a132a20",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/trimal_input.faa",
+      "bytes": 116510,
+      "sha256": "d4a4dd7e9710bae1c0f7ff0f7a031d81f3e4cf310d6fba157e2c13a84e82984b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/trimmed.sequence_qc.tsv",
+      "bytes": 10591,
+      "sha256": "3cad1469a975e215279945aaf193596ff4581b0cdffe96d2b95082017c11ff85",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000129/inference/trimmed_aliases.faa",
+      "bytes": 9882,
+      "sha256": "6c995278a78d31046aa0cd63035993b6e329d228ac29faab22466a3d94ebc6a6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/aligned.faa",
+      "bytes": 156573,
+      "sha256": "d2ee392ca636217f7f639887440463352c04fdc2bebc2c6c669a29794ba2a610",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/aligned.sequence_qc.tsv",
+      "bytes": 9330,
+      "sha256": "5729a2eea9a273d54034a54494209d3a76a3859e2c864ea62cc299845dd4af66",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/alignment_qc.json",
+      "bytes": 303,
+      "sha256": "97e2878bcf5084ea2f173217fe5e18cb1e1f7de4c583203af9caff2af5dc859e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/command_1.stderr.log",
+      "bytes": 26776,
+      "sha256": "f9de3c2fc5ca874f0a974aa7f8dcbbd9fd6178845b37a93349a80b02366cb67c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/command_3.stdout.log",
+      "bytes": 38355,
+      "sha256": "1e06e115c83d51779dfcfedd93d43023aa600d7d023c6adf407f4638c4ae057b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.bionj",
+      "bytes": 9041,
+      "sha256": "0e8b07e51348d0edb701b987c0b268c1f07e30f4447039ef4ef1fd41fef31f8e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.ckp.gz",
+      "bytes": 1117032,
+      "sha256": "bbf294224345df3e0124f7ae56e27b7c1c1d6880fc5877dc74f288a3e4446ea5",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.contree",
+      "bytes": 9398,
+      "sha256": "c6a4c4b239d01f94c678c792b8732b92f975b4ee17a483d4f1818f35d6cac201",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.log",
+      "bytes": 38355,
+      "sha256": "1e06e115c83d51779dfcfedd93d43023aa600d7d023c6adf407f4638c4ae057b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.mldist",
+      "bytes": 157262,
+      "sha256": "08ad54b35129240c5539f3472ddecc89fd06fd68e2e2c148bd8dda418c7e392a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.model.gz",
+      "bytes": 11382,
+      "sha256": "26f11cd6d2631ec5eceb4cf79a3f65ab0284fe02ae28092516f123f1883cd6aa",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.splits.nex",
+      "bytes": 308612,
+      "sha256": "9cd27fe02acbc50aaa66994a4fc5c336506229c8fbfa4923173154da7d911cd2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/gene_tree.ufboot",
+      "bytes": 9155000,
+      "sha256": "7e05e288c05ce36f8dc790f09df815dc2de0b01abdb0536189d5d0368d734549",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/sequence_qc.tsv",
+      "bytes": 7872,
+      "sha256": "951cade9a50352ab0c3952ed4195f7285e1872e5a68e55ee073746fa0b96b297",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/trimal_identifiers.tsv",
+      "bytes": 7020,
+      "sha256": "fc9148e90fa505519c25487ccebb7c6c05b4632af09a6d77b7aba59a7f5ae961",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/trimal_input.faa",
+      "bytes": 151280,
+      "sha256": "acbe2f8c2be240bcacd66eb200a1b4aa75670dbd44738310bb0f8e1e8faea580",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/trimmed.sequence_qc.tsv",
+      "bytes": 7872,
+      "sha256": "951cade9a50352ab0c3952ed4195f7285e1872e5a68e55ee073746fa0b96b297",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000130/inference/trimmed_aliases.faa",
+      "bytes": 56608,
+      "sha256": "01adcb44c1e8756194ba6011c055f3a66bbd37250b20670d20254f69ae3d2d88",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/aligned.faa",
+      "bytes": 184842,
+      "sha256": "5f2f06b22b2819ff71bd80326f2a6dea6354e954917d300568e3e52ef7f5b693",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/aligned.sequence_qc.tsv",
+      "bytes": 9216,
+      "sha256": "c5a32315e9335d00f1391daac49efdc593a20a06e9748ea734c3950fa8636227",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/alignment_qc.json",
+      "bytes": 306,
+      "sha256": "37934b1812ad4099a58c164ab86c3e383555abdc7e5279096fb062e8a5047f65",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/command_1.stderr.log",
+      "bytes": 48057,
+      "sha256": "c8cb1c37a4b63c7d8e3219072f2571efb7e616c35644cc7149359571487cadd2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/command_3.stdout.log",
+      "bytes": 43193,
+      "sha256": "88faaf219eef17bd40bef8f9a2091444c2225b3c0cdd8ef58f498200cf743f70",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.bionj",
+      "bytes": 8716,
+      "sha256": "4336723aeb7429b901cd4d7be7662aacfdbd07e98ca95664a96e0b085b455d8a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.ckp.gz",
+      "bytes": 1153742,
+      "sha256": "d395d6b16d8a84716937a10bbf7016947bf71bfb7c113b8ba03d32824cd46ce0",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.contree",
+      "bytes": 9289,
+      "sha256": "e52d152294a7d5b0a0f3792acf58063886396c3fa0780913179fa0b5c2aba4b5",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.log",
+      "bytes": 43193,
+      "sha256": "88faaf219eef17bd40bef8f9a2091444c2225b3c0cdd8ef58f498200cf743f70",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.mldist",
+      "bytes": 137830,
+      "sha256": "3f945a5b26d5c15e6b962ddefb5283242f47ff4c57fd00580b17dc3c3f6b1735",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.model.gz",
+      "bytes": 12892,
+      "sha256": "a25a7add1b02efa60ec392cd498dab2acc000ff4ce7d6e43e8cf3665a0b16066",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.splits.nex",
+      "bytes": 21288,
+      "sha256": "6ea6a9da8fa8d8a4b0d22c5aa225680d0400498b0cf6c919540e1862c09eb1ff",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/gene_tree.ufboot",
+      "bytes": 9012000,
+      "sha256": "fbbad027b78c448cb02ef190ed7adbe36d2211820d8dc2d2b6caa44f5b298fc2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/sequence_qc.tsv",
+      "bytes": 9252,
+      "sha256": "1cfb375a3bbaa9a3fdd59f7e3bde7be8cada150f40752efccf6323eb816da539",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/trimal_identifiers.tsv",
+      "bytes": 7021,
+      "sha256": "38abe41862f831f198bdabe867d983a74352a61f135af51f60e0b0b164e3b407",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/trimal_input.faa",
+      "bytes": 179322,
+      "sha256": "0f343a859a64eac4746ed66446b005c94f2b049c5fe8b4b4f329f4c3ce47b484",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/trimmed.sequence_qc.tsv",
+      "bytes": 9252,
+      "sha256": "1cfb375a3bbaa9a3fdd59f7e3bde7be8cada150f40752efccf6323eb816da539",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000148/inference/trimmed_aliases.faa",
+      "bytes": 64182,
+      "sha256": "4650620d16b6241b48d393d1ef8af01aeb231ad54a439050fc72f8bb73202891",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/aligned.faa",
+      "bytes": 157033,
+      "sha256": "aec75a355a22c8c5e04359217eb09a75c8b8038339d4b81d125e1cb0cb424d18",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/aligned.sequence_qc.tsv",
+      "bytes": 5328,
+      "sha256": "cd165298eb04c915725d9ebadf2f52510c76251dac450c034307a4021f4ca432",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/alignment_qc.json",
+      "bytes": 304,
+      "sha256": "290cae6842c65d3362808baa971fd01e09221d6c625aa8819d42b1f8c8a59952",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/command_1.stderr.log",
+      "bytes": 20672,
+      "sha256": "dcd3f3e2cc1c06faa72482c9b048139f063d13768a16b96a3b73d47cc79cde99",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/command_3.stdout.log",
+      "bytes": 105960,
+      "sha256": "b1bb7150ea46c0db64de0ded57643792a20435548cf15f6fc087365d4977710f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.bionj",
+      "bytes": 4837,
+      "sha256": "bc64be748f06b4bb222b59a961fb9b75cd3468e050cf4a0bea4f36c54b5cf54f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.ckp.gz",
+      "bytes": 1063968,
+      "sha256": "f3afc2b4377ac72d87a3ef50c7f4abcb672b8abb97430eb48acc70037ca08ecb",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.contree",
+      "bytes": 5391,
+      "sha256": "9887075c5c188170857602de5c43c77dc7636be3ad3151b25a3b41d8478684e1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.log",
+      "bytes": 105960,
+      "sha256": "b1bb7150ea46c0db64de0ded57643792a20435548cf15f6fc087365d4977710f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.mldist",
+      "bytes": 117079,
+      "sha256": "c9abcf112f759d8f025fac06ca4b183780c7216f3c790055c32cc8fb66840e8a",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.model.gz",
+      "bytes": 9462,
+      "sha256": "5e97333309af1664317fd85b4353827a797451a9767928d8a8ee1cd5267feb1d",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.splits.nex",
+      "bytes": 72339,
+      "sha256": "cd94773901b3d6c0bfb9c093ca5ec9d8f331d39d0800e6e77570aaf62ea88fef",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/gene_tree.ufboot",
+      "bytes": 5161000,
+      "sha256": "8c2bdf195e5686ad8d7f488e4221b020e6bdf0dd2a91bf9395b6e99836efb6af",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/sequence_qc.tsv",
+      "bytes": 5418,
+      "sha256": "f0abedcce67707606980bd8da23b51466abbddd3e79f87036b2ef9c15133f3bf",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/trimal_identifiers.tsv",
+      "bytes": 3332,
+      "sha256": "93a017459478854caaa23d62e5ee085e68e1a973b07a75adb81229a7a0c199b2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/trimal_input.faa",
+      "bytes": 155085,
+      "sha256": "5d296e551fb0339ec048d471afcc411793ccca8d60899952f0917e77f459d034",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/trimmed.sequence_qc.tsv",
+      "bytes": 5418,
+      "sha256": "f0abedcce67707606980bd8da23b51466abbddd3e79f87036b2ef9c15133f3bf",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000180/inference/trimmed_aliases.faa",
+      "bytes": 24360,
+      "sha256": "c403b78ad92221e7f79522b862357a1af99b1749cc0350d3e64a1bd62d765c16",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/aligned.faa",
+      "bytes": 86764,
+      "sha256": "ecdf9228d59e74a5282317f7e8845582da5cab3b037c2c8d2635994f436cf18b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/aligned.sequence_qc.tsv",
+      "bytes": 8008,
+      "sha256": "f880a1df24037e73b6610a523754e1e92a3ea911fd966991fe6182eca9657cad",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/alignment_qc.json",
+      "bytes": 303,
+      "sha256": "676281fd9b8fcc9eaa20b09085dfab97fcde777428407e704ce828ff65a9ab18",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/command_1.stderr.log",
+      "bytes": 24540,
+      "sha256": "a1cd518e986c795ec6d6c413c89a87ad63d76a25b3607d58754b41ba42874708",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/command_3.stdout.log",
+      "bytes": 31756,
+      "sha256": "6cfd1335a868956bb88bb8fe55a7aad771af1df219f025c92b7f1b3d7fe4fbcc",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.bionj",
+      "bytes": 7769,
+      "sha256": "eae98ee8ee5df46057046c5e9a12c793cf7277640b83f145ae6278d525cfca4d",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.ckp.gz",
+      "bytes": 870680,
+      "sha256": "0ee1368c8d70c6ac89ea4a58feb1b9f2664f7b0205f303614471f2b013c80a49",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.contree",
+      "bytes": 8124,
+      "sha256": "4c5a884ed7ee315ece6cca1143cb284ed8991e0c973f7b9263f9c07bf8fb8028",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.log",
+      "bytes": 31756,
+      "sha256": "6cfd1335a868956bb88bb8fe55a7aad771af1df219f025c92b7f1b3d7fe4fbcc",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.mldist",
+      "bytes": 106904,
+      "sha256": "d9bbb63ce260198f39a24323e1ace77f0c156079aadd1e41e9320dd5303c6ba2",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.model.gz",
+      "bytes": 7764,
+      "sha256": "c807e04016898a26a6e8d329d9a48549f1146963c9b6981e3aeb5d1e7c18519e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.splits.nex",
+      "bytes": 139003,
+      "sha256": "430b73825bbe1bd7f76ea363946cd04ee421b1e5c4301248c31ae81554b2da1c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/gene_tree.ufboot",
+      "bytes": 7922000,
+      "sha256": "d3f0ca9aab4997a595ad2fc90d96c7c444d9a4a2723abfa6082e1272ebc6a9cf",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/sequence_qc.tsv",
+      "bytes": 8110,
+      "sha256": "02592e9a0d2629f6e472983e43020d52f8c4e0a83d03a94effcbea504d81cae4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/trimal_identifiers.tsv",
+      "bytes": 6183,
+      "sha256": "476f17289fb1854fb065a21f8a096f8ceb2836fac66d3a84f8f6d617a5805849",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/trimal_input.faa",
+      "bytes": 82200,
+      "sha256": "84c0a4ed3f754678f111bae54456bd863cf96b5366657589650e0331c4ca60a8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/trimmed.sequence_qc.tsv",
+      "bytes": 8110,
+      "sha256": "02592e9a0d2629f6e472983e43020d52f8c4e0a83d03a94effcbea504d81cae4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000197/inference/trimmed_aliases.faa",
+      "bytes": 18600,
+      "sha256": "7482e5f9b268b45f3f67a41fd226e2fcb1e09b9a0f1e72df7e74034bcb1ac822",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/aligned.faa",
+      "bytes": 221547,
+      "sha256": "f8a5a049ff73356d123a1421a89746798b6f88917497312e2122769d6020c335",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/aligned.sequence_qc.tsv",
+      "bytes": 7702,
+      "sha256": "f4eb958d2bb94108b581890ed3010fa60c24844a2364685bb0289944b2c6a2a7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/alignment_qc.json",
+      "bytes": 305,
+      "sha256": "4c203e54ac8840a3ed56b0aa3ab93f1a12de1c90e5a7592351b30f45e4974343",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/command_1.stderr.log",
+      "bytes": 20728,
+      "sha256": "f176cea1065e754526d3cddb7dc04fa00187bbf821524f47eb362b67016e3ab8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/command_3.stdout.log",
+      "bytes": 32868,
+      "sha256": "98124aa8302662f11f731277c27dacdd677d8ba33c5372ac7fcb863356fa16b8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.bionj",
+      "bytes": 7251,
+      "sha256": "ac25cac3c08ada7ea8692db706dfa94161b190a72e0758e4a8b320a2896a6b86",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.ckp.gz",
+      "bytes": 899251,
+      "sha256": "9d8042d3ee51fd2249f3a95a88e796e6028f3dcaeb22e4ac32f1de4cc16d052b",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.contree",
+      "bytes": 7714,
+      "sha256": "920866065512d0e2ca32972aa1615bcb1204bd1a0b20ce53648470184d74f99e",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.log",
+      "bytes": 32868,
+      "sha256": "98124aa8302662f11f731277c27dacdd677d8ba33c5372ac7fcb863356fa16b8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.mldist",
+      "bytes": 106904,
+      "sha256": "3ef040b999a0848a23502b1825fd99e4d808735f3ff8d6f6bb5f5bfb9bdebf40",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.model.gz",
+      "bytes": 8407,
+      "sha256": "5e0f3d16165e6859b508260d8f1f44aea05e89bd8019ff4a595dcd499ddcfaa8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.splits.nex",
+      "bytes": 37821,
+      "sha256": "fb2b8862f8e49757c19c7f60095d9750ae373d869ae82b54feec27a96cc2b5ba",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/gene_tree.ufboot",
+      "bytes": 7505000,
+      "sha256": "163ca9496d6a14c14b9548315c1709f031b4cbd8e85d24a25fba6f17e35f06a9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/sequence_qc.tsv",
+      "bytes": 7749,
+      "sha256": "e3484f7ed4e8ace5247d8cf0fd3a7b7becbb4122d0e18829a934dc7816d50c21",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/trimal_identifiers.tsv",
+      "bytes": 5766,
+      "sha256": "3a20c12c07ce7e8efa63cc50f9954571e05086e01c7627b3e52be90df7d6070c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/trimal_input.faa",
+      "bytes": 216800,
+      "sha256": "18ef02ebc76568537c62606d067574bc58284cad52fdc5fd7053a53168eb1726",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/trimmed.sequence_qc.tsv",
+      "bytes": 7749,
+      "sha256": "e3484f7ed4e8ace5247d8cf0fd3a7b7becbb4122d0e18829a934dc7816d50c21",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000199/inference/trimmed_aliases.faa",
+      "bytes": 22300,
+      "sha256": "2a5b5e51a3d57534160f17b1dbb59b022d3772cf08033bed8f4f562bbf0cc265",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/aligned.faa",
+      "bytes": 82809,
+      "sha256": "af5da900b46c6b2abf22cd41375138f8af4bc104aa415980d8036e1247bd4e27",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/aligned.sequence_qc.tsv",
+      "bytes": 7472,
+      "sha256": "3b4d29c32cf3d1c6cd599f09cd1561ec24e4f1d7d3b2abe3056e44939423901c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/alignment_qc.json",
+      "bytes": 302,
+      "sha256": "3544a1535d89dd3be7b07b83ae0cf1256905dfd62d89feea42b5d90b3926f571",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/command_1.stderr.log",
+      "bytes": 31888,
+      "sha256": "be914829f7ae4d4b64bbe5aef1ce29542c873d9679e4c8f43588653153088ca4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/command_3.stdout.log",
+      "bytes": 44301,
+      "sha256": "b87fa2307cb5300cbd5f1f37face9d3804be573656edf0f73b8c445d81bf2883",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.bionj",
+      "bytes": 7105,
+      "sha256": "27695db2f1ea7bacc4f6d440b7e59b4be1d14ed7a0225b964731d744ed9df13f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.ckp.gz",
+      "bytes": 870642,
+      "sha256": "efcc455facddedb7c61c4ff8e25e4094fbeab98b0d9ebfa04af63afb2cc4b8ed",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.contree",
+      "bytes": 7595,
+      "sha256": "7f386479e7ae0901ffe2d4ea31b35f2c14e9d18ba5c983cc4f2e8ea882b7bf19",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.log",
+      "bytes": 44301,
+      "sha256": "b87fa2307cb5300cbd5f1f37face9d3804be573656edf0f73b8c445d81bf2883",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.mldist",
+      "bytes": 100786,
+      "sha256": "1d40ca82c82aa904d2dc9b7c863393267945f466baca3c573c5b4986b85a57b4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.model.gz",
+      "bytes": 13029,
+      "sha256": "1c81bbf393a0f88c12d9466c04c39abb8e741707b5c13fcaa23124cebc652641",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.splits.nex",
+      "bytes": 31905,
+      "sha256": "a0a69750623ac29110d3ccd4605678982befbdd7b7bd344a5d4ba5b89c41fed6",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/gene_tree.ufboot",
+      "bytes": 7398000,
+      "sha256": "41e82bb9374e6d4853b0d8aad5718dc97c6438d84356a53dd200270b0d20e8a9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/sequence_qc.tsv",
+      "bytes": 7610,
+      "sha256": "92dd5a40c2faddf7bd94dc67f0f51fc40854c2f611a8b252fd86d685e0b627fb",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/trimal_identifiers.tsv",
+      "bytes": 5713,
+      "sha256": "4940ddcfc23174fa439e220b976d8a28f3936c7c5ebbcb4ccbef07a79a1d5a4d",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/trimal_input.faa",
+      "bytes": 78570,
+      "sha256": "93c89ae74885dbab78a83560bf7ce8b02c3fcfa7ba7647a0644620f8c9d01319",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/trimmed.sequence_qc.tsv",
+      "bytes": 7610,
+      "sha256": "92dd5a40c2faddf7bd94dc67f0f51fc40854c2f611a8b252fd86d685e0b627fb",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000211/inference/trimmed_aliases.faa",
+      "bytes": 15520,
+      "sha256": "015d65a8847043b7e1fec23dcf493ca3a75d6726a482b09c7472a77e16d5bbb1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/aligned.faa",
+      "bytes": 67406,
+      "sha256": "c29669d7f619d3eb15cf77da78a47112a7a520cccaa55951462eef1c7a183fca",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/aligned.sequence_qc.tsv",
+      "bytes": 7573,
+      "sha256": "4b528d10266cb9c81870e5e8256acced50572388df9b12c5d609a464b92c805f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/alignment_qc.json",
+      "bytes": 302,
+      "sha256": "7b979597263f25e023c0a918e1dba95a32dc84051a2e13b457197a9237edcdc5",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/command_1.stderr.log",
+      "bytes": 22548,
+      "sha256": "9935368d112d081ef5010cdce164cfc57579850998f758550496a240efb41c31",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/command_3.stdout.log",
+      "bytes": 100929,
+      "sha256": "1818dcbb6611d342e7bc72eb52225ce861ab1344f9ad38fb743b3ee48b0fd841",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.bionj",
+      "bytes": 7087,
+      "sha256": "00902ec3bcc05187adf2910bd5d3c83d62060e0087f9d6290d41ed9795f07e39",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.ckp.gz",
+      "bytes": 825299,
+      "sha256": "23329b962c3da753e99385349fad6847eedcf62fc348b9833066dfcd5a768680",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.contree",
+      "bytes": 7680,
+      "sha256": "2ace2f4ddbadd1d93d80664eca4eb00e7f12c4ea3e7c47b3ad1fbc17220e80b1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.log",
+      "bytes": 100929,
+      "sha256": "1818dcbb6611d342e7bc72eb52225ce861ab1344f9ad38fb743b3ee48b0fd841",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.mldist",
+      "bytes": 89092,
+      "sha256": "30316b648273050761ca3ecec7997cce41c03492f35c0b70445142e7965b5123",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.model.gz",
+      "bytes": 8120,
+      "sha256": "48a1964679be5250b7a4b0cdc1781ec575e84266262fd29f74bc026d5726cdf1",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.splits.nex",
+      "bytes": 31373,
+      "sha256": "c9bde405ba258175cba11955a2c2aad39fef0acbf1e9bc516d088b6dc6acb308",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/gene_tree.ufboot",
+      "bytes": 7486000,
+      "sha256": "114256aeb713b87539d17eb4b709c4b8a3b33af1ef2cdc5f311e802d7f8de7b7",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/sequence_qc.tsv",
+      "bytes": 6344,
+      "sha256": "d069dee216df5ae652881f60c9ae4f06813b2ced66469ce8ce1e89eba0c422ac",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/trimal_identifiers.tsv",
+      "bytes": 5909,
+      "sha256": "72af2173903dd72344ca0ba9f3d8175ba03ebb6dcf5aaac5171bab5d7b986414",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/trimal_input.faa",
+      "bytes": 62972,
+      "sha256": "0c47011e76b05260984cd0e12adeb07656d91ccb8c9b68f95500482963271177",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/trimmed.sequence_qc.tsv",
+      "bytes": 6344,
+      "sha256": "d069dee216df5ae652881f60c9ae4f06813b2ced66469ce8ce1e89eba0c422ac",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000242/inference/trimmed_aliases.faa",
+      "bytes": 13195,
+      "sha256": "8e7f4741946d2f480b02568300d16260c2c1d5d12033ebef00fa355708d1a989",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/aligned.faa",
+      "bytes": 44715,
+      "sha256": "0a67b8f2ea3a7e4e28704ee67ffa4eaf0a4bd1e22250b887c35bc01ac7b7a130",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/aligned.sequence_qc.tsv",
+      "bytes": 7497,
+      "sha256": "660c636e3b0a7023a5c6a82f7d66252667f2d0e254ad9a66df258332b8b6cda4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/alignment_qc.json",
+      "bytes": 302,
+      "sha256": "fbe84cb52e10bd9b78918e47381576aeba7c451aca9cc7d8eeef8b8a11bdfce3",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/command_1.stderr.log",
+      "bytes": 18894,
+      "sha256": "890f2eb381feeaceccc62aa0f2345f36f0c199a3291633400ed44dfe20fdd450",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/command_2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/command_2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/command_3.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/command_3.stdout.log",
+      "bytes": 29557,
+      "sha256": "f32dbf6b1da98554f4cb6ae1c8fa076a301be3e05f1a07747abbfe63ea672c01",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.bionj",
+      "bytes": 7130,
+      "sha256": "7dfee9c1b56170558d91b32109031191a84c8123a7ad176481cae63fbf049871",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.ckp.gz",
+      "bytes": 764505,
+      "sha256": "f6f0af71423860d3c39e1107a4bfb12a55e05bc20f668e1c4e92a7cda25b497d",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.contree",
+      "bytes": 7599,
+      "sha256": "6e490f0535ad16ba16cbb27bfe14718f05753f14afa63acaa1beda82bdafa03c",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.log",
+      "bytes": 29557,
+      "sha256": "f32dbf6b1da98554f4cb6ae1c8fa076a301be3e05f1a07747abbfe63ea672c01",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.mldist",
+      "bytes": 87213,
+      "sha256": "53181aca904ecf75e4f093fe9fb37f005438c321d6e316cb115cf9582625010f",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.model.gz",
+      "bytes": 7699,
+      "sha256": "881f526bc0563608ef7b3639d939f0721d9d63d1985dd583729cbc0e85ff5af8",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.splits.nex",
+      "bytes": 62837,
+      "sha256": "b6c16c98f6d89cdf435f87803ed8ee185009cf125042210c26245aae5d3fd6f9",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/gene_tree.ufboot",
+      "bytes": 7413000,
+      "sha256": "39f49325afac33f96d51e18fb3d70a1d5c959087e13bc2ec189686927afc2b57",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/sequence_qc.tsv",
+      "bytes": 6547,
+      "sha256": "90f3e384e64662b10d46afaed6a4196c8568a724b42e1a72614d448fa4a553fb",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/trimal_identifiers.tsv",
+      "bytes": 5854,
+      "sha256": "22105da71a9d6888ee382e0f2e9b2fe910deb7ff03f30e74072fbba713a87080",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/trimal_input.faa",
+      "bytes": 40410,
+      "sha256": "e8f2bbaba9266d8c7b51521bb1dc29b44f6c0fd4015e40dd55d54fbe35df05e4",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/trimmed.sequence_qc.tsv",
+      "bytes": 6547,
+      "sha256": "90f3e384e64662b10d46afaed6a4196c8568a724b42e1a72614d448fa4a553fb",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    },
+    {
+      "path": "Phylogeny/adhesome_candidates_list/OG0000246/inference/trimmed_aliases.faa",
+      "bytes": 14940,
+      "sha256": "96d5160a2f4d02076d89726d230d6e46a24f6d0f68e21d7bdeac6e61029da696",
+      "reason": "Intermediate; six visualization/reproducibility files retained"
+    }
+  ],
+  "updated_files": [
+    ".gitignore",
+    "app.py",
+    "atlas_styles.py",
+    "curated_network.py",
+    "data.py",
+    "family_merges.py",
+    "feedback.py",
+    "identifier_labels.py",
+    "linked_explorer.py",
+    "networks.py",
+    "orthology_explorer.py",
+    "phylogeny_view.py",
+    "reconstruction.py",
+    "simulator.py",
+    "string_workbench.py",
+    "test_current_library.py",
+    "test_smart_links.py",
+    "test_topological_clustering.py",
+    "README.md",
+    "PHYLOGENY.md",
+    "README_schistosome_adhesome_interactive.md",
+    "README_adhesome_hypothesis_simulator.md",
+    "CITATIONS.md",
+    "cleanup_manifest.json",
+    "UPDATE_MANIFEST.md"
+  ],
+  "preserved_primary_inputs": {
+    "files/adhesome_candidates_list.xlsx": "a5d2c606bce7c9183d75d3fb0ff0028261f0c7f54ba6752539bd2a7a732f4e96",
+    "files/Direct_orthologues.xlsx": "f65cce28984e2973d3aa4098f5559add24021ec288f41b05815a2ddb0508094d",
+    "files/Motif_annotations.xlsx": "69d4dcb1ee784e803534c5766d96651233d11a31fc5106ef1887c673bd6350f7",
+    "files/NCBI_CDD.xlsx": "ecf613ae2a26e3b819973f29b9cee73a0c33fbe1841019b0214c72131b144990",
+    "files/Topology_predictions.xlsx": "a7c138982f7ace656421338e0ec366ebc53b4fd625c719fa9dd7f5f45fa04edc",
+    "adhesome_network/interactions.csv": "9b11cdedccb40353d76877f49c328927adaf76669b4fed0e9446de5d3443eee6",
+    "adhesome_network/Schistosome_adhesome_candidate_node_members.csv": "d86c3e3c7ca65f50df7e349357687101558b1f8402371cb7a64d4f111cfe43bf",
+    "adhesome_network/Schistosome_adhesome_family_inventory.csv": "57b4cdd709a8fbe5c6be2d1fc40f689d94834bdc42720272653cb3a96ed97631",
+    "adhesome_network/Schistosome_adhesome_rebuild_README.txt": "ea363a383e150bc98d06d81032d69aa00b9b41fafab0e7ee65f1caa269bb126f",
+    "adhesome_network/Schistosome_adhesome_rebuilt.html": "07da5205fd5cbfb956bdea6850610820eb34c03fe8c0662ad6f8645331d481cc",
+    "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "2180a51faf7833907a04d7ad388b2b635049b4c69598f2ad8b76b5b93f6391eb",
+    "adhesome_network/Schistosome_human_reference_family_edges.csv": "f271b1339e14fe38a033ad3e9fccfe573010bb0c8a893c553953fec893d02cd0",
+    "adhesome_network/schistosome_integrin_adhesome_hypothesis_simulator.html": "f06823bf82f7ffa31e2e8a7ffa5eec362a81efa4d8f1d28fa4d32e0ae7246341",
+    "orthology/adhesome_candidates_list/candidate_HOGs.tsv": "8265fa0f7a49795a293f7791d39dad6f5fd183d72e82ce7e80e6b0bdb726d0a3",
+    "orthology/adhesome_candidates_list/candidate_report.tsv": "9910a9431bf2e85176bf20d4344d900c5309be4f7632567efa0f22eec6f64983",
+    "orthology/adhesome_candidates_list/direct_orthologues.tsv": "2442382c98a7e17c4321c71450423fe8ae2e90bec4527d44846c3c5dc0d9438c",
+    "orthology/adhesome_candidates_list/provenance.json": "fc09caeac2fa3da17ea54dac2b625108893d5253b53901e3f88250be0877cd59",
+    "family_specific_candidate_fasta/Abl_family.faa": "7dafc625500c6d11429d2d2344a19535e5991602761782dcce0f4df411bb8e74",
+    "family_specific_candidate_fasta/actin.faa": "a1db20e4e331af39cb6b90ff5f369c4934b61781a4ffc29c2bc5b89cf03fa0e9",
+    "family_specific_candidate_fasta/alpha_actinin.faa": "2b880bc4f0e5a982e30e63a88b0b1259672acec2dd66faf9edf6a23577f764e3",
+    "family_specific_candidate_fasta/cofilin.faa": "2b2a36f5ff9905af68294adfc00859a83949b800e290553ddafa7cc370a5cfbd",
+    "family_specific_candidate_fasta/collagen_like.faa": "42712b0cf75983751e8ea67fa6fcb9b88ddcf755a9e68fc10c33fee981a6e1a0",
+    "family_specific_candidate_fasta/component_reference_candidate.faa": "0b07c927b5c52e44c222a00883f20b9975605248c2f74849f963d359e63575a0",
+    "family_specific_candidate_fasta/Crk.faa": "a7620eb489177e63a6242bedae19bc1bf7cb81396345cda3ddb2730241bb3e15",
+    "family_specific_candidate_fasta/Csk.faa": "5b0fde6d10d4255362fa32e205c8e8f78165644b9e583c3473b8023c7eb5f699",
+    "family_specific_candidate_fasta/FAK.faa": "fe5a3e2673797e6a231e58f1d96c777b218c73257907c67f00da0437b5d32ace",
+    "family_specific_candidate_fasta/FHL_screen.faa": "43c03775d2fb15a32905912a97916e40fb83e36686aede9306b0de42f2e5cacb",
+    "family_specific_candidate_fasta/fibronectin_like_candidate.faa": "be0838f661502559687c42e0917e53a423a00cc7f10d6caeba6f4a00bbf946a7",
+    "family_specific_candidate_fasta/filamin.faa": "11577acf6bf3444cb253dafd94340b8d83b586bafb66edc93ecdfcb34fcc54f7",
+    "family_specific_candidate_fasta/FRK_PTK6_SRMS_family.faa": "7dafc625500c6d11429d2d2344a19535e5991602761782dcce0f4df411bb8e74",
+    "family_specific_candidate_fasta/generic_ECM_domain_screen.faa": "ab0cbcebda01131c89c3e230b5ff647923fd97be087adea4f3934b063250d51f",
+    "family_specific_candidate_fasta/generic_kinase_screen.faa": "306ecfcc07af5b7319684c276c5bee24654da1ab50e1fe1abb2246cc55affabb",
+    "family_specific_candidate_fasta/generic_PTP_screen.faa": "a457536ed872fcc308b457f47aa8eb25e8cd4ac8a14123cc73547e0c448e5063",
+    "family_specific_candidate_fasta/Grb2.faa": "7a73af99a8eb53a24f5669033c073d39ddbfa3e486959216c51d924a368ffdd1",
+    "family_specific_candidate_fasta/ILK.faa": "fcce6fc4b41f558e19e61bfe7fd9e50a7b80f2ac32f6de33b0a5df93b1f024a1",
+    "family_specific_candidate_fasta/integrin_alpha.faa": "b63c745194deee7bd42351b50a87e4e8bd083e395638d5095b4010b6e0013df2",
+    "family_specific_candidate_fasta/integrin_beta.faa": "4afa4b647d0ffdf54cbe2aad3c282cfa784db1e32d86764c41baeda64f49a7b0",
+    "family_specific_candidate_fasta/kindlin.faa": "592af49ac06e2ad99411f357ee30e98bcf68f764da72064b61a338a42dcba0a8",
+    "family_specific_candidate_fasta/laminin_like.faa": "1068592e0172030b0decc24276f1baae2bcc6ca088297dde2625410ffeea926b",
+    "family_specific_candidate_fasta/LHX_LIM_homeobox_screen.faa": "24403ffb05f8ad85d12ea8b69b83a9b362eced2d83897b04e4f737afe3b7d50b",
+    "family_specific_candidate_fasta/LIM_scaffold_screen.faa": "43c03775d2fb15a32905912a97916e40fb83e36686aede9306b0de42f2e5cacb",
+    "family_specific_candidate_fasta/Nck.faa": "412e93ee76de3edfdc2714b57838242202abe76338a6d314002dd24a60f0e866",
+    "family_specific_candidate_fasta/paxillin_like.faa": "43c03775d2fb15a32905912a97916e40fb83e36686aede9306b0de42f2e5cacb",
+    "family_specific_candidate_fasta/PDLIM_family.faa": "60f05d2e47b8c9d0132d1901a31f3cdcbd768586642162fd9ebc695e88fd0480",
+    "family_specific_candidate_fasta/PINCH_like.faa": "43c03775d2fb15a32905912a97916e40fb83e36686aede9306b0de42f2e5cacb",
+    "family_specific_candidate_fasta/profilin.faa": "62bff6333e446290fb4ffeb4d2c09db9b135b6050a3581642062f900b009c2f3",
+    "family_specific_candidate_fasta/PTP_PEST.faa": "1ced09b4ba5755dea16bc89c5711223e10a4c0c0d7c564fcbd80af9f09c531c1",
+    "family_specific_candidate_fasta/Shc.faa": "6b119c387d3adfdf8fd6cf6cbed124681703a7c0376981c49394f4ca038b5ba7",
+    "family_specific_candidate_fasta/Src.faa": "f7745b88407d1d8d43dac18040464584e40ac13f8e8910343de4d132aad45f7b",
+    "family_specific_candidate_fasta/Syk.faa": "473872581ffe5aa14fb25b09f109b16305e9169cbdcb06c840dea00f5666ce12",
+    "family_specific_candidate_fasta/talin.faa": "f921ada72f08cdb438b99989b7c597b671453677599044dfd6784f71a676f292",
+    "family_specific_candidate_fasta/Tec_family.faa": "7dafc625500c6d11429d2d2344a19535e5991602761782dcce0f4df411bb8e74",
+    "family_specific_candidate_fasta/unassigned_domain_candidate.faa": "1d8a07976df94cb9bd38f973891bbb727c2a0f68f0b3b346aa89eefb6a675ac7",
+    "family_specific_candidate_fasta/vinculin.faa": "d4b5e25687cc211c85a0d4e4c23c6aa9e0ca7927d44e6f1c93e89fb0bef264df",
+    "family_specific_candidate_fasta/vitronectin_like.faa": "98ad5cc7bc0a5da998be96892fb6b2b183dbc2b1665ef4eaf4d52d3c0e035422",
+    "family_specific_candidate_fasta/zyxin_like.faa": "43c03775d2fb15a32905912a97916e40fb83e36686aede9306b0de42f2e5cacb"
+  }
+}

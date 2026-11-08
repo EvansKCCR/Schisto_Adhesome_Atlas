@@ -1,77 +1,162 @@
-family,visual_group,assignment_records,total,supported_proteins,unsupported_proteins,grade_A,grade_B,grade_C,grade_D,human_mapping_symbols,Schistosoma bovis,Schistosoma curassoni,Schistosoma haematobium,Schistosoma intercalatum,Schistosoma japonicum,Schistosoma mansoni,Schistosoma rodhaini,pfam_cdd_A,pfam_cdd_B,pfam_cdd_C,pfam_cdd_D
-ADAM-like,Membrane and receptors,6,6,6,0,6,0,0,0,ADAM12,1,1,0,1,1,1,1,0,0,0,0
-ADF cofilin,Actin and regulator,11,11,11,0,11,0,0,0,,1,2,1,1,2,2,2,0,0,0,0
-AKT-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,AKT1,1,1,1,1,0,1,1,0,0,0,0
-ARF GTPase-like,Adaptors and small GTPases,12,12,12,0,12,0,0,0,ARF1,2,2,2,2,1,2,1,0,0,0,0
-ARPC2-like,Actin and regulator,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2,0,0,0,0
-ASAP AGAP-like,Adaptors and small GTPases,3,3,3,0,3,0,0,0,,1,1,0,1,0,0,0,0,0,0,0
-Abl family,Kinase and phosphatase,19,19,12,7,19,0,0,0,ABL1,3,3,3,3,3,2,2,0,0,7,0
-FAK,Kinase and phosphatase,6,6,6,0,6,0,0,0,PTK2;PTK2B,1,1,1,1,0,1,1,0,0,0,0
-Fes Fps-like,Kinase and phosphatase,8,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-Grb2,Adaptors and small GTPases,13,13,12,1,12,0,1,0,GRB2,2,2,2,2,1,2,2,1,0,0,0
-HSP70-like,Actin and regulator,44,44,44,0,44,0,0,0,HSPA2,6,5,10,4,3,10,6,0,0,0,0
-ILK,Membrane-actin clutch,8,8,8,0,8,0,0,0,ILK,2,1,1,1,1,1,1,0,0,0,0
-INSR-like,Membrane and receptors,6,6,6,0,6,0,0,0,,1,0,1,1,1,1,1,0,0,0,0
-KCNH-like,Membrane and receptors,37,37,37,0,37,0,0,0,KCNH2,6,5,5,6,4,5,6,0,0,0,0
-Lam EGF-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,0,0,0,7
-Lam G EGF-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,0,0,7,0
-MAPK-like,Kinase and phosphatase,16,16,16,0,16,0,0,0,MAPK1;MAPK8,2,2,1,2,3,3,3,0,0,0,0
-MMP-like,Extracellular,4,4,4,0,4,0,0,0,,1,1,1,1,0,0,0,0,0,0,0
-NDEL1-like,Unassigned/unresolved,6,6,0,6,0,0,0,6,,0,1,1,1,1,1,1,0,0,0,6
-Nck,Adaptors and small GTPases,7,7,7,0,7,0,0,0,NCK2,1,1,1,1,1,1,1,0,0,0,0
-PABP-like,Actin and regulator,1,1,1,0,1,0,0,0,PABPC1,0,0,0,0,1,0,0,0,0,0,0
-PAK-like,Kinase and phosphatase,9,9,9,0,9,0,0,0,PAK1,1,1,1,1,1,2,2,0,0,0,0
-PDPK1-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,,1,1,0,1,1,1,1,0,0,0,0
-PINCH-like,Membrane-actin clutch,14,14,14,0,14,0,0,0,LIMS1;LIMS2,2,2,2,2,2,2,2,0,0,0,0
-PIP5K-like,Kinase and phosphatase,14,14,14,0,14,0,0,0,PIP5K1C,2,2,2,1,2,2,3,0,0,0,0
-PKA-like,Kinase and phosphatase,16,16,16,0,16,0,0,0,PRKACA,2,2,2,3,1,3,3,0,0,0,0
-PKC-like,Kinase and phosphatase,20,20,20,0,20,0,0,0,PRKCA,3,3,3,3,2,3,3,0,0,0,0
-PPP2-like,Kinase and phosphatase,21,21,21,0,21,0,0,0,PPP2CA,3,3,3,3,3,3,3,0,0,0,0
-PRKD-like,Kinase and phosphatase,1,1,1,0,1,0,0,0,,0,0,0,0,1,0,0,0,0,0,0
-PTEN-like,Kinase and phosphatase,7,7,7,0,7,0,0,0,PTEN,1,1,1,1,1,1,1,0,0,0,0
-Parvin_like,Membrane-actin clutch,16,16,14,2,14,0,0,2,PARVA;PARVB,2,2,3,3,2,2,2,0,0,2,0
-RACK1-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-RAPGEF-like,Adaptors and small GTPases,5,5,5,0,5,0,0,0,,1,0,0,1,1,1,1,0,0,0,0
-Ras GTPase-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,HRAS,1,1,1,1,1,1,1,0,0,0,0
-Rho GTPase-like,Adaptors and small GTPases,25,25,25,0,15,10,0,0,RAC1;RHOA;RHOU,4,2,4,4,3,4,4,0,0,0,0
-RhoGEF-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,ARHGEF12;ARHGEF2;ARHGEF6;ARHGEF7;TIAM1;TRIO;VAV1;VAV2;VAV3,1,1,1,1,1,1,1,0,0,0,0
-SHP PTPN6 11-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,PTPN11;PTPN6,0,1,1,1,1,1,1,0,0,0,0
-SPTLC-like,Membrane and receptors,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-SYK,Kinase and phosphatase,1,1,1,0,1,0,0,0,SYK,0,0,0,0,0,0,1,0,0,0,0
-Shc,Adaptors and small GTPases,7,7,7,0,7,0,0,0,SHC1,1,1,1,1,1,1,1,0,0,0,0
-Src,Kinase and phosphatase,30,30,30,0,30,0,0,0,FYN;LYN;SRC,4,5,4,3,4,5,5,0,0,0,0
-Tec family,Kinase and phosphatase,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-actin,Actin and regulator,15,15,15,0,15,0,0,0,,5,2,1,3,2,1,1,0,0,0,0
-actin conventional,Actin and regulator,51,51,51,0,50,1,0,0,ACTB,10,8,9,3,6,8,7,0,0,0,0
-alpha actinin,Membrane-actin clutch,15,15,14,1,14,0,1,0,ACTN1,3,2,2,2,2,2,2,1,0,0,0
-arp1-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-arp10-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-arp2-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-arp3-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-arp4-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-arp6-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-arp8-like,Actin and regulator,2,2,2,0,2,0,0,0,,0,0,0,0,0,1,1,0,0,0,0
-calpain-like,Actin and regulator,41,41,41,0,41,0,0,0,CAPN1;CAPN2,6,6,5,6,6,6,6,0,0,0,0
-calreticulin-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,0,0,0,0
-cofilin,Actin and regulator,11,11,11,0,11,0,0,0,CFL1,1,4,1,2,0,1,2,0,0,0,0
-collagen-like,Extracellular,75,75,75,0,75,0,0,0,,11,11,10,9,12,11,11,0,0,0,0
-coronin-like,Actin and regulator,7,7,7,0,7,0,0,0,CORO1B;CORO2A,1,1,1,1,1,1,1,0,0,0,0
-cytohesin-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,CYTH2,1,1,1,1,1,1,1,0,0,0,0
-discoidin-domain-containing,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,0,0,0,7
-dynamin-like,Adaptors and small GTPases,19,19,19,0,19,0,0,0,,3,3,3,3,1,3,3,0,0,0,0
-filamin,Membrane-actin clutch,14,14,14,0,14,0,0,0,FLNA,2,2,2,2,2,2,2,0,0,0,0
-integrin alpha,Membrane and receptors,17,17,17,0,17,0,0,0,ITGA1;ITGA10;ITGA11;ITGA2;ITGA3;ITGA4;ITGA5;ITGA6;ITGA7;ITGA8;ITGA9;ITGAD;ITGAE;ITGAL;ITGAM;ITGAV;ITGAX,3,2,3,2,3,2,2,0,0,0,0
-integrin beta,Membrane and receptors,7,7,7,0,7,0,0,0,ITGB1;ITGB2;ITGB3;ITGB4;ITGB5;ITGB6;ITGB7;ITGB8,1,1,1,1,1,1,1,0,0,0,0
-kindlin,Membrane-actin clutch,14,14,14,0,14,0,0,0,FERMT2,2,2,2,2,2,2,2,0,0,0,0
-laminin-like,Extracellular,35,35,35,0,35,0,0,0,,5,5,5,5,5,5,5,0,0,0,0
-myosin-like,Actin and regulator,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2,0,0,0,0
-paxillin-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,LPXN;PXN,1,1,1,1,1,1,1,0,0,0,0
-profilin,Actin and regulator,4,4,4,0,0,4,0,0,PFN1,1,1,0,0,0,1,1,0,0,0,0
-somatomedin B-TSP1-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,0,0,0,7
-spectrin-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,,1,2,1,0,1,1,1,0,0,0,0
-talin,Membrane-actin clutch,11,11,11,0,11,0,0,0,TLN1,1,2,1,2,2,2,1,0,0,0,0
-tetraspanin-like,Membrane and receptors,159,159,159,0,159,0,0,0,CD151;TSPAN1,24,20,20,23,18,28,26,0,0,0,0
-tubulin-like,Actin and regulator,34,34,34,0,28,6,0,0,TUBA1B,5,5,3,5,6,5,5,0,0,0,0
-unassigned,Unassigned/unresolved,3237,3236,0,3236,0,0,0,3236,,464,467,456,459,458,468,464,607,270,2223,136
-vinculin,Membrane-actin clutch,14,14,14,0,14,0,0,0,VCL,2,2,2,2,2,2,2,0,0,0,0
-zyxin ajuba-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,JUB,1,1,1,1,1,1,1,0,0,0,0
+family,visual_group,assignment_records,total,supported_proteins,unsupported_proteins,grade_A,grade_B,grade_C,grade_D,human_mapping_symbols,Schistosoma bovis,Schistosoma curassoni,Schistosoma haematobium,Schistosoma intercalatum,Schistosoma japonicum,Schistosoma mansoni,Schistosoma rodhaini,support_specific_supported,support_unresolved,support_broad_supported,support_ambiguous,support_provisional
+ADAM-like metalloprotease,Membrane and receptors,7,7,7,0,7,0,0,0,ADAM12,1,1,0,1,2,1,1,7.0,,,,
+ADF/cofilin-domain protein,Unassigned/unresolved,23,23,23,0,23,0,0,0,,3,3,3,3,3,4,4,23.0,,,,
+AKT-like,Kinase and phosphatase,7,7,7,0,7,0,0,0,AKT1,1,1,1,1,1,1,1,7.0,,,,
+ARF GTPase-like,Adaptors and small GTPases,13,13,13,0,13,0,0,0,ARF1,2,2,2,2,1,2,2,13.0,,,,
+ARF-GAP-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+ARF-family small GTPase,Unassigned/unresolved,40,40,40,0,0,0,40,0,,6,6,6,6,5,6,5,,,40.0,,
+ARPC2-like,Actin and regulator,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2,14.0,,,,
+ASAP AGAP-like,Adaptors and small GTPases,6,6,6,0,6,0,0,0,,1,1,0,1,1,1,1,6.0,,,,
+Abl family,Kinase and phosphatase,21,21,12,9,12,0,7,2,ABL1,3,3,3,3,3,3,3,12.0,2.0,,7.0,
+Actin-family protein fragment,Unassigned/unresolved,2,2,0,2,0,0,0,2,,0,2,0,0,0,0,0,,2.0,,,
+Aminotransferase / serine palmitoyltransferase-related,Unassigned/unresolved,14,14,0,14,0,0,0,14,,2,2,2,2,2,2,2,,14.0,,,
+Ankyrin-repeat protein,Unassigned/unresolved,122,122,0,122,0,0,0,122,,18,18,18,18,15,18,17,,122.0,,,
+Atypical PKC-like kinase,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+BTB–Kelch adaptor,Unassigned/unresolved,28,28,0,28,0,0,0,28,,4,3,4,4,5,4,4,,28.0,,,
+Beta-tubulin family (hypothesis only),Unassigned/unresolved,2,2,0,2,0,0,0,2,,2,0,0,0,0,0,0,,2.0,,,
+C1-domain-containing kinase,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,0,2,1,1,,7.0,,,
+C2-domain-containing protein,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+CD98/SLC3A2-like amino-acid-transporter heavy chain,Unassigned/unresolved,1,1,0,1,0,0,0,1,,0,1,0,0,0,0,0,,1.0,,,
+CDC14-like dual-specificity phosphatase,Unassigned/unresolved,1,1,0,1,0,0,0,1,,0,0,0,0,0,1,0,,1.0,,,
+CH-domain protein (family unconfirmed),Unassigned/unresolved,8,8,0,8,0,0,0,8,,1,0,1,1,3,1,1,,8.0,,,
+Calnexin/calreticulin lectin family (hypothesis only),Unassigned/unresolved,8,8,0,8,0,0,0,8,,1,1,1,1,1,1,2,,8.0,,,
+Calponin-homology (CH)-domain protein,Unassigned/unresolved,104,104,104,0,0,0,104,0,,16,14,17,16,10,15,16,,,104.0,,
+Caspase-family cysteine protease,Unassigned/unresolved,27,27,27,0,0,0,27,0,,4,5,3,4,3,4,4,,,27.0,,
+Class-I PI3K family (hypothesis only),Unassigned/unresolved,2,2,0,2,0,0,0,2,,0,0,0,0,0,2,0,,2.0,,,
+Collagen triple-helix domain fragment,Unassigned/unresolved,1,1,0,1,0,0,0,1,,0,0,0,1,0,0,0,,1.0,,,
+Cyclic nucleotide phosphodiesterase (PDE),Unassigned/unresolved,55,55,6,49,6,0,0,49,,8,8,9,8,7,8,7,6.0,49.0,,,
+Cyclic nucleotide-binding channel/regulator,Unassigned/unresolved,12,12,0,12,0,0,0,12,,3,1,2,2,0,2,2,,12.0,,,
+Cyclic nucleotide-binding ion channel-like,Unassigned/unresolved,39,39,0,39,0,0,0,39,,5,5,5,6,6,6,6,,39.0,,,
+Cytohesin/Sec7-family ARF-GEF,Unassigned/unresolved,6,6,0,6,0,0,0,6,,1,0,1,1,1,1,1,,6.0,,,
+DOCK-family Rho GTPase exchange factor-like,Unassigned/unresolved,1,1,0,1,0,0,0,1,,1,0,0,0,0,0,0,,1.0,,,
+DUSP23-like dual-specificity phosphatase,Unassigned/unresolved,1,1,0,1,0,0,0,1,,0,0,0,0,0,1,0,,1.0,,,
+Discoidin-domain-containing,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+Dynamin-family GTPase,Unassigned/unresolved,1,1,0,1,0,0,0,1,,0,0,0,0,1,0,0,,1.0,,,
+EF-hand calcium-binding protein,Unassigned/unresolved,65,65,0,65,0,0,0,65,,8,9,10,9,10,10,9,,65.0,,,
+Ezrin/radixin/moesin-like FERM protein,Unassigned/unresolved,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+FAK,Kinase and phosphatase,6,6,6,0,6,0,0,0,PTK2;PTK2B,1,1,1,1,0,1,1,6.0,,,,
+FARP-like FERM–PH adaptor,Unassigned/unresolved,15,15,15,0,15,0,0,0,,2,2,2,2,3,2,2,15.0,,,,
+FERM-domain protein,Unassigned/unresolved,11,11,0,11,0,0,0,11,,2,2,1,3,1,1,1,,11.0,,,
+FERM-domain protein (subtype unresolved),Unassigned/unresolved,86,86,0,86,0,0,0,86,,12,12,12,11,12,14,13,,86.0,,,
+Fatty-acid-binding protein (FABP)-like,Unassigned/unresolved,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2,14.0,,,,
+Fes Fps-like,Kinase and phosphatase,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+Fibronectin type III-domain protein,Unassigned/unresolved,149,149,0,149,0,0,0,149,,22,20,21,19,23,20,24,,149.0,,,
+Filamin-like,Membrane-actin clutch,21,21,21,0,21,0,0,0,FLNA,3,3,3,3,3,3,3,21.0,,,,
+GSK3-family kinase,Unassigned/unresolved,19,19,0,19,0,0,0,19,,3,3,3,3,2,2,3,,19.0,,,
+Grb2,Adaptors and small GTPases,13,13,13,0,13,0,0,0,GRB2,2,2,2,2,1,2,2,13.0,,,,
+HSP70-like,Actin and regulator,52,52,52,0,52,0,0,0,HSPA2,7,6,11,6,4,11,7,52.0,,,,
+I/LWEQ actin-binding tail protein,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+ILK,Membrane-actin clutch,8,8,8,0,8,0,0,0,ILK,2,1,1,1,1,1,1,8.0,,,,
+INSR-like,Membrane and receptors,6,6,6,0,6,0,0,0,,1,0,1,1,1,1,1,6.0,,,,
+Immunoglobulin-fold protein,Unassigned/unresolved,9,9,0,9,0,0,0,9,,1,1,1,2,1,1,2,,9.0,,,
+Insufficient discriminating Pfam/CDD evidence,Unassigned/unresolved,76,76,0,76,0,0,0,76,,9,9,12,10,17,8,11,,76.0,,,
+Integrin α-like (Ig3 segment),Unassigned/unresolved,9,9,0,9,0,0,0,9,,1,2,1,2,1,1,1,,9.0,,,
+Intermediate-filament-related protein,Unassigned/unresolved,20,20,0,20,0,0,0,20,,3,3,3,3,2,3,3,,20.0,,,
+KCNH-like,Membrane and receptors,37,37,37,0,37,0,0,0,KCNH2,6,5,5,6,4,5,6,37.0,,,,
+Kelch/BACK-repeat protein,Unassigned/unresolved,41,41,0,41,0,0,0,41,,6,7,5,6,5,6,6,,41.0,,,
+LIM-domain protein (family unresolved),Unassigned/unresolved,3,3,0,3,0,0,0,3,,1,0,1,0,0,0,1,,3.0,,,
+LIM-domain protein (subtype unresolved),Unassigned/unresolved,113,113,0,113,0,0,0,113,,18,17,13,17,15,17,16,,113.0,,,
+LIM-homeobox transcription factor,Unassigned/unresolved,54,54,54,0,54,0,0,0,,7,8,9,8,7,8,7,54.0,,,,
+Lam EGF-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+Lam G EGF-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+Laminin-G-domain protein (ligand unresolved),Unassigned/unresolved,50,50,0,50,0,0,0,50,,7,7,7,7,7,7,8,,50.0,,,
+Laminin-like,Extracellular,7,7,7,0,0,0,7,0,,1,1,1,1,1,1,1,,,7.0,,
+MAPK-like,Kinase and phosphatase,16,16,16,0,16,0,0,0,MAPK1;MAPK8,2,2,1,2,3,3,3,16.0,,,,
+MMP-like,Extracellular,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+Major facilitator superfamily transporter,Unassigned/unresolved,16,16,16,0,0,0,16,0,,3,3,1,2,1,2,4,,,16.0,,
+Metallophosphoesterase/phosphatase,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+Myosin N-terminal motor-associated domain protein,Unassigned/unresolved,14,14,0,14,0,0,0,14,,2,2,2,2,2,2,2,,14.0,,,
+Myosin-like motor protein,Unassigned/unresolved,6,6,0,6,0,0,0,6,,1,1,1,1,1,0,1,,6.0,,,
+NDEL1-like,Unassigned/unresolved,6,6,0,6,0,0,0,6,,0,1,1,1,1,1,1,,6.0,,,
+Na+/H+ exchanger-family transporter,Unassigned/unresolved,28,28,28,0,0,0,28,0,,4,4,4,4,4,4,4,,,28.0,,
+Nck,Adaptors and small GTPases,7,7,7,0,7,0,0,0,NCK2,1,1,1,1,1,1,1,7.0,,,,
+PABP-like,Actin and regulator,1,1,1,0,1,0,0,0,PABPC1,0,0,0,0,1,0,0,1.0,,,,
+PAK-family kinase,Unassigned/unresolved,10,10,0,10,0,0,0,10,,2,2,1,2,1,1,1,,10.0,,,
+PAK-like,Kinase and phosphatase,9,9,9,0,9,0,0,0,PAK1,1,1,1,1,1,2,2,9.0,,,,
+PDPK1-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,,1,1,0,1,1,1,1,6.0,,,,
+PDZ-domain protein,Unassigned/unresolved,12,12,0,12,0,0,0,12,,2,2,2,2,2,1,1,,12.0,,,
+PDZ–LIM/ZASP-like protein,Unassigned/unresolved,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2,14.0,,,,
+PH-domain protein,Unassigned/unresolved,1,1,0,1,0,0,0,1,,0,0,0,0,1,0,0,,1.0,,,
+PH-domain protein (subtype unresolved),Unassigned/unresolved,152,152,0,152,0,0,0,152,,22,23,19,23,21,22,22,,152.0,,,
+PINCH-like,Membrane-actin clutch,14,14,14,0,14,0,0,0,LIMS1;LIMS2,2,2,2,2,2,2,2,14.0,,,,
+PIP5K-like,Kinase and phosphatase,14,14,14,0,14,0,0,0,PIP5K1C,2,2,2,1,2,2,3,14.0,,,,
+PKA-like,Kinase and phosphatase,16,16,16,0,16,0,0,0,PRKACA,2,2,2,3,1,3,3,16.0,,,,
+PKC-like,Kinase and phosphatase,20,20,20,0,20,0,0,0,PRKCA,3,3,3,3,2,3,3,20.0,,,,
+PP2C/PPM-type phosphatase,Unassigned/unresolved,29,29,14,15,14,0,0,15,,5,4,4,4,4,4,4,14.0,15.0,,,
+PPP/PP2A-like phosphatase,Unassigned/unresolved,47,47,0,47,0,0,0,47,,6,7,6,7,7,7,7,,47.0,,,
+PPP2-like,Kinase and phosphatase,21,21,21,0,21,0,0,0,PPP2CA,3,3,3,3,3,3,3,21.0,,,,
+PRKD-like,Kinase and phosphatase,1,1,1,0,1,0,0,0,,0,0,0,0,1,0,0,1.0,,,,
+PTEN-like,Kinase and phosphatase,7,7,7,0,7,0,0,0,PTEN,1,1,1,1,1,1,1,7.0,,,,
+Parvin_like,Membrane-actin clutch,14,14,14,0,14,0,0,0,PARVA;PARVB,2,2,2,2,2,2,2,14.0,,,,
+Plastin/fimbrin-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+Poly(A)-binding protein-like,Unassigned/unresolved,5,5,0,5,0,0,0,5,,1,0,1,1,0,1,1,,5.0,,,
+Protein kinase superfamily (subtype unresolved),Unassigned/unresolved,691,691,691,0,0,0,691,0,,101,105,93,95,99,100,98,,,691.0,,
+Protein tyrosine phosphatase (PTP-domain),Unassigned/unresolved,37,37,0,37,0,0,0,37,,6,5,7,5,4,5,5,,37.0,,,
+RACK1-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+RAPGEF-like,Adaptors and small GTPases,5,5,5,0,5,0,0,0,,1,0,0,1,1,1,1,5.0,,,,
+RING-finger ubiquitin ligase-related protein,Unassigned/unresolved,13,13,0,13,0,0,0,13,,2,2,1,2,2,2,2,,13.0,,,
+RNA recognition motif protein,Unassigned/unresolved,36,36,0,36,0,0,0,36,,5,4,8,5,5,5,4,,36.0,,,
+Rab-family small GTPase,Unassigned/unresolved,151,151,151,0,0,0,151,0,,22,21,21,19,21,24,23,,,151.0,,
+Ras GTPase-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,HRAS,1,1,1,1,1,1,1,7.0,,,,
+Ras-family small GTPase,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+Ras-related GTPase-domain protein,Unassigned/unresolved,28,28,0,28,0,0,0,28,,4,5,5,4,4,3,3,,28.0,,,
+Ras-superfamily GTPase (subtype unresolved),Unassigned/unresolved,123,123,123,0,0,0,123,0,,16,20,17,15,18,19,18,,,123.0,,
+Receptor-like tyrosine phosphatase (FN3/Ig–PTP),Unassigned/unresolved,41,41,0,41,0,0,0,41,,6,7,5,7,3,7,6,,41.0,,,
+Rho GTPase-like,Adaptors and small GTPases,25,25,25,0,25,0,0,0,RAC1;RHOA;RHOU,4,2,4,4,3,4,4,25.0,,,,
+Rho-family small GTPase,Unassigned/unresolved,25,25,25,0,0,0,25,0,,4,3,4,4,2,4,4,,,25.0,,
+RhoGAP-domain protein,Unassigned/unresolved,11,11,0,11,0,0,0,11,,1,2,1,2,2,2,1,,11.0,,,
+RhoGEF-like,Adaptors and small GTPases,20,20,13,7,13,0,0,7,ARHGEF12;ARHGEF2;ARHGEF6;ARHGEF7;TIAM1;TRIO;VAV1;VAV2;VAV3,3,3,3,3,2,3,3,13.0,7.0,,,
+SH2-containing signalling protein,Unassigned/unresolved,2,2,0,2,0,0,0,2,,0,0,1,0,1,0,0,,2.0,,,
+SH2-containing tyrosine kinase,Unassigned/unresolved,14,14,0,14,0,0,0,14,,2,1,3,2,2,2,2,,14.0,,,
+SH3-containing adaptor protein,Unassigned/unresolved,27,27,0,27,0,0,0,27,,4,4,4,3,4,4,4,,27.0,,,
+SHP PTPN6 11-like,Kinase and phosphatase,6,6,6,0,6,0,0,0,PTPN11;PTPN6,0,1,1,1,1,1,1,6.0,,,,
+SPTLC-like,Membrane and receptors,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+SYK,Kinase and phosphatase,1,1,1,0,1,0,0,0,SYK,0,0,0,0,0,0,1,1.0,,,,
+Shc,Adaptors and small GTPases,7,7,7,0,7,0,0,0,SHC1,1,1,1,1,1,1,1,7.0,,,,
+Spectrin-family cytoskeletal protein,Unassigned/unresolved,33,33,0,33,0,0,0,33,,3,4,6,6,7,3,4,,33.0,,,
+Src,Kinase and phosphatase,30,30,30,0,30,0,0,0,FYN;LYN;SRC,4,5,4,3,4,5,5,30.0,,,,
+Syk/ZAP70-like kinase,Unassigned/unresolved,6,6,0,6,0,0,0,6,,1,1,1,1,1,1,0,,6.0,,,
+Synaptojanin-like inositol polyphosphate phosphatase,Unassigned/unresolved,4,4,0,4,0,0,0,4,,1,1,1,1,0,0,0,,4.0,,,
+TRPM-family cation channel-like,Unassigned/unresolved,16,16,0,16,0,0,0,16,,2,3,1,2,3,3,2,,16.0,,,
+Talin-like,Membrane-actin clutch,14,14,14,0,14,0,0,0,TLN1,2,2,2,2,2,2,2,14.0,,,,
+Tec family,Kinase and phosphatase,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+Tubulin C-terminal domain-containing fragment,Unassigned/unresolved,3,3,0,3,0,0,0,3,,0,1,2,0,0,0,0,,3.0,,,
+Tubulin-family protein (isotype unresolved),Unassigned/unresolved,8,8,0,8,0,0,0,8,,1,1,1,2,1,1,1,,8.0,,,
+Twinfilin-like (two ADF-H domains),Unassigned/unresolved,6,6,0,6,0,0,6,0,,1,0,1,1,1,1,1,,,,6.0,
+Unresolved (no diagnostic Pfam/CDD),Unassigned/unresolved,6,6,0,6,0,0,0,6,,1,3,1,0,1,0,0,,6.0,,,
+Villin/gelsolin-family actin-binding protein,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+WD40-repeat protein (family unresolved),Unassigned/unresolved,226,226,0,226,0,0,0,226,,31,31,32,33,36,33,30,,226.0,,,
+actin,Actin and regulator,15,15,15,0,0,0,15,0,,5,2,1,3,2,1,1,,,15.0,,
+actin conventional,Actin and regulator,51,51,51,0,51,0,0,0,ACTB,10,8,9,3,6,8,7,51.0,,,,
+alpha actinin,Membrane-actin clutch,15,15,14,1,14,0,1,0,ACTN1,3,2,2,2,2,2,2,14.0,,,,1.0
+arp1-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+arp10-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+arp2-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+arp3-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+arp4-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+arp6-like,Actin and regulator,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+arp8-like,Actin and regulator,2,2,2,0,2,0,0,0,,0,0,0,0,0,1,1,2.0,,,,
+calnexin-like,Unassigned/unresolved,7,7,7,0,7,0,0,0,,1,1,1,1,1,1,1,7.0,,,,
+calpain-like,Actin and regulator,41,41,41,0,41,0,0,0,CAPN1;CAPN2,6,6,5,6,6,6,6,41.0,,,,
+cofilin,Actin and regulator,11,11,11,0,11,0,0,0,CFL1,1,4,1,2,0,1,2,11.0,,,,
+collagen-like,Extracellular,75,75,75,0,0,0,75,0,,11,11,10,9,12,11,11,,,75.0,,
+coronin-like,Actin and regulator,7,7,7,0,7,0,0,0,CORO1B;CORO2A,1,1,1,1,1,1,1,7.0,,,,
+cytohesin-like,Adaptors and small GTPases,7,7,7,0,7,0,0,0,CYTH2,1,1,1,1,1,1,1,7.0,,,,
+dynamin-like,Adaptors and small GTPases,19,19,19,0,19,0,0,0,,3,3,3,3,1,3,3,19.0,,,,
+integrin alpha,Membrane and receptors,17,17,17,0,17,0,0,0,ITGA1;ITGA10;ITGA11;ITGA2;ITGA3;ITGA4;ITGA5;ITGA6;ITGA7;ITGA8;ITGA9;ITGAD;ITGAE;ITGAL;ITGAM;ITGAV;ITGAX,3,2,3,2,3,2,2,17.0,,,,
+integrin beta,Membrane and receptors,7,7,7,0,7,0,0,0,ITGB1;ITGB2;ITGB3;ITGB4;ITGB5;ITGB6;ITGB7;ITGB8,1,1,1,1,1,1,1,7.0,,,,
+kindlin,Membrane-actin clutch,14,14,14,0,14,0,0,0,FERMT2,2,2,2,2,2,2,2,14.0,,,,
+laminin-like,Extracellular,35,35,35,0,0,0,35,0,,5,5,5,5,5,5,5,,,35.0,,
+myosin-like,Actin and regulator,14,14,14,0,14,0,0,0,,2,2,2,2,2,2,2,14.0,,,,
+paxillin-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,LPXN;PXN,1,1,1,1,1,1,1,7.0,,,,
+profilin,Actin and regulator,4,4,4,0,4,0,0,0,PFN1,1,1,0,0,0,1,1,4.0,,,,
+somatomedin B-TSP1-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+spectrin-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,,1,2,1,0,1,1,1,7.0,,,,
+tetraspanin-like,Membrane and receptors,159,159,159,0,159,0,0,0,CD151;TSPAN1,24,20,20,23,18,28,26,159.0,,,,
+tubulin-like,Actin and regulator,34,34,34,0,34,0,0,0,TUBA1B,5,5,3,5,6,5,5,34.0,,,,
+unassigned,Unassigned/unresolved,4,4,0,4,0,0,0,4,,0,0,1,1,2,0,0,,4.0,,,
+vinculin,Membrane-actin clutch,14,14,14,0,14,0,0,0,VCL,2,2,2,2,2,2,2,14.0,,,,
+zyxin ajuba-like,Membrane-actin clutch,7,7,7,0,7,0,0,0,JUB,1,1,1,1,1,1,1,7.0,,,,
+β-tubulin-like,Unassigned/unresolved,39,39,0,39,0,0,0,39,,4,5,5,7,4,7,7,,39.0,,,
+γ-tubulin-like,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,
+δ/ζ-tubulin-related,Unassigned/unresolved,7,7,0,7,0,0,0,7,,1,1,1,1,1,1,1,,7.0,,,

@@ -12,7 +12,7 @@ PINCH-like	"[""PINCH-like""]"	"[""R02""]"	Characterized SmPINCH; confirm exact h
 Fatty-acid-binding protein (FABP)-like	"[""Fatty-acid-binding protein (FABP)-like""]"	"[""R12"", ""R13""]"	Sm14 literature; Smp_095360 locus correspondence supported, Smp_046800 family context only	14	14	2	2	"[""Sman__Smp_046800"", ""Sman__Smp_095360""]"	[]	Supported_family_index	12
 Parvin_like	"[""Parvin_like""]"	"[""R02""]"	Pathway-context evidence only; no direct parvin assay from this reference	14	14	1	1	"[""Sman__Smp_171530"", ""Sman__Smp_310240""]"	[]	Supported_family_index	13
 kindlin	"[""kindlin""]"	"[""R01"", ""R02""]"	Integrin pathway context only	14	14	1	1	"[""Sman__Smp_053420"", ""Sman__Smp_070640""]"	[]	Supported_family_index	14
-talin	"[""Talin-like"", ""talin-like""]"	"[""R01"", ""R02""]"	Integrin pathway context only	11	14	1	1	"[""Sman__Smp_167010"", ""Sman__Smp_343540""]"	[]	Supported_family_index	15
+talin	"[""Talin-like""]"	"[""R01"", ""R02""]"	Integrin pathway context only	11	14	1	1	"[""Sman__Smp_167010"", ""Sman__Smp_343540""]"	[]	Supported_family_index	15
 ILK	"[""ILK""]"	"[""R02""]"	Characterized SmILK; exact modern ID correspondence not established	8	8	1	1	"[""Sman__Smp_079760""]"	[]	Supported_family_index	16
 integrin beta	"[""integrin beta""]"	"[""R01"", ""R02""]"	Direct S. mansoni integrin studies	7	7	1	1	"[""Sman__Smp_089700""]"	[]	Supported_family_index	17
 Nck	"[""Nck""]"	"[""R02""]"	Characterized SmNck2; verify isoform ID	7	7	1	1	"[""Sman__Smp_014850""]"	[]	Supported_family_index	18

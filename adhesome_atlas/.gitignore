@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+~$*
+.streamlit/secrets.toml
+atlas_phylo_test_*/
+smart_test_*/
+.ui_review/
+.atlas_cache/

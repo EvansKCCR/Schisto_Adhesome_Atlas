@@ -54,11 +54,6 @@ kindlin	R19	metazoan_interaction	https://doi.org/10.1242/jcs.155879	general_meta
 kindlin	R20	metazoan_interaction	https://doi.org/10.1083/jcb.201701176	general_metazoan_mechanism
 paxillin-like	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
 paxillin-like	R20	metazoan_interaction	https://doi.org/10.1083/jcb.201701176	general_metazoan_mechanism
-talin-like	R01	schistosoma_direct_protein	https://doi.org/10.1371/journal.pone.0052519	pathway_level
-talin-like	R02	schistosoma_pathway	https://doi.org/10.1371/journal.ppat.1006147	pathway_level
-talin-like	R15	metazoan_mechanism	https://doi.org/10.1038/nature09621	general_metazoan_mechanism
-talin-like	R16	metazoan_mechanism	https://doi.org/10.1126/science.1162912	general_metazoan_mechanism
-talin-like	R18	metazoan_mechanism	https://doi.org/10.1002/pro.4014	general_metazoan_mechanism
 tetraspanin-like	R08	schistosoma_family	https://doi.org/10.1038/nm1430	family_level
 tetraspanin-like	R09	schistosoma_proteomics	https://doi.org/10.1074/jbc.M113.531558	family_level
 tetraspanin-like	R10	schistosoma_family	https://doi.org/10.1038/s41541-025-01301-y	family_level

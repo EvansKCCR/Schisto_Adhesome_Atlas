@@ -1,24 +1,26 @@
 {
-  "assignment_records": 4361,
+  "assignment_records": 4359,
   "candidates": 4359,
   "distinct_reference_symbols": 236,
-  "families": 76,
+  "families": 161,
   "grade_counts": {
-    "A": 1065,
-    "B": 21,
-    "C": 2,
-    "D": 3273
+    "A": 1123,
+    "B": 0,
+    "C": 1351,
+    "D": 1885
   },
   "inputs": {
-    "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "2180a51faf7833907a04d7ad388b2b635049b4c69598f2ad8b76b5b93f6391eb",
-    "adhesome_network/family_module_annotations.csv": "628203093758196ac836ad87b7f20cfd08eda6cce89e785d663bd5f19a3cb79b",
-    "adhesome_network/interactions.csv": "9b11cdedccb40353d76877f49c328927adaf76669b4fed0e9446de5d3443eee6",
-    "files/adhesome_candidates_list.xlsx": "338b4189cbba2d0b53f6af5f46c0dab110a5269d7275913a768f14ab15ac35fa"
+    "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "d5c47aa4d77f326f965118d6b271327c1e146d5678ec91cd9a8d70dd57bc8757",
+    "adhesome_network/family_module_annotations.csv": "e65d740f70b99152badbc8b8d1c6bda1e6490c683840969155998c7394ade3cb",
+    "adhesome_network/interactions.csv": "fd3314c05035ca6c48cd3c9508f12a52d5d8c54bc66aed37bde07a7cb42db000",
+    "files/Schisto_adhesome_functional_localization_summary.xlsx": "1d569aa5a426c2bacb07bb8d176138348830e96c6ce1a8d6bbc5a72b47f19a38",
+    "files/adhesome_candidates_list.xlsx": "8edfdcf39e476042742b39a743221358d63dfb90b7f89ab85c483e376fd494df",
+    "notes/Target_prioritization.md": "fc3c56b2feae7d79ccff04aecd2fc9a2a048b64113b3382f4600e41ab8d68695"
   },
-  "interfamily_edges": 252,
-  "intrafamily_groups": 9,
-  "mapped_rows": 2344,
-  "matched_symbols": 94,
+  "interfamily_edges": 258,
+  "intrafamily_groups": 10,
+  "mapped_rows": 2414,
+  "matched_symbols": 96,
   "reference_rows": 6542,
   "species": [
     "Schistosoma bovis",
@@ -29,11 +31,18 @@
     "Schistosoma mansoni",
     "Schistosoma rodhaini"
   ],
+  "support_counts": {
+    "ambiguous": 13,
+    "broad supported": 1337,
+    "provisional": 1,
+    "specific supported": 1123,
+    "unresolved": 1885
+  },
   "unique_grade_counts": {
-    "A": 1064,
-    "B": 21,
-    "C": 2,
-    "D": 3272
+    "A": 1123,
+    "B": 0,
+    "C": 1351,
+    "D": 1885
   },
   "unmapped_symbols": [
     {
@@ -361,14 +370,6 @@
       "symbol": "PALLD"
     },
     {
-      "rows": 44,
-      "symbol": "PARVA"
-    },
-    {
-      "rows": 30,
-      "symbol": "PARVB"
-    },
-    {
       "rows": 18,
       "symbol": "PDE4D"
     },
@@ -605,5 +606,5 @@
       "symbol": "p190GAP"
     }
   ],
-  "version": "library-refresh-3"
+  "version": "library-refresh-6"
 }
