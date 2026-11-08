@@ -3899,7 +3899,7 @@
       "data/literature/simulator_mechanisms.json": "7262167e991ddf8b3716e9a9980fc9f70f9cc7ad6c518e583112fe849721db7c",
       "adhesome_network/interactions.csv": "fd3314c05035ca6c48cd3c9508f12a52d5d8c54bc66aed37bde07a7cb42db000",
       "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "d5c47aa4d77f326f965118d6b271327c1e146d5678ec91cd9a8d70dd57bc8757",
-      "Target_prioritization.md": "71862ac89b7bf52e21c7d924da59c08e2bf8e6afaffa6c3df0f682b368af471e"
+      "Target_prioritization.md": "fc3c56b2feae7d79ccff04aecd2fc9a2a048b64113b3382f4600e41ab8d68695"
     }
   },
   "interactions": [

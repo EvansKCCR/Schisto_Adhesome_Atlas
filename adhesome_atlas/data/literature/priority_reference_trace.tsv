@@ -612,13 +612,6 @@ PIP5K-like lipid kinases	Sman__Smp_328600	PIP5K-like	Representative accession	OG
 ADAM-like membrane metalloproteases	Sman__Smp_313450	ADAM-like metalloprotease	Representative accession	OG0000056	A	specific supported				
 KCNH-like potassium channels	Sman__Smp_148670	KCNH-like	Representative accession	OG0000881	A	specific supported				
 KCNH-like potassium channels	Sman__Smp_152350	KCNH-like	Representative accession	OG0000629	A	specific supported				
-Divergent unresolved SH3–kinase–PBD group	Sbovis__SBOV2_16320	Protein kinase superfamily (subtype unresolved)	Representative accession	OG0001016	C	broad supported				
-Divergent unresolved SH3–kinase–PBD group	Scura__SCUR1_16820	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-Divergent unresolved SH3–kinase–PBD group	Shae__MS3_00004145	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-Divergent unresolved SH3–kinase–PBD group	Sinter__SINT2_15960	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-Divergent unresolved SH3–kinase–PBD group	Sjap__EWB00_007640	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-Divergent unresolved SH3–kinase–PBD group	Sman__Smp_176580	Protein kinase superfamily (subtype unresolved)	Representative accession	OG0001016	C	broad supported				
-Divergent unresolved SH3–kinase–PBD group	Srhoda__SRDH2_17300	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
 MAPK-like kinases	Sman__Smp_047900	MAPK-like	Representative accession	OG0001297	A	specific supported	R07	genomic_candidate_mentioned	https://doi.org/10.1371/journal.pntd.0002924	SmERK2=Smp_047900 is discussed as a candidate for the detected ERK band.
 MAPK-like kinases	Sman__Smp_142050	MAPK-like	Representative accession	OG0001297	A	specific supported	R07	genomic_candidate_mentioned	https://doi.org/10.1371/journal.pntd.0002924	ERK-like Smp_142050 is discussed as a candidate for detected ERK band.
 Fatty-acid-binding proteins	Sman__Smp_046800	Fatty-acid-binding protein (FABP)-like	Representative accession	OG0011479	A	specific supported	R12	family_level	https://doi.org/10.1073/pnas.93.1.269	Additional FABP-like protein; do not identify as Sm14 based on family alone.
@@ -1252,10 +1245,3 @@ OG0000056 ADAM-like + OG0000629 KCNH-like	Sman__Smp_313450	ADAM-like metalloprot
 OG0000056 ADAM-like + OG0000629 KCNH-like	Srhoda__SRDH2_1230	KCNH-like	Orthogroup context	OG0000629	A	specific supported				
 OG0000056 ADAM-like + OG0000629 KCNH-like	Srhoda__SRDH2_19250	KCNH-like	Orthogroup context	OG0000629	A	specific supported				
 OG0000056 ADAM-like + OG0000629 KCNH-like	Srhoda__SRDH2_78240	ADAM-like metalloprotease	Orthogroup context	OG0000056	A	specific supported				
-OG0001016 SH3–kinase–PBD group (B50)	Sbovis__SBOV2_16320	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-OG0001016 SH3–kinase–PBD group (B50)	Scura__SCUR1_16820	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-OG0001016 SH3–kinase–PBD group (B50)	Shae__MS3_00004145	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-OG0001016 SH3–kinase–PBD group (B50)	Sinter__SINT2_15960	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-OG0001016 SH3–kinase–PBD group (B50)	Sjap__EWB00_007640	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-OG0001016 SH3–kinase–PBD group (B50)	Sman__Smp_176580	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
-OG0001016 SH3–kinase–PBD group (B50)	Srhoda__SRDH2_17300	Protein kinase superfamily (subtype unresolved)	Orthogroup context	OG0001016	C	broad supported				
