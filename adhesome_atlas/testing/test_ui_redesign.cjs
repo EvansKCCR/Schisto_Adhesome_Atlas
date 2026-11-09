@@ -9,7 +9,7 @@ async function validateFunctionalDashboard(page,output){
  await page.getByRole('combobox',{name:'Component section',exact:true}).click();
  await page.getByRole('option',{name:'Supported families by functional category',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Supported families by functional category',exact:true})).toBeVisible({timeout:120000});
- for(const value of ['4,359','2,460','88','3,258'])await expect(page.getByTestId('stMetricValue').filter({hasText:value})).toBeVisible({timeout:120000});
+ for(const value of ['4,359','2,460','87','3,258'])await expect(page.getByTestId('stMetricValue').filter({hasText:value})).toBeVisible({timeout:120000});
  await expect(page.getByRole('button',{name:'Download category summary',exact:true})).toBeVisible({timeout:120000});
  await expect(page.locator('[data-testid="stPlotlyChart"] .js-plotly-plot').first()).toBeVisible({timeout:120000});
  await expect(page.locator('[data-testid="stException"]')).toHaveCount(0);

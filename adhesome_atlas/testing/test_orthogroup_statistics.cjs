@@ -26,6 +26,7 @@ async function main(){
   const select=async(label,value)=>{
    const control=page.getByTestId('stSelectbox').filter({hasText:label}).getByRole('combobox');
    await control.scrollIntoViewIfNeeded();
+   await control.click();
    await control.press('ArrowDown');
    await page.getByRole('option',{name:value,exact:true}).click();await noErrors();
    if(label==='Orthogroup visualization'){

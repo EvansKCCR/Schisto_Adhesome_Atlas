@@ -1,3 +1,31 @@
+# Atlas runtime validation and cleanup · 9 November 2026
+
+Fixed the root Streamlit entrypoint to execute `main/app.py` with `runpy` on
+every rerun. This prevents Python's module cache from leaving page content stale
+after navigation. Added a regression check for repeated entrypoint execution.
+Updated browser assertions to match the live 87 supported family labels and
+explicitly open the Orthogroup selector before choosing a visualization.
+Refreshed the source fingerprint cache against the current workbooks and
+interaction library.
+
+The repository audit found no duplicate top-level runtime modules: `app.py` is
+the sole Python entrypoint, and its imported modules live under the organized
+source directories. The previously removed legacy modules and fixtures are
+recorded in `cleanup_manifest.json`. All candidate, orthology, phylogeny,
+network and source-library data directories were preserved.
+
+Validation passed: repeated-entrypoint regression; desktop, tablet and mobile
+browser navigation; interactive hypothesis candidate profiles and simulator;
+Components summaries and downloads; Interactions network rendering; orthogroup
+copy-profile, classification and family-chart clicks; species heatmap/table
+selection; supported subsets; searches; seven-species summary filters; linked
+dossiers and phylogeny routes. No browser page errors were observed in the
+completed UI suite.
+
+Files updated: `app.py`, `testing/test_entrypoint_rerun.py`,
+`testing/test_ui_redesign.cjs`, `testing/test_orthogroup_statistics.cjs`,
+`.atlas_cache/library_refresh.json`, and this manifest.
+
 # Atlas update · 8 November 2026
 
 ## Streamlit source organization

@@ -10,12 +10,12 @@
     "D": 1885
   },
   "inputs": {
-    "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "d5c47aa4d77f326f965118d6b271327c1e146d5678ec91cd9a8d70dd57bc8757",
-    "adhesome_network/family_module_annotations.csv": "e65d740f70b99152badbc8b8d1c6bda1e6490c683840969155998c7394ade3cb",
-    "adhesome_network/interactions.csv": "fd3314c05035ca6c48cd3c9508f12a52d5d8c54bc66aed37bde07a7cb42db000",
+    "adhesome_network/Schistosome_human_gene_family_crosswalk.csv": "618c595342b1eb3b7068bbe79cf1eb4f4fd5393c48258a8b2b9a8d439928fc09",
+    "adhesome_network/family_module_annotations.csv": "a26c3c8859e3d61d3acb601cb011ff177ff653be974f97c6ed8e31a7607f96df",
+    "adhesome_network/interactions.csv": "e968777b5a3ca28dbfe9363b70797b248bbaeef879d474bf83a0e711a31070b0",
     "files/Schisto_adhesome_functional_localization_summary.xlsx": "1d569aa5a426c2bacb07bb8d176138348830e96c6ce1a8d6bbc5a72b47f19a38",
     "files/adhesome_candidates_list.xlsx": "8edfdcf39e476042742b39a743221358d63dfb90b7f89ab85c483e376fd494df",
-    "notes/Target_prioritization.md": "fc3c56b2feae7d79ccff04aecd2fc9a2a048b64113b3382f4600e41ab8d68695"
+    "notes/Target_prioritization.md": "ced03892aad59891d2e6b04eb2c0309ced060502d439be896251887e84fcde22"
   },
   "interfamily_edges": 258,
   "intrafamily_groups": 10,
